@@ -30,10 +30,20 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    android {
+        buildFeatures {
+            compose = true
+        }
+    }
 }
 
 dependencies {
-
+//    implementation("androidx.compose.material3:material3") // No version needed
+//    implementation("androidx.compose.ui:ui-tooling")       // No version needed
+//    implementation("androidx.compose.ui:ui")
+//    implementation(libs.androidx.activity.compose)
+    implementation("androidx.compose.foundation:foundation")
+    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
