@@ -21,4 +21,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "Movio"
 include(":app")
- 
+include(":designSystem")
+include(":presentation")
+include(":domain")
+include(":data")
+include(":detectImageContent")
