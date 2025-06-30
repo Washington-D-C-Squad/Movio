@@ -1,5 +1,7 @@
 package com.example.designsystem
 
+import MovioColors
+import MovioTextStyle
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
