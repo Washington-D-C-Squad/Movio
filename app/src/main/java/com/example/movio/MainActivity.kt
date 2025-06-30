@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.designsystem.textStyle.AppTheme
+import com.example.designsystem.AppTheme
 import com.example.movio.ui.theme.MovioTheme
 
 class MainActivity : ComponentActivity() {
