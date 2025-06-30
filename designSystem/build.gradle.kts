@@ -38,10 +38,6 @@ android {
 }
 
 dependencies {
-//    implementation("androidx.compose.material3:material3") // No version needed
-//    implementation("androidx.compose.ui:ui-tooling")       // No version needed
-//    implementation("androidx.compose.ui:ui")
-//    implementation(libs.androidx.activity.compose)
     implementation("androidx.compose.foundation:foundation")
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.core.ktx)
