@@ -31,7 +31,9 @@ fun RatreIcon(
             .height(16.dp)
         ,contentAlignment = Alignment.Center
     ) {
-        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             MovioIcon(
                 painter = icon,
                 contentDescription = "stars icon rate",
@@ -39,8 +41,10 @@ fun RatreIcon(
                 modifier = Modifier.size(16.dp)
             )
             MovioText(
-                text = rate, textStyle = AppTheme.textStyle.label.smallRegular12,
-                color = Color(0xFFFFFEF9))
+                text = rate, color = Color(0xFFFFFEF9),
+                textStyle = AppTheme.textStyle.label.smallRegular12,
+                maxLines = 1,
+            )
         }
     }
 }
