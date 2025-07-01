@@ -32,9 +32,9 @@ import com.example.presentation.navigation.Screen
 fun CustomBottomBarPreview() {
     AppTheme {
         CustomBottomBar(
-            currentRoute = Screen.Search.route, // simulate current selection
+            currentRoute = Screen.Search.route,
             navItems = navDestinations,
-            onNavDestinationClicked = {}, // No-op for preview
+            onNavDestinationClicked = {},
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.Black)
@@ -141,7 +141,7 @@ private fun CustomNavBarItem(
             painter = painterResource(id = iconRes),
             contentDescription = item.contentDescription,
             modifier = Modifier.size(24.dp),
-            tint = Color.Unspecified // prevent tinting drawable
+            tint = Color.Unspecified
         )
         Text(
             text = item.label,
