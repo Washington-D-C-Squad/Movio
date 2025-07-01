@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.painter.Painter
 fun MovioIcon(
     modifier: Modifier = Modifier,
     painter: Painter,
-    contentDescription: String,
+    contentDescription: String?,
     tint: Color
 ) {
     Icon(
