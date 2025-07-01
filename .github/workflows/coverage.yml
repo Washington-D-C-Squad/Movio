@@ -25,6 +25,9 @@ jobs:
       - name: Run tests and generate JaCoCo report
         run: ./gradlew jacocoTestReport
 
+      - name: Install xmllint
+        run: sudo apt-get update && sudo apt-get install -y libxml2-utils
+
       - name: Extract coverage percentage
         id: get_coverage
         run: |
