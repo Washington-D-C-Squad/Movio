@@ -15,6 +15,7 @@ fun MovioNavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Screen.Home.route) {
         splashRoute(navController)
         onBoardingRoute(navController)
+        authNavGraph(navController)
         homeRoute(navController)
         searchRoute(navController)
         libraryRoute(navController)
