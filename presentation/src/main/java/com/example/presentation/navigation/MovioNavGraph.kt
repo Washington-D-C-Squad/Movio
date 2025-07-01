@@ -13,7 +13,6 @@ import com.example.presentation.navigation.route.splashRoute
 @Composable
 fun MovioNavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Screen.Home.route) {
-
         splashRoute(navController)
         onBoardingRoute(navController)
         homeRoute(navController)
