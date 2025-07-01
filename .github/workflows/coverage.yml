@@ -1,0 +1,45 @@
+name: Test Coverage
+
+on:
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  test-coverage:
+    name: Run Unit Tests and Enforce 80% Coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Grant execution permission for Gradle
+        run: chmod +x ./gradlew
+
+      - name: Run tests and generate JaCoCo report
+        run: ./gradlew jacocoTestReport
+
+      - name: Extract coverage percentage
+        id: get_coverage
+        run: |
+          COVERED=$(xmllint --xpath "string(//report/counter[@type='LINE']/@covered)" app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml)
+          MISSED=$(xmllint --xpath "string(//report/counter[@type='LINE']/@missed)" app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml)
+          TOTAL=$((COVERED + MISSED))
+          PERCENT=$((100 * COVERED / TOTAL))
+          echo "Coverage is $PERCENT%"
+          echo "coverage=$PERCENT" >> $GITHUB_OUTPUT
+
+      - name: Fail if coverage < 80%
+        run: |
+          if [ "${{ steps.get_coverage.outputs.coverage }}" -lt 80 ]; then
+            echo "❌ Test coverage is below 80%!"
+            exit 1
+          else
+            echo "✅ Test coverage meets the requirement."
+          fi
