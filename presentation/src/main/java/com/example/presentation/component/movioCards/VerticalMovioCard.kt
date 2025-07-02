@@ -1,6 +1,7 @@
 package com.example.presentation.component.movioCards
 
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,11 +31,12 @@ fun VerticalMovioCard(
     rate: String,
     width: Dp,
     height: Dp,
-    paddingvalue: Dp
+    paddingvalue: Dp,
+    onClick:()->Unit
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
+        modifier = modifier.clickable { onClick() }
     ) {
         Box(contentAlignment = Alignment.TopCenter) {
             Row(
@@ -77,6 +79,7 @@ fun VerticalCardPreview() {
         rate = "3.0",
         width = 180.dp,
         height = 150.dp,
-        paddingvalue = 8.dp
+        paddingvalue = 8.dp,
+        onClick = {}
     )
 }
