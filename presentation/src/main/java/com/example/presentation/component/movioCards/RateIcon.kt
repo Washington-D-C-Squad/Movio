@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
@@ -21,7 +22,7 @@ import com.example.designsystem.component.MovioIcon
 import com.example.designsystem.component.MovioText
 
 @Composable
-fun RatreIcon(
+fun RateIcon(
     rate: Double,
     tint:Color,
     modifier: Modifier = Modifier,
@@ -30,6 +31,7 @@ fun RatreIcon(
     Box(
         modifier = modifier
             .height(16.dp)
+            .padding(end = 8.dp)
         ,contentAlignment = Alignment.Center
     ) {
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp),
@@ -55,7 +57,7 @@ fun RatreIcon(
 @Preview(showBackground = true)
 @Composable
 fun RatreIconpreview() {
-    RatreIcon(
+    RateIcon(
         icon = painterResource(com.example.designsystem.R.drawable.bold_star),
         rate = 5.0,
         tint = AppTheme.colors.systemColors.warning,
