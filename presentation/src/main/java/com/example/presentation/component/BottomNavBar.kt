@@ -23,6 +23,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.designsystem.AppTheme
+import com.example.designsystem.component.MovioIcon
+import com.example.designsystem.component.MovioText
 import com.example.presentation.R
 import com.example.presentation.navigation.Screen
 
@@ -137,17 +139,17 @@ private fun CustomNavBarItem(
                 }
             }
     ) {
-        Icon(
+        MovioIcon(
             painter = painterResource(id = iconRes),
             contentDescription = item.contentDescription,
-            modifier = Modifier.size(24.dp),
+            modifier = Modifier.size(AppTheme.spacing.xLarge),
             tint = Color.Unspecified
         )
-        Text(
+        MovioText(
             text = item.label,
-            style = if (isSelected) selectedTextStyle else unselectedTextStyle,
+            textStyle = if (isSelected) selectedTextStyle else unselectedTextStyle,
             color = labelColor,
-            modifier = Modifier.padding(top = 4.dp)
+            modifier = Modifier.padding(top = AppTheme.spacing.extraSmall)
         )
     }
 }
