@@ -35,6 +35,7 @@ fun HorizontalMovioCard(
 ) {
     Row(
         modifier = Modifier.fillMaxWidth()
+            .padding(horizontal = 8.dp)
             .clickable { onClick() }
         ,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -84,13 +85,15 @@ private fun MovioCatergory(
 @Preview(showBackground = true)
 @Composable
 fun HorizontalCardPreview() {
-    HorizontalMovioCard(
-        movieTitle = "Spider-Man: Homecoming",
-        movieImage = painterResource(com.example.designsystem.R.drawable.empty),
-        movieRate = 3.0,
-        width = 180.dp,
-        height = 150.dp,
-        movieCategory = "Action",
-        onClick = {},
-    )
+    AppTheme{
+        HorizontalMovioCard(
+            movieTitle = "Spider-Man: Homecoming",
+            movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
+            movieRate = 3.0,
+            width = 180.dp,
+            height = 150.dp,
+            movieCategory = "Action",
+            onClick = {},
+        )
+    }
 }

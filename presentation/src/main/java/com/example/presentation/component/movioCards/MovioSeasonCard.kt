@@ -1,7 +1,6 @@
 package com.example.presentation.component.movioCards
 
 
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -156,15 +155,17 @@ private fun MovieDetails(
 @Preview(showBackground = true)
 @Composable
 fun seasonCardPreview() {
-    MovioSeasonCard(
-        movieTitle = "Spider-Man: Homecoming",
-        movieImage = painterResource(com.example.designsystem.R.drawable.teast_iamge),
-        movieRate = 3.0,
-        width = 100.dp,
-        height = 74.dp,
-        totalNumberOfEpisodes = 1,
-        onClick = {},
-        yearOfPublish = "2004",
-        currentSeason = 7,
-    )
+    AppTheme{
+        MovioSeasonCard(
+            movieTitle = "Spider-Man: Homecoming",
+            movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
+            movieRate = 3.0,
+            width = 100.dp,
+            height = 74.dp,
+            totalNumberOfEpisodes = 1,
+            onClick = {},
+            yearOfPublish = "2004",
+            currentSeason = 7,
+        )
+    }
 }

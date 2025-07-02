@@ -126,7 +126,7 @@ private fun NumberOfEpisodes(
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier,
+        modifier = modifier.padding(end = 6.dp),
         horizontalArrangement = Arrangement.spacedBy(6.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -144,14 +144,17 @@ private fun NumberOfEpisodes(
 @Preview(showBackground = true)
 @Composable
 fun EpisodesCardPreview() {
-    EpisodesCard(
-        movieTitle = "Spider-Man: Homecoming",
-        movieImage = painterResource(R.drawable.empty),
-        movieRate = 3.0,
-        width = 100.dp,
-        height = 74.dp,
-        currentMovieEpisode = 1,
-        movieTime = "44 m",
-        onClick = {}
-    )
+    AppTheme{
+        EpisodesCard(
+            movieTitle = "Spider-Man: Homecoming",
+            movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
+            movieRate = 3.0,
+            width = 100.dp,
+            height = 74.dp,
+            currentMovieEpisode = 1,
+            movieTime = "44 m",
+            onClick = {}
+        )
+    }
+
 }

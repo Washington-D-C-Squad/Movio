@@ -74,13 +74,15 @@ fun VerticalMovioCard(
 @Preview(showBackground = true)
 @Composable
 fun VerticalCardPreview() {
-    VerticalMovioCard(
-        "Spider-Man: Homecoming",
-        movieImage = painterResource(com.example.designsystem.R.drawable.empty),
-        rate = 3.0,
-        width = 180.dp,
-        height = 150.dp,
-        paddingvalue = 8.dp,
-        onClick = {}
-    )
+    AppTheme{
+        VerticalMovioCard(
+            "Spider-Man: Homecoming",
+            movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
+            rate = 3.0,
+            width = 180.dp,
+            height = 150.dp,
+            paddingvalue = 8.dp,
+            onClick = {}
+        )
+    }
 }
