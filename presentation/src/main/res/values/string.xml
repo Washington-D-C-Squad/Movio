@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-        <string name="episode">Episode %1$s</string>
+        <string name="current_episode">Episode %1$s</string>
         <string name="moive_image" >movie image</string>
         <string name="bold_video_circle" >start movie icon </string>
         <string name="dot" >dot</string>
         <string name="stars_icon_rate" >stars icon rate</string>
-
-
-
+        <string name="season">season %1$s</string>
+        <string name="episodes">%1$d Episodes</string>
+        <string name="of">of %1$s</string>
 
 </resources>
