@@ -36,18 +36,18 @@ fun HorizontalMovioCard(
 ) {
     Row(
         modifier = Modifier.fillMaxWidth()
-            .padding(horizontal = 8.dp)
+            .padding(horizontal = AppTheme.spacing.small)
             .clip(RoundedCornerShape(AppTheme.radius.small))
             .clickable { onClick() }
         ,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
     ) {
         BasicImageCard(image = movieImage, height = height, width = width
         )
         Column(
             modifier = modifier
                 .height(height)
-                .padding(vertical = 4.dp),
+                .padding(vertical =AppTheme.spacing.extraSmall),
             verticalArrangement = Arrangement.SpaceAround
         ) {
             MovioText(
@@ -71,7 +71,7 @@ private fun MovioCatergory(
     Row(
         modifier = Modifier
             .background(backgroundColor, shape = RoundedCornerShape(60.dp))
-            .padding(vertical = 4.5.dp, horizontal = 12.dp),
+            .padding(vertical = AppTheme.spacing.extraSmall, horizontal = AppTheme.spacing.medium),
         horizontalArrangement = Arrangement.Center
     ) {
         MovioText(

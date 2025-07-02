@@ -132,11 +132,11 @@ private fun MovieDetails(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.padding(end = 6.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+        modifier = modifier.padding(end = AppTheme.spacing.small),
+        verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.extraSmall)
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(6.dp),
+            horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
             verticalAlignment = Alignment.CenterVertically
         ) {
             MovioText(

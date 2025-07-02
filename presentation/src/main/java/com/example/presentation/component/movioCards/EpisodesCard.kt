@@ -41,22 +41,22 @@ fun EpisodesCard(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp)
+            .padding(horizontal = AppTheme.spacing.small)
             .clip(RoundedCornerShape(AppTheme.radius.small))
             .clickable { onClick() }
         ,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy( AppTheme.spacing.small),
         verticalAlignment = Alignment.Top
     ) {
         EpisodeMovieImage(movieImage = movieImage, height = height, width = width)
         Column(
             modifier = modifier
                 .height(height)
-                .padding(vertical = 4.dp),
+                .padding(vertical =  AppTheme.spacing.extraSmall),
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 MovioText(
@@ -105,7 +105,7 @@ private fun TimeSection(
         contentAlignment = Alignment.Center
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(6.dp),
+            horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
             verticalAlignment = Alignment.CenterVertically
         ) {
             MovioIcon(
@@ -130,8 +130,8 @@ private fun NumberOfEpisodes(
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier.padding(end = 6.dp),
-        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        modifier = modifier.padding(end =  AppTheme.spacing.small),
+        horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
         verticalAlignment = Alignment.CenterVertically
     ) {
         MovioText(
