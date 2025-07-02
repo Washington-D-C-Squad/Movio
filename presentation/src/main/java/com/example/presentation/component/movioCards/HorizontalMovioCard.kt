@@ -32,22 +32,23 @@ fun HorizontalMovioCard(
     height: Dp,
     width: Dp,
     modifier: Modifier = Modifier,
-    onClick:()->Unit
+    onClick: () -> Unit
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .padding(horizontal = AppTheme.spacing.small)
             .clip(RoundedCornerShape(AppTheme.radius.small))
-            .clickable { onClick() }
-        ,
+            .clickable { onClick() },
         horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
     ) {
-        BasicImageCard(image = movieImage, height = height, width = width
+        BasicImageCard(
+            image = movieImage, height = height, width = width
         )
         Column(
             modifier = modifier
                 .height(height)
-                .padding(vertical =AppTheme.spacing.extraSmall),
+                .padding(vertical = AppTheme.spacing.extraSmall),
             verticalArrangement = Arrangement.SpaceAround
         ) {
             MovioText(
@@ -58,7 +59,7 @@ fun HorizontalMovioCard(
                 overflow = TextOverflow.Ellipsis
             )
             RateIcon(rate = movieRate, tint = AppTheme.colors.systemColors.warning)
-            MovioCatergory(movieCategory,AppTheme.colors.surfaceColor.onSurface_3)
+            MovioCatergory(movieCategory, AppTheme.colors.surfaceColor.onSurface_3)
         }
     }
 }
@@ -87,7 +88,7 @@ private fun MovioCatergory(
 @Preview(showBackground = true)
 @Composable
 fun HorizontalCardPreview() {
-    AppTheme{
+    AppTheme {
         HorizontalMovioCard(
             movieTitle = "Spider-Man: Homecoming",
             movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),

@@ -43,16 +43,15 @@ fun EpisodesCard(
             .fillMaxWidth()
             .padding(horizontal = AppTheme.spacing.small)
             .clip(RoundedCornerShape(AppTheme.radius.small))
-            .clickable { onClick() }
-        ,
-        horizontalArrangement = Arrangement.spacedBy( AppTheme.spacing.small),
+            .clickable { onClick() },
+        horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
         verticalAlignment = Alignment.Top
     ) {
         EpisodeMovieImage(movieImage = movieImage, height = height, width = width)
         Column(
             modifier = modifier
                 .height(height)
-                .padding(vertical =  AppTheme.spacing.extraSmall),
+                .padding(vertical = AppTheme.spacing.extraSmall),
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
             Row(
@@ -130,7 +129,7 @@ private fun NumberOfEpisodes(
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier.padding(end =  AppTheme.spacing.small),
+        modifier = modifier.padding(end = AppTheme.spacing.small),
         horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -148,7 +147,7 @@ private fun NumberOfEpisodes(
 @Preview(showBackground = true)
 @Composable
 fun EpisodesCardPreview() {
-    AppTheme{
+    AppTheme {
         EpisodesCard(
             movieTitle = "Spider-Man: Homecoming",
             movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
@@ -160,5 +159,4 @@ fun EpisodesCardPreview() {
             onClick = {}
         )
     }
-
 }

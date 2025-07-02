@@ -98,7 +98,7 @@ private fun YearAndTotalEpisodes(
 ) {
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
         verticalAlignment = Alignment.CenterVertically
     ) {
         MovioText(

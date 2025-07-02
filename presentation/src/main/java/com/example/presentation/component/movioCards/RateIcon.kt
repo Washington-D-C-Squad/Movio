@@ -46,7 +46,8 @@ fun RateIcon(
                 modifier = Modifier.size(16.dp)
             )
             MovioText(
-                text = rate.toString(), color = Color(0xFFFFFEF9),
+                text = rate.toString(),
+                color = AppTheme.colors.systemColors.onWarning,
                 textStyle = AppTheme.textStyle.label.smallRegular12,
                 maxLines = 1,
             )
