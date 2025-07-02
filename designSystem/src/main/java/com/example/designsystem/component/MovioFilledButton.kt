@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import com.example.designsystem.AppTheme
 
 @Composable
@@ -27,18 +26,18 @@ fun MovioFilledButton(
     Box(
 
         modifier = modifier
-            .padding(16.dp)
+            .padding(horizontal = AppTheme.spacing.medium)
             .clip(RoundedCornerShape(AppTheme.radius.xxLarge))
             .fillMaxWidth()
             .background(color)
-            .clickable { onClick }
-            .padding(16.dp),
+            .clickable { onClick() }
+            .padding(AppTheme.spacing.medium),
         contentAlignment = Alignment.Center
     ) {
         Row(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
-            content = content,
+            content = content
         )
     }
 }

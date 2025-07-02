@@ -26,9 +26,8 @@ fun MovioOutLinedButton(
     content: @Composable RowScope.() -> Unit,
 ) {
     Box(
-
         modifier = modifier
-            .padding(16.dp)
+            .padding(horizontal = AppTheme.spacing.medium)
             .clip(RoundedCornerShape(AppTheme.radius.xxLarge))
             .border(
                 width = 1.dp,
@@ -37,14 +36,15 @@ fun MovioOutLinedButton(
             )
             .fillMaxWidth()
             .background(color)
-            .clickable { onClick }
-            .padding(16.dp),
+            .clickable { onClick() }
+            .padding(AppTheme.spacing.medium),
         contentAlignment = Alignment.Center
     ) {
         Row(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
-            content = content,
+            content = content
         )
+
     }
 }
