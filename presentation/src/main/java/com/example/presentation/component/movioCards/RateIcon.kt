@@ -22,11 +22,11 @@ import com.example.designsystem.component.MovioText
 
 @Composable
 fun RatreIcon(
-    icon: Painter=painterResource(com.example.designsystem.R.drawable.bold_star),
-    rate: String,
+    rate: Double,
+    tint:Color,
     modifier: Modifier = Modifier,
-    tint:Color
-) {
+    icon: Painter=painterResource(com.example.designsystem.R.drawable.bold_star),
+    ) {
     Box(
         modifier = modifier
             .height(16.dp)
@@ -44,7 +44,7 @@ fun RatreIcon(
                 modifier = Modifier.size(16.dp)
             )
             MovioText(
-                text = rate, color = Color(0xFFFFFEF9),
+                text = rate.toString(), color = Color(0xFFFFFEF9),
                 textStyle = AppTheme.textStyle.label.smallRegular12,
                 maxLines = 1,
             )
@@ -57,7 +57,7 @@ fun RatreIcon(
 fun RatreIconpreview() {
     RatreIcon(
         icon = painterResource(com.example.designsystem.R.drawable.bold_star),
-        rate = "5.0",
+        rate = 5.0,
         tint = AppTheme.colors.systemColors.warning,
         modifier = Modifier
             .height(16.dp)

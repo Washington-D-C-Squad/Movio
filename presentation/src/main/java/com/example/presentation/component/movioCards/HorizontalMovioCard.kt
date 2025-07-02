@@ -24,10 +24,10 @@ import com.example.designsystem.component.MovioText
 
 @Composable
 fun HorizontalMovioCard(
-    moviTitle: String,
-    moviRate: String,
-    moviCategory: String,
-    moviImage: Painter,
+    movieTitle: String,
+    movieRate: Double,
+    movieCategory: String,
+    movieImage: Painter,
     height: Dp,
     width: Dp,
     modifier: Modifier = Modifier,
@@ -39,7 +39,7 @@ fun HorizontalMovioCard(
         ,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        BasicImageCard(image = moviImage, height = height, width = width
+        BasicImageCard(image = movieImage, height = height, width = width
         )
         Column(
             modifier = modifier
@@ -48,14 +48,14 @@ fun HorizontalMovioCard(
             verticalArrangement = Arrangement.SpaceAround
         ) {
             MovioText(
-                text = moviTitle,
+                text = movieTitle,
                 color = AppTheme.colors.surfaceColor.onSurface,
                 textStyle = AppTheme.textStyle.title.medium14,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
-            RatreIcon(rate = moviRate, tint = AppTheme.colors.systemColors.warning)
-            MovioCatergory(moviCategory,AppTheme.colors.surfaceColor.onSurface_3)
+            RatreIcon(rate = movieRate, tint = AppTheme.colors.systemColors.warning)
+            MovioCatergory(movieCategory,AppTheme.colors.surfaceColor.onSurface_3)
         }
     }
 }
@@ -85,12 +85,12 @@ private fun MovioCatergory(
 @Composable
 fun HorizontalCardPreview() {
     HorizontalMovioCard(
-        moviTitle = "Spider-Man: Homecoming",
-        moviImage = painterResource(com.example.designsystem.R.drawable.empty),
-        moviRate = "3.0",
+        movieTitle = "Spider-Man: Homecoming",
+        movieImage = painterResource(com.example.designsystem.R.drawable.empty),
+        movieRate = 3.0,
         width = 180.dp,
         height = 150.dp,
-        moviCategory = "Action",
+        movieCategory = "Action",
         onClick = {},
     )
 }

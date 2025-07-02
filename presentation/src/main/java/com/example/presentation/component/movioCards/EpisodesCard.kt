@@ -27,8 +27,8 @@ import com.example.designsystem.component.MovioText
 @Composable
 fun EpisodesCard(
     movieTitle: String,
-    movieRate: String,
-    movieEpisode: String,
+    movieRate: Double,
+    currentMovieEpisode: Int,
     movieTime: String,
     movieImage: Painter,
     height: Dp,
@@ -64,8 +64,8 @@ fun EpisodesCard(
                 RatreIcon(rate = movieRate, tint = AppTheme.colors.systemColors.warning)
             }
             Row {
-                NumberOfEpisodes(numberOfEpisodes = movieEpisode)
-                TimeSectison(movieTime)
+                NumberOfEpisodes(numberOfEpisodes = currentMovieEpisode)
+                TimeSection(movieTime)
             }
         }
     }
@@ -92,7 +92,7 @@ private fun EpisodeMovieImage(
 }
 
 @Composable
-private fun TimeSectison(
+private fun TimeSection(
     movieTime: String,
     modifier: Modifier = Modifier
 ) {
@@ -120,30 +120,24 @@ private fun TimeSectison(
     }
 }
 
-
 @Composable
 private fun NumberOfEpisodes(
-    numberOfEpisodes: String,
+    numberOfEpisodes: Int,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = modifier.padding(end = 6.dp),
-        contentAlignment = Alignment.Center
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-            Box(contentAlignment = Alignment.Center) {
-                MovioText(
-                    text = stringResource(
-                        com.example.presentation.R.string.episode,
-                        numberOfEpisodes
-                    ),
-                    textStyle = AppTheme.textStyle.label.smallRegular12,
-                    color = AppTheme.colors.surfaceColor.onSurfaceContainer
-                )
-            }
-        }
+        MovioText(
+            text = stringResource(
+                id = com.example.presentation.R.string.current_episode,
+                String.format("%02d", numberOfEpisodes)
+            ),
+            textStyle = AppTheme.textStyle.label.smallRegular12,
+            color = AppTheme.colors.surfaceColor.onSurfaceContainer
+        )
     }
 }
 
@@ -153,10 +147,10 @@ fun EpisodesCardPreview() {
     EpisodesCard(
         movieTitle = "Spider-Man: Homecoming",
         movieImage = painterResource(R.drawable.empty),
-        movieRate = "3.0",
+        movieRate = 3.0,
         width = 100.dp,
         height = 74.dp,
-        movieEpisode = "Episodes 01",
+        currentMovieEpisode = 1,
         movieTime = "44 m",
         onClick = {}
     )
