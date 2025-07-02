@@ -11,9 +11,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -31,24 +33,26 @@ fun VerticalMovioCard(
     rate: Double,
     width: Dp,
     height: Dp,
-    paddingvalue: Dp,
+    paddingvalue: Dp =8.dp,
     onClick:()->Unit,
     modifier: Modifier = Modifier,
     ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.clickable { onClick() }
+        modifier = modifier
+            .clip(RoundedCornerShape(AppTheme.radius.small))
+            .clickable { onClick() }
     ) {
         Box(contentAlignment = Alignment.TopCenter) {
             Row(
                 modifier = Modifier
                     .zIndex(1f)
                     .width(width)
-                    .padding(paddingvalue),
+                    .padding(vertical = paddingvalue),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.End
             ) {
-                RatreIcon(rate = rate, tint = AppTheme.colors.systemColors.warning)
+                RateIcon(rate = rate, tint = AppTheme.colors.systemColors.warning)
             }
             BasicImageCard(
                 image = movieImage,

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
@@ -36,6 +37,7 @@ fun HorizontalMovioCard(
     Row(
         modifier = Modifier.fillMaxWidth()
             .padding(horizontal = 8.dp)
+            .clip(RoundedCornerShape(AppTheme.radius.small))
             .clickable { onClick() }
         ,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -55,7 +57,7 @@ fun HorizontalMovioCard(
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
-            RatreIcon(rate = movieRate, tint = AppTheme.colors.systemColors.warning)
+            RateIcon(rate = movieRate, tint = AppTheme.colors.systemColors.warning)
             MovioCatergory(movieCategory,AppTheme.colors.surfaceColor.onSurface_3)
         }
     }

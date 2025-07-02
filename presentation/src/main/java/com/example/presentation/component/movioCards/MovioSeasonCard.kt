@@ -11,9 +11,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -30,7 +32,8 @@ fun MovioSeasonCard(
     movieRate: Double,
     totalNumberOfEpisodes: Int,
     movieImage: Painter,
-    yearOfPublish:String,
+    yearOfPublish:Int,
+    timeOfPublish:String,
     currentSeason:Int,
     height: Dp,
     width: Dp,
@@ -41,7 +44,9 @@ fun MovioSeasonCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 8.dp)
-            .clickable { onClick() },
+             .clip(RoundedCornerShape(AppTheme.radius.small))
+             .clickable { onClick() }
+        ,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.Top
     ) {
@@ -66,7 +71,7 @@ fun MovioSeasonCard(
                     maxLines = 1,
                     modifier = Modifier.weight(1f),
                     )
-                RatreIcon(rate = movieRate, tint = AppTheme.colors.systemColors.warning)
+                RateIcon(rate = movieRate, tint = AppTheme.colors.systemColors.warning)
             }
             Column  {
                 YearAndTotalEpisodes(
@@ -77,6 +82,7 @@ fun MovioSeasonCard(
                     movieTitle = movieTitle,
                     currentSeason = currentSeason,
                     yearOfPublish = yearOfPublish,
+                    timeOfPublish=timeOfPublish
                 )
             }
         }
@@ -86,7 +92,7 @@ fun MovioSeasonCard(
 
 @Composable
 private fun YearAndTotalEpisodes(
-    year: String,
+    year: Int,
     totalEpisodes: Int,
     modifier: Modifier = Modifier
 ) {
@@ -96,7 +102,7 @@ private fun YearAndTotalEpisodes(
         verticalAlignment = Alignment.CenterVertically
     ) {
         MovioText(
-            text = year,
+            text = year.toString(),
             textStyle = AppTheme.textStyle.label.smallRegular12,
             color = AppTheme.colors.surfaceColor.onSurfaceContainer
         )
@@ -121,7 +127,8 @@ private fun YearAndTotalEpisodes(
 private fun MovieDetails(
     movieTitle: String,
     currentSeason: Int,
-    yearOfPublish: String,
+    yearOfPublish: Int,
+    timeOfPublish: String,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -145,7 +152,7 @@ private fun MovieDetails(
             )
         }
         MovioText(
-            text = yearOfPublish,
+            text = "$timeOfPublish $yearOfPublish",
             textStyle = AppTheme.textStyle.label.smallRegular12,
             color = AppTheme.colors.surfaceColor.onSurfaceContainer
         )
@@ -164,8 +171,9 @@ fun seasonCardPreview() {
             height = 74.dp,
             totalNumberOfEpisodes = 1,
             onClick = {},
-            yearOfPublish = "2004",
+            yearOfPublish = 2004,
             currentSeason = 7,
+            timeOfPublish = "october 4 , 2002"
         )
     }
 }
