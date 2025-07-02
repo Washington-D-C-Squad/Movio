@@ -35,7 +35,8 @@ fun HorizontalMovioCard(
 ) {
     Row(
         modifier = Modifier.fillMaxWidth()
-            .clickable { onClick() },
+            .clickable { onClick() }
+        ,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         BasicImageCard(image = moviImage, height = height, width = width

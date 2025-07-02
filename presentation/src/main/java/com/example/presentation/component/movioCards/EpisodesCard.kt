@@ -81,7 +81,9 @@ private fun EpisodeMovieImage(
     ) {
         BasicImageCard(image = movieImage, height = height, width = width)
         MovioIcon(
-            contentDescription = null,
+            contentDescription = stringResource(
+                com.example.presentation.R.string.bold_video_circle
+            ),
             tint = AppTheme.colors.surfaceColor.onSurface_1,
             painter = painterResource(R.drawable.bold_video_circle),
             modifier = Modifier.size(34.dp)
@@ -104,7 +106,7 @@ private fun TimeSectison(
         ) {
             MovioIcon(
                 painter = painterResource(R.drawable.dot),
-                contentDescription = null,
+                contentDescription = stringResource(com.example.presentation.R.string.dot),
                 modifier = Modifier.size(12.dp),
                 tint = AppTheme.colors.surfaceColor.onSurfaceContainer
             )
