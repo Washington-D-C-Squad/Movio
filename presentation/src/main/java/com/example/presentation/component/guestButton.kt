@@ -1,4 +1,4 @@
-package com.example.designsystem.component
+package com.example.presentation.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -6,7 +6,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,13 +16,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.designsystem.AppTheme
+import com.example.designsystem.component.MovioText
 
 @Composable
-fun MovioOutLinedButton(
+fun GuestButton(
     modifier: Modifier = Modifier,
     color: Color = Color.Transparent,
+    text: String = "Continue as a guest",
     onClick: () -> Unit,
-    content: @Composable RowScope.() -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -43,8 +43,13 @@ fun MovioOutLinedButton(
         Row(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
-            content = content
-        )
+        ) {
+            MovioText(
+                text = text,
+                color = AppTheme.colors.surfaceColor.onSurface,
+                textStyle = AppTheme.textStyle.label.medium14,
+            )
+        }
 
     }
 }
