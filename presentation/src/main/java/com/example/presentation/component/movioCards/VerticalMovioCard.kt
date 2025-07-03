@@ -30,10 +30,10 @@ import com.example.designsystem.component.MovioText
 fun VerticalMovioCard(
     description: String,
     movieImage: Painter,
-    rate: Double,
+    rate: String,
     width: Dp,
     height: Dp,
-    paddingvalue: Dp =8.dp,
+    paddingvalue: Dp = 8.dp,
     onClick:()->Unit,
     modifier: Modifier = Modifier,
     ) {
@@ -82,7 +82,7 @@ fun VerticalCardPreview() {
         VerticalMovioCard(
             "Spider-Man: Homecoming",
             movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
-            rate = 3.0,
+            rate = "3.0",
             width = 180.dp,
             height = 150.dp,
             paddingvalue = 8.dp,

@@ -26,7 +26,7 @@ import com.example.designsystem.component.MovioText
 @Composable
 fun HorizontalMovioCard(
     movieTitle: String,
-    movieRate: Double,
+    movieRate: String,
     movieCategory: String,
     movieImage: Painter,
     height: Dp,
@@ -92,7 +92,7 @@ fun HorizontalCardPreview() {
         HorizontalMovioCard(
             movieTitle = "Spider-Man: Homecoming",
             movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
-            movieRate = 3.0,
+            movieRate = "3.0",
             width = 180.dp,
             height = 150.dp,
             movieCategory = "Action",

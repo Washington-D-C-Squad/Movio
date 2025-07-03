@@ -29,8 +29,8 @@ import com.example.designsystem.component.MovioText
 @Composable
 fun EpisodesCard(
     movieTitle: String,
-    movieRate: Double,
-    currentMovieEpisode: Int,
+    movieRate: String,
+    currentMovieEpisode: String,
     movieTime: String,
     movieImage: Painter,
     height: Dp,
@@ -125,7 +125,7 @@ private fun TimeSection(
 
 @Composable
 private fun NumberOfEpisodes(
-    numberOfEpisodes: Int,
+    numberOfEpisodes: String,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -151,10 +151,10 @@ fun EpisodesCardPreview() {
         EpisodesCard(
             movieTitle = "Spider-Man: Homecoming",
             movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
-            movieRate = 3.0,
+            movieRate = "3.0",
             width = 100.dp,
             height = 74.dp,
-            currentMovieEpisode = 1,
+            currentMovieEpisode = "1",
             movieTime = "44 m",
             onClick = {}
         )

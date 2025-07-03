@@ -29,12 +29,12 @@ import com.example.presentation.R
 @Composable
 fun MovioSeasonCard(
     movieTitle: String,
-    movieRate: Double,
-    totalNumberOfEpisodes: Int,
+    movieRate: String,
+    totalNumberOfEpisodes: String,
     movieImage: Painter,
-    yearOfPublish:Int,
+    yearOfPublish:String,
     timeOfPublish:String,
-    currentSeason:Int,
+    currentSeason:String,
     height: Dp,
     width: Dp,
     modifier: Modifier = Modifier,
@@ -92,8 +92,8 @@ fun MovioSeasonCard(
 
 @Composable
 private fun YearAndTotalEpisodes(
-    year: Int,
-    totalEpisodes: Int,
+    year: String,
+    totalEpisodes: String,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -102,7 +102,7 @@ private fun YearAndTotalEpisodes(
         verticalAlignment = Alignment.CenterVertically
     ) {
         MovioText(
-            text = year.toString(),
+            text = year,
             textStyle = AppTheme.textStyle.label.smallRegular12,
             color = AppTheme.colors.surfaceColor.onSurfaceContainer
         )
@@ -126,8 +126,8 @@ private fun YearAndTotalEpisodes(
 @Composable
 private fun MovieDetails(
     movieTitle: String,
-    currentSeason: Int,
-    yearOfPublish: Int,
+    currentSeason: String,
+    yearOfPublish: String,
     timeOfPublish: String,
     modifier: Modifier = Modifier
 ) {
@@ -166,13 +166,13 @@ fun seasonCardPreview() {
         MovioSeasonCard(
             movieTitle = "Spider-Man: Homecoming",
             movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
-            movieRate = 3.0,
+            movieRate =" 3.0",
             width = 100.dp,
             height = 74.dp,
-            totalNumberOfEpisodes = 1,
+            totalNumberOfEpisodes = "1",
             onClick = {},
-            yearOfPublish = 2004,
-            currentSeason = 7,
+            yearOfPublish ="2004",
+            currentSeason = "7",
             timeOfPublish = "october 4 , 2002"
         )
     }
