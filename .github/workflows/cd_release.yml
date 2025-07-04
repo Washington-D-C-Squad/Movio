@@ -26,7 +26,6 @@ jobs:
       - name: Decode google-services.json
         run: |
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 -d > app/google-services.json
-      
 
       - name: Build Release APK
         run: ./gradlew assembleRelease
@@ -34,8 +33,14 @@ jobs:
       - name: Install Firebase CLI
         run: curl -sL https://firebase.tools | bash
 
+      - name: Decode Firebase service account key
+        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > "${{ github.workspace }}/firebase-service-account.json"
+
+      - name: Set GOOGLE_APPLICATION_CREDENTIALS env var
+        run: echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/firebase-service-account.json" >> $GITHUB_ENV
+
       - name: Upload APK to Firebase App Distribution
         run: |
           firebase appdistribution:distribute app/build/outputs/apk/release/app-release.apk \
-            --app 1:148511152938:android:b42a76ac7812fa20795c53
-            --token "${{ secrets.FIREBASE_TOKEN }}"
+            --app 1:148511152938:android:b42a76ac7812fa20795c53 \
+            --release-notes "Automated release from GitHub Actions"
