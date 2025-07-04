@@ -127,7 +127,7 @@ fun ShowGridForVideoLibraryBackground() {
             .alpha(0.2f)
             .zIndex(2f)
             .offset(x = (105).dp, y = 40.dp)
-            .padding(end = 20.dp, start = 20.dp),
+            .padding(horizontal = AppTheme.spacing.large),
         highlightedCells = setOf(
             Pair(4, 3),
         )
