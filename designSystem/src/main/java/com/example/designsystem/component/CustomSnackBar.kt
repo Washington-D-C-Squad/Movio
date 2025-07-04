@@ -4,13 +4,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,7 +21,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 
-fun ShowSnackbar(
+fun showSnackbar(
     scope: CoroutineScope,
     hostState: SnackbarHostState,
     message: String,
@@ -60,9 +58,9 @@ fun CustomSnackbarHost(
                                 onUndoClick?.invoke()
                             }
                         ) {
-                            Text(
-                                label,
-                                style = AppTheme.textStyle.label.medium14,
+                            MovioText(
+                                text = label,
+                                textStyle = AppTheme.textStyle.label.medium14,
                                 color = AppTheme.colors.brandColors.primary
                             )
                         }
@@ -70,7 +68,11 @@ fun CustomSnackbarHost(
                 }
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(painter = imagePainter, contentDescription = "", tint = Color.Unspecified)
+                    MovioIcon(
+                        painter = imagePainter,
+                        contentDescription = "",
+                        tint = Color.Unspecified
+                    )
                     Spacer(modifier = Modifier.padding(horizontal = AppTheme.spacing.small))
                     MovioText(
                         text = snackbarData.visuals.message,
