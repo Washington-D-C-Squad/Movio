@@ -7,7 +7,7 @@
     <string name="dot" >نقطة</string>
     <string name="stars_icon_rate" >نجمة التقييم</string>
     <string name="season">الجزء %1$s</string>
-    <string name="episodes">%1$d حلقات</string>
+    <string name="episodes">%1$s حلقات</string>
     <string name="of">من %1$s</string>
 
 </resources>
