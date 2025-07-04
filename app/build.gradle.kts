@@ -124,4 +124,3 @@ tasks.register<JacocoReport>("jacocoTestReport") {
         implementation(project(":data"))
         implementation(project(":presentation"))
     }
-}
