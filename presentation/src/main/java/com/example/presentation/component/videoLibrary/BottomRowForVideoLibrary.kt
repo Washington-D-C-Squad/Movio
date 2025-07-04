@@ -11,13 +11,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import com.example.designsystem.AppTheme
 import com.example.designsystem.R
 import com.example.designsystem.component.MovioIcon
 import com.example.designsystem.component.MovioText
 
 @Composable
-fun BottomRowForVideoLibrary() {
+fun BottomRowForVideoLibrary(
+    videosNumber: Number
+) {
     Box(
         modifier = Modifier.background(color = AppTheme.colors.surfaceColor.surfaceVariant)
     ) {
@@ -29,7 +32,7 @@ fun BottomRowForVideoLibrary() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             MovioText(
-                text = "0 Video",
+                text = "$videosNumber ${stringResource(com.example.presentation.R.string.video_library_video_number)}",
                 color = AppTheme.colors.surfaceColor.onSurfaceVariant,
                 textStyle = AppTheme.textStyle.label.smallRegular12,
             )

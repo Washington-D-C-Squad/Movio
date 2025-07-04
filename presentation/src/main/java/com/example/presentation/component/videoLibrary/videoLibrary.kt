@@ -1,6 +1,7 @@
 package com.example.presentation.component.videoLibrary
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -27,7 +28,10 @@ import com.example.designsystem.R
 import com.example.designsystem.component.MovioIcon
 
 @Composable
-fun VideoLibrary() {
+fun VideoLibrary(
+    onClick: () -> Unit,
+    videosNumber: Int
+) {
     BoxWithConstraints {
         val isDark = isSystemInDarkTheme()
         val width = maxWidth * (158f / 360f)
@@ -38,6 +42,7 @@ fun VideoLibrary() {
                 .size(width = width, height = height)
                 .clip(RoundedCornerShape(AppTheme.radius.small))
                 .background(color = AppTheme.colors.surfaceColor.surface)
+                .clickable { onClick() }
         ) {
             Box(
                 modifier = Modifier.weight(1f)
@@ -97,7 +102,7 @@ fun VideoLibrary() {
                     tint = if (isDark) Color.White else Color.Black
                 )
             }
-            BottomRowForVideoLibrary()
+            BottomRowForVideoLibrary(videosNumber)
         }
     }
 }
