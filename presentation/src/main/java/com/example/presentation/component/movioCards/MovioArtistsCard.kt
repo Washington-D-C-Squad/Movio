@@ -1,13 +1,16 @@
 package com.example.presentation.component.movioCards
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -17,11 +20,16 @@ import com.example.designsystem.component.MovioText
 @Composable
 fun MovioArtistsCard(
     image: Painter,
-    modifier: Modifier = Modifier,
-     width: Dp = 102.dp,
     artistsName: String,
+    modifier: Modifier = Modifier,
+    width: Dp = 102.dp,
+    onClick: () -> Unit = {}
 ) {
-    Box(modifier = modifier.width( width)
+    Box(
+        modifier = modifier
+            .width(width)
+            .clip(RoundedCornerShape(AppTheme.radius.small))
+            .clickable { onClick() }
     ) {
         Column(
             modifier = modifier,
@@ -39,7 +47,10 @@ fun MovioArtistsCard(
                 color = AppTheme.colors.surfaceColor.onSurface,
                 textStyle = AppTheme.textStyle.body.medium14,
                 maxLines = 1,
-                modifier = Modifier.padding(vertical = AppTheme.spacing.small, horizontal = AppTheme.spacing.extraSmall)
+                modifier = Modifier.padding(
+                    vertical = AppTheme.spacing.small,
+                    horizontal = AppTheme.spacing.extraSmall
+                )
             )
         }
     }
