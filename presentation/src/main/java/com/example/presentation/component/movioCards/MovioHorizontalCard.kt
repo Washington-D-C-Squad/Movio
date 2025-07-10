@@ -24,7 +24,7 @@ import com.example.designsystem.AppTheme
 import com.example.designsystem.component.MovioText
 
 @Composable
-fun HorizontalMovioCard(
+fun MovioHorizontalCard(
     movieTitle: String,
     movieRate: String,
     movieCategory: String,
@@ -89,7 +89,7 @@ private fun MovioCatergory(
 @Composable
 fun HorizontalCardPreview() {
     AppTheme {
-        HorizontalMovioCard(
+        MovioHorizontalCard(
             movieTitle = "Spider-Man: Homecoming",
             movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
             movieRate = "3.0",

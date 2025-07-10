@@ -27,7 +27,7 @@ import com.example.designsystem.component.MovioIcon
 import com.example.designsystem.component.MovioText
 
 @Composable
-fun EpisodesCard(
+fun MovioEpisodesCard(
     movieTitle: String,
     movieRate: String,
     currentMovieEpisode: String,
@@ -146,7 +146,7 @@ private fun NumberOfEpisodes(
 @Composable
 fun EpisodesCardPreview() {
     AppTheme {
-        EpisodesCard(
+        MovioEpisodesCard(
             movieTitle = "Spider-Man: Homecoming",
             movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
             movieRate = "3.0",

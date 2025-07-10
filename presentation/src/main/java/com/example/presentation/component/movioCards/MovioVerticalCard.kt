@@ -27,7 +27,7 @@ import com.example.designsystem.AppTheme
 import com.example.designsystem.component.MovioText
 
 @Composable
-fun VerticalMovioCard(
+fun MovioVerticalCard(
     description: String,
     movieImage: Painter,
     rate: String,
@@ -80,7 +80,7 @@ fun VerticalMovioCard(
 @Composable
 fun VerticalCardPreview() {
     AppTheme{
-        VerticalMovioCard(
+        MovioVerticalCard(
             "Spider-Man: Homecoming",
             movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
             rate = "3.0",
