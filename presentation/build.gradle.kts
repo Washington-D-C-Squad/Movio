@@ -40,7 +40,7 @@ android {
 
 dependencies {
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.foundation)
+    implementation("androidx.compose.foundation:foundation")
     implementation(platform(libs.androidx.compose.bom))
 
     implementation(libs.androidx.core.ktx)
