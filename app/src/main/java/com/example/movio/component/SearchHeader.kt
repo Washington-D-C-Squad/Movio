@@ -11,11 +11,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -23,9 +18,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.example.designsystem.AppTheme
+import com.example.designsystem.component.MovioButton
+import com.example.designsystem.component.MovioIcon
+import com.example.designsystem.R as DesignSystemR
 
 @Composable
 fun SearchHeader(
@@ -56,7 +56,12 @@ fun SearchHeader(
                 )
                 .padding(horizontal = AppTheme.spacing.medium, vertical = AppTheme.spacing.small)
         ) {
-            Icon(Icons.Default.Search, contentDescription = "Search", tint = AppTheme.colors.surfaceColor.onSurfaceVariant, modifier = Modifier.size(AppTheme.spacing.large))
+            MovioIcon(
+                painter = painterResource(id = com.example.movio.R.drawable.clock), // Replace with your search icon drawable
+                contentDescription = stringResource(id = DesignSystemR.string.search_content_description),
+                tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
+                modifier = Modifier.size(AppTheme.spacing.large)
+            )
             Spacer(modifier = Modifier.width(AppTheme.spacing.small))
             TextField(
                 value = searchQuery,
@@ -82,8 +87,17 @@ fun SearchHeader(
                     onSearch = { onSubmit() }
                 )
             )
-            IconButton(onClick = onClear, modifier = Modifier.size(AppTheme.spacing.xLarge)) {
-                Icon(Icons.Default.Close, contentDescription = "Clear", tint = AppTheme.colors.surfaceColor.onSurfaceVariant)
+            MovioButton(
+                onClick = onClear,
+                modifier = Modifier.size(AppTheme.spacing.xLarge),
+                color = AppTheme.colors.surfaceColor.surfaceVariant
+            ) {
+                MovioIcon(
+                    painter = painterResource(id = com.example.movio.R.drawable.delete), // Replace with your close icon drawable
+                    contentDescription = stringResource(id = DesignSystemR.string.clear_content_description),
+                    tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
+                    modifier = Modifier.size(AppTheme.spacing.large)
+                )
             }
         }
     }

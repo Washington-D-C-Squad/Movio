@@ -15,16 +15,17 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
 import com.example.designsystem.AppTheme
 import com.example.movio.R
+import com.example.designsystem.R as DesignSystemR
+import com.example.designsystem.component.MovioText
+import com.example.designsystem.component.MovioIcon
+import com.example.designsystem.component.MovioButton
 
 @Composable
 fun RecentSearchList(
@@ -48,7 +49,6 @@ fun RecentSearchList(
                 .fillMaxWidth()
                 .padding(vertical = AppTheme.spacing.small)
         ) {
-            // Header
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -56,14 +56,14 @@ fun RecentSearchList(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = "Recent Search",
-                    style = AppTheme.textStyle.headLine.medium18,
+                MovioText(
+                    text = stringResource(id = DesignSystemR.string.recent_search),
+                    textStyle = AppTheme.textStyle.headLine.medium18,
                     color = AppTheme.colors.surfaceColor.onSurface
                 )
-                Text(
-                    text = "Clear all",
-                    style = AppTheme.textStyle.body.medium14,
+                MovioText(
+                    text = stringResource(id = DesignSystemR.string.clear_all),
+                    textStyle = AppTheme.textStyle.body.medium14,
                     color = AppTheme.colors.surfaceColor.onSurfaceVariant,
                     modifier = Modifier.clickable { onClearAll() }
                 )
@@ -98,29 +98,30 @@ private fun RecentSearchItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        Icon(
+        MovioIcon(
             painter = painterResource(id = R.drawable.clock),
-            contentDescription = "Clock",
+            contentDescription = stringResource(id = DesignSystemR.string.clock_content_description),
             tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
-            modifier = Modifier.size(20.dp)
+            modifier = Modifier.size(AppTheme.spacing.medium)
         )
 
         Spacer(modifier = Modifier.width(AppTheme.spacing.medium))
 
-        Text(
+        MovioText(
             text = searchText,
-            style = AppTheme.textStyle.body.medium14,
+            textStyle = AppTheme.textStyle.body.medium14,
             color = AppTheme.colors.surfaceColor.onSurface,
             modifier = Modifier.weight(1f)
         )
 
-        IconButton(
+        MovioButton(
             onClick = onRemoveClick,
-            modifier = Modifier.size(AppTheme.spacing.large)
+            modifier = Modifier.size(AppTheme.spacing.large),
+            color = AppTheme.colors.surfaceColor.surface
         ) {
-            Icon(
+            MovioIcon(
                 painter = painterResource(id = R.drawable.delete),
-                contentDescription = "Delete",
+                contentDescription = stringResource(id = DesignSystemR.string.delete_content_description),
                 tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
                 modifier = Modifier.size(AppTheme.spacing.medium)
             )
