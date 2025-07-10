@@ -1,7 +1,6 @@
 package com.example.movio.component
 
 
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -22,13 +21,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.movio.R
 import com.example.designsystem.AppTheme
+import com.example.movio.R
 
 @Composable
 fun RecentSearchList(
@@ -42,7 +38,10 @@ fun RecentSearchList(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = AppTheme.spacing.large)
-            .background(AppTheme.colors.surfaceColor.surface, RoundedCornerShape(AppTheme.radius.large))
+            .background(
+                AppTheme.colors.surfaceColor.surface,
+                RoundedCornerShape(AppTheme.radius.large)
+            )
     ) {
         Column(
             modifier = Modifier
@@ -59,7 +58,7 @@ fun RecentSearchList(
             ) {
                 Text(
                     text = "Recent Search",
-                    style = AppTheme.textStyle.headLine.medium,
+                    style = AppTheme.textStyle.headLine.medium18,
                     color = AppTheme.colors.surfaceColor.onSurface
                 )
                 Text(
