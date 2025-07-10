@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.designsystem.AppTheme
 
 @Composable
 fun SearchHeader(
@@ -41,33 +42,27 @@ fun SearchHeader(
 ) {
     Column(
         modifier = Modifier
-            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .padding(horizontal = AppTheme.spacing.large, vertical = AppTheme.spacing.medium)
     ) {
         Text(
             text = "Search",
-            fontSize = 32.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black,
+            style = AppTheme.textStyle.headLine.large,
+            color = AppTheme.colors.surfaceColor.onSurface,
             modifier = Modifier.padding(bottom = 8.dp)
         )
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color(0xFFF5F5F5), RoundedCornerShape(24.dp))
-                .padding(horizontal = 8.dp, vertical = 4.dp)
+                .background(AppTheme.colors.surfaceColor.surfaceVariant, RoundedCornerShape(AppTheme.radius.xLarge))
+                .padding(horizontal = AppTheme.spacing.medium, vertical = AppTheme.spacing.small)
         ) {
-            Icon(
-                Icons.Default.Search,
-                contentDescription = "Search",
-                tint = Color.Gray,
-                modifier = Modifier.size(24.dp)
-            )
-            Spacer(modifier = Modifier.width(4.dp))
+            Icon(Icons.Default.Search, contentDescription = "Search", tint = AppTheme.colors.surfaceColor.onSurfaceVariant, modifier = Modifier.size(AppTheme.spacing.large))
+            Spacer(modifier = Modifier.width(AppTheme.spacing.small))
             TextField(
                 value = searchQuery,
                 onValueChange = onSearchChange,
-                placeholder = { Text("Search", color = Color.Gray) },
+                placeholder = { Text("Search", color = AppTheme.colors.surfaceColor.onSurfaceVariant) },
                 singleLine = true,
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = Color.Transparent,
@@ -76,20 +71,20 @@ fun SearchHeader(
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
                     disabledIndicatorColor = Color.Transparent,
-                    focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black
+                    focusedTextColor = AppTheme.colors.surfaceColor.onSurface,
+                    unfocusedTextColor = AppTheme.colors.surfaceColor.onSurface
                 ),
                 modifier = Modifier
                     .weight(1f)
                     .padding(horizontal = 4.dp),
-                textStyle = LocalTextStyle.current.copy(fontSize = 18.sp),
+                textStyle = AppTheme.textStyle.body.medium14,
                 keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(
                     onSearch = { onSubmit() }
                 )
             )
-            IconButton(onClick = onClear, modifier = Modifier.size(32.dp)) {
-                Icon(Icons.Default.Close, contentDescription = "Clear", tint = Color.Gray)
+            IconButton(onClick = onClear, modifier = Modifier.size(AppTheme.spacing.xLarge)) {
+                Icon(Icons.Default.Close, contentDescription = "Clear", tint = AppTheme.colors.surfaceColor.onSurfaceVariant)
             }
         }
     }

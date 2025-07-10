@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movio.R
+import com.example.designsystem.AppTheme
 
 @Composable
 fun RecentSearchList(
@@ -40,32 +41,31 @@ fun RecentSearchList(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .background(Color.White, RoundedCornerShape(12.dp))
+            .padding(horizontal = AppTheme.spacing.large)
+            .background(AppTheme.colors.surfaceColor.surface, RoundedCornerShape(AppTheme.radius.large))
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 4.dp)
+                .padding(vertical = AppTheme.spacing.small)
         ) {
             // Header
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(AppTheme.spacing.large),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = "Recent Search",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = Color.Black
+                    style = AppTheme.textStyle.headLine.medium,
+                    color = AppTheme.colors.surfaceColor.onSurface
                 )
                 Text(
                     text = "Clear all",
-                    fontSize = 14.sp,
-                    color = Color.Gray,
+                    style = AppTheme.textStyle.body.medium14,
+                    color = AppTheme.colors.surfaceColor.onSurfaceVariant,
                     modifier = Modifier.clickable { onClearAll() }
                 )
             }
@@ -95,35 +95,35 @@ private fun RecentSearchItem(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onItemClick() }
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            .padding(horizontal = AppTheme.spacing.large, vertical = AppTheme.spacing.medium),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
         Icon(
             painter = painterResource(id = R.drawable.clock),
             contentDescription = "Clock",
-            tint = Color.Gray,
+            tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
             modifier = Modifier.size(20.dp)
         )
 
-        Spacer(modifier = Modifier.width(12.dp))
+        Spacer(modifier = Modifier.width(AppTheme.spacing.medium))
 
         Text(
             text = searchText,
-            fontSize = 16.sp,
-            color = Color.Gray,
+            style = AppTheme.textStyle.body.medium14,
+            color = AppTheme.colors.surfaceColor.onSurface,
             modifier = Modifier.weight(1f)
         )
 
         IconButton(
             onClick = onRemoveClick,
-            modifier = Modifier.size(24.dp)
+            modifier = Modifier.size(AppTheme.spacing.large)
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.delete),
                 contentDescription = "Delete",
-                tint = Color.Gray,
-                modifier = Modifier.size(16.dp)
+                tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
+                modifier = Modifier.size(AppTheme.spacing.medium)
             )
         }
     }
