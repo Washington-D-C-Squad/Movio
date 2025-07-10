@@ -4,11 +4,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.designsystem.R
-import com.example.designsystem.textStyle.BodyTextStyle
-import com.example.designsystem.textStyle.DisplayTextStyle
-import com.example.designsystem.textStyle.HeadlineTextStyle
-import com.example.designsystem.textStyle.LabelTextStyle
-import com.example.designsystem.textStyle.TitleTextStyle
 
 
 val inter = FontFamily(
