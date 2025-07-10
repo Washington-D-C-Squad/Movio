@@ -50,7 +50,7 @@ fun MovioSeasonCard(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.Top
     ) {
-        BasicImageCard(image = movieImage, height = height, width = width)
+        BasicImageCard(image = movieImage, height = height, radius = AppTheme.radius.small, width = width)
         Column(
             modifier = modifier
                 .height(height)

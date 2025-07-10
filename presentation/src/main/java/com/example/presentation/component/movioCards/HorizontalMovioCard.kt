@@ -43,7 +43,7 @@ fun HorizontalMovioCard(
         horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
     ) {
         BasicImageCard(
-            image = movieImage, height = height, width = width
+            image = movieImage, height = height, radius = AppTheme.radius.small, width = width
         )
         Column(
             modifier = modifier

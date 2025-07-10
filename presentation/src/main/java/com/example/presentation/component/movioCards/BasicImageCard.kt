@@ -17,12 +17,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.designsystem.AppTheme
+import com.example.designsystem.radius.MovioRadius
 
 @Composable
 fun BasicImageCard(
     image: Painter,
     height: Dp,
     width: Dp,
+    radius: Dp,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -36,7 +38,7 @@ fun BasicImageCard(
             ),
             modifier = Modifier
                 .fillMaxSize()
-                .clip(RoundedCornerShape(AppTheme.radius.small)),
+                .clip(RoundedCornerShape(radius)),
             contentScale = ContentScale.Crop
         )
     }
@@ -48,7 +50,7 @@ fun prevcand() {
     AppTheme {
         BasicImageCard(
             image = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
-            height = 180.dp, width = 158.dp
+            height = 180.dp, width = 158.dp,AppTheme.radius.small
         )
     }
 }

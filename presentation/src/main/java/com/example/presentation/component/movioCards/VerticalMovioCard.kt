@@ -31,11 +31,11 @@ fun VerticalMovioCard(
     description: String,
     movieImage: Painter,
     rate: String,
-    width: Dp,
-    height: Dp,
+    modifier: Modifier = Modifier,
+    width: Dp =102.dp,
+    height: Dp =132.dp,
     paddingvalue: Dp = 8.dp,
     onClick:()->Unit,
-    modifier: Modifier = Modifier,
     ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -58,6 +58,7 @@ fun VerticalMovioCard(
                 image = movieImage,
                 height = height,
                 width = width,
+                radius = AppTheme.radius.small,
                 modifier = Modifier
             )
         }
