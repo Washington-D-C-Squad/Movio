@@ -82,7 +82,7 @@ private fun EpisodeMovieImage(
     Box(
         contentAlignment = Alignment.Center
     ) {
-        BasicImageCard(image = movieImage, height = height, width = width)
+        BasicImageCard(image = movieImage, height = height, radius = AppTheme.radius.small, width = width)
         MovioIcon(
             contentDescription = stringResource(
                 com.example.presentation.R.string.bold_video_circle
@@ -134,10 +134,8 @@ private fun NumberOfEpisodes(
         verticalAlignment = Alignment.CenterVertically
     ) {
         MovioText(
-            text = stringResource(
-                id = com.example.presentation.R.string.current_episode,
-                String.format("%02d", numberOfEpisodes)
-            ),
+            text = stringResource(com.example.presentation.R.string.current_episode,
+            numberOfEpisodes),
             textStyle = AppTheme.textStyle.label.smallRegular12,
             color = AppTheme.colors.surfaceColor.onSurfaceContainer
         )
