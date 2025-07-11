@@ -51,7 +51,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
+    implementation(libs.koin.compose.viewmodel)
     implementation(project(":designSystem"))
     implementation(project(":detectImageContent"))
     implementation(project(":domain"))
