@@ -35,8 +35,8 @@ fun MovioEpisodesCard(
     movieImage: Painter,
     height: Dp,
     width: Dp,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = Modifier

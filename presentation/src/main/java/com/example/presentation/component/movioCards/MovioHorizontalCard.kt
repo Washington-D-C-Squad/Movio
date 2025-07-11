@@ -31,8 +31,8 @@ fun MovioHorizontalCard(
     movieImage: Painter,
     height: Dp,
     width: Dp,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
 ) {
     Row(
         modifier = Modifier

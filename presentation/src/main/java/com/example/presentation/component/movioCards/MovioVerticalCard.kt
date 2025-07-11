@@ -32,11 +32,11 @@ fun MovioVerticalCard(
     movieImage: Painter,
     rate: String,
     modifier: Modifier = Modifier,
-    width: Dp =102.dp,
-    height: Dp =132.dp,
-    paddingvalue: Dp = 8.dp,
-    onClick:()->Unit,
-    ) {
+    width: Dp = 102.dp,
+    height: Dp = 132.dp,
+    onClick: () -> Unit,
+    paddingvalue: Dp = 8.dp
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -79,7 +79,7 @@ fun MovioVerticalCard(
 @Preview(showBackground = true)
 @Composable
 private fun VerticalCardPreview() {
-    AppTheme{
+    AppTheme {
         MovioVerticalCard(
             "Spider-Man: Homecoming",
             movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
