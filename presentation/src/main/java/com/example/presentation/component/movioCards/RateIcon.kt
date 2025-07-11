@@ -24,17 +24,17 @@ import com.example.designsystem.component.MovioText
 @Composable
 fun RateIcon(
     rate: String,
-    tint:Color,
+    tint: Color,
     modifier: Modifier = Modifier,
-    icon: Painter=painterResource(com.example.designsystem.R.drawable.bold_star),
-    ) {
+    icon: Painter = painterResource(com.example.designsystem.R.drawable.bold_star),
+) {
     Box(
         modifier = modifier
             .height(AppTheme.spacing.medium)
-            .padding(end = AppTheme.spacing.small)
-        ,contentAlignment = Alignment.Center
+            .padding(end = AppTheme.spacing.small), contentAlignment = Alignment.Center
     ) {
-        Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
             verticalAlignment = Alignment.CenterVertically
         ) {
             MovioIcon(
