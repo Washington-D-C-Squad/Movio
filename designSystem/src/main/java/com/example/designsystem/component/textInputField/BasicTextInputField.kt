@@ -68,8 +68,8 @@ fun BasicTextInputField(
                 else
                     Brush.horizontalGradient(
                         listOf(
-                            AppTheme.colors.surfaceColor.onSurfaceEmptyColor,
-                            AppTheme.colors.surfaceColor.onSurfaceEmptyColor,
+                            AppTheme.colors.surfaceColor.onSurfaceContainer,
+                            AppTheme.colors.surfaceColor.onSurfaceContainer,
                         )
                     ),
                 shape = RoundedCornerShape(AppTheme.spacing.small)
