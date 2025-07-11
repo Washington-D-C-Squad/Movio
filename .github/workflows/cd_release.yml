@@ -33,7 +33,10 @@ jobs:
           head -n 5 app/google-services.json
 
       - name: Build Release APK
-        run: ./gradlew assembleRelease
+        run: ./gradlew assembleRelease --stacktrace
+
+      - name: List APK files
+        run: find . -name "*.apk"
 
       - name: Install Firebase CLI
         run: curl -sL https://firebase.tools | bash
