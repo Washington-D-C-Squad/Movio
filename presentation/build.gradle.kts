@@ -40,7 +40,7 @@ android {
 
 dependencies {
     implementation(libs.androidx.ui.tooling.preview)
-    implementation("androidx.compose.foundation:foundation")
+    implementation(libs.androidx.foundation)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.material3)
 
@@ -50,7 +50,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
+    implementation(libs.koin.compose.viewmodel)
     implementation(project(":designSystem"))
     implementation(project(":detectImageContent"))
     implementation(project(":domain"))
