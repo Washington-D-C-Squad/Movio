@@ -1,42 +1,32 @@
-package com.example.presentation.component.movioCards
-
-
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import coil.compose.AsyncImage
+
 import com.example.designsystem.AppTheme
 import com.example.designsystem.component.MovioText
+import com.example.presentation.component.movioCards.RateIcon
 
 @Composable
 fun VerticalMovioCard(
     description: String,
-    movieImage: Painter,
+    movieImage: String,
     rate: String,
     width: Dp,
     height: Dp,
     paddingvalue: Dp = 8.dp,
-    onClick:()->Unit,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    ) {
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -54,11 +44,13 @@ fun VerticalMovioCard(
             ) {
                 RateIcon(rate = rate, tint = AppTheme.colors.systemColors.warning)
             }
-            BasicImageCard(
-                image = movieImage,
-                height = height,
-                width = width,
+            AsyncImage(
+                model = movieImage,
+                contentDescription = description,
                 modifier = Modifier
+                    .width(width)
+                    .height(height)
+                    .clip(RoundedCornerShape(AppTheme.radius.small))
             )
         }
         Spacer(modifier = Modifier.height(8.dp))
@@ -78,10 +70,10 @@ fun VerticalMovioCard(
 @Preview(showBackground = true)
 @Composable
 fun VerticalCardPreview() {
-    AppTheme{
+    AppTheme {
         VerticalMovioCard(
-            "Spider-Man: Homecoming",
-            movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
+            description = "Spider-Man: Homecoming",
+            movieImage = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
             rate = "3.0",
             width = 180.dp,
             height = 150.dp,
