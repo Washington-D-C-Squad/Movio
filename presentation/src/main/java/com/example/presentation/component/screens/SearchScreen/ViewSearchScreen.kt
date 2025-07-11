@@ -2,6 +2,7 @@ package com.example.presentation.component.screens.SearchScreen
 
 
 import VerticalMovioCard
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,13 +17,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Text
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -32,11 +27,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.designsystem.AppTheme
 import com.example.designsystem.R
+import com.example.designsystem.component.MovioIcon
+import com.example.designsystem.component.MovioText
 import com.example.presentation.component.viewmodel.SearchViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -60,34 +56,31 @@ fun ViewSearchScreen(
     )
 
     uiState.errorMessage?.let { errorMsg ->
-
-        // هنا مجرد مثال سريع:
         LaunchedEffect(errorMsg) {
-
+            // handle error
         }
     }
-
 
     if (uiState.isLoading) {
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            CircularProgressIndicator()
+            MovioIcon(
+                painter = painterResource(R.drawable.loading),
+                contentDescription = "Loading",
+                tint = AppTheme.colors.brandColors.primary
+            )
         }
     }
 }
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ContentSearchScreen(
     forYouMovies: List<Movie> = emptyList(),
     exploreMoreMovies: List<Movie> = emptyList(),
     onSearchQueryChange: (String) -> Unit = {},
     onMovieClick: (Movie) -> Unit = {},
-
-
     modifier: Modifier = Modifier
 ) {
     var searchQuery by remember { mutableStateOf("") }
@@ -98,29 +91,44 @@ fun ContentSearchScreen(
             .padding(16.dp)
     ) {
         // Search Bar
-        OutlinedTextField(
-            value = searchQuery,
-            onValueChange = {
-                searchQuery = it
-                onSearchQueryChange(it)
-            },
-            placeholder = { Text("Search...") },
-            leadingIcon = {
-                Icon(
-                    painter = painterResource(R.drawable.bold_search_normal),
-                    contentDescription = "Search Icon"
-                )
-            },
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp)
-                .clickable { },
-            shape = RoundedCornerShape(12.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = Color.Gray,
-                unfocusedBorderColor = Color.LightGray
-            )
-        )
+                .background(
+                    AppTheme.colors.surfaceColor.surfaceContainer,
+                    RoundedCornerShape(12.dp)
+                )
+                .padding(horizontal = 12.dp, vertical = 8.dp)
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                MovioIcon(
+                    painter = painterResource(R.drawable.bold_search_normal),
+                    contentDescription = "Search Icon",
+                    tint = AppTheme.colors.surfaceColor.onSurface
+                )
+                BasicTextField(
+                    value = searchQuery,
+                    onValueChange = {
+                        searchQuery = it
+                        onSearchQueryChange(it)
+                    },
+                    singleLine = true,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(start = 8.dp),
+                    decorationBox = { innerTextField ->
+                        if (searchQuery.isEmpty()) {
+                            MovioText(
+                                text = "Search...",
+                                color = AppTheme.colors.surfaceColor.onSurface_3,
+                                textStyle = AppTheme.textStyle.body.medium14
+                            )
+                        }
+                        innerTextField()
+                    }
+                )
+            }
+        }
 
         // For You Section
         Row(
@@ -130,39 +138,33 @@ fun ContentSearchScreen(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
+            MovioText(
                 text = "For you",
-                style = MaterialTheme.typography.headlineSmall.copy(
-                    fontWeight = FontWeight.Bold
-                ),
-                color = Color.Black
+                color = AppTheme.colors.surfaceColor.onSurface,
+                textStyle = AppTheme.textStyle.headLine.medium18
             )
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                MovioText(
                     text = "See all",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Gray
+                    color = AppTheme.colors.surfaceColor.onSurface_2,
+                    textStyle = AppTheme.textStyle.body.medium14
                 )
-                Icon(
-                   // modifier = Modifier.clickable{},
+                MovioIcon(
                     painter = painterResource(R.drawable.outline_alt_arrow_left),
                     contentDescription = "See all arrow",
-                    modifier = Modifier.padding(start = 4.dp)
-                        .clickable{},
-                    tint = Color.Gray
+                    tint = AppTheme.colors.surfaceColor.onSurface_2,
+                    modifier = Modifier
+                        .padding(start = 4.dp)
+                        .clickable {}
                 )
             }
         }
 
-
         if (forYouMovies.isEmpty()) {
-            Text(
+            MovioText(
                 text = "No movies found",
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.Gray,
+                color = AppTheme.colors.surfaceColor.onSurface_3,
+                textStyle = AppTheme.textStyle.body.medium14,
                 modifier = Modifier.padding(bottom = 24.dp)
             )
         } else {
@@ -184,24 +186,18 @@ fun ContentSearchScreen(
             }
         }
 
-
-        Text(
+        MovioText(
             text = "Explore more",
-            style = MaterialTheme.typography.headlineSmall.copy(
-                fontWeight = FontWeight.Bold
-            ),
-            color = Color.Black,
+            color = AppTheme.colors.surfaceColor.onSurface,
+            textStyle = AppTheme.textStyle.headLine.medium18,
             modifier = Modifier.padding(bottom = 16.dp)
         )
-
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-
-
             items(forYouMovies) { movie ->
                 VerticalMovioCard(
                     description = movie.title,
@@ -213,10 +209,9 @@ fun ContentSearchScreen(
                     onClick = { onMovieClick(movie) }
                 )
             }
-
-
+        }
     }
-}}
+}
 
 data class Movie(
     val id: String,
