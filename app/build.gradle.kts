@@ -106,7 +106,9 @@ tasks.register<JacocoReport>("jacocoTestReport") {
         implementation(libs.androidx.ui)
         implementation(libs.androidx.ui.graphics)
         implementation(libs.androidx.ui.tooling.preview)
-        implementation(libs.androidx.material3)
+
+        implementation("androidx.compose.foundation:foundation")
+
         //firebase
         implementation("com.google.firebase:firebase-analytics")
         implementation(platform("com.google.firebase:firebase-bom:33.16.0"))

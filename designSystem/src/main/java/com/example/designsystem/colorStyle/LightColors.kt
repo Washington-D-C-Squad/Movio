@@ -1,7 +1,4 @@
 import androidx.compose.ui.graphics.Color
-import com.example.designsystem.colorStyle.BrandColors
-import com.example.designsystem.colorStyle.SurfaceColor
-import com.example.designsystem.colorStyle.SystemColors
 
 val light = MovioColors(
     brandColors = BrandColors(
