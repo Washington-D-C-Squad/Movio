@@ -46,7 +46,7 @@ fun BasicImageCard(
 
 @Preview(showBackground = true)
 @Composable
-fun prevcand() {
+private fun prevcand() {
     AppTheme {
         BasicImageCard(
             image = painterResource(com.example.designsystem.R.drawable.film_photo_sample),

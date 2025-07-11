@@ -78,7 +78,7 @@ fun MovioVerticalCard(
 
 @Preview(showBackground = true)
 @Composable
-fun VerticalCardPreview() {
+private fun VerticalCardPreview() {
     AppTheme{
         MovioVerticalCard(
             "Spider-Man: Homecoming",

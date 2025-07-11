@@ -161,7 +161,7 @@ private fun MovieDetails(
 
 @Preview(showBackground = true)
 @Composable
-fun seasonCardPreview() {
+private fun seasonCardPreview() {
     AppTheme{
         MovioSeasonCard(
             movieTitle = "Spider-Man: Homecoming",

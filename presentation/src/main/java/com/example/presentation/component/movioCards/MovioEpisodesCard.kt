@@ -144,7 +144,7 @@ private fun NumberOfEpisodes(
 
 @Preview(showBackground = true)
 @Composable
-fun EpisodesCardPreview() {
+private fun EpisodesCardPreview() {
     AppTheme {
         MovioEpisodesCard(
             movieTitle = "Spider-Man: Homecoming",

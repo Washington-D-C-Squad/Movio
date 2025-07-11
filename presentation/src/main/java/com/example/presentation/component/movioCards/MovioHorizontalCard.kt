@@ -87,7 +87,7 @@ private fun MovioCatergory(
 
 @Preview(showBackground = true)
 @Composable
-fun HorizontalCardPreview() {
+private fun HorizontalCardPreview() {
     AppTheme {
         MovioHorizontalCard(
             movieTitle = "Spider-Man: Homecoming",
