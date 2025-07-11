@@ -10,4 +10,8 @@
     <string name="episodes">%1$s حلقات</string>
     <string name="of">من %1$s</string>
     <string name="video_library_video_number">فيديو</string>">
+    <string name="home">الصفحة الرئيسية</string>
+    <string name="search">البحث</string>
+    <string name="library">المكتبة</string>
+    <string name="more">المزيد</string>
 </resources>

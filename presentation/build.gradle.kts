@@ -40,6 +40,8 @@ android {
 
 dependencies {
     implementation(libs.androidx.ui.tooling.preview)
+    debugImplementation(libs.ui.tooling)
+
     implementation("androidx.compose.foundation:foundation")
     implementation(platform(libs.androidx.compose.bom))
 
@@ -53,4 +55,7 @@ dependencies {
     implementation(project(":designSystem"))
     implementation(project(":detectImageContent"))
     implementation(project(":domain"))
+
+    implementation(libs.androidx.navigation.compose)
+
 }
