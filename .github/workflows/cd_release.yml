@@ -41,7 +41,7 @@ jobs:
       - name: Decode Firebase service account key
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-        run: echo "$FIREBASE_SERVICE_ACCOUNT" > "${{ github.workspace }}/firebase-service-account.json"
+        run: echo "$FIREBASE_SERVICE_ACCOUNT" | base64 --decode > "${{ github.workspace }}/firebase-service-account.json"
 
       - name: Set GOOGLE_APPLICATION_CREDENTIALS env var
         run: echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/firebase-service-account.json" >> $GITHUB_ENV
