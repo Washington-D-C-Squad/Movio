@@ -40,6 +40,10 @@ material3 = { module = "androidx.compose.material3:material3", version.ref = "ma
 ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
+room-runtime = { group = "androidx.room", name = "room-runtime", version = "2.6.1" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version = "2.6.1" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version = "2.6.1" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
