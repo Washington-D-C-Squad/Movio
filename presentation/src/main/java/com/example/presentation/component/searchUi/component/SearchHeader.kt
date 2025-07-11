@@ -1,4 +1,4 @@
-package com.example.movio.component
+package com.example.presentation.component.searchUi.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -11,9 +11,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import com.example.designsystem.AppTheme
 import com.example.designsystem.component.MovioButton
 import com.example.designsystem.component.MovioIcon
+import com.example.designsystem.component.MovioText
+import androidx.compose.foundation.text.BasicTextField
 import com.example.designsystem.R as DesignSystemR
 
 @Composable
@@ -32,17 +31,15 @@ fun SearchHeader(
     searchQuery: String,
     onSearchChange: (String) -> Unit,
     onClear: () -> Unit,
-    onSubmit: () -> Unit,
-    onBack: () -> Unit = {},
-    onFocus: () -> Unit = {}
+    onSubmit: () -> Unit
 ) {
     Column(
         modifier = Modifier
             .padding(horizontal = AppTheme.spacing.large, vertical = AppTheme.spacing.medium)
     ) {
-        Text(
+        MovioText(
             text = "Search",
-            style = AppTheme.textStyle.headLine.largeBold18,
+            textStyle = AppTheme.textStyle.headLine.largeBold18,
             color = AppTheme.colors.surfaceColor.onSurface,
             modifier = Modifier.padding(bottom = 8.dp)
         )
@@ -57,35 +54,34 @@ fun SearchHeader(
                 .padding(horizontal = AppTheme.spacing.medium, vertical = AppTheme.spacing.small)
         ) {
             MovioIcon(
-                painter = painterResource(id = com.example.movio.R.drawable.clock), // Replace with your search icon drawable
+                painter = painterResource(id = DesignSystemR.drawable.outline_clock_circle),
                 contentDescription = stringResource(id = DesignSystemR.string.search_content_description),
                 tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
                 modifier = Modifier.size(AppTheme.spacing.large)
             )
             Spacer(modifier = Modifier.width(AppTheme.spacing.small))
-            TextField(
+            BasicTextField(
                 value = searchQuery,
                 onValueChange = onSearchChange,
-                placeholder = { Text("Search", color = AppTheme.colors.surfaceColor.onSurfaceVariant) },
                 singleLine = true,
-                colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedContainerColor = Color.Transparent,
-                    disabledContainerColor = Color.Transparent,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    disabledIndicatorColor = Color.Transparent,
-                    focusedTextColor = AppTheme.colors.surfaceColor.onSurface,
-                    unfocusedTextColor = AppTheme.colors.surfaceColor.onSurface
+                textStyle = AppTheme.textStyle.body.medium14.copy(color = AppTheme.colors.surfaceColor.onSurface),
+                keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
+                keyboardActions = KeyboardActions(
+                    onSearch = { onSubmit() }
                 ),
                 modifier = Modifier
                     .weight(1f)
                     .padding(horizontal = 4.dp),
-                textStyle = AppTheme.textStyle.body.medium14,
-                keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
-                keyboardActions = KeyboardActions(
-                    onSearch = { onSubmit() }
-                )
+                decorationBox = { innerTextField ->
+                    if (searchQuery.isEmpty()) {
+                        MovioText(
+                            text = "Search",
+                            textStyle = AppTheme.textStyle.body.medium14,
+                            color = AppTheme.colors.surfaceColor.onSurfaceVariant
+                        )
+                    }
+                    innerTextField()
+                }
             )
             MovioButton(
                 onClick = onClear,
@@ -93,7 +89,7 @@ fun SearchHeader(
                 color = AppTheme.colors.surfaceColor.surfaceVariant
             ) {
                 MovioIcon(
-                    painter = painterResource(id = com.example.movio.R.drawable.delete), // Replace with your close icon drawable
+                    painter = painterResource(id = DesignSystemR.drawable.trash),
                     contentDescription = stringResource(id = DesignSystemR.string.clear_content_description),
                     tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
                     modifier = Modifier.size(AppTheme.spacing.large)

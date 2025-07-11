@@ -1,4 +1,4 @@
-package com.example.movio.screens
+package com.example.presentation.component.searchListUi
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -11,16 +11,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.domain.RecentSearchItem
-import com.example.movio.component.RecentSearchList
-import com.example.movio.component.SearchHeader
-import androidx.compose.ui.platform.LocalContext
+import com.example.presentation.component.searchUi.component.RecentSearchList
+import com.example.presentation.component.searchUi.component.SearchHeader
 import com.example.data.InMemoryRecentSearchRepository
 
 @Composable
@@ -61,9 +58,7 @@ fun SearchScreen() {
                         e.printStackTrace()
                     }
                 }
-            },
-            onBack = {},
-            onFocus = {}
+            }
         )
         Spacer(modifier = Modifier.height(8.dp))
         RecentSearchList(

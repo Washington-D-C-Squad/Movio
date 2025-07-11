@@ -12,6 +12,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("org.jetbrains.kotlin.kapt")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
 
@@ -97,32 +98,35 @@ tasks.register<JacocoReport>("jacocoTestReport") {
     })
 }
 
-    dependencies {
+dependencies {
 
-        implementation(libs.androidx.core.ktx)
-        implementation(libs.androidx.lifecycle.runtime.ktx)
-        implementation(libs.androidx.activity.compose)
-        implementation(platform(libs.androidx.compose.bom))
-        implementation(libs.androidx.ui)
-        implementation(libs.androidx.ui.graphics)
-        implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
 
-        implementation("androidx.compose.foundation:foundation")
+    implementation("androidx.compose.foundation:foundation")
 
-        //firebase
-        implementation("com.google.firebase:firebase-analytics")
-        implementation(platform("com.google.firebase:firebase-bom:33.16.0"))
-        implementation("com.google.firebase:firebase-crashlytics-ndk")
-        testImplementation(libs.junit)
-        androidTestImplementation(libs.androidx.junit)
-        androidTestImplementation(libs.androidx.espresso.core)
-        androidTestImplementation(platform(libs.androidx.compose.bom))
-        androidTestImplementation(libs.androidx.ui.test.junit4)
-        debugImplementation(libs.androidx.ui.tooling)
-        debugImplementation(libs.androidx.ui.test.manifest)
-        implementation(project(":designSystem"))
-        implementation(project(":detectImageContent"))
-        implementation(project(":domain"))
-        implementation(project(":data"))
-        implementation(project(":presentation"))
-    }
+    //firebase
+    implementation("com.google.firebase:firebase-analytics")
+    implementation(platform("com.google.firebase:firebase-bom:33.16.0"))
+    implementation("com.google.firebase:firebase-crashlytics-ndk")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(project(":designSystem"))
+    implementation(project(":detectImageContent"))
+    implementation(project(":domain"))
+    implementation(project(":data"))
+    implementation(project(":presentation"))
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    kapt(libs.room.compiler)
+}

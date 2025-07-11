@@ -1,4 +1,4 @@
-package com.example.movio.component
+package com.example.presentation.component.searchUi.component
 
 
 import androidx.compose.foundation.background
@@ -21,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.example.designsystem.AppTheme
-import com.example.movio.R
 import com.example.designsystem.R as DesignSystemR
 import com.example.designsystem.component.MovioText
 import com.example.designsystem.component.MovioIcon
@@ -99,7 +98,7 @@ private fun RecentSearchItem(
     ) {
 
         MovioIcon(
-            painter = painterResource(id = R.drawable.clock),
+            painter = painterResource(id = DesignSystemR.drawable.outline_clock_circle),
             contentDescription = stringResource(id = DesignSystemR.string.clock_content_description),
             tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
             modifier = Modifier.size(AppTheme.spacing.medium)
@@ -120,7 +119,7 @@ private fun RecentSearchItem(
             color = AppTheme.colors.surfaceColor.surface
         ) {
             MovioIcon(
-                painter = painterResource(id = R.drawable.delete),
+                painter = painterResource(id = DesignSystemR.drawable.trash),
                 contentDescription = stringResource(id = DesignSystemR.string.delete_content_description),
                 tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
                 modifier = Modifier.size(AppTheme.spacing.medium)
