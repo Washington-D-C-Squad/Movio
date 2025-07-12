@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -37,8 +38,19 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.androidx.room.common.jvm)
+    implementation(libs.androidx.room.runtime.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(project(":domain"))
+    implementation ("com.google.code.gson:gson:2.10.1")
+
+    implementation("io.ktor:ktor-client-core:2.3.13")
+    implementation("io.ktor:ktor-client-cio:2.3.13")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.2")
+    implementation("io.insert-koin:koin-core:3.5.3")
+    implementation("io.insert-koin:koin-android:3.5.3")
+
 }
