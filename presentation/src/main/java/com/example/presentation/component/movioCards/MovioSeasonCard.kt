@@ -37,8 +37,8 @@ fun MovioSeasonCard(
     currentSeason:String,
     height: Dp,
     width: Dp,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = Modifier
@@ -50,7 +50,7 @@ fun MovioSeasonCard(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.Top
     ) {
-        BasicImageCard(image = movieImage, height = height, width = width)
+        BasicImageCard(image = movieImage, height = height, radius = AppTheme.radius.small, width = width)
         Column(
             modifier = modifier
                 .height(height)
@@ -161,7 +161,7 @@ private fun MovieDetails(
 
 @Preview(showBackground = true)
 @Composable
-fun seasonCardPreview() {
+private fun seasonCardPreview() {
     AppTheme{
         MovioSeasonCard(
             movieTitle = "Spider-Man: Homecoming",

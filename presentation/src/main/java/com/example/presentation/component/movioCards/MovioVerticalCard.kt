@@ -27,16 +27,16 @@ import com.example.designsystem.AppTheme
 import com.example.designsystem.component.MovioText
 
 @Composable
-fun VerticalMovioCard(
+fun MovioVerticalCard(
     description: String,
     movieImage: Painter,
     rate: String,
-    width: Dp,
-    height: Dp,
-    paddingvalue: Dp = 8.dp,
-    onClick:()->Unit,
     modifier: Modifier = Modifier,
-    ) {
+    width: Dp = 102.dp,
+    height: Dp = 132.dp,
+    onClick: () -> Unit,
+    paddingvalue: Dp = 8.dp
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -58,6 +58,7 @@ fun VerticalMovioCard(
                 image = movieImage,
                 height = height,
                 width = width,
+                radius = AppTheme.radius.small,
                 modifier = Modifier
             )
         }
@@ -77,9 +78,9 @@ fun VerticalMovioCard(
 
 @Preview(showBackground = true)
 @Composable
-fun VerticalCardPreview() {
-    AppTheme{
-        VerticalMovioCard(
+private fun VerticalCardPreview() {
+    AppTheme {
+        MovioVerticalCard(
             "Spider-Man: Homecoming",
             movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
             rate = "3.0",

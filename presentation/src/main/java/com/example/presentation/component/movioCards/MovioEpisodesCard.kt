@@ -27,7 +27,7 @@ import com.example.designsystem.component.MovioIcon
 import com.example.designsystem.component.MovioText
 
 @Composable
-fun EpisodesCard(
+fun MovioEpisodesCard(
     movieTitle: String,
     movieRate: String,
     currentMovieEpisode: String,
@@ -35,8 +35,8 @@ fun EpisodesCard(
     movieImage: Painter,
     height: Dp,
     width: Dp,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = Modifier
@@ -82,7 +82,7 @@ private fun EpisodeMovieImage(
     Box(
         contentAlignment = Alignment.Center
     ) {
-        BasicImageCard(image = movieImage, height = height, width = width)
+        BasicImageCard(image = movieImage, height = height, radius = AppTheme.radius.small, width = width)
         MovioIcon(
             contentDescription = stringResource(
                 com.example.presentation.R.string.bold_video_circle
@@ -134,10 +134,8 @@ private fun NumberOfEpisodes(
         verticalAlignment = Alignment.CenterVertically
     ) {
         MovioText(
-            text = stringResource(
-                id = com.example.presentation.R.string.current_episode,
-                String.format("%02d", numberOfEpisodes)
-            ),
+            text = stringResource(com.example.presentation.R.string.current_episode,
+            numberOfEpisodes),
             textStyle = AppTheme.textStyle.label.smallRegular12,
             color = AppTheme.colors.surfaceColor.onSurfaceContainer
         )
@@ -146,9 +144,9 @@ private fun NumberOfEpisodes(
 
 @Preview(showBackground = true)
 @Composable
-fun EpisodesCardPreview() {
+private fun EpisodesCardPreview() {
     AppTheme {
-        EpisodesCard(
+        MovioEpisodesCard(
             movieTitle = "Spider-Man: Homecoming",
             movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
             movieRate = "3.0",

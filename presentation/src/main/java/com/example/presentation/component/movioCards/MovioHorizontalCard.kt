@@ -24,15 +24,15 @@ import com.example.designsystem.AppTheme
 import com.example.designsystem.component.MovioText
 
 @Composable
-fun HorizontalMovioCard(
+fun MovioHorizontalCard(
     movieTitle: String,
     movieRate: String,
     movieCategory: String,
     movieImage: Painter,
     height: Dp,
     width: Dp,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -43,7 +43,7 @@ fun HorizontalMovioCard(
         horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
     ) {
         BasicImageCard(
-            image = movieImage, height = height, width = width
+            image = movieImage, height = height, radius = AppTheme.radius.small, width = width
         )
         Column(
             modifier = modifier
@@ -87,9 +87,9 @@ private fun MovioCatergory(
 
 @Preview(showBackground = true)
 @Composable
-fun HorizontalCardPreview() {
+private fun HorizontalCardPreview() {
     AppTheme {
-        HorizontalMovioCard(
+        MovioHorizontalCard(
             movieTitle = "Spider-Man: Homecoming",
             movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
             movieRate = "3.0",

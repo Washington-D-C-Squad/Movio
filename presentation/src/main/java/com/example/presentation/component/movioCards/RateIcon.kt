@@ -57,7 +57,7 @@ fun RateIcon(
 
 @Preview(showBackground = true)
 @Composable
-fun RatreIconpreview() {
+private fun RatreIconpreview() {
     RateIcon(
         icon = painterResource(com.example.designsystem.R.drawable.bold_star),
         rate = "5.0",
