@@ -1,8 +1,8 @@
 package com.example.domain
 
 interface RecentSearchRepository {
-    suspend fun getRecentSearches(): List<RecentSearchItem>
-    suspend fun addRecentSearch(item: RecentSearchItem)
-    suspend fun removeRecentSearch(item: RecentSearchItem)
-    suspend fun clearAllRecentSearches()
-} 
+    fun getRecentSearches(): List<RecentSearchItem>
+    fun addRecentSearch(item: RecentSearchItem)
+    fun removeRecentSearch(id: String)
+    fun clearAllRecentSearches()
+}

@@ -10,7 +10,9 @@ import com.example.domain.RecentSearchItem
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-class SearchListViewModel(private val repo: RecentSearchRepository) : ViewModel() {
+class SearchListViewModel(
+    private val repo: RecentSearchRepository
+) : ViewModel() {
     private val _recentSearches = MutableStateFlow<List<RecentSearchItem>>(emptyList())
     val recentSearches: StateFlow<List<RecentSearchItem>> = _recentSearches.asStateFlow()
 
@@ -29,7 +31,7 @@ class SearchListViewModel(private val repo: RecentSearchRepository) : ViewModel(
 
     fun removeRecentSearch(item: RecentSearchItem) {
         viewModelScope.launch {
-            repo.removeRecentSearch(item)
+            repo.removeRecentSearch(item.id.toString())
             loadRecentSearches()
         }
     }

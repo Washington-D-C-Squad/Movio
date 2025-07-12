@@ -1,37 +1,17 @@
 package com.example.data.repositories
 
-import androidx.collection.emptyIntSet
 import com.example.data.dataSource.remote.SearchRemoteSource
-import com.example.domain.RecentSearchRepository
 import com.example.domain.RecentSearchItem
+import com.example.domain.RecentSearchRepository
 import com.example.domain.entity.Artist
 import com.example.domain.entity.Movie
 import com.example.domain.entity.Series
 import com.example.domain.interfaces.SearchRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.withContext
 
-class SearchRepository (
-   private val searchRemoteSource: SearchRemoteSource
-) : RecentSearchRepository , SearchRepository
-{
-    override suspend fun getRecentSearches(): List<RecentSearchItem> {
-        // TODO: Implement actual data source logic
-        return emptyList()
-    }
-
-    override suspend fun addRecentSearch(item: RecentSearchItem) {
-        // TODO: Implement actual data source logic
-    }
-
-    override suspend fun removeRecentSearch(item: RecentSearchItem) {
-        // TODO: Implement actual data source logic
-    }
-
-    override suspend fun clearAllRecentSearches() {
-        // TODO: Implement actual data source logic
-    }
-
+class SearchRepository(
+    private val searchRemoteSource: SearchRemoteSource
+) : RecentSearchRepository, SearchRepository {
     override suspend fun getAllMovie(): List<Movie> {
         TODO("Not yet implemented")
     }
@@ -56,9 +36,9 @@ class SearchRepository (
         TODO("Not yet implemented")
     }
 
-    override suspend fun getSearchedMovie(query: String):Flow <List<Movie> > {
+    override suspend fun getSearchedMovie(query: String): Flow<List<Movie>> {
         return searchRemoteSource.searchMultiMovieDataByName(
-            name =  query,
+            name = query,
             language = "en-US"
         )
     }
@@ -68,6 +48,22 @@ class SearchRepository (
     }
 
     override suspend fun getSearchedArtists(query: String): List<Artist> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getRecentSearches(): List<RecentSearchItem> {
+        return emptyList()
+    }
+
+    override fun addRecentSearch(item: RecentSearchItem) {
+        TODO("Not yet implemented")
+    }
+
+    override fun removeRecentSearch(id: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun clearAllRecentSearches() {
         TODO("Not yet implemented")
     }
 }
