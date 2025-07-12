@@ -57,5 +57,6 @@ dependencies {
     implementation(project(":domain"))
 
     implementation(libs.androidx.navigation.compose)
-
+    implementation("io.insert-koin:koin-android:3.5.3")
+    implementation("io.insert-koin:koin-androidx-compose:3.5.3")
 }
