@@ -10,10 +10,10 @@ import androidx.compose.ui.text.style.TextOverflow
 
 @Composable
 fun MovioText(
-    modifier: Modifier = Modifier,
     text: String,
     color: Color,
     textStyle: TextStyle,
+    modifier: Modifier = Modifier,
     maxLines: Int = Int.MAX_VALUE,
     overflow: TextOverflow = TextOverflow.Ellipsis
 ) {

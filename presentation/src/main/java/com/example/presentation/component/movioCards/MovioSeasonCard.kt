@@ -37,9 +37,9 @@ fun MovioSeasonCard(
     currentSeason:String,
     height: Dp,
     width: Dp,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
-) {
+    ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
