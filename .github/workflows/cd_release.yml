@@ -53,4 +53,5 @@ jobs:
         run: |
           firebase appdistribution:distribute app/build/outputs/apk/release/app-release.apk \
             --app 1:1038392982530:android:1187ed24f9e5829c76bb1b \
-            --release-notes "Automated release from GitHub Actions"
+            --release-notes "Automated release from GitHub Actions" \
+            --groups "release-testers"
