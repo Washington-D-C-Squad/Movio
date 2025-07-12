@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.designsystem.AppTheme
@@ -19,7 +18,7 @@ import com.example.designsystem.component.MovioText
 
 @Composable
 fun MovioArtistsCard(
-    image: Painter,
+    imageUrl: String,
     artistsName: String,
     modifier: Modifier = Modifier,
     width: Dp = 102.dp,
@@ -37,7 +36,7 @@ fun MovioArtistsCard(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             BasicImageCard(
-                image = image,
+                imageUrl = imageUrl,
                 height = 88.dp,
                 width = 88.dp,
                 radius = 100.dp,

@@ -18,10 +18,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.designsystem.AppTheme
 import com.example.designsystem.radius.MovioRadius
+import com.example.presentation.component.filteredImage.FilteredImage
 
 @Composable
 fun BasicImageCard(
-    image: Painter,
+    imageUrl: String,
     height: Dp,
     width: Dp,
     radius: Dp,
@@ -31,8 +32,8 @@ fun BasicImageCard(
         modifier = modifier
             .size(height = height, width = width)
     ) {
-        Image(
-            painter = image,
+        FilteredImage(
+            imageUrl = imageUrl,
             contentDescription = stringResource(
                 com.example.presentation.R.string.moive_image
             ),
@@ -49,8 +50,8 @@ fun BasicImageCard(
 private fun prevcand() {
     AppTheme {
         BasicImageCard(
-            image = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
-            height = 180.dp, width = 158.dp,AppTheme.radius.small
+            imageUrl = painterResource(com.example.designsystem.R.drawable.film_photo_sample).toString(),
+            height = 180.dp, width = 158.dp, AppTheme.radius.small
         )
     }
 }
