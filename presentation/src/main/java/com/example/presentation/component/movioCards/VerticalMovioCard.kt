@@ -25,7 +25,10 @@ fun VerticalMovioCard(
     height: Dp,
     paddingvalue: Dp = 8.dp,
     onClick: () -> Unit,
+    onClick:()->Unit,
     modifier: Modifier = Modifier,
+) {
+    paddingvalue: Dp = 8.dp,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -47,6 +50,10 @@ fun VerticalMovioCard(
             AsyncImage(
                 model = movieImage,
                 contentDescription = description,
+            BasicImageCard(
+                imageUrl = movieImage,
+                height = height,
+                width = width,
                 modifier = Modifier
                     .width(width)
                     .height(height)
@@ -74,6 +81,8 @@ fun VerticalCardPreview() {
         VerticalMovioCard(
             description = "Spider-Man: Homecoming",
             movieImage = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
+            "Spider-Man: Homecoming",
+            movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample).toString(),
             rate = "3.0",
             width = 180.dp,
             height = 150.dp,

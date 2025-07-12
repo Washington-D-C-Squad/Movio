@@ -5,4 +5,4 @@ interface RecentSearchRepository {
     fun addRecentSearch(item: RecentSearchItem)
     fun removeRecentSearch(id: String)
     fun clearAllRecentSearches()
-} 
+}

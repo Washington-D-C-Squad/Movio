@@ -28,7 +28,7 @@ fun HorizontalMovioCard(
     movieTitle: String,
     movieRate: String,
     movieCategory: String,
-    movieImage: Painter,
+    movieImageUrl: String,
     height: Dp,
     width: Dp,
     modifier: Modifier = Modifier,
@@ -43,7 +43,7 @@ fun HorizontalMovioCard(
         horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
     ) {
         BasicImageCard(
-            image = movieImage, height = height, width = width
+            imageUrl = movieImageUrl, height = height, width = width
         )
         Column(
             modifier = modifier
@@ -91,7 +91,7 @@ fun HorizontalCardPreview() {
     AppTheme {
         HorizontalMovioCard(
             movieTitle = "Spider-Man: Homecoming",
-            movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
+            movieImageUrl = painterResource(com.example.designsystem.R.drawable.film_photo_sample).toString(),
             movieRate = "3.0",
             width = 180.dp,
             height = 150.dp,

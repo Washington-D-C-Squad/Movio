@@ -51,7 +51,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
+    implementation(libs.koin.compose.viewmodel)
     implementation(project(":designSystem"))
     implementation(project(":detectImageContent"))
     implementation(project(":domain"))
@@ -61,4 +61,6 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.6.0")
     implementation("io.insert-koin:koin-androidx-compose:3.5.3")
 
+    implementation("io.insert-koin:koin-android:3.5.3")
+    implementation("io.insert-koin:koin-androidx-compose:3.5.3")
 }

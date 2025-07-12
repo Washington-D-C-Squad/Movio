@@ -32,7 +32,7 @@ fun EpisodesCard(
     movieRate: String,
     currentMovieEpisode: String,
     movieTime: String,
-    movieImage: Painter,
+    movieImageUrl: String,
     height: Dp,
     width: Dp,
     modifier: Modifier = Modifier,
@@ -47,7 +47,7 @@ fun EpisodesCard(
         horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
         verticalAlignment = Alignment.Top
     ) {
-        EpisodeMovieImage(movieImage = movieImage, height = height, width = width)
+        EpisodeMovieImage(movieImageUrl = movieImageUrl, height = height, width = width)
         Column(
             modifier = modifier
                 .height(height)
@@ -76,13 +76,16 @@ fun EpisodesCard(
 
 @Composable
 private fun EpisodeMovieImage(
-    movieImage: Painter,
+    movieImageUrl: String,
     height: Dp, width: Dp
 ) {
     Box(
         contentAlignment = Alignment.Center
     ) {
-        BasicImageCard(image = movieImage, height = height, width = width)
+        BasicImageCard(
+            imageUrl = movieImageUrl,
+            height = height, width = width
+        )
         MovioIcon(
             contentDescription = stringResource(
                 com.example.presentation.R.string.bold_video_circle
@@ -150,7 +153,7 @@ fun EpisodesCardPreview() {
     AppTheme {
         EpisodesCard(
             movieTitle = "Spider-Man: Homecoming",
-            movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
+            movieImageUrl = painterResource(com.example.designsystem.R.drawable.film_photo_sample).toString(),
             movieRate = "3.0",
             width = 100.dp,
             height = 74.dp,
