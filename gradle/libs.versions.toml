@@ -16,6 +16,8 @@ navigationCompose = "2.9.0"
 material3 = "1.3.2"
 material3AdaptiveNavigationSuite = "1.4.0-alpha16"
 material3WindowSizeClass = "1.3.2"
+roomCommonJvm = "2.7.2"
+roomRuntimeAndroid = "2.7.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,6 +41,8 @@ material = { group = "com.google.android.material", name = "material", version.r
 material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
 ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+androidx-room-common-jvm = { group = "androidx.room", name = "room-common-jvm", version.ref = "roomCommonJvm" }
+androidx-room-runtime-android = { group = "androidx.room", name = "room-runtime-android", version.ref = "roomRuntimeAndroid" }
 
 
 [plugins]
