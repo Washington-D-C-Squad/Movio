@@ -1,6 +1,7 @@
 package com.example.data.dataSource.remote
 
 import android.util.Log
+import com.example.data.dataSource.remote.dto.artists.ArtistApiResponse
 import com.example.data.dataSource.remote.dto.multi.MultiApiResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
@@ -8,6 +9,8 @@ import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.statement.bodyAsText
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.json.Json
 
 
@@ -23,18 +26,38 @@ class SearchRemoteDataSource (
     override suspend fun searchMultiMovieDataByName(
         name: String,
         language: String ,
-    ) {
+    ): Flow<MultiApiResponse> {
+        val res = client
+            .get(
+            "https://api.themoviedb.org/3/search/person?language=$language&page=1&query=$name&api_key=b77ea619291736aea2b7740de4f6bfdc"
+            )
+        val json = Json {
+            ignoreUnknownKeys = true
+        }
+        return flow {
+            emit(
+                json.decodeFromString<MultiApiResponse>(res.bodyAsText())
+            )
+        }
 
-        val res = client.get("https://api.themoviedb.org/3/search/person?language=en-US&page=1&query=moha&api_key=b77ea619291736aea2b7740de4f6bfdc")
-        val result = Json.decodeFromString<MultiApiResponse>(res.bodyAsText())
-        Log.e("MY_TAG",result.toString())
     }
 
     override suspend fun searchPersonByName(
         name: String,
-        language: String ,
-    ) {
-
+        language: String
+    ): Flow<ArtistApiResponse> {
+        val res = client
+            .get(
+                "https://api.themoviedb.org/3/search/person?language=$language&page=1&query=$name&api_key=b77ea619291736aea2b7740de4f6bfdc"
+            )
+        val json = Json {
+            ignoreUnknownKeys = true
+        }
+        return flow {
+            emit(
+                json.decodeFromString<ArtistApiResponse>(res.bodyAsText())
+            )
+        }
     }
 
 }
