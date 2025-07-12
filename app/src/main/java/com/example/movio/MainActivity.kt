@@ -20,27 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             AppTheme (){
 
-                val x = SearchRemoteDataSource()
-                runBlocking {
-                    GlobalScope.launch {
-                        try {
-                            x.searchPersonByName(
-                                name = "hi",
-                                language = "en-US"
-                            ).collect {
-                                withContext(Dispatchers.Main) {
-                                    Log.e("MY_TAG" , it.toString())
-                                }
-                            }
-                        }catch (e: Exception){
-                            Log.e("MY_TAG" , e.toString())
 
-                        }
-
-
-
-                    }
-                }
             }
 
         }
