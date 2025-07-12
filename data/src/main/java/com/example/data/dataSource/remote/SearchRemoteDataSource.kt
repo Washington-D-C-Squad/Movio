@@ -3,6 +3,7 @@ package com.example.data.dataSource.remote
 import android.util.Log
 import com.example.data.dataSource.remote.dto.artists.ArtistApiResponse
 import com.example.data.dataSource.remote.dto.multi.MultiApiResponse
+import com.example.domain.entity.Movie
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.defaultRequest
@@ -26,7 +27,7 @@ class SearchRemoteDataSource (
     override suspend fun searchMultiMovieDataByName(
         name: String,
         language: String ,
-    ): Flow<MultiApiResponse> {
+    ): Flow<List<Movie>>{
         val res = client
             .get(
             "https://api.themoviedb.org/3/search/person?language=$language&page=1&query=$name&api_key=b77ea619291736aea2b7740de4f6bfdc"
@@ -36,7 +37,13 @@ class SearchRemoteDataSource (
         }
         return flow {
             emit(
-                json.decodeFromString<MultiApiResponse>(res.bodyAsText())
+                json.decodeFromString<MultiApiResponse>(res.bodyAsText()).results.map {
+                    Movie(
+                        title = it.name,
+                        imageUrl =" https://image.tmdb.org/t/p/w500$it.profilePath",
+                        rate = it.popularity
+                    )
+                }
             )
         }
 

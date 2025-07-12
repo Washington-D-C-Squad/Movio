@@ -1,14 +1,18 @@
 package com.example.data.repositories
 
+import androidx.collection.emptyIntSet
+import com.example.data.dataSource.remote.SearchRemoteSource
 import com.example.domain.RecentSearchRepository
 import com.example.domain.RecentSearchItem
 import com.example.domain.entity.Artist
 import com.example.domain.entity.Movie
 import com.example.domain.entity.Series
 import com.example.domain.interfaces.SearchRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 
 class SearchRepository (
-
+   private val searchRemoteSource: SearchRemoteSource
 ) : RecentSearchRepository , SearchRepository
 {
     override suspend fun getRecentSearches(): List<RecentSearchItem> {
@@ -52,8 +56,11 @@ class SearchRepository (
         TODO("Not yet implemented")
     }
 
-    override suspend fun getSearchedMovie(query: String): List<Movie> {
-        TODO("Not yet implemented")
+    override suspend fun getSearchedMovie(query: String):Flow <List<Movie> > {
+        return searchRemoteSource.searchMultiMovieDataByName(
+            name =  query,
+            language = "en-US"
+        )
     }
 
     override suspend fun getSearchedSeries(query: String): List<Series> {

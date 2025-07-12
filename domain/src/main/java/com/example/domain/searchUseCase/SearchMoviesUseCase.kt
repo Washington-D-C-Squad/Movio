@@ -2,6 +2,7 @@ package com.example.domain.searchUseCase
 
 import com.example.domain.entity.Movie
 import com.example.domain.interfaces.SearchRepository
+import kotlinx.coroutines.flow.Flow
 
 class SearchMoviesUseCase(
     private val repository: SearchRepository
@@ -18,7 +19,7 @@ class SearchMoviesUseCase(
         return repository.getTopResults(query)
     }
 
-    suspend fun getSearchedMovie(query: String): List<Movie> {
+    suspend fun getSearchedMovie(query: String): Flow<List<Movie>> {
         return repository.getSearchedMovie(query)
     }
 }
