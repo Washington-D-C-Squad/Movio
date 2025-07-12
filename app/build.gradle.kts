@@ -125,4 +125,5 @@ tasks.register<JacocoReport>("jacocoTestReport") {
         implementation(project(":domain"))
         implementation(project(":data"))
         implementation(project(":presentation"))
+        implementation("io.insert-koin:koin-android:3.5.3")
     }
