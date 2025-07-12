@@ -1,9 +1,17 @@
 package com.example.presentation.di
 
-import org.koin.androidx.viewmodel.dsl.viewModel
+import com.example.domain.searchUseCase.SearchMoviesUseCase
 import org.koin.dsl.module
-import com.example.presentation.SearchViewModel
+import org.koin.core.module.dsl.viewModel
+
+
 
 val presentationModule = module {
-    viewModel { SearchViewModel() }
+//    viewModel {
+//        SearchViewModel(get())
+//    }
+
+//    single {
+//        SearchMoviesUseCase(get())
+//    }
 } 
