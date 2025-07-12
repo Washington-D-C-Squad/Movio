@@ -130,23 +130,8 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     kapt(libs.room.compiler)
+
+    //firebase
+    implementation("io.insert-koin:koin-android:3.5.3")
+    implementation("io.insert-koin:koin-androidx-compose:3.5.3")
 }
-        //firebase
-        implementation("com.google.firebase:firebase-analytics")
-        implementation(platform("com.google.firebase:firebase-bom:33.16.0"))
-        implementation("com.google.firebase:firebase-crashlytics-ndk")
-        testImplementation(libs.junit)
-        androidTestImplementation(libs.androidx.junit)
-        androidTestImplementation(libs.androidx.espresso.core)
-        androidTestImplementation(platform(libs.androidx.compose.bom))
-        androidTestImplementation(libs.androidx.ui.test.junit4)
-        debugImplementation(libs.androidx.ui.tooling)
-        debugImplementation(libs.androidx.ui.test.manifest)
-        implementation(project(":designSystem"))
-        implementation(project(":detectImageContent"))
-        implementation(project(":domain"))
-        implementation(project(":data"))
-        implementation(project(":presentation"))
-        implementation("io.insert-koin:koin-android:3.5.3")
-        implementation("io.insert-koin:koin-androidx-compose:3.5.3")
-    }

@@ -56,12 +56,12 @@ fun RecentSearchList(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 MovioText(
-                    text = stringResource(id = DesignSystemR.string.recent_search),
+                    text = "recent search " , // stringResource(id = DesignSystemR.string.recent_search),
                     textStyle = AppTheme.textStyle.headLine.medium18,
                     color = AppTheme.colors.surfaceColor.onSurface
                 )
                 MovioText(
-                    text = stringResource(id = DesignSystemR.string.clear_all),
+                    text = "clear all ", // stringResource(id = DesignSystemR.string.clear_all),
                     textStyle = AppTheme.textStyle.body.medium14,
                     color = AppTheme.colors.surfaceColor.onSurfaceVariant,
                     modifier = Modifier.clickable { onClearAll() }
@@ -99,7 +99,7 @@ private fun RecentSearchItem(
 
         MovioIcon(
             painter = painterResource(id = DesignSystemR.drawable.outline_clock_circle),
-            contentDescription = stringResource(id = DesignSystemR.string.clock_content_description),
+            contentDescription = "description " , //stringResource(id = DesignSystemR.string.clock_content_description),
             tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
             modifier = Modifier.size(AppTheme.spacing.medium)
         )
@@ -120,7 +120,7 @@ private fun RecentSearchItem(
         ) {
             MovioIcon(
                 painter = painterResource(id = DesignSystemR.drawable.trash),
-                contentDescription = stringResource(id = DesignSystemR.string.delete_content_description),
+                contentDescription = "delete content description" , //stringResource(id = DesignSystemR.string.delete_content_description),
                 tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
                 modifier = Modifier.size(AppTheme.spacing.medium)
             )

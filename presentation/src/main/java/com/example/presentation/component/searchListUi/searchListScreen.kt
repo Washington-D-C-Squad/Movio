@@ -47,7 +47,7 @@ fun SearchScreen() {
                     try {
                         viewModel.addRecentSearch(
                             RecentSearchItem(
-                                id = System.currentTimeMillis().toString(),
+                                id = System.currentTimeMillis(),
                                 query = searchQuery,
                                 timestamp = System.currentTimeMillis()
                             )
@@ -67,7 +67,7 @@ fun SearchScreen() {
             onRemoveItem = { queryToRemove ->
                 val item = recentSearches.find { it.query == queryToRemove }
                 if (item != null) {
-                    viewModel.removeRecentSearch(item.id)
+                    viewModel.removeRecentSearch(item.id.toString())
                 }
             },
             onClearAll = {

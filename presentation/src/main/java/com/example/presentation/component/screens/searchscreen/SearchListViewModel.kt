@@ -29,7 +29,7 @@ class SearchListViewModel(private val repo: RecentSearchRepository) : ViewModel(
 
     fun removeRecentSearch(item: RecentSearchItem) {
         viewModelScope.launch {
-            repo.removeRecentSearch(item)
+            repo.removeRecentSearch(item.id.toString())
             loadRecentSearches()
         }
     }

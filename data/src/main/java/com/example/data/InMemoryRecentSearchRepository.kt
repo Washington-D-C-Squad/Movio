@@ -14,7 +14,7 @@ class InMemoryRecentSearchRepository : RecentSearchRepository {
     }
 
     override fun removeRecentSearch(id: String) {
-        items.removeAll { it.id == id }
+        items.removeAll { it.id.toString() == id }
     }
 
     override fun clearAllRecentSearches() {
