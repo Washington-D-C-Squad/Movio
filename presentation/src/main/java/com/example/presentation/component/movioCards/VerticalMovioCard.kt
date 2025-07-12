@@ -29,14 +29,14 @@ import com.example.designsystem.component.MovioText
 @Composable
 fun VerticalMovioCard(
     description: String,
-    movieImage: Painter,
+    movieImage: String,
     rate: String,
     width: Dp,
     height: Dp,
-    paddingvalue: Dp = 8.dp,
     onClick:()->Unit,
     modifier: Modifier = Modifier,
-    ) {
+    paddingvalue: Dp = 8.dp,
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -55,7 +55,7 @@ fun VerticalMovioCard(
                 RateIcon(rate = rate, tint = AppTheme.colors.systemColors.warning)
             }
             BasicImageCard(
-                image = movieImage,
+                imageUrl = movieImage,
                 height = height,
                 width = width,
                 modifier = Modifier
@@ -81,7 +81,7 @@ fun VerticalCardPreview() {
     AppTheme{
         VerticalMovioCard(
             "Spider-Man: Homecoming",
-            movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
+            movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample).toString(),
             rate = "3.0",
             width = 180.dp,
             height = 150.dp,

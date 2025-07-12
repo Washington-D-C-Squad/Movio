@@ -31,26 +31,26 @@ fun MovioSeasonCard(
     movieTitle: String,
     movieRate: String,
     totalNumberOfEpisodes: String,
-    movieImage: Painter,
+    movieImage: String,
     yearOfPublish:String,
     timeOfPublish:String,
     currentSeason:String,
     height: Dp,
     width: Dp,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
-) {
+    ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 8.dp)
-             .clip(RoundedCornerShape(AppTheme.radius.small))
-             .clickable { onClick() }
+            .clip(RoundedCornerShape(AppTheme.radius.small))
+            .clickable { onClick() }
         ,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.Top
     ) {
-        BasicImageCard(image = movieImage, height = height, width = width)
+        BasicImageCard(imageUrl = movieImage, height = height, width = width)
         Column(
             modifier = modifier
                 .height(height)
@@ -165,7 +165,7 @@ fun seasonCardPreview() {
     AppTheme{
         MovioSeasonCard(
             movieTitle = "Spider-Man: Homecoming",
-            movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
+            movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample).toString(),
             movieRate =" 3.0",
             width = 100.dp,
             height = 74.dp,

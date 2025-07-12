@@ -22,8 +22,9 @@ fun FilterbBar(
     items : List<String>,
     selectedItem : String,
     onItemClick : (String) -> Unit,
+    modifier: Modifier = Modifier,
     scrollable: Boolean = true,
-    modifier: Modifier = Modifier) {
+) {
     if (scrollable){
         LazyRow(
             modifier=modifier,
