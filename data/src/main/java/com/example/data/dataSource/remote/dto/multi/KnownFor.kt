@@ -1,39 +1,38 @@
 package com.example.data.dataSource.remote.dto.multi
 
-
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class KnownFor(
-    @SerializedName("adult")
+    @SerialName("adult")
     val adult: Boolean?,
-    @SerializedName("backdrop_path")
+    @SerialName("backdrop_path")
     val backdropPath: String?,
-    @SerializedName("genre_ids")
+    @SerialName("genre_ids")
     val genreIds: List<Int?>?,
-    @SerializedName("id")
+    @SerialName("id")
     val id: Int?,
-    @SerializedName("media_type")
+    @SerialName("media_type")
     val mediaType: String?,
-    @SerializedName("original_language")
+    @SerialName("original_language")
     val originalLanguage: String?,
-    @SerializedName("original_title")
+    @SerialName("original_title")
     val originalTitle: String?,
-    @SerializedName("overview")
+    @SerialName("overview")
     val overview: String?,
-    @SerializedName("popularity")
+    @SerialName("popularity")
     val popularity: Double?,
-    @SerializedName("poster_path")
+    @SerialName("poster_path")
     val posterPath: String?,
-    @SerializedName("release_date")
+    @SerialName("release_date")
     val releaseDate: String?,
-    @SerializedName("title")
+    @SerialName("title")
     val title: String?,
-    @SerializedName("video")
+    @SerialName("video")
     val video: Boolean?,
-    @SerializedName("vote_average")
+    @SerialName("vote_average")
     val voteAverage: Double?,
-    @SerializedName("vote_count")
+    @SerialName("vote_count")
     val voteCount: Int?
 )

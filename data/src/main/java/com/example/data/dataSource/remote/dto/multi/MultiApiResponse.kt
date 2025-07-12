@@ -1,17 +1,16 @@
 package com.example.data.dataSource.remote.dto.multi
 
-
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class MultiApiResponse(
-    @SerializedName("page")
+    @SerialName("page")
     val page: Int?,
-    @SerializedName("results")
+    @SerialName("results")
     val results: List<Result?>?,
-    @SerializedName("total_pages")
+    @SerialName("total_pages")
     val totalPages: Int?,
-    @SerializedName("total_results")
+    @SerialName("total_results")
     val totalResults: Int?
 )
