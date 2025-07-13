@@ -16,7 +16,6 @@ import com.example.designsystem.AppTheme
 import com.example.designsystem.R
 import com.example.designsystem.component.MovioIcon
 import com.example.designsystem.component.MovioText
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Column
 
 @Composable
