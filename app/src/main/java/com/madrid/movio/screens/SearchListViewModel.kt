@@ -1,4 +1,4 @@
-package com.example.movio.screens
+package com.madrid.movio.screens
 
 import androidx.lifecycle.ViewModel
 import com.example.domain.RecentSearchItem

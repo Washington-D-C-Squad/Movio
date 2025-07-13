@@ -1,4 +1,4 @@
-package com.example.movio
+package com.madrid.movio
 
 import com.example.data.dataSource.local.SearchLocalDataSource
 import com.example.data.dataSource.local.SearchLocalSource

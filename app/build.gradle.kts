@@ -20,11 +20,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.movio"
+    namespace = "com.madrid.movio"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.movio"
+        applicationId = "com.madrid.movio"
         minSdk = 26
         targetSdk = 36
         versionCode = 1
