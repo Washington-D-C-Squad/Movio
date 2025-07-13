@@ -1,4 +1,4 @@
-package com.example.movio
+package com.madrid.movio
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
