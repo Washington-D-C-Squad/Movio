@@ -12,7 +12,7 @@ import com.example.domain.searchUseCase.SearchArtistUseCase
 import com.example.domain.searchUseCase.SearchMoviesUseCase
 import com.example.domain.searchUseCase.SearchSeriesUseCase
 import com.example.presentation.component.filteredImage.FilteredImageViewModel
-import com.example.presentation.component.screens.searchscreen.SearchListViewModel
+import com.example.presentation.component.searchListUi.SearchListViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
@@ -26,7 +26,7 @@ val app = module {
     single<SearchRemoteSource> { SearchRemoteDataSource() }
 
     // presentation
-    viewModel { SearchListViewModel(get()) }
+    viewModel { SearchListViewModel() }
     viewModel { FilteredImageViewModel(get(), get()) }
     //domain
     single { SearchArtistUseCase(get()) }
