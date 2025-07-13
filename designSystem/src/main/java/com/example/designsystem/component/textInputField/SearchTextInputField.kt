@@ -3,7 +3,6 @@ package com.example.designsystem.component.textInputField
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,7 +34,7 @@ fun SearchTextInputField(
     modifier: Modifier = Modifier,
     onClear: () -> Unit = {},
     startIconPainter: Painter = painterResource(id = R.drawable.search_normal),
-    endIconPainter: Painter = painterResource(id = R.drawable.outline_add), // Use the X icon drawable here
+    endIconPainter: Painter = painterResource(id = R.drawable.outline_add),
     backgroundColor: Color = AppTheme.colors.surfaceColor.surfaceContainer,
     iconColor: Color = AppTheme.colors.surfaceColor.onSurfaceVariant,
     hintColor: Color = AppTheme.colors.surfaceColor.onSurfaceContainer,
@@ -50,7 +49,7 @@ fun SearchTextInputField(
         modifier = modifier
             .height(48.dp)
             .width(360.dp)
-            .background(backgroundColor, RoundedCornerShape(16.dp)), // No shadow or elevation
+            .background(backgroundColor, RoundedCornerShape(16.dp)),
         decorationBox = { innerTextField ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,

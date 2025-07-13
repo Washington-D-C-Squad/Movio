@@ -13,6 +13,8 @@ import com.example.designsystem.AppTheme
 import com.example.designsystem.component.MovioText
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Column
+import androidx.compose.ui.res.stringResource
+import com.example.designsystem.R
 
 @Composable
 fun RecentSearchHeader(
@@ -27,13 +29,13 @@ fun RecentSearchHeader(
         verticalAlignment = Alignment.CenterVertically
     ) {
         MovioText(
-            text = "Recent Search",
+            text = stringResource(id = R.string.recent_search),
             textStyle = AppTheme.textStyle.title.medium16,
             color = AppTheme.colors.surfaceColor.onSurface
         )
         Spacer(modifier = Modifier.weight(1f))
         MovioText(
-            text = "Clear all",
+            text = stringResource(id = R.string.clear_all),
             textStyle = AppTheme.textStyle.label.smallRegular14,
             color = AppTheme.colors.surfaceColor.onSurfaceVariant,
             modifier = Modifier
