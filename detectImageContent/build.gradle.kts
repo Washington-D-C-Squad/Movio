@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.detectimagecontent"
+    namespace = "com.madrid.detectimagecontent"
     compileSdk = 36
 
     defaultConfig {
