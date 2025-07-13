@@ -14,10 +14,10 @@ import com.example.designsystem.AppTheme
 @Composable
 fun CustomTextTitel(
     primaryText: String,
+    modifier: Modifier = Modifier,
     secondaryText: String? = null,
     endIcon: Painter? = null,
     onSeeAllClick: (() -> Unit)? = null,
-    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
@@ -52,15 +52,5 @@ fun CustomTextTitel(
         }
     }
 }
-//@Preview(showBackground = true , showSystemUi = true)
-//@Composable
-//fun PreviewCustomTextTitel() {
-//    CustomTextTitel(
-//        primaryText = "Popular Movies",
-//        secondaryText = "See all",
-//        endIcon = painterResource(com.example.designsystem.R.drawable.outline_alt_arrow_left),
-//        onSeeAllClick = { /* Handle click */ }
-//    )
-//}
 
 

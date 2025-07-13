@@ -2,6 +2,7 @@ package com.example.designsystem.component
 
 import androidx.camera.core.Preview
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -19,6 +20,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
@@ -78,11 +80,19 @@ fun FilterChip(
         style = AppTheme.textStyle.body.medium14
     )
     val textWidthDp = with(density) { textLayoutResult.size.width.toDp() }
-    val textColor =
-        if (isSelected) AppTheme.colors.surfaceColor.surface else AppTheme.colors.surfaceColor.onSurfaceVariant
+    val targetColor = if (isSelected) {
+        AppTheme.colors.surfaceColor.surface
+    } else {
+        AppTheme.colors.surfaceColor.onSurfaceVariant
+    }
+
+    val textColor by animateColorAsState(
+        targetValue = targetColor,
+        label = "FilterChipTextColor"
+    )
     Box(
         modifier = modifier
-            // .clip(RoundedCornerShape(AppTheme.radius.medium))
+
             .clickable(onClick = onClick)
             .padding(horizontal = AppTheme.spacing.medium, vertical = AppTheme.spacing.small)
     ) {
@@ -108,11 +118,8 @@ fun FilterChip(
     }
 }@Composable
 fun underlineGlowBrush(): Brush {
-    val isDark = isSystemInDarkTheme()
-    val glowColor = if (isDark)
-        Color.White
-    else
-        AppTheme.colors.brandColors.onPrimaryContainer
+    val glowColor = AppTheme.colors.brandColors.onPrimaryContainer
+
     return Brush.horizontalGradient(
         colors = listOf(
             glowColor.copy(alpha = 0f),
@@ -121,13 +128,3 @@ fun underlineGlowBrush(): Brush {
         )
     )
 }
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable() fun FilterBarPreview() {
-//
-//    FilterbBar(
-//        items = listOf("All", "Movies", "Column", "Documentaries"),
-//        selectedItem = "All",
-//        onItemClick = {}
-//    )
-//
-//}
