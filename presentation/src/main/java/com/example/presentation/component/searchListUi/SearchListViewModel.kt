@@ -18,10 +18,6 @@ class SearchListViewModel : ViewModel() {
     private val _recentSearches = MutableStateFlow<List<RecentSearchItem>>(emptyList())
     val recentSearches: StateFlow<List<RecentSearchItem>> = _recentSearches.asStateFlow()
 
-    fun loadRecentSearches() {
-        // No-op, as state is always up to date in memory
-    }
-
     fun addRecentSearch(query: String) {
         viewModelScope.launch {
             val now = System.currentTimeMillis()
