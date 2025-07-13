@@ -1,53 +1,59 @@
 package com.example.designsystem.component
+
+import androidx.camera.core.Preview
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.unit.dp
 import com.example.designsystem.AppTheme
-
-
-
 @Composable
 fun FilterbBar(
-    items : List<String>,
-    selectedItem : String,
-    onItemClick : (String) -> Unit,
+    items: List<String>,
+    selectedItem: String,
+    onItemClick: (String) -> Unit,
     modifier: Modifier = Modifier,
     scrollable: Boolean = true,
 ) {
-    if (scrollable){
+    if (scrollable) {
         LazyRow(
-            modifier=modifier,
+            modifier = modifier,
             horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
             contentPadding = PaddingValues(horizontal = AppTheme.spacing.medium),
-
-        ){
-
-            items(items){
-                item ->
+            ) {
+            items(items) { item ->
                 FilterChip(
                     text = item,
                     isSelected = item == selectedItem,
-                    onClick = { onItemClick(item) },
-
-                )
+                    onClick = { onItemClick(item) })
             }
         }
-    }
-    else{
-
-        Row (modifier = modifier
-            .padding(horizontal = AppTheme.spacing.medium)){
+    } else {
+        Row(
+            modifier = modifier
+                .padding(horizontal = AppTheme.spacing.medium)
+        ) {
             items.forEach { item ->
                 FilterChip(
                     text = item,
@@ -57,8 +63,6 @@ fun FilterbBar(
             }
         }
     }
-
-
 }
 @Composable
 fun FilterChip(
@@ -67,21 +71,63 @@ fun FilterChip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val backgroundColor = if (isSelected) AppTheme.colors.brandColors.primary else AppTheme.colors.surfaceColor.onSurfaceContainer
-    val textColor = if (isSelected) AppTheme.colors.surfaceColor.onSurface else AppTheme.colors.surfaceColor.onSurface_1
+    val textMeasurer = rememberTextMeasurer()
+    val density = LocalDensity.current
+    val textLayoutResult = textMeasurer.measure(
+        text = AnnotatedString(text),
+        style = AppTheme.textStyle.body.medium14
+    )
+    val textWidthDp = with(density) { textLayoutResult.size.width.toDp() }
+    val textColor =
+        if (isSelected) AppTheme.colors.surfaceColor.surface else AppTheme.colors.surfaceColor.onSurfaceVariant
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(AppTheme.radius.medium))
+            // .clip(RoundedCornerShape(AppTheme.radius.medium))
             .clickable(onClick = onClick)
-            .background(backgroundColor)
             .padding(horizontal = AppTheme.spacing.medium, vertical = AppTheme.spacing.small)
-    ){
-        Text(text= text,
-            color= textColor,
-
-           // style = AppTheme.textStyle.label
-        )
-
+    ) {
+        Column {
+            MovioText(
+                text,
+                color = textColor,
+                textStyle = AppTheme.textStyle.body.medium14
+            )
+            AnimatedVisibility(
+                visible = isSelected
+            ) {
+                Box(
+                    modifier = Modifier
+                            .padding(top = AppTheme.spacing.extraSmall)
+                        .height(1.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                        .width(textWidthDp)
+                        .background(brush = underlineGlowBrush())
+                )
+            }
+        }
     }
+}@Composable
+fun underlineGlowBrush(): Brush {
+    val isDark = isSystemInDarkTheme()
+    val glowColor = if (isDark)
+        Color.White
+    else
+        AppTheme.colors.brandColors.onPrimaryContainer
+    return Brush.horizontalGradient(
+        colors = listOf(
+            glowColor.copy(alpha = 0f),
+            glowColor.copy(alpha = 0.5f),
+            glowColor.copy(alpha = 0.1f)
+        )
+    )
 }
-
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable() fun FilterBarPreview() {
+//
+//    FilterbBar(
+//        items = listOf("All", "Movies", "Column", "Documentaries"),
+//        selectedItem = "All",
+//        onItemClick = {}
+//    )
+//
+//}
