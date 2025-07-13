@@ -17,8 +17,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
-import com.example.data.InMemoryRecentSearchRepository
 import com.example.designsystem.AppTheme
 import com.example.designsystem.component.search.RecentSearchHeader
 import com.example.designsystem.component.search.RecentSearchList
@@ -26,17 +27,19 @@ import com.example.designsystem.component.textInputField.SearchTextInputField
 
 @Composable
 fun SearchScreen() {
-    val repo = remember { InMemoryRecentSearchRepository() }
-    val viewModel: SearchListViewModel = remember { SearchListViewModel(repo) }
+    val viewModel = remember { SearchListViewModel() }
     val recentSearches by viewModel.recentSearches.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
-
+    val keyboardController = LocalSoftwareKeyboardController.current
     val filteredRecentSearches = if (searchQuery.isBlank()) recentSearches else recentSearches.filter {
         it.query.contains(searchQuery, ignoreCase = true)
     }
-
-    LaunchedEffect(Unit) { viewModel.loadRecentSearches() }
-
+    fun submitSearch(query: String) {
+        if (query.isNotBlank() && (recentSearches.isEmpty() || recentSearches.first().query != query)) {
+            viewModel.addRecentSearch(query)
+        }
+        keyboardController?.hide()
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -51,7 +54,9 @@ fun SearchScreen() {
             onClear = { searchQuery = "" },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .width(360.dp)
+                .width(360.dp),
+            imeAction = ImeAction.Done,
+            onImeAction = { submitSearch(searchQuery) }
         )
         Spacer(modifier = Modifier.height(8.dp))
         RecentSearchHeader(
@@ -69,7 +74,13 @@ fun SearchScreen() {
             onRemove = { index ->
                 val item = filteredRecentSearches.getOrNull(index)
                 if (item != null) {
-                    viewModel.removeRecentSearch(item.query)
+                    viewModel.removeRecentSearch(item.id)
+                }
+            },
+            onItemClick = { index ->
+                val item = filteredRecentSearches.getOrNull(index)
+                if (item != null) {
+                    searchQuery = item.query
                 }
             }
         )

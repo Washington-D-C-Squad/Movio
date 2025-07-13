@@ -10,6 +10,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,14 +21,15 @@ import com.example.designsystem.component.search.RecentSearchHeader
 import com.example.designsystem.component.search.RecentSearchList
 import com.example.designsystem.component.textInputField.SearchTextInputField
 import com.example.designsystem.AppTheme
+import org.koin.androidx.compose.koinViewModel
+import com.example.presentation.component.searchListUi.SearchListViewModel
 
 @Composable
-fun RecentSearchScreen() {
+fun RecentSearchScreen(
+    viewModel: SearchListViewModel = koinViewModel()
+) {
+    val recentSearches by viewModel.recentSearches.collectAsState()
     val (searchText, setSearchText) = remember { mutableStateOf("") }
-    val recentSearches = listOf(
-        "Ana de Armas", "Ana de Armas", "Ana de Armas", "Ana de Armas",
-        "Ana de Armas", "Ana de Armas", "Ana de Armas", "Ana de Armas"
-    )
     Column(
         modifier = Modifier
             .padding(16.dp)
@@ -37,7 +40,12 @@ fun RecentSearchScreen() {
         Spacer(modifier = Modifier.height(16.dp))
         SearchTextInputField(
             value = searchText,
-            onValueChange = setSearchText,
+            onValueChange = {
+                setSearchText(it)
+                if (it.isNotBlank()) {
+                    viewModel.addRecentSearch(it)
+                }
+            },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(8.dp))
@@ -46,7 +54,7 @@ fun RecentSearchScreen() {
         )
         Spacer(modifier = Modifier.height(4.dp))
         RecentSearchList(
-            items = recentSearches,
+            items = recentSearches.map { it.query },
             modifier = Modifier.fillMaxWidth()
         )
     }

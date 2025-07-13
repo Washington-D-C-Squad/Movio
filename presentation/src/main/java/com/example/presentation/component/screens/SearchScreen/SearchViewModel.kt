@@ -1,13 +1,19 @@
 package com.example.presentation.component.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.presentation.component.screens.SearchScreen.MovieRepository
 import com.example.presentation.component.screens.SearchScreen.SearchUiState
+import com.example.presentation.worker.RecentSearchSyncWorker
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 class SearchViewModel(
     private val movieRepository: MovieRepository
@@ -18,6 +24,7 @@ class SearchViewModel(
 
     init {
         loadInitialData()
+        scheduleCacheRecentSearchWorker()
     }
 
     private fun loadInitialData() {
@@ -72,12 +79,7 @@ class SearchViewModel(
         }
     }
 
-    fun clearError() {
-        _uiState.value = _uiState.value.copy(errorMessage = null)
-    }
-
     fun navigateToMovieDetails(movieId: String) {
-        // TODO: implement navigation logic
     }
 
     private suspend fun safeCall(
@@ -88,6 +90,27 @@ class SearchViewModel(
             onSuccess()
         } catch (e: Exception) {
             onError(e.message ?: "Unknown error")
+        }
+    }
+
+    private fun scheduleCacheRecentSearchWorker() {
+        val context = getApplicationContextSafely()
+        if (context != null) {
+            val workRequest = PeriodicWorkRequestBuilder<RecentSearchSyncWorker>(1, TimeUnit.HOURS)
+                .build()
+            WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+                "RecentSearchSyncWorker",
+                ExistingPeriodicWorkPolicy.KEEP,
+                workRequest
+            )
+        }
+    }
+
+    private fun getApplicationContextSafely(): Context? {
+        return try {
+            null
+        } catch (e: Exception) {
+            null
         }
     }
 }
