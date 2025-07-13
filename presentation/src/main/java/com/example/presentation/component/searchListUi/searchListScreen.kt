@@ -15,10 +15,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.domain.RecentSearchItem
 import com.example.presentation.component.searchUi.component.RecentSearchList
 import com.example.presentation.component.searchUi.component.SearchHeader
-import com.example.data.InMemoryRecentSearchRepository
 
 @Composable
 fun SearchScreen() {

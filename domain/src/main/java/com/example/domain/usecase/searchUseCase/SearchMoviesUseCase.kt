@@ -1,7 +1,7 @@
-package com.example.domain.searchUseCase
+package com.example.domain.usecase.searchUseCase
 
 import com.example.domain.entity.Movie
-import com.example.domain.interfaces.SearchRepository
+import com.example.domain.repository.SearchRepository
 import kotlinx.coroutines.flow.Flow
 
 class SearchMoviesUseCase(
