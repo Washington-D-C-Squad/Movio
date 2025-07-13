@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.clickable
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,9 +39,7 @@ fun RecentSearchHeader(
             text = stringResource(id = R.string.clear_all),
             textStyle = AppTheme.textStyle.label.smallRegular14,
             color = AppTheme.colors.surfaceColor.onSurfaceVariant,
-            modifier = Modifier
-                .height(17.dp)
-                .width(54.dp)
+            modifier = Modifier.clickable { onClearAll() }
         )
     }
 }
