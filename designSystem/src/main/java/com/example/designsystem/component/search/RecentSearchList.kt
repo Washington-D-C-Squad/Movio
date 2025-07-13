@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 fun RecentSearchList(
     items: List<String>,
     modifier: Modifier = Modifier,
+    searchQuery: String = "",
     onRemove: (Int) -> Unit = {},
     onItemClick: (Int) -> Unit = {}
 ) {
@@ -15,6 +16,7 @@ fun RecentSearchList(
         items.forEachIndexed { index, item ->
             RecentSearchItem(
                 text = item,
+                searchQuery = searchQuery,
                 onRemove = { onRemove(index) },
                 onClick = { onItemClick(index) }
             )

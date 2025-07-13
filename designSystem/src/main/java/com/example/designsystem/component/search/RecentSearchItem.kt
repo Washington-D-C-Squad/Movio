@@ -17,11 +17,15 @@ import com.example.designsystem.R
 import com.example.designsystem.component.MovioIcon
 import com.example.designsystem.component.MovioText
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Text
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 
 @Composable
 fun RecentSearchItem(
     text: String,
     modifier: Modifier = Modifier,
+    searchQuery: String = "",
     onRemove: () -> Unit = {},
     onClick: () -> Unit = {}
 ) {
@@ -40,11 +44,25 @@ fun RecentSearchItem(
         )
         Spacer(modifier = Modifier.width(8.dp))
         Box(modifier = Modifier.weight(1f)) {
-            MovioText(
-                text = text,
-                textStyle = AppTheme.textStyle.label.smallRegular14,
-                color = AppTheme.colors.surfaceColor.onSurface
-            )
+            if (searchQuery.isNotBlank() && text.startsWith(searchQuery, ignoreCase = true)) {
+                Text(
+                    buildAnnotatedString {
+                        withStyle(style = androidx.compose.ui.text.SpanStyle(color = AppTheme.colors.surfaceColor.onSurface)) {
+                            append(text.substring(0, searchQuery.length))
+                        }
+                        withStyle(style = androidx.compose.ui.text.SpanStyle(color = AppTheme.colors.surfaceColor.onSurfaceVariant)) {
+                            append(text.substring(searchQuery.length))
+                        }
+                    },
+                    style = AppTheme.textStyle.label.smallRegular14
+                )
+            } else {
+                MovioText(
+                    text = text,
+                    textStyle = AppTheme.textStyle.label.smallRegular14,
+                    color = AppTheme.colors.surfaceColor.onSurface
+                )
+            }
         }
         MovioIcon(
             painter = painterResource(id = R.drawable.outline_add), // X icon

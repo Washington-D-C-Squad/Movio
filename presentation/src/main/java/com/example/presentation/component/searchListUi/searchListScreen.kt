@@ -49,6 +49,16 @@ fun SearchScreen() {
             value = searchQuery,
             onValueChange = { searchQuery = it },
             onClear = { searchQuery = "" },
+            onImeAction = {
+                if (searchQuery.isNotBlank()) {
+                    viewModel.addRecentSearch(
+                        com.example.domain.RecentSearchItem(
+                            id = System.currentTimeMillis(),
+                            query = searchQuery
+                        )
+                    )
+                }
+            },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .width(360.dp)
@@ -66,6 +76,7 @@ fun SearchScreen() {
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .width(360.dp),
+            searchQuery = searchQuery,
             onRemove = { index ->
                 val item = filteredRecentSearches.getOrNull(index)
                 if (item != null) {
