@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,26 +30,27 @@ fun MovioSeasonCard(
     movieTitle: String,
     movieRate: String,
     totalNumberOfEpisodes: String,
-    movieImage: Painter,
+    movieImage: String,
     yearOfPublish:String,
     timeOfPublish:String,
     currentSeason:String,
     height: Dp,
     width: Dp,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
+    modifier: Modifier = Modifier,
+    ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 8.dp)
-             .clip(RoundedCornerShape(AppTheme.radius.small))
-             .clickable { onClick() }
+            .clip(RoundedCornerShape(AppTheme.radius.small))
+            .clickable { onClick() }
         ,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.Top
     ) {
-        BasicImageCard(image = movieImage, height = height, radius = AppTheme.radius.small, width = width)
+        BasicImageCard(imageUrl = movieImage, height = height, width = width,
+            radius = AppTheme.radius.small)
         Column(
             modifier = modifier
                 .height(height)
@@ -165,7 +165,7 @@ private fun seasonCardPreview() {
     AppTheme{
         MovioSeasonCard(
             movieTitle = "Spider-Man: Homecoming",
-            movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
+            movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample).toString(),
             movieRate =" 3.0",
             width = 100.dp,
             height = 74.dp,

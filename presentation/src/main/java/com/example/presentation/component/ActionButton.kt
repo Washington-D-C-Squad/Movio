@@ -16,11 +16,11 @@ import com.example.designsystem.component.MovioText
 @Composable
 fun ActionButton(
     modifier: Modifier = Modifier,
-    color: Color = AppTheme.colors.brandColors.primary,
     isLoading: Boolean = false,
     text: String,
-    icon: Painter = painterResource(R.drawable.loading),
     onClick: () -> Unit,
+    color: Color = AppTheme.colors.brandColors.primary,
+    icon: Painter = painterResource(R.drawable.loading),
 ) {
     MovioButton(
         modifier = modifier

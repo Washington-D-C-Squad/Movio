@@ -16,8 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -29,14 +27,14 @@ import com.example.designsystem.component.MovioText
 @Composable
 fun MovioVerticalCard(
     description: String,
-    movieImage: Painter,
+    movieImage: String,
     rate: String,
-    modifier: Modifier = Modifier,
-    width: Dp = 102.dp,
-    height: Dp = 132.dp,
+    width: Dp,
+    height: Dp,
     onClick: () -> Unit,
-    paddingvalue: Dp = 8.dp
-) {
+    modifier: Modifier = Modifier,
+    paddingvalue: Dp = 8.dp,
+    ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -55,12 +53,16 @@ fun MovioVerticalCard(
                 RateIcon(rate = rate, tint = AppTheme.colors.systemColors.warning)
             }
             BasicImageCard(
-                image = movieImage,
+                imageUrl = movieImage,
                 height = height,
                 width = width,
                 radius = AppTheme.radius.small,
                 modifier = Modifier
+                    .width(width)
+                    .height(height)
+                    .clip(RoundedCornerShape(AppTheme.radius.small))
             )
+
         }
         Spacer(modifier = Modifier.height(8.dp))
         MovioText(
@@ -81,13 +83,13 @@ fun MovioVerticalCard(
 private fun VerticalCardPreview() {
     AppTheme {
         MovioVerticalCard(
-            "Spider-Man: Homecoming",
-            movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
-            rate = "3.0",
+            description = "Spider-Man: Homecoming",
+            movieImage = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
             width = 180.dp,
             height = 150.dp,
             paddingvalue = 8.dp,
-            onClick = {}
+            onClick = {},
+            rate = "4.0",
         )
     }
 }

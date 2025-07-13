@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,7 +27,7 @@ fun MovioHorizontalCard(
     movieTitle: String,
     movieRate: String,
     movieCategory: String,
-    movieImage: Painter,
+    movieImageUrl: String,
     height: Dp,
     width: Dp,
     onClick: () -> Unit,
@@ -43,7 +42,8 @@ fun MovioHorizontalCard(
         horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
     ) {
         BasicImageCard(
-            image = movieImage, height = height, radius = AppTheme.radius.small, width = width
+            imageUrl = movieImageUrl, height = height, width = width,
+            radius = AppTheme.radius.small
         )
         Column(
             modifier = modifier
@@ -91,7 +91,7 @@ private fun HorizontalCardPreview() {
     AppTheme {
         MovioHorizontalCard(
             movieTitle = "Spider-Man: Homecoming",
-            movieImage = painterResource(com.example.designsystem.R.drawable.film_photo_sample),
+            movieImageUrl = painterResource(com.example.designsystem.R.drawable.film_photo_sample).toString(),
             movieRate = "3.0",
             width = 180.dp,
             height = 150.dp,
