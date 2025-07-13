@@ -1,4 +1,4 @@
-package com.example.presentation.component.screens.searchscreen
+package com.example.presentation.component.screens.SearchScreen
 
 
 import kotlinx.coroutines.flow.MutableStateFlow

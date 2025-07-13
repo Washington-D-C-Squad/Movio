@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -12,13 +14,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.domain.RecentSearchItem
-import com.example.presentation.component.searchUi.component.RecentSearchList
-import com.example.presentation.component.searchUi.component.SearchHeader
 import com.example.data.InMemoryRecentSearchRepository
+import com.example.designsystem.AppTheme
+import com.example.designsystem.component.search.RecentSearchHeader
+import com.example.designsystem.component.search.RecentSearchList
+import com.example.designsystem.component.textInputField.SearchTextInputField
 
 @Composable
 fun SearchScreen() {
@@ -36,42 +40,37 @@ fun SearchScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(AppTheme.colors.surfaceColor.surface)
+            .padding(vertical = 32.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        SearchHeader(
-            searchQuery = searchQuery,
-            onSearchChange = { searchQuery = it },
+        Spacer(modifier = Modifier.height(16.dp))
+        SearchTextInputField(
+            value = searchQuery,
+            onValueChange = { searchQuery = it },
             onClear = { searchQuery = "" },
-            onSubmit = {
-                if (searchQuery.isNotBlank()) {
-                    try {
-                        viewModel.addRecentSearch(
-                            RecentSearchItem(
-                                id = System.currentTimeMillis(),
-                                query = searchQuery,
-                                timestamp = System.currentTimeMillis()
-                            )
-                        )
-                        searchQuery = ""
-                    } catch (e: Exception) {
-                        println("Error adding recent search: ${e.message}")
-                        e.printStackTrace()
-                    }
-                }
-            }
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .width(360.dp)
         )
         Spacer(modifier = Modifier.height(8.dp))
+        RecentSearchHeader(
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .width(360.dp),
+            onClearAll = { viewModel.clearAll() }
+        )
+        Spacer(modifier = Modifier.height(4.dp))
         RecentSearchList(
-            searchHistory = filteredRecentSearches.map { it.query },
-            onSearchItemClick = { selectedQuery -> searchQuery = selectedQuery },
-            onRemoveItem = { queryToRemove ->
-                val item = recentSearches.find { it.query == queryToRemove }
+            items = filteredRecentSearches.map { it.query },
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .width(360.dp),
+            onRemove = { index ->
+                val item = filteredRecentSearches.getOrNull(index)
                 if (item != null) {
-                    viewModel.removeRecentSearch(item.id.toString())
+                    viewModel.removeRecentSearch(item.query)
                 }
-            },
-            onClearAll = {
-                viewModel.clearAll()
             }
         )
     }
