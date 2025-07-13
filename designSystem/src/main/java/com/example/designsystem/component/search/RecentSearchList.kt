@@ -9,13 +9,15 @@ import androidx.compose.ui.tooling.preview.Preview
 fun RecentSearchList(
     items: List<String>,
     modifier: Modifier = Modifier,
-    onRemove: (Int) -> Unit = {}
+    onRemove: (Int) -> Unit = {},
+    onItemClick: (Int) -> Unit = {}
 ) {
     Column(modifier = modifier) {
         items.forEachIndexed { index, item ->
             RecentSearchItem(
                 text = item,
-                onRemove = { onRemove(index) }
+                onRemove = { onRemove(index) },
+                onClick = { onItemClick(index) }
             )
         }
     }

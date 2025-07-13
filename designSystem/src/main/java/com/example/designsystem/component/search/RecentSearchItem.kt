@@ -23,12 +23,14 @@ import androidx.compose.foundation.layout.Column
 fun RecentSearchItem(
     text: String,
     modifier: Modifier = Modifier,
-    onRemove: () -> Unit = {}
+    onRemove: () -> Unit = {},
+    onClick: () -> Unit = {}
 ) {
     Row(
         modifier = modifier
             .height(40.dp)
-            .width(328.dp),
+            .width(328.dp)
+            .clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically
     ) {
         MovioIcon(

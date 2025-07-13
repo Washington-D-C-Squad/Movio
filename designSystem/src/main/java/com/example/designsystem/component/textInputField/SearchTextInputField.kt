@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.designsystem.AppTheme
@@ -38,7 +41,9 @@ fun SearchTextInputField(
     backgroundColor: Color = AppTheme.colors.surfaceColor.surfaceContainer,
     iconColor: Color = AppTheme.colors.surfaceColor.onSurfaceVariant,
     hintColor: Color = AppTheme.colors.surfaceColor.onSurfaceContainer,
-    textColor: Color = AppTheme.colors.surfaceColor.onSurface
+    textColor: Color = AppTheme.colors.surfaceColor.onSurface,
+    imeAction: ImeAction = ImeAction.Default,
+    onImeAction: () -> Unit = {}
 ) {
     BasicTextField(
         value = value,
@@ -50,6 +55,11 @@ fun SearchTextInputField(
             .height(48.dp)
             .width(360.dp)
             .background(backgroundColor, RoundedCornerShape(16.dp)),
+        keyboardOptions = KeyboardOptions.Default.copy(imeAction = imeAction),
+        keyboardActions = KeyboardActions(
+            onDone = { onImeAction() },
+            onSearch = { onImeAction() }
+        ),
         decorationBox = { innerTextField ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
