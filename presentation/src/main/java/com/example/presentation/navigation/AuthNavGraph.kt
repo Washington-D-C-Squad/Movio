@@ -10,7 +10,7 @@ import com.example.presentation.navigation.route.splashRoute
 
 fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
     navigation(
-        route = Screen.Authentication.Login.route,
+        route = Screen.AuthGraph.route,
         startDestination = Screen.Authentication.Login.route,
     ) {
         loginRoute(navController)
