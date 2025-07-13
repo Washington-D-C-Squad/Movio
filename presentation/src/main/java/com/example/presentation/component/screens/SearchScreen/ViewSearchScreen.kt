@@ -1,7 +1,6 @@
 package com.example.presentation.component.screens.SearchScreen
 
 
-import VerticalMovioCard
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -33,6 +32,7 @@ import com.example.designsystem.AppTheme
 import com.example.designsystem.R
 import com.example.designsystem.component.MovioIcon
 import com.example.designsystem.component.MovioText
+import com.example.presentation.component.movioCards.MovioVerticalCard
 import com.example.presentation.component.viewmodel.SearchViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -173,7 +173,7 @@ fun ContentSearchScreen(
                 modifier = Modifier.padding(bottom = 24.dp)
             ) {
                 items(forYouMovies) { movie ->
-                    VerticalMovioCard(
+                    MovioVerticalCard(
                         description = movie.title,
                         movieImage = movie.imageUrl,
                         rate = movie.rating,
@@ -199,7 +199,7 @@ fun ContentSearchScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(forYouMovies) { movie ->
-                VerticalMovioCard(
+                MovioVerticalCard(
                     description = movie.title,
                     movieImage = movie.imageUrl,
                     rate = movie.rating,
