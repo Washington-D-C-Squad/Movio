@@ -6,10 +6,10 @@ import com.example.domain.repository.SearchRepository
 class PreferredMediaUseCase(private val searchRepository: SearchRepository) {
     suspend fun getPreferredMedia(): List<Media> {
         val categories = searchRepository.getMostSearchedCategories()
-        var media: List<Media> = emptyList()
+        val medias: MutableList<Media> = mutableListOf()
         categories.forEach { category ->
-            media = media + searchRepository.getMediaByCategory(category)
+            medias.add(searchRepository.getMediaByCategory(category))
         }
-        return media
+        return medias
     }
 }
