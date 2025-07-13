@@ -15,14 +15,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.designsystem.component.search.RecentSearchHeader
 import com.example.designsystem.component.search.RecentSearchList
 import com.example.designsystem.component.textInputField.SearchTextInputField
-import com.example.designsystem.AppTheme
 import org.koin.androidx.compose.koinViewModel
-import com.example.presentation.component.searchListUi.SearchListViewModel
+import com.example.presentation.component.viewModels.SearchListViewModel
 
 @Composable
 fun RecentSearchScreen(

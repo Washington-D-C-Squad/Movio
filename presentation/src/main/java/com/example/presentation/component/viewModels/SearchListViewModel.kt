@@ -1,4 +1,4 @@
-package com.example.presentation.component.searchListUi
+package com.example.presentation.component.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

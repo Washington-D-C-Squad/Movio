@@ -33,7 +33,7 @@ import com.example.designsystem.AppTheme
 import com.example.designsystem.R
 import com.example.designsystem.component.MovioIcon
 import com.example.designsystem.component.MovioText
-import com.example.presentation.component.viewmodel.SearchViewModel
+import com.example.presentation.component.viewModels.SearchViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
