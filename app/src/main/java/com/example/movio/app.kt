@@ -7,9 +7,6 @@ import com.example.data.dataSource.remote.SearchRemoteSource
 import com.example.data.repositories.SearchRepository
 import com.example.detectImageContent.GetImageBitmap
 import com.example.detectImageContent.SensitiveContentDetection
-import com.example.domain.usecase.searchUseCase.SearchArtistUseCase
-import com.example.domain.usecase.searchUseCase.SearchMoviesUseCase
-import com.example.domain.usecase.searchUseCase.SearchSeriesUseCase
 import com.example.presentation.component.filteredImage.FilteredImageViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
