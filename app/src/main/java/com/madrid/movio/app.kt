@@ -1,18 +1,18 @@
 package com.madrid.movio
 
-import com.example.data.dataSource.local.SearchLocalDataSource
-import com.example.data.dataSource.local.SearchLocalSource
-import com.example.data.dataSource.remote.SearchRemoteDataSource
-import com.example.data.dataSource.remote.SearchRemoteSource
-import com.example.data.repositories.SearchRepository
-import com.example.detectImageContent.GetImageBitmap
-import com.example.detectImageContent.SensitiveContentDetection
-import com.example.domain.RecentSearchRepository
-import com.example.domain.searchUseCase.SearchArtistUseCase
-import com.example.domain.searchUseCase.SearchMoviesUseCase
-import com.example.domain.searchUseCase.SearchSeriesUseCase
-import com.example.presentation.component.filteredImage.FilteredImageViewModel
-import com.example.presentation.component.screens.searchscreen.SearchListViewModel
+import com.madrid.data.dataSource.local.SearchLocalDataSource
+import com.madrid.data.dataSource.local.SearchLocalSource
+import com.madrid.data.dataSource.remote.SearchRemoteDataSource
+import com.madrid.data.dataSource.remote.SearchRemoteSource
+import com.madrid.data.repositories.SearchRepository
+import com.madrid.detectImageContent.GetImageBitmap
+import com.madrid.detectImageContent.SensitiveContentDetection
+import com.madrid.domain.RecentSearchRepository
+import com.madrid.domain.searchUseCase.SearchArtistUseCase
+import com.madrid.domain.searchUseCase.SearchMoviesUseCase
+import com.madrid.domain.searchUseCase.SearchSeriesUseCase
+import com.madrid.presentation.component.filteredImage.FilteredImageViewModel
+import com.madrid.presentation.component.screens.searchscreen.SearchListViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
