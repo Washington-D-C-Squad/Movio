@@ -89,13 +89,3 @@ fun SearchTextInputField(
         }
     )
 }
-
-@Preview(showBackground = true)
-@Composable
-fun lrejflk() {
-    AppTheme {
-        Column(modifier = Modifier.fillMaxSize()) {
-            SearchTextInputField(value = "", onValueChange = {})
-        }
-    }
-}
