@@ -2,21 +2,29 @@ package com.example.presentation.component.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.RecentSearchItem
+import com.example.domain.RecentSearchRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-data class RecentSearchItem(
-    val id: Long,
-    val query: String,
-    val searchCount: Int? = null,
-    val timestamp: Long = System.currentTimeMillis()
-)
-
-class SearchListViewModel : ViewModel() {
+class SearchListViewModel(
+    private val recentSearchRepository: RecentSearchRepository
+) : ViewModel() {
+    
     private val _recentSearches = MutableStateFlow<List<RecentSearchItem>>(emptyList())
     val recentSearches: StateFlow<List<RecentSearchItem>> = _recentSearches.asStateFlow()
+
+    init {
+        loadRecentSearches()
+    }
+
+    private fun loadRecentSearches() {
+        viewModelScope.launch {
+            _recentSearches.value = recentSearchRepository.getRecentSearches()
+        }
+    }
 
     fun addRecentSearch(query: String) {
         viewModelScope.launch {
@@ -26,19 +34,22 @@ class SearchListViewModel : ViewModel() {
                 query = query,
                 timestamp = now
             )
-            _recentSearches.value = listOf(newItem) + _recentSearches.value.filter { it.query != query }
+            recentSearchRepository.addRecentSearch(newItem)
+            loadRecentSearches() // Reload to get updated list
         }
     }
 
     fun removeRecentSearch(id: Long) {
         viewModelScope.launch {
-            _recentSearches.value = _recentSearches.value.filter { it.id != id }
+            recentSearchRepository.removeRecentSearch(id.toString())
+            loadRecentSearches() // Reload to get updated list
         }
     }
 
     fun clearAllRecentSearches() {
         viewModelScope.launch {
-            _recentSearches.value = emptyList()
+            recentSearchRepository.clearAllRecentSearches()
+            loadRecentSearches() // Reload to get updated list
         }
     }
 
@@ -49,7 +60,14 @@ class SearchListViewModel : ViewModel() {
     fun removeOlderThanOneHour() {
         viewModelScope.launch {
             val oneHourAgo = System.currentTimeMillis() - 60 * 60 * 1000
-            _recentSearches.value = _recentSearches.value.filter { it.timestamp >= oneHourAgo }
+            val currentSearches = _recentSearches.value
+            val searchesToRemove = currentSearches.filter { it.timestamp < oneHourAgo }
+            
+            searchesToRemove.forEach { search ->
+                recentSearchRepository.removeRecentSearch(search.id.toString())
+            }
+            
+            loadRecentSearches() // Reload to get updated list
         }
     }
 }

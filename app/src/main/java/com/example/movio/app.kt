@@ -1,5 +1,6 @@
 package com.example.movio
 
+import com.example.data.InMemoryRecentSearchRepository
 import com.example.data.dataSource.local.SearchLocalDataSource
 import com.example.data.dataSource.local.SearchLocalSource
 import com.example.data.dataSource.remote.SearchRemoteDataSource
@@ -12,7 +13,7 @@ import com.example.domain.searchUseCase.SearchArtistUseCase
 import com.example.domain.searchUseCase.SearchMoviesUseCase
 import com.example.domain.searchUseCase.SearchSeriesUseCase
 import com.example.presentation.component.filteredImage.FilteredImageViewModel
-import com.example.presentation.component.searchListUi.SearchListViewModel
+import com.example.presentation.component.viewModels.SearchListViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
@@ -20,13 +21,13 @@ import org.koin.dsl.module
 val app = module {
 
     // data
-    single<RecentSearchRepository> { SearchRepository(get()) }
+    single<RecentSearchRepository> { InMemoryRecentSearchRepository() }
     single<SearchRepository> { SearchRepository(get()) }
     single<SearchLocalSource> { SearchLocalDataSource() }
     single<SearchRemoteSource> { SearchRemoteDataSource() }
 
     // presentation
-    viewModel { SearchListViewModel() }
+    viewModel { SearchListViewModel(get()) }
     viewModel { FilteredImageViewModel(get(), get()) }
     //domain
     single { SearchArtistUseCase(get()) }

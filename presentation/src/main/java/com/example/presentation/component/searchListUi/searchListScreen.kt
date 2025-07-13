@@ -23,10 +23,11 @@ import com.example.designsystem.component.search.RecentSearchHeader
 import com.example.designsystem.component.search.RecentSearchList
 import com.example.designsystem.component.textInputField.SearchTextInputField
 import com.example.presentation.component.viewModels.SearchListViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SearchScreen() {
-    val viewModel = remember { SearchListViewModel() }
+    val viewModel: SearchListViewModel = koinViewModel()
     val recentSearches by viewModel.recentSearches.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
