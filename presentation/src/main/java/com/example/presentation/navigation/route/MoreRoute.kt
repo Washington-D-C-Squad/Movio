@@ -4,9 +4,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.presentation.navigation.Screen
+import com.example.presentation.navigation.fakeScreen.FakeMoreScreen
 
 fun NavGraphBuilder.moreRoute(navController: NavController) {
     composable(route = Screen.More.route) {
-
+        FakeMoreScreen()
     }
 }
