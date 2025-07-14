@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.data.dataSource.local.data.entity.ArtistEntity
+import com.example.data.dataSource.local.data.entity.MovieEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -20,7 +21,7 @@ interface ArtistDao {
     fun getArtistById(id: Int): Flow<ArtistEntity?>
 
     @Query("SELECT * FROM ARTIST_TABLE WHERE name LIKE :name")
-    fun getArtistByName(name: String): List<Flow<ArtistEntity>>
+    fun getArtistByName(name: String): Flow<List<MovieEntity>>
 
     @Query("SELECT * FROM ARTIST_TABLE")
     fun getAllArtists(): Flow<List<ArtistEntity>>

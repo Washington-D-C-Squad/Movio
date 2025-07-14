@@ -25,7 +25,7 @@ interface MovieDao {
     fun getMovieById(id: Int): Flow<MovieEntity?>
 
     @Query("SELECT * FROM MOVIE_TABLE WHERE title LIKE :title")
-    fun getMovieByTitle(title: String): Flow<MovieEntity?>
+    fun getMovieByTitle(title: String): Flow<List<MovieEntity>>
 
     @Query("SELECT * FROM MOVIE_TABLE")
     fun getAllMovies(): Flow<List<MovieEntity>>
