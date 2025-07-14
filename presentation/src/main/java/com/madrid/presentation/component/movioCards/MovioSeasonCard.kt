@@ -1,4 +1,4 @@
-package com.madrid.presentation.component.movioCards
+package com.example.presentation.component.movioCards
 
 
 import androidx.compose.foundation.background
@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -49,7 +48,8 @@ fun MovioSeasonCard(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.Top
     ) {
-        BasicImageCard(imageUrl = movieImage, height = height, width = width)
+        BasicImageCard(imageUrl = movieImage, height = height, width = width,
+            radius = AppTheme.radius.small)
         Column(
             modifier = modifier
                 .height(height)
@@ -160,11 +160,11 @@ private fun MovieDetails(
 
 @Preview(showBackground = true)
 @Composable
-fun seasonCardPreview() {
+private fun seasonCardPreview() {
     AppTheme{
         MovioSeasonCard(
             movieTitle = "Spider-Man: Homecoming",
-            movieImage = painterResource(com.madrid.designsystem.R.drawable.film_photo_sample).toString(),
+            movieImage = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
             movieRate =" 3.0",
             width = 100.dp,
             height = 74.dp,

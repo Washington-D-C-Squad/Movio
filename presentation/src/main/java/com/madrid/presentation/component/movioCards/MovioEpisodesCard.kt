@@ -1,4 +1,4 @@
-package com.madrid.presentation.component.movioCards
+package com.example.presentation.component.movioCards
 
 
 import androidx.compose.foundation.clickable
@@ -20,13 +20,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
+import com.madrid.presentation.R.string
+import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
 
 @Composable
-fun EpisodesCard(
+fun MovioEpisodesCard(
     movieTitle: String,
     movieRate: String,
     currentMovieEpisode: String,
@@ -34,8 +35,8 @@ fun EpisodesCard(
     movieImageUrl: String,
     height: Dp,
     width: Dp,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = Modifier
@@ -83,11 +84,12 @@ private fun EpisodeMovieImage(
     ) {
         BasicImageCard(
             imageUrl = movieImageUrl,
-            height = height, width = width
+            height = height, width = width,
+            radius =AppTheme.radius.small ,
         )
         MovioIcon(
             contentDescription = stringResource(
-                com.madrid.presentation.R.string.bold_video_circle
+                string.bold_video_circle
             ),
             tint = AppTheme.colors.surfaceColor.onSurface_1,
             painter = painterResource(R.drawable.bold_video_circle),
@@ -111,7 +113,7 @@ private fun TimeSection(
         ) {
             MovioIcon(
                 painter = painterResource(R.drawable.dot),
-                contentDescription = stringResource(com.madrid.presentation.R.string.dot),
+                contentDescription = stringResource(string.dot),
                 modifier = Modifier.size(12.dp),
                 tint = AppTheme.colors.surfaceColor.onSurfaceContainer
             )
@@ -136,10 +138,8 @@ private fun NumberOfEpisodes(
         verticalAlignment = Alignment.CenterVertically
     ) {
         MovioText(
-            text = stringResource(
-                id = com.madrid.presentation.R.string.current_episode,
-                String.format("%02d", numberOfEpisodes)
-            ),
+            text = stringResource(string.current_episode,
+            numberOfEpisodes),
             textStyle = AppTheme.textStyle.label.smallRegular12,
             color = AppTheme.colors.surfaceColor.onSurfaceContainer
         )
@@ -148,11 +148,11 @@ private fun NumberOfEpisodes(
 
 @Preview(showBackground = true)
 @Composable
-fun EpisodesCardPreview() {
+private fun EpisodesCardPreview() {
     AppTheme {
-        EpisodesCard(
+        MovioEpisodesCard(
             movieTitle = "Spider-Man: Homecoming",
-            movieImageUrl = painterResource(com.madrid.designsystem.R.drawable.film_photo_sample).toString(),
+            movieImageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
             movieRate = "3.0",
             width = 100.dp,
             height = 74.dp,
