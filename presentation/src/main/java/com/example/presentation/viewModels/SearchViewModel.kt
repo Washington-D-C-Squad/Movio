@@ -1,14 +1,23 @@
+<<<<<<<< HEAD:presentation/src/main/java/com/example/presentation/viewModels/SearchViewModel.kt
 package com.example.presentation.viewModels
+========
+package com.madrid.presentation.component.viewmodel
+>>>>>>>> develop:presentation/src/main/java/com/madrid/presentation/component/screens/SearchScreen/SearchViewModel.kt
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+<<<<<<<< HEAD:presentation/src/main/java/com/example/presentation/viewModels/SearchViewModel.kt
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.presentation.searchScreens.MovieRepository
 import com.example.presentation.component.screens.SearchScreen.SearchUiState
 import com.example.presentation.worker.RecentSearchSyncWorker
+========
+import com.madrid.presentation.component.screens.SearchScreen.MovieRepository
+import com.madrid.presentation.component.screens.SearchScreen.SearchUiState
+>>>>>>>> develop:presentation/src/main/java/com/madrid/presentation/component/screens/SearchScreen/SearchViewModel.kt
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
