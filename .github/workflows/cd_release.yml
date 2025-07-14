@@ -52,6 +52,6 @@ jobs:
       - name: Upload APK to Firebase App Distribution
         run: |
           firebase appdistribution:distribute app/build/outputs/apk/release/app-release.apk \
-            --app 1:1038392982530:android:1187ed24f9e5829c76bb1b \
+            --app 1:1038392982530:android:86b7c8565bb5aec276bb1b  \
             --release-notes "Automated release from GitHub Actions" \
             --groups "release-testers"
