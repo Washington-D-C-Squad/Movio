@@ -1,10 +1,19 @@
 package com.example.presentation.viewModel.base
 
-import com.example.domain.RecentSearchItem
-import com.example.domain.interfaces.SearchRepository
+import com.madrid.domain.entity.Media
+import com.madrid.domain.usecase.searchUseCase.ArtistUseCase
+import com.madrid.domain.usecase.searchUseCase.MediaUseCase
+import com.madrid.domain.usecase.searchUseCase.PreferredMediaUseCase
+import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
+import com.madrid.domain.usecase.searchUseCase.TrendingMediaUseCase
+import kotlinx.coroutines.flow.first
 
 class SearchViewModel(
-    private val searchRepository: SearchRepository ,
+    private val artistUseCase: ArtistUseCase,
+    private val mediaUseCase: MediaUseCase,
+    private val preferredMediaUseCase: PreferredMediaUseCase,
+    private val recentSearchUseCase: RecentSearchUseCase,
+    private val trendingMediaUseCase: TrendingMediaUseCase,
 ) : BaseViewModel<SearchScreenState>(
     SearchScreenState()
 ) {
@@ -15,28 +24,29 @@ class SearchViewModel(
 
     fun loadRecentSearches() {
         tryToExecute(
-            function = { searchRepository.getRecentSearches() },
+            function = { recentSearchUseCase.getRecentSearches().first() },
             onSuccess = { result -> updateState { it.copy(recentSearchUiState = result) } },
             onError = {}
         )
     }
 
-    fun addRecentSearch(item: RecentSearchItem) {
+    fun addRecentSearch(recentSearch: String) {
         tryToExecute(
             function = {
-                searchRepository.addRecentSearch(item)
-                searchRepository.getRecentSearches()
+                recentSearchUseCase.addRecentSearch(item = recentSearch)
+                recentSearchUseCase.getRecentSearches().first()
             },
             onSuccess = { result -> updateState { it.copy(recentSearchUiState = result) } },
             onError = {}
         )
     }
 
+
     fun clearAll() {
         tryToExecute(
             function = {
-                searchRepository.clearAllRecentSearches()
-                searchRepository.getRecentSearches()
+                recentSearchUseCase.clearAllRecentSearches()
+                recentSearchUseCase.getRecentSearches().first()
             },
             onSuccess = { result -> updateState { it.copy(recentSearchUiState = result) } },
             onError = {}
@@ -55,16 +65,16 @@ class SearchViewModel(
 
         tryToExecute(
             function = {
-                val forYou = searchRepository.getTopRatedMovies("action").map { it.toUiState() }
-                val explore = searchRepository.getTopRatedMovies("drama").map { it.toUiState() }
+                val forYou = preferredMediaUseCase.getPreferredMedia()
+                val explore = trendingMediaUseCase.getTrendingMedia()
                 forYou to explore
             },
             onSuccess = { (forYou, explore) ->
                 updateState {
                     it.copy(
                         searchUiState = it.searchUiState.copy(
-                            forYouMovies = forYou,
-                            exploreMoreMovies = explore,
+                            forYouMovies = forYou.mapToMoviesUiState(),
+                            exploreMoreMovies = explore.toMovieUiStateList(),
                             isLoading = false
                         )
                     )
@@ -81,5 +91,27 @@ class SearchViewModel(
                 }
             }
         )
+    }
+
+    fun List<Media>.mapToMoviesUiState(): MutableList<SearchScreenState.MovieUiState> {
+        var moviesUiState: MutableList<SearchScreenState.MovieUiState> = mutableListOf()
+        this.forEach { media ->
+            moviesUiState =
+                (moviesUiState + media.toMovieUiStateList().toMutableList()).toMutableList()
+        }
+        return moviesUiState
+    }
+
+
+    fun Media.toMovieUiStateList(): List<SearchScreenState.MovieUiState> {
+        return movies.map { movie ->
+            SearchScreenState.MovieUiState(
+                id = movie.id.toString(),
+                title = movie.title,
+                imageUrl = movie.imageUrl,
+                rating = movie.rate.toString(),
+                category = movie.genre.joinToString(", ")
+            )
+        }
     }
 }

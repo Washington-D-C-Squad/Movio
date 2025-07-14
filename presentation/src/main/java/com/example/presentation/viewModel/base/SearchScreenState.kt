@@ -1,11 +1,14 @@
 package com.example.presentation.viewModel.base
 
-import com.example.domain.RecentSearchItem
-
+data class wxwx(
+    val name : String = "",
+    val age: Int,
+    val imgUrl: String
+)
 
 data class SearchScreenState(
     val searchUiState: SearchUiState = SearchUiState(),
-    val recentSearchUiState: List<RecentSearchItem> = emptyList(),
+    val recentSearchUiState: List<String> = emptyList(),
 
     //TODO add the remain ui state
 ) {
@@ -23,7 +26,7 @@ data class SearchScreenState(
         val rating: String="",
         val category: String=""
     )
-    data class Serase(
+    data class SeriesUiState(
         val id: String,
         val title: String,
         val imageUrl: String,
