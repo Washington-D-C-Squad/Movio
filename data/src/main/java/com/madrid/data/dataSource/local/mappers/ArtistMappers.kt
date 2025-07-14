@@ -1,4 +1,4 @@
-package com.madrid.data.repositories.mappers
+package com.madrid.data.dataSource.local.mappers
 
 
 import com.madrid.data.dataSource.local.entity.ArtistEntity
@@ -10,10 +10,10 @@ fun Artist.toArtistEntity(): ArtistEntity {
         id = this.id,
         name = this.name,
         imageUrl = this.imageUrl,
-        description = this.description,
+        description = this.description ?: "",
         role = this.role,
         dateOfBirth = this.dateOfBirth.toString(),
-        country = this.country
+        country = this.country ?: ""
     )
 }
 

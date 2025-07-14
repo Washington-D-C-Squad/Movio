@@ -1,4 +1,4 @@
-package com.madrid.data.dataSource.remote.series
+package com.madrid.data.dataSource.remote.response
 
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
@@ -8,16 +8,15 @@ data class SeriesResponse(
     @SerializedName("page")
     val page: Int = 0,
     @SerializedName("results")
-    val results: List<Result> = listOf(),
+    val seriesResults: List<SeriesResult> = listOf(),
     @SerializedName("total_pages")
     val totalPages: Int = 0,
     @SerializedName("total_results")
     val totalResults: Int = 0,
 )
 
-
 @Serializable
-data class Result(
+data class SeriesResult(
     @SerializedName("adult")
     val adult: Boolean = false,
     @SerializedName("backdrop_path")
@@ -39,9 +38,9 @@ data class Result(
     @SerializedName("poster_path")
     val posterPath: String?,
     @SerializedName("first_air_date")
-    val firstAirDate: String = "",
+    val releaseDate: String = "",
     @SerializedName("name")
-    val name: String = "",
+    val title: String = "",
     @SerializedName("vote_average")
     val voteAverage: Double = 0.0,
     @SerializedName("vote_count")

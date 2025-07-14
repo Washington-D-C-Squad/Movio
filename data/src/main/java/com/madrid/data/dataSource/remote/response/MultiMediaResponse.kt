@@ -1,4 +1,4 @@
-package com.madrid.data.dataSource.remote.multiMedia
+package com.madrid.data.dataSource.remote.response
 
 
 import com.google.gson.annotations.SerializedName
@@ -9,7 +9,7 @@ data class MultiMediaResponse(
     @SerializedName("page")
     val page: Int = 0,
     @SerializedName("results")
-    val results: List<Result> = listOf(),
+    val multiMediaResults: List<MultiMediaResult> = listOf(),
     @SerializedName("total_pages")
     val totalPages: Int = 0,
     @SerializedName("total_results")
@@ -17,7 +17,7 @@ data class MultiMediaResponse(
 )
 
 @Serializable
-data class Result(
+data class MultiMediaResult(
     @SerializedName("adult")
     val adult: Boolean = false,
     @SerializedName("backdrop_path")
@@ -48,8 +48,6 @@ data class Result(
     val voteCount: Int = 0,
     @SerializedName("origin_country")
     val originCountry: List<String> = listOf()
-
-
 )
 
 
