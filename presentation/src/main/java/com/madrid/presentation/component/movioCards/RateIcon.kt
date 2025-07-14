@@ -17,16 +17,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.madrid.presentation.R.string
 import com.madrid.designsystem.AppTheme
+import com.madrid.designsystem.R.drawable
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
+
 
 @Composable
 fun RateIcon(
     rate: String,
     tint: Color,
     modifier: Modifier = Modifier,
-    icon: Painter = painterResource(com.madrid.designsystem.R.drawable.bold_star),
+    icon: Painter = painterResource(drawable.bold_star),
 ) {
     Box(
         modifier = modifier
@@ -40,7 +43,7 @@ fun RateIcon(
             MovioIcon(
                 painter = icon,
                 contentDescription = stringResource(
-                    com.madrid.presentation.R.string.stars_icon_rate
+                   string.stars_icon_rate
                 ),
                 tint = tint,
                 modifier = Modifier.size(16.dp)
@@ -57,9 +60,9 @@ fun RateIcon(
 
 @Preview(showBackground = true)
 @Composable
-fun RatreIconpreview() {
+private fun RatreIconpreview() {
     RateIcon(
-        icon = painterResource(com.madrid.designsystem.R.drawable.bold_star),
+        icon = painterResource(drawable.bold_star),
         rate = "5.0",
         tint = AppTheme.colors.systemColors.warning,
         modifier = Modifier

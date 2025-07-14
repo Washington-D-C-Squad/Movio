@@ -19,7 +19,7 @@ interface SearchRepository {
     suspend fun getSeriesByQuery(query: String): Flow<List<Series>>
     suspend fun getArtistByQuery(query: String): Flow<List<Artist>>
 
-    suspend fun getRecentSearches(): List<String>
+    suspend fun getRecentSearches(): Flow<List<String>>
     suspend fun addRecentSearch(item: String)
     suspend fun removeRecentSearch(item: String)
     suspend fun clearAllRecentSearches()

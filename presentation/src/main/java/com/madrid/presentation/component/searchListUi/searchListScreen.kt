@@ -15,10 +15,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.madrid.domain.RecentSearchItem
 import com.madrid.presentation.component.searchUi.component.RecentSearchList
 import com.madrid.presentation.component.searchUi.component.SearchHeader
-import com.madrid.data.InMemoryRecentSearchRepository
 
 @Composable
 fun SearchScreen() {
@@ -27,9 +25,10 @@ fun SearchScreen() {
     val recentSearches by viewModel.recentSearches.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
 
-    val filteredRecentSearches = if (searchQuery.isBlank()) recentSearches else recentSearches.filter {
-        it.query.contains(searchQuery, ignoreCase = true)
-    }
+    val filteredRecentSearches =
+        if (searchQuery.isBlank()) recentSearches else recentSearches.filter {
+            it.contains(searchQuery, ignoreCase = true)
+        }
 
     LaunchedEffect(Unit) { viewModel.loadRecentSearches() }
 
@@ -46,11 +45,7 @@ fun SearchScreen() {
                 if (searchQuery.isNotBlank()) {
                     try {
                         viewModel.addRecentSearch(
-                            RecentSearchItem(
-                                id = System.currentTimeMillis(),
-                                query = searchQuery,
-                                timestamp = System.currentTimeMillis()
-                            )
+                            searchQuery
                         )
                         searchQuery = ""
                     } catch (e: Exception) {
@@ -62,12 +57,12 @@ fun SearchScreen() {
         )
         Spacer(modifier = Modifier.height(8.dp))
         RecentSearchList(
-            searchHistory = filteredRecentSearches.map { it.query },
+            searchHistory = filteredRecentSearches,
             onSearchItemClick = { selectedQuery -> searchQuery = selectedQuery },
             onRemoveItem = { queryToRemove ->
-                val item = recentSearches.find { it.query == queryToRemove }
+                val item = recentSearches.find { it == queryToRemove }
                 if (item != null) {
-                    viewModel.removeRecentSearch(item.id.toString())
+                    viewModel.removeRecentSearch(item)
                 }
             },
             onClearAll = {

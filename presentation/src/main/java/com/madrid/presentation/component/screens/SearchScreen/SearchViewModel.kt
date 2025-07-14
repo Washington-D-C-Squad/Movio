@@ -1,9 +1,7 @@
-package com.madrid.presentation.component.viewmodel
+package com.madrid.presentation.component.screens.searchScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.madrid.presentation.component.screens.SearchScreen.MovieRepository
-import com.madrid.presentation.component.screens.SearchScreen.SearchUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
