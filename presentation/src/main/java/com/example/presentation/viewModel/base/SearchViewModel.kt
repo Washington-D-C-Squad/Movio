@@ -104,14 +104,20 @@ class SearchViewModel(
 
 
     fun Media.toMovieUiStateList(): List<SearchScreenState.MovieUiState> {
-        return movies.map { movie ->
-            SearchScreenState.MovieUiState(
-                id = movie.id.toString(),
-                title = movie.title,
-                imageUrl = movie.imageUrl,
-                rating = movie.rate.toString(),
-                category = movie.genre.joinToString(", ")
+
+        val moviesUiState: MutableList<SearchScreenState.MovieUiState> = mutableListOf()
+        movies.forEach { movie ->
+            moviesUiState.add(
+                SearchScreenState.MovieUiState(
+                    id = movie.id.toString(),
+                    title = movie.title,
+                    imageUrl = movie.imageUrl,
+                    rating = movie.rate.toString(),
+                    category = movie.genre.first()
+                )
             )
         }
+        return moviesUiState
+
     }
 }
