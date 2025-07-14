@@ -27,6 +27,10 @@ interface CategoryDao {
     @Query("SELECT * FROM CATEGORY_TABLE")
     fun getAllCategories(): Flow<List<MovieCategoryEntity>>
 
+    // descending order by searchCount
+    @Query("SELECT * FROM CATEGORY_TABLE ORDER BY searchCount DESC")
+    fun getAllCategoriesBySearchCount(): Flow<List<MovieCategoryEntity>>
+
     @Query("DELETE FROM CATEGORY_TABLE")
     suspend fun deleteAllCategories()
 }

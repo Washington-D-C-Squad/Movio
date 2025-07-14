@@ -7,4 +7,5 @@ import androidx.room.PrimaryKey
 data class MovieCategoryEntity(
     @PrimaryKey(autoGenerate = false) val id: Int,
     val title: String,
+    val searchCount: Int = 0,
 )
