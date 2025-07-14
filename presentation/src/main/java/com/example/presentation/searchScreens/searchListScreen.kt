@@ -1,4 +1,4 @@
-package com.example.presentation.component.searchListUi
+package com.example.presentation.searchScreens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -22,7 +22,7 @@ import com.example.designsystem.AppTheme
 import com.example.designsystem.component.search.RecentSearchHeader
 import com.example.designsystem.component.search.RecentSearchList
 import com.example.designsystem.component.textInputField.SearchTextInputField
-import com.example.presentation.component.viewModels.SearchListViewModel
+import com.example.presentation.viewModels.SearchListViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

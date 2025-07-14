@@ -1,5 +1,6 @@
 package com.example.presentation.component.screens.SearchScreen
 
+import com.example.presentation.searchScreens.Movie
 
 
 data class SearchUiState(

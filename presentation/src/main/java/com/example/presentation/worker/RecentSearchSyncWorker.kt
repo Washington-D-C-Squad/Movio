@@ -4,18 +4,16 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.domain.RecentSearchRepository
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
+import kotlin.time.Duration.Companion.hours
 
 class RecentSearchSyncWorker(
     appContext: Context,
-    workerParams: WorkerParameters
-) : CoroutineWorker(appContext, workerParams), KoinComponent {
-
-    private val recentSearchRepository: RecentSearchRepository by inject()
+    workerParams: WorkerParameters,
+    private val recentSearchRepository: RecentSearchRepository
+) : CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result {
-        val oneHourAgo = System.currentTimeMillis() - 60 * 60 * 1000
+        val oneHourAgo = System.currentTimeMillis() - 1.hours.inWholeMilliseconds
         val currentSearches = recentSearchRepository.getRecentSearches()
         val searchesToRemove = currentSearches.filter { it.timestamp < oneHourAgo }
         

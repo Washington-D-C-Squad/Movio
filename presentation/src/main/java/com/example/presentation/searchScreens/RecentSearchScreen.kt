@@ -1,4 +1,4 @@
-package com.example.presentation.component.screens.SearchScreen
+package com.example.presentation.searchScreens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -20,7 +20,7 @@ import com.example.designsystem.component.search.RecentSearchHeader
 import com.example.designsystem.component.search.RecentSearchList
 import com.example.designsystem.component.textInputField.SearchTextInputField
 import org.koin.androidx.compose.koinViewModel
-import com.example.presentation.component.viewModels.SearchListViewModel
+import com.example.presentation.viewModels.SearchListViewModel
 
 @Composable
 fun RecentSearchScreen(

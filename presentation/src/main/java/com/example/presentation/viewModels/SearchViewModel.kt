@@ -1,4 +1,4 @@
-package com.example.presentation.component.viewModels
+package com.example.presentation.viewModels
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import com.example.presentation.component.screens.SearchScreen.MovieRepository
+import com.example.presentation.searchScreens.MovieRepository
 import com.example.presentation.component.screens.SearchScreen.SearchUiState
 import com.example.presentation.worker.RecentSearchSyncWorker
 import kotlinx.coroutines.flow.MutableStateFlow

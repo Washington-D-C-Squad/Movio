@@ -1,4 +1,4 @@
-package com.example.presentation.component.viewModels
+package com.example.presentation.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -35,39 +35,25 @@ class SearchListViewModel(
                 timestamp = now
             )
             recentSearchRepository.addRecentSearch(newItem)
-            loadRecentSearches() // Reload to get updated list
+            loadRecentSearches()
         }
     }
 
     fun removeRecentSearch(id: Long) {
         viewModelScope.launch {
             recentSearchRepository.removeRecentSearch(id.toString())
-            loadRecentSearches() // Reload to get updated list
+            loadRecentSearches()
         }
     }
 
     fun clearAllRecentSearches() {
         viewModelScope.launch {
             recentSearchRepository.clearAllRecentSearches()
-            loadRecentSearches() // Reload to get updated list
+            loadRecentSearches()
         }
     }
 
     fun clearAll() {
         clearAllRecentSearches()
-    }
-
-    fun removeOlderThanOneHour() {
-        viewModelScope.launch {
-            val oneHourAgo = System.currentTimeMillis() - 60 * 60 * 1000
-            val currentSearches = _recentSearches.value
-            val searchesToRemove = currentSearches.filter { it.timestamp < oneHourAgo }
-            
-            searchesToRemove.forEach { search ->
-                recentSearchRepository.removeRecentSearch(search.id.toString())
-            }
-            
-            loadRecentSearches() // Reload to get updated list
-        }
     }
 }
