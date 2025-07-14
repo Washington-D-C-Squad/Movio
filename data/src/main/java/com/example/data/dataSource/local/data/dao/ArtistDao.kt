@@ -1,0 +1,30 @@
+package com.example.data.dataSource.local.data.dao
+
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
+import com.example.data.dataSource.local.data.entity.ArtistEntity
+import kotlinx.coroutines.flow.Flow
+
+@Dao
+interface ArtistDao {
+
+    @Insert
+    suspend fun insertArtist(artist: ArtistEntity)
+
+    @Delete
+    suspend fun deleteArtist(artist: ArtistEntity)
+
+    @Query("SELECT * FROM ARTIST_TABLE WHERE id = :id")
+    fun getArtistById(id: Int): Flow<ArtistEntity?>
+
+    @Query("SELECT * FROM ARTIST_TABLE WHERE name LIKE :name")
+    fun getArtistByName(name: String): List<Flow<ArtistEntity>>
+
+    @Query("SELECT * FROM ARTIST_TABLE")
+    fun getAllArtists(): Flow<List<ArtistEntity>>
+
+    @Query("DELETE FROM ARTIST_TABLE")
+    suspend fun deleteAllArtists()
+}
