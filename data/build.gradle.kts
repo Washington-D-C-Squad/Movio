@@ -57,12 +57,14 @@ dependencies {
     implementation("io.insert-koin:koin-core:3.5.3")
     implementation("io.insert-koin:koin-android:3.5.3")
 
-    implementation(libs.androidx.room.runtime.v272)
-    ksp(libs.androidx.room.compiler.v272)
+    val room_version = "2.7.2"
+    implementation("androidx.room:room-runtime:$room_version")
+    // use Kotlin Symbol Processing (KSP
+    ksp("androidx.room:room-compiler:$room_version")
     // Kotlin Extensions and Coroutines support for Room
-    implementation(libs.androidx.room.ktx.v272)
+    implementation("androidx.room:room-ktx:$room_version")
     // Test helpers
-    testImplementation(libs.androidx.room.testing)
-    // Paging 3 Integration
-    implementation(libs.androidx.room.paging)
+    testImplementation("androidx.room:room-testing:${room_version}")
+    //  Paging 3 Integration
+    implementation("androidx.room:room-paging:${room_version}")
 }

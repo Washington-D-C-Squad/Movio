@@ -1,7 +1,5 @@
 package com.madrid.movio
 
-import com.madrid.data.dataSource.local.SearchLocalDataSource
-import com.madrid.data.dataSource.local.SearchLocalSource
 import com.madrid.data.dataSource.remote.SearchRemoteDataSource
 import com.madrid.data.dataSource.remote.SearchRemoteSource
 import com.madrid.data.repositories.SearchRepository

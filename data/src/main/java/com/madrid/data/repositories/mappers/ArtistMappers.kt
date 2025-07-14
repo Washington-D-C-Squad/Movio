@@ -1,7 +1,7 @@
-package com.example.data.repositories.mappers
+package com.madrid.data.repositories.mappers
 
 
-import com.example.data.dataSource.local.data.entity.ArtistEntity
+import com.madrid.data.dataSource.local.entity.ArtistEntity
 import com.example.domain.entity.Artist
 
 fun Artist.toArtistEntity(): ArtistEntity {

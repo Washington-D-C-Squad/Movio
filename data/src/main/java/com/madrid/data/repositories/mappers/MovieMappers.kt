@@ -1,32 +1,33 @@
-package com.example.data.repositories.mappers
+package com.madrid.data.repositories.mappers
+
+import com.madrid.data.dataSource.local.entity.MovieEntity
+import com.example.domain.entity.Movie
 
 
-import com.example.data.dataSource.local.data.entity.SeriesEntity
-import com.example.domain.entity.Series
-
-fun Series.toSeriesEntity(): SeriesEntity {
-    return SeriesEntity(
+fun Movie.toMovieEntity(): MovieEntity {
+    return MovieEntity(
         id = this.id,
         title = this.title,
         imageUrl = this.imageUrl,
         rate = this.rate,
         yearOfRelease = this.yearOfRelease,
+        movieDuration = this.movieDuration,
         description = this.description,
     )
 }
 
-fun SeriesEntity.toSeries(): Series {
-    return Series(
+fun MovieEntity.toMovie(): Movie {
+    return Movie(
         id = this.id,
         title = this.title,
         imageUrl = this.imageUrl,
         rate = this.rate,
         yearOfRelease = this.yearOfRelease,
+        movieDuration = this.movieDuration,
         description = this.description,
         genre = TODO(),
         topCast = TODO(),
         reviews = TODO(),
-        seasons = TODO(),
     )
 }
 

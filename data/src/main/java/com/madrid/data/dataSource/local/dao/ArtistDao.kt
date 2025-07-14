@@ -1,11 +1,11 @@
-package com.example.data.dataSource.local.data.dao
+package com.madrid.data.dataSource.local.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.data.dataSource.local.data.entity.ArtistEntity
-import com.example.data.dataSource.local.data.entity.MovieEntity
+import com.madrid.data.dataSource.local.entity.ArtistEntity
+import com.madrid.data.dataSource.local.entity.MovieEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

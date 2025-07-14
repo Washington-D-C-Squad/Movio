@@ -1,17 +1,18 @@
-package com.example.data.dataSource.local.data.dao
+package com.madrid.data.dataSource.local.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.data.dataSource.local.data.entity.MovieCategoryEntity
+import com.madrid.data.dataSource.local.entity.MovieCategoryEntity
 import kotlinx.coroutines.flow.Flow
 
 
 @Dao
 interface CategoryDao {
 
-    @Insert(onConflict = androidx.room.OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCategory(category: MovieCategoryEntity)
 
     @Delete

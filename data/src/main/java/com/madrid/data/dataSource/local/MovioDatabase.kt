@@ -1,17 +1,17 @@
-package com.example.data.dataSource.local.data
+package com.madrid.data.dataSource.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.data.dataSource.local.data.dao.ArtistDao
-import com.example.data.dataSource.local.data.dao.CategoryDao
-import com.example.data.dataSource.local.data.dao.MovieDao
-import com.example.data.dataSource.local.data.dao.SeriesDao
-import com.example.data.dataSource.local.data.entity.ArtistEntity
-import com.example.data.dataSource.local.data.entity.MovieCategoryEntity
-import com.example.data.dataSource.local.data.entity.MovieEntity
-import com.example.data.dataSource.local.data.entity.SeriesEntity
+import com.madrid.data.dataSource.local.dao.ArtistDao
+import com.madrid.data.dataSource.local.dao.CategoryDao
+import com.madrid.data.dataSource.local.dao.MovieDao
+import com.madrid.data.dataSource.local.dao.SeriesDao
+import com.madrid.data.dataSource.local.entity.ArtistEntity
+import com.madrid.data.dataSource.local.entity.MovieCategoryEntity
+import com.madrid.data.dataSource.local.entity.MovieEntity
+import com.madrid.data.dataSource.local.entity.SeriesEntity
 
 @Database(
     entities = [

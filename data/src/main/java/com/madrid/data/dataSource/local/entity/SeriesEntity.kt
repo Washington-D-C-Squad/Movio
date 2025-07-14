@@ -1,4 +1,4 @@
-package com.example.data.dataSource.local.data.entity
+package com.madrid.data.dataSource.local.entity
 
 
 import kotlinx.datetime.LocalDate
