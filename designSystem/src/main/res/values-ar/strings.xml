@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="recent_search">البحث الأخير</string>
+    <string name="clear_all">مسح الكل</string>
+    <string name="remove_icon_desc">إزالة</string>
+    <string name="history_icon_desc">سجل البحث</string>
+</resources> 
