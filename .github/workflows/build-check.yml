@@ -26,6 +26,13 @@ jobs:
           mkdir -p app/
           echo "$GOOGLE_SERVICES_JSON" | base64 --decode > app/google-services.json
 
+      - name: Create secret.properties file
+        run: |
+          cat <<EOF > secret.properties
+          API_KEY="${{ secrets.API_KEY }}"
+          BASE_URL="${{ secrets.BASE_URL }}"
+          EOF
+
       - name: Grant Gradle permissions
         run: chmod +x gradlew
 

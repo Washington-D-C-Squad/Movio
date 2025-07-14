@@ -1,7 +1,6 @@
-package com.madrid.presentation.component.screens.SearchScreen
+package com.madrid.presentation.component.screens.searchScreen
 
 
-import VerticalMovioCard
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -29,11 +28,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.madrid.presentation.component.movioCards.MovioVerticalCard
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
-import com.madrid.presentation.component.viewmodel.SearchViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -173,7 +172,7 @@ fun ContentSearchScreen(
                 modifier = Modifier.padding(bottom = 24.dp)
             ) {
                 items(forYouMovies) { movie ->
-                    VerticalMovioCard(
+                    MovioVerticalCard(
                         description = movie.title,
                         movieImage = movie.imageUrl,
                         rate = movie.rating,
@@ -199,7 +198,7 @@ fun ContentSearchScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(forYouMovies) { movie ->
-                VerticalMovioCard(
+                MovioVerticalCard(
                     description = movie.title,
                     movieImage = movie.imageUrl,
                     rate = movie.rating,
