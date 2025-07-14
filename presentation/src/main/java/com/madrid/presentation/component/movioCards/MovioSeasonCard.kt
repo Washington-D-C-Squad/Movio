@@ -1,4 +1,4 @@
-package com.example.presentation.component.movioCards
+package com.madrid.presentation.component.movioCards
 
 
 import androidx.compose.foundation.background
@@ -48,8 +48,10 @@ fun MovioSeasonCard(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.Top
     ) {
-        BasicImageCard(imageUrl = movieImage, height = height, width = width,
-            radius = AppTheme.radius.small)
+        BasicImageCard(
+            imageUrl = movieImage, height = height, width = width,
+            radius = AppTheme.radius.small
+        )
         Column(
             modifier = modifier
                 .height(height)

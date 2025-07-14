@@ -1,4 +1,4 @@
-package com.example.presentation.component.movioCards
+package com.madrid.presentation.component.movioCards
 
 
 import androidx.compose.foundation.layout.Arrangement

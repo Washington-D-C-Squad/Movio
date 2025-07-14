@@ -1,4 +1,4 @@
-package com.example.presentation.component.movioCards
+package com.madrid.presentation.component.movioCards
 
 
 import androidx.compose.foundation.clickable
@@ -85,7 +85,7 @@ private fun EpisodeMovieImage(
         BasicImageCard(
             imageUrl = movieImageUrl,
             height = height, width = width,
-            radius =AppTheme.radius.small ,
+            radius = AppTheme.radius.small,
         )
         MovioIcon(
             contentDescription = stringResource(

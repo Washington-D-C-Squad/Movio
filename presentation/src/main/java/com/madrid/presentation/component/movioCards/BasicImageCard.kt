@@ -1,4 +1,4 @@
-package com.example.presentation.component.movioCards
+package com.madrid.presentation.component.movioCards
 
 
 import androidx.compose.foundation.layout.Box
@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.madrid.designsystem.AppTheme
 import com.madrid.presentation.R.string
-import com.madrid.presentation.component.filteredImage.FilteredImage
 
 @Composable
 fun BasicImageCard(

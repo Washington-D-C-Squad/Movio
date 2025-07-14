@@ -1,4 +1,4 @@
-package com.madrid.presentation.component.screens.SearchScreen
+package com.madrid.presentation.component.screens.searchScreen
 
 
 import androidx.compose.foundation.background
@@ -28,12 +28,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.presentation.component.movioCards.MovioVerticalCard
+import com.madrid.presentation.component.movioCards.MovioVerticalCard
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
-import com.madrid.presentation.component.viewmodel.SearchViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
