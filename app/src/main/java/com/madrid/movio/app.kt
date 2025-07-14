@@ -2,8 +2,7 @@ package com.madrid.movio
 
 import com.madrid.data.dataSource.local.SearchLocalDataSource
 import com.madrid.data.dataSource.local.SearchLocalSource
-import com.madrid.data.dataSource.remote.SearchRemoteDataSource
-import com.madrid.data.dataSource.remote.SearchRemoteSource
+
 import com.madrid.data.repositories.SearchRepository
 import com.madrid.detectImageContent.GetImageBitmap
 import com.madrid.detectImageContent.SensitiveContentDetection
@@ -22,7 +21,6 @@ val app = module {
     single<RecentSearchRepository> { SearchRepository(get()) }
     single<SearchRepository> { SearchRepository(get()) }
     single<SearchLocalSource> { SearchLocalDataSource() }
-    single<SearchRemoteSource> { SearchRemoteDataSource() }
 
     // presentation
 //    viewModel { SearchListViewModel(get()) }

@@ -1,4 +1,4 @@
-package com.madrid.data.dataSource.remote.stache
+package com.madrid.data.dataSource.remote.movies
 
 import io.ktor.client.statement.HttpResponse
 

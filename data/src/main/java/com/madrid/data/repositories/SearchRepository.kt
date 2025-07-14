@@ -1,6 +1,6 @@
 package com.madrid.data.repositories
 
-import com.madrid.data.dataSource.remote.SearchRemoteSource
+import com.madrid.data.dataSource.remote.search.SearchApi
 import com.madrid.domain.RecentSearchItem
 import com.madrid.domain.RecentSearchRepository
 import com.madrid.domain.entity.Artist
@@ -10,7 +10,7 @@ import com.madrid.domain.interfaces.SearchRepository
 import kotlinx.coroutines.flow.Flow
 
 class SearchRepository(
-    private val searchRemoteSource: SearchRemoteSource
+    private val multiMediaApi: SearchApi
 ) : RecentSearchRepository, SearchRepository {
     override suspend fun getAllMovie(): List<Movie> {
         TODO("Not yet implemented")
@@ -37,10 +37,7 @@ class SearchRepository(
     }
 
     override suspend fun getSearchedMovie(query: String): Flow<List<Movie>> {
-        return searchRemoteSource.searchMultiMovieDataByName(
-            name = query,
-            language = "en-US"
-        )
+        TODO("Not yet implemented")
     }
 
     override suspend fun getSearchedSeries(query: String): List<Series> {
