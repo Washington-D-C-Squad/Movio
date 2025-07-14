@@ -1,6 +1,6 @@
 package com.madrid.data.repositories
 
-import com.madrid.data.dataSource.remote.SearchRemoteSource
+import com.madrid.data.dataSource.remote.search.SearchApi
 import com.madrid.domain.entity.Artist
 import com.madrid.domain.entity.Media
 import com.madrid.domain.entity.Movie
@@ -9,7 +9,7 @@ import com.madrid.domain.repository.SearchRepository
 import kotlinx.coroutines.flow.Flow
 
 class SearchRepositoryImpl(
-    private val searchRemoteSource: SearchRemoteSource,
+    private val searchRemoteSource: SearchApi,
     private val localSource: SearchLocalSource
 ) : SearchRepository {
     override suspend fun getMostSearchedCategories(): List<String> {

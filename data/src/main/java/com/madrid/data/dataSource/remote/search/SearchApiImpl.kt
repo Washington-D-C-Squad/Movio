@@ -2,12 +2,14 @@ package com.madrid.data.dataSource.remote.search
 
 import com.madrid.data.BuildConfig.API_KEY
 import com.madrid.data.BuildConfig.BASE_URL
-import com.madrid.data.BuildConfig.LANGUAGE
-import com.madrid.data.BuildConfig.QUERY
 import com.madrid.data.dataSource.remote.artists.ArtistApiResponse
 import com.madrid.data.dataSource.remote.movies.MovieResponse
 import com.madrid.data.dataSource.remote.multiMedia.MultiMediaResponse
 import com.madrid.data.dataSource.remote.series.SeriesResponse
+import com.madrid.data.dataSource.remote.utils.Constants.KEY
+import com.madrid.data.dataSource.remote.utils.Constants.LANGUAGE
+import com.madrid.data.dataSource.remote.utils.Constants.PAGE
+import com.madrid.data.dataSource.remote.utils.Constants.QUERY
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.defaultRequest
@@ -35,10 +37,10 @@ class SearchApiImpl() : SearchApi {
                 protocol = HTTPS
                 host = BASE_URL
                 encodedPath = "/3/search/movie"
-                parameters.append("page", "1")
+                parameters.append( PAGE, "1")
                 parameters.append(LANGUAGE, language)
                 parameters.append(QUERY, name)
-                parameters.append(API_KEY, API_KEY)
+                parameters.append(KEY, API_KEY)
             }
         }
         return json.decodeFromString<MovieResponse>(result.bodyAsText())
@@ -50,7 +52,7 @@ class SearchApiImpl() : SearchApi {
                 protocol = HTTPS
                 host = BASE_URL
                 encodedPath = "search/tv"
-                parameters.append(API_KEY, API_KEY)
+                parameters.append(KEY, API_KEY)
                 parameters.append(LANGUAGE, language)
                 parameters.append(QUERY, name)
                 parameters.append("include_adult", "false")
@@ -65,7 +67,7 @@ class SearchApiImpl() : SearchApi {
                 protocol = HTTPS
                 host = BASE_URL
                 encodedPath = "search/person"
-                parameters.append(API_KEY, API_KEY)
+                parameters.append(KEY, API_KEY)
                 parameters.append(LANGUAGE, language)
                 parameters.append(QUERY, name)
             }
@@ -82,10 +84,10 @@ class SearchApiImpl() : SearchApi {
                 protocol = HTTPS
                 host = BASE_URL
                 encodedPath = "/3/search/movie"
-                parameters.append("page", "1")
+                parameters.append(PAGE, "1")
                 parameters.append(LANGUAGE, language)
                 parameters.append(QUERY, name)
-                parameters.append(API_KEY, API_KEY)
+                parameters.append(KEY, API_KEY)
             }
         }
         return json.decodeFromString<MultiMediaResponse>(result.bodyAsText())
