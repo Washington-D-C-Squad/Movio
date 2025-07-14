@@ -1,6 +1,8 @@
 package com.madrid.presentation.component
 
 import androidx.annotation.DrawableRes
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -102,14 +104,23 @@ fun CustomBottomBar(
     ) {
         navItems.forEach { item ->
             val isSelected = currentRoute == item.route
+            val animatedIconRes =
+                animateIntAsState(
+                    targetValue = if (isSelected) item.selectedIcon else item.unSelectedIcon,
+                )
+            val animatedLabelColor =
+                animateColorAsState(
+                    targetValue =if (isSelected) selectedTextColor else unSelectedTextColor
+                )
+
             CustomNavBarItem(
                 isSelected = isSelected,
                 onNavDestinationClicked = onNavDestinationClicked,
                 item = item,
-                iconRes = if (isSelected) item.selectedIcon else item.unSelectedIcon,
+                iconRes = animatedIconRes.value,
                 selectedTextStyle = selectedTextStyle,
                 unselectedTextStyle = unselectedTextStyle,
-                labelColor = if (isSelected) selectedTextColor else unSelectedTextColor
+                labelColor = animatedLabelColor.value
             )
         }
     }
