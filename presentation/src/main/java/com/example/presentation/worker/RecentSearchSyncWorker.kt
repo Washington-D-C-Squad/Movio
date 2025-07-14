@@ -3,7 +3,7 @@ package com.example.presentation.worker
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.example.domain.RecentSearchRepository
+import com.madrid.domain.RecentSearchRepository
 import kotlin.time.Duration.Companion.hours
 
 class RecentSearchSyncWorker(
