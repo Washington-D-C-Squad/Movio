@@ -22,6 +22,15 @@ android {
     properties.load(rootProject.file("secret.properties").inputStream())
     properties.getProperty("API_KEY")
     buildTypes {
+        debug {
+            buildConfigField("String", "API_KEY", properties.getProperty("API_KEY"))
+            buildConfigField("String", "BASE_URL", properties.getProperty("BASE_URL"))
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
         release {
             buildConfigField("String", "API_KEY", properties.getProperty("API_KEY"))
             buildConfigField("String", "BASE_URL", properties.getProperty("BASE_URL"))
