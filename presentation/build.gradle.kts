@@ -40,6 +40,7 @@ android {
 
 dependencies {
     implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.work.runtime.ktx)
     debugImplementation(libs.ui.tooling)
 
     implementation("androidx.compose.foundation:foundation")
