@@ -32,6 +32,13 @@ jobs:
           ls -la app/
           head -n 5 app/google-services.json
 
+      - name: Create secret.properties file
+        run: |
+          cat <<EOF > secret.properties
+          API_KEY="${{ secrets.API_KEY }}"
+          BASE_URL="${{ secrets.BASE_URL }}"
+          EOF
+
       - name: Build Release APK
         run: ./gradlew assembleRelease --stacktrace
 
