@@ -27,11 +27,6 @@ jobs:
           mkdir -p app/
           echo "$GOOGLE_SERVICES_JSON" | base64 -d > app/google-services.json
 
-      - name: Check google-services.json
-        run: |
-          ls -la app/
-          head -n 5 app/google-services.json
-
       - name: Create secret.properties file
         run: |
           cat <<EOF > secret.properties
