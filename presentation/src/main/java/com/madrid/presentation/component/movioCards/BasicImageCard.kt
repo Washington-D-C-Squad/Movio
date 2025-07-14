@@ -1,4 +1,4 @@
-package com.madrid.presentation.component.movioCards
+package com.example.presentation.component.movioCards
 
 
 import androidx.compose.foundation.layout.Box
@@ -9,12 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.madrid.designsystem.AppTheme
+import com.madrid.presentation.R.string
 import com.madrid.presentation.component.filteredImage.FilteredImage
 
 @Composable
@@ -22,20 +23,21 @@ fun BasicImageCard(
     imageUrl: String,
     height: Dp,
     width: Dp,
+    radius: Dp,
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
             .size(height = height, width = width)
     ) {
-        FilteredImage(
-            imageUrl = imageUrl,
+        AsyncImage(
+            model = imageUrl,
             contentDescription = stringResource(
-                com.madrid.presentation.R.string.moive_image
+                string.moive_image
             ),
             modifier = Modifier
                 .fillMaxSize()
-                .clip(RoundedCornerShape(AppTheme.radius.small)),
+                .clip(RoundedCornerShape(radius)),
             contentScale = ContentScale.Crop
         )
     }
@@ -43,11 +45,11 @@ fun BasicImageCard(
 
 @Preview(showBackground = true)
 @Composable
-fun prevcand() {
+private fun prevcand() {
     AppTheme {
         BasicImageCard(
-            imageUrl = painterResource(com.madrid.designsystem.R.drawable.film_photo_sample).toString(),
-            height = 180.dp, width = 158.dp
+            imageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
+            height = 180.dp, width = 158.dp, AppTheme.radius.small
         )
     }
 }
