@@ -5,11 +5,11 @@ import kotlinx.coroutines.flow.Flow
 
 interface SearchLocalSource {
 
-    fun getMoviesByName(query: String): Flow<List<MovieEntity>>
+    fun getMoviesByTitle(query: String): Flow<List<MovieEntity>>
 
-    fun getSeriesByName(query: String): Flow<List<MovieEntity>>
+    fun getSeriesByTitle(query: String): Flow<List<MovieEntity>>
 
-    fun getArtistsByName(query: String): Flow<List<MovieEntity>>
+    fun getArtistsByTitle(query: String): Flow<List<MovieEntity>>
 
 
 }
