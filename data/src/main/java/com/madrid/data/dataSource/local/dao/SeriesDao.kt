@@ -22,7 +22,7 @@ interface SeriesDao {
     fun getSeriesById(id: Int): SeriesEntity?
 
     @Query("SELECT * FROM SERIES_TABLE WHERE title LIKE :title")
-    fun getSeriesByTitle(title: String): Flow<List<MovieEntity>>
+    fun getSeriesByTitle(title: String): Flow<List<SeriesEntity>>
 
     @Query("SELECT * FROM SERIES_TABLE")
     fun getAllSeries(): Flow<List<SeriesEntity>>

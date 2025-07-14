@@ -21,7 +21,7 @@ interface ArtistDao {
     fun getArtistById(id: Int): Flow<ArtistEntity?>
 
     @Query("SELECT * FROM ARTIST_TABLE WHERE name LIKE :name")
-    fun getArtistByName(name: String): Flow<List<MovieEntity>>
+    fun getArtistByName(name: String): Flow<List<ArtistEntity>>
 
     @Query("SELECT * FROM ARTIST_TABLE")
     fun getAllArtists(): Flow<List<ArtistEntity>>
