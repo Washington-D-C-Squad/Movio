@@ -4,7 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.data.dataSource.local.data.dao.ArtistDao
+import com.example.data.dataSource.local.data.dao.CategoryDao
 import com.example.data.dataSource.local.data.dao.MovieDao
+import com.example.data.dataSource.local.data.dao.SeriesDao
 import com.example.data.dataSource.local.data.entity.ArtistEntity
 import com.example.data.dataSource.local.data.entity.MovieCategoryEntity
 import com.example.data.dataSource.local.data.entity.MovieEntity
@@ -22,6 +25,9 @@ import com.example.data.dataSource.local.data.entity.SeriesEntity
 abstract class MovioDatabase : RoomDatabase() {
 
     abstract fun movieDao(): MovieDao
+    abstract fun seriesDao(): SeriesDao
+    abstract fun movieCategoryDao(): CategoryDao
+    abstract fun artistDao(): ArtistDao
 
     companion object {
         const val DATABASE_NAME = "movie_database"
