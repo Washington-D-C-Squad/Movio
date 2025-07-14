@@ -20,9 +20,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.data.InMemoryRecentSearchRepository
 import com.example.designsystem.AppTheme
-import com.example.designsystem.component.search.RecentSearchHeader
-import com.example.designsystem.component.search.RecentSearchList
 import com.example.designsystem.component.textInputField.SearchTextInputField
+import com.example.presentation.component.search.RecentSearchHeader
+import com.example.presentation.component.search.RecentSearchList
 
 @Composable
 fun SearchScreen() {

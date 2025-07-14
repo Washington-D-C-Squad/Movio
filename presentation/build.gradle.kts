@@ -61,11 +61,8 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.6.0")
     implementation("io.insert-koin:koin-androidx-compose:3.5.3")
 
-    implementation("io.insert-koin:koin-android:3.5.3")
-
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1")
     implementation("androidx.work:work-runtime-ktx:2.9.0")
-    implementation("io.insert-koin:koin-android:3.5.3")
     implementation("io.insert-koin:koin-androidx-workmanager:3.5.3")
 
 }

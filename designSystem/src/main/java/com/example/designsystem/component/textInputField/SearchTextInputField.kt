@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -27,6 +27,8 @@ import com.example.designsystem.AppTheme
 import com.example.designsystem.component.MovioIcon
 import com.example.designsystem.component.MovioText
 import com.example.designsystem.R
+import com.example.designsystem.spacing.defaultSpacing
+import com.example.designsystem.radius.defaultRadius
 
 @Composable
 fun SearchTextInputField(
@@ -52,8 +54,8 @@ fun SearchTextInputField(
         cursorBrush = SolidColor(iconColor),
         modifier = modifier
             .height(48.dp)
-            .width(360.dp)
-            .background(backgroundColor, RoundedCornerShape(16.dp)),
+            .fillMaxWidth()
+            .background(backgroundColor, RoundedCornerShape(defaultRadius.medium)),
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = imeAction),
         keyboardActions = KeyboardActions(
             onDone = { onImeAction() },
@@ -64,7 +66,7 @@ fun SearchTextInputField(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = defaultSpacing.medium)
             ) {
                 MovioIcon(
                     painter = startIconPainter,
@@ -73,7 +75,7 @@ fun SearchTextInputField(
                     modifier = Modifier.size(20.dp)
                 )
 
-                Spacer(modifier = Modifier.width(10.dp))
+                Spacer(modifier = Modifier.fillMaxWidth())
                 Box(modifier = Modifier.weight(1f)) {
                     if (value.isEmpty()) {
                         MovioText(
@@ -84,7 +86,7 @@ fun SearchTextInputField(
                     }
                     innerTextField()
                 }
-                Spacer(modifier = Modifier.width(10.dp))
+                Spacer(modifier = Modifier.fillMaxWidth())
                 MovioIcon(
                     painter = endIconPainter,
                     contentDescription = "Clear Icon",

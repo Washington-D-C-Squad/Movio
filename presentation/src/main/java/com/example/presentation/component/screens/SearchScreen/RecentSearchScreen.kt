@@ -1,4 +1,4 @@
-package com.example.presentation.component.screens.SearchScreen
+package com.example.presentation.component.screens.searchscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -8,25 +8,26 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.designsystem.component.search.RecentSearchHeader
-import com.example.designsystem.component.search.RecentSearchList
 import com.example.designsystem.component.textInputField.SearchTextInputField
-import com.example.designsystem.AppTheme
+import com.example.presentation.component.search.RecentSearchHeader
+import com.example.presentation.component.search.RecentSearchList
+import com.example.presentation.component.searchListUi.SearchListViewModel
+import com.example.data.InMemoryRecentSearchRepository
 
 @Composable
 fun RecentSearchScreen() {
-    val (searchText, setSearchText) = remember { mutableStateOf("") }
-    val recentSearches = listOf(
-        "Ana de Armas", "Ana de Armas", "Ana de Armas", "Ana de Armas",
-        "Ana de Armas", "Ana de Armas", "Ana de Armas", "Ana de Armas"
-    )
+    val repo = remember { InMemoryRecentSearchRepository() }
+    val viewModel: SearchListViewModel = remember { SearchListViewModel(repo) }
+    val recentSearches by viewModel.recentSearches.collectAsState()
+    val (searchText, setSearchText) = remember { androidx.compose.runtime.mutableStateOf("") }
+
     Column(
         modifier = Modifier
             .padding(16.dp)
@@ -46,7 +47,7 @@ fun RecentSearchScreen() {
         )
         Spacer(modifier = Modifier.height(4.dp))
         RecentSearchList(
-            items = recentSearches,
+            items = recentSearches.map { it.query },
             modifier = Modifier.fillMaxWidth()
         )
     }
