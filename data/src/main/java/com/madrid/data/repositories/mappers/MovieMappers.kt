@@ -1,7 +1,7 @@
 package com.madrid.data.repositories.mappers
 
 import com.madrid.data.dataSource.local.entity.MovieEntity
-import com.example.domain.entity.Movie
+import com.madrid.domain.entity.Movie
 
 
 fun Movie.toMovieEntity(): MovieEntity {

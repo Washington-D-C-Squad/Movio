@@ -2,7 +2,7 @@ package com.madrid.data.repositories.mappers
 
 
 import com.madrid.data.dataSource.local.entity.ArtistEntity
-import com.example.domain.entity.Artist
+import com.madrid.domain.entity.Artist
 
 fun Artist.toArtistEntity(): ArtistEntity {
     return ArtistEntity(

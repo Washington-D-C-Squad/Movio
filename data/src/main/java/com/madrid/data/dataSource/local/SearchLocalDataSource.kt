@@ -3,7 +3,7 @@ package com.madrid.data.dataSource.local
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.repositories.SearchLocalSource
 import com.madrid.data.repositories.mappers.toMovieEntity
-import com.example.domain.entity.Movie
+import com.madrid.domain.entity.Movie
 import kotlinx.coroutines.flow.Flow
 
 class SearchLocalDataSource(

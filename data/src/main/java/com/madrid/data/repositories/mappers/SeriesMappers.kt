@@ -2,7 +2,7 @@ package com.madrid.data.repositories.mappers
 
 
 import com.madrid.data.dataSource.local.entity.SeriesEntity
-import com.example.domain.entity.Series
+import com.madrid.domain.entity.Series
 
 fun Series.toSeriesEntity(): SeriesEntity {
     return SeriesEntity(
