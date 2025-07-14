@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -54,7 +55,7 @@ fun SearchScreen() {
             onClear = { searchQuery = "" },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .width(360.dp),
+                .fillMaxWidth(),
             imeAction = ImeAction.Done,
             onImeAction = { submitSearch(searchQuery) }
         )
@@ -62,7 +63,7 @@ fun SearchScreen() {
         RecentSearchHeader(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .width(360.dp),
+                .fillMaxWidth(),
             onClearAll = { viewModel.clearAll() }
         )
         Spacer(modifier = Modifier.height(4.dp))
@@ -70,7 +71,7 @@ fun SearchScreen() {
             items = filteredRecentSearches.map { it.query },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .width(360.dp),
+                .fillMaxWidth(),
             onRemove = { index ->
                 val item = filteredRecentSearches.getOrNull(index)
                 if (item != null) {

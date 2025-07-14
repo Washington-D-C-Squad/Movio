@@ -13,7 +13,7 @@ import com.example.domain.searchUseCase.SearchArtistUseCase
 import com.example.domain.searchUseCase.SearchMoviesUseCase
 import com.example.domain.searchUseCase.SearchSeriesUseCase
 import com.example.presentation.component.filteredImage.FilteredImageViewModel
-import com.example.presentation.component.viewModels.SearchListViewModel
+import com.example.presentation.viewModels.SearchListViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
