@@ -1,69 +1,63 @@
 package com.madrid.data.repositories
 
 import com.madrid.data.dataSource.remote.SearchRemoteSource
-import com.madrid.domain.RecentSearchItem
-import com.madrid.domain.RecentSearchRepository
 import com.madrid.domain.entity.Artist
+import com.madrid.domain.entity.Media
 import com.madrid.domain.entity.Movie
 import com.madrid.domain.entity.Series
-import com.madrid.domain.interfaces.SearchRepository
+import com.madrid.domain.repository.SearchRepository
 import kotlinx.coroutines.flow.Flow
 
 class SearchRepository(
     private val searchRemoteSource: SearchRemoteSource
-) : RecentSearchRepository, SearchRepository {
-    override suspend fun getAllMovie(): List<Movie> {
+) : SearchRepository {
+    override suspend fun getMostSearchedCategories(): List<String> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAllSeries(): List<Series> {
+    override suspend fun getMediaByCategory(category: String): Media {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAllArtist(): List<Artist> {
+    override suspend fun getTrendingMedia(): Media {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getTopRatedMovie(): List<Movie> {
+    override suspend fun getTopRatedMovies(query: String): List<Movie> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getTopRatedSeries(): List<Series> {
+    override suspend fun getTopRatedSeries(query: String): List<Series> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getTopResults(query: String): List<Movie> {
+    override suspend fun getMovieByQuery(query: String): Flow<List<Movie>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getSearchedMovie(query: String): Flow<List<Movie>> {
-        return searchRemoteSource.searchMultiMovieDataByName(
-            name = query,
-            language = "en-US"
-        )
-    }
-
-    override suspend fun getSearchedSeries(query: String): List<Series> {
+    override suspend fun getSeriesByQuery(query: String): Flow<List<Series>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getSearchedArtists(query: String): List<Artist> {
+    override suspend fun getArtistByQuery(query: String): Flow<List<Artist>> {
         TODO("Not yet implemented")
     }
 
-    override fun getRecentSearches(): List<RecentSearchItem> {
-        return emptyList()
-    }
-
-    override fun addRecentSearch(item: RecentSearchItem) {
+    override suspend fun getRecentSearches(): List<String> {
         TODO("Not yet implemented")
     }
 
-    override fun removeRecentSearch(id: String) {
+    override suspend fun addRecentSearch(item: String) {
         TODO("Not yet implemented")
     }
 
-    override fun clearAllRecentSearches() {
+    override suspend fun removeRecentSearch(item: String) {
         TODO("Not yet implemented")
     }
+
+    override suspend fun clearAllRecentSearches() {
+        TODO("Not yet implemented")
+    }
+
+
 }
