@@ -15,14 +15,26 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import com.madrid.presentation.component.searchUi.component.RecentSearchList
 import com.madrid.presentation.component.searchUi.component.SearchHeader
 
 @Composable
-fun SearchScreen() {
-    val repo = remember { InMemoryRecentSearchRepository() }
-    val viewModel: SearchListViewModel = remember { SearchListViewModel(repo) }
-    val recentSearches by viewModel.recentSearches.collectAsState()
+fun SearchScreen(
+    // viewModel: RecentSearchUseCase = RecentSearchUseCase()
+) {
+
+}
+
+@Composable
+fun SearchScreenContent(
+    recentSearches: List<String>,
+    loadRecentSearches: () -> Unit,
+    addRecentSearch: (String) -> Unit,
+    removeRecentSearch: (String) -> Unit,
+    clearAll: () -> Unit,
+) {
+
     var searchQuery by remember { mutableStateOf("") }
 
     val filteredRecentSearches =
@@ -30,7 +42,7 @@ fun SearchScreen() {
             it.contains(searchQuery, ignoreCase = true)
         }
 
-    LaunchedEffect(Unit) { viewModel.loadRecentSearches() }
+    LaunchedEffect(Unit) { loadRecentSearches() }
 
     Column(
         modifier = Modifier
@@ -44,7 +56,7 @@ fun SearchScreen() {
             onSubmit = {
                 if (searchQuery.isNotBlank()) {
                     try {
-                        viewModel.addRecentSearch(
+                        addRecentSearch(
                             searchQuery
                         )
                         searchQuery = ""
@@ -62,11 +74,11 @@ fun SearchScreen() {
             onRemoveItem = { queryToRemove ->
                 val item = recentSearches.find { it == queryToRemove }
                 if (item != null) {
-                    viewModel.removeRecentSearch(item)
+                    removeRecentSearch(item)
                 }
             },
             onClearAll = {
-                viewModel.clearAll()
+                clearAll()
             }
         )
     }

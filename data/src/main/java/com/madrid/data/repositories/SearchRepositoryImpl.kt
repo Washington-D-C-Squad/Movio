@@ -44,7 +44,7 @@ class SearchRepositoryImpl(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getRecentSearches(): List<String> {
+    override suspend fun getRecentSearches(): Flow<List<String>> {
         TODO("Not yet implemented")
     }
 
