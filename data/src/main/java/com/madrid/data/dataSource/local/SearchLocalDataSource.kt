@@ -16,16 +16,17 @@ class SearchLocalDataSource(
 
     private val dao = MovioDatabase.Companion.getInstance(context)
 
-    suspend fun insertMovie(movie: MovieEntity){
+    suspend fun insertMovie(movie: MovieEntity) {
         dao.movieDao().insertMovie(movie)
     }
 
-    suspend fun insertSeries(series: SeriesEntity){
+    suspend fun insertSeries(series: SeriesEntity) {
         dao.seriesDao().insertSeries(series)
     }
 
-
-
+    fun getTopRatedMovies(): Flow<List<MovieEntity>> {
+        return dao.movieDao().getTopRatedMovies()
+    }
 
     override fun getMoviesByTitle(query: String): Flow<List<MovieEntity>> {
         return dao.movieDao().getMovieByTitle("%$query%")
@@ -38,8 +39,6 @@ class SearchLocalDataSource(
     override fun getArtistsByTitle(query: String): Flow<List<ArtistEntity>> {
         return dao.artistDao().getArtistByName("%$query%")
     }
-
-
 
 
 }
