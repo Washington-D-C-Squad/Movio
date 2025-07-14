@@ -82,7 +82,13 @@ fun SearchScreen() {
             onRemove = { index ->
                 val item = filteredRecentSearches.getOrNull(index)
                 if (item != null) {
-                    viewModel.removeRecentSearch(item.query)
+                    viewModel.removeRecentSearch(item.id.toString())
+                }
+            },
+            onItemClick = { index ->
+                val item = filteredRecentSearches.getOrNull(index)
+                if (item != null) {
+                    searchQuery = item.query
                 }
             }
         )

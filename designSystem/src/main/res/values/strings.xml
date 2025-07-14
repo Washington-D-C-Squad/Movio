@@ -2,4 +2,5 @@
 <resources>
     <string name="recent_search">Recent Search</string>
     <string name="clear_all">Clear all</string>
+    <string name="remove_icon">Remove Icon</string>
 </resources> 
