@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.madrid.presentation.component.searchUi.component.RecentSearchList
 import com.madrid.presentation.component.searchUi.component.SearchHeader
-import com.madrid.data.InMemoryRecentSearchRepository
 
 @Composable
 fun SearchScreen() {

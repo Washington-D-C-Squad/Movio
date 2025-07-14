@@ -1,31 +1,32 @@
 package com.madrid.presentation.component.searchListUi
 
 import androidx.lifecycle.ViewModel
-import com.madrid.data.InMemoryRecentSearchRepository
+import androidx.lifecycle.viewModelScope
+import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
-class SearchListViewModel(private val repo: InMemoryRecentSearchRepository) : ViewModel() {
+class SearchListViewModel(private val repo: RecentSearchUseCase) : ViewModel() {
     private val _recentSearches = MutableStateFlow<List<String>>(emptyList())
     val recentSearches: StateFlow<List<String>> = _recentSearches.asStateFlow()
 
     fun loadRecentSearches() {
-        _recentSearches.value = repo.getRecentSearches()
+        viewModelScope.launch {
+            repo.getRecentSearches().collect { searches ->
+                _recentSearches.value = searches
+            }
+        }
     }
 
     fun addRecentSearch(item: String) {
-        repo.addRecentSearch(item)
-        _recentSearches.value = repo.getRecentSearches()
+        viewModelScope.launch {
+            repo.addRecentSearch(item)
+            repo.getRecentSearches().collect { searches ->
+                _recentSearches.value = searches
+            }
+        }
     }
 
-    fun removeRecentSearch(id: String) {
-        repo.removeRecentSearch(id)
-        _recentSearches.value = repo.getRecentSearches()
-    }
-
-    fun clearAll() {
-        repo.clearAllRecentSearches()
-        _recentSearches.value = repo.getRecentSearches()
-    }
 }
