@@ -20,6 +20,5 @@ fun MovioNavGraph(navController: NavHostController) {
         searchRoute(navController)
         libraryRoute(navController)
         moreRoute(navController)
-
     }
 }
