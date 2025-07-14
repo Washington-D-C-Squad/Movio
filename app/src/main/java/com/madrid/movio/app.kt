@@ -12,7 +12,7 @@ import com.madrid.domain.searchUseCase.SearchArtistUseCase
 import com.madrid.domain.searchUseCase.SearchMoviesUseCase
 import com.madrid.domain.searchUseCase.SearchSeriesUseCase
 import com.madrid.presentation.component.filteredImage.FilteredImageViewModel
-import com.madrid.presentation.component.screens.searchscreen.SearchListViewModel
+import com.madrid.presentation.component.screens.SearchScreen.SearchListViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
