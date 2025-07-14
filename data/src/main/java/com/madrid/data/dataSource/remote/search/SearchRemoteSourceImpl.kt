@@ -2,14 +2,15 @@ package com.madrid.data.dataSource.remote.search
 
 import com.madrid.data.BuildConfig.API_KEY
 import com.madrid.data.BuildConfig.BASE_URL
-import com.madrid.data.dataSource.remote.artists.ArtistApiResponse
-import com.madrid.data.dataSource.remote.movies.MovieResponse
-import com.madrid.data.dataSource.remote.multiMedia.MultiMediaResponse
-import com.madrid.data.dataSource.remote.series.SeriesResponse
+import com.madrid.data.dataSource.remote.response.ArtistApiResponse
+import com.madrid.data.dataSource.remote.response.MovieResponse
+import com.madrid.data.dataSource.remote.response.MultiMediaResponse
+import com.madrid.data.dataSource.remote.response.SeriesResponse
 import com.madrid.data.dataSource.remote.utils.Constants.KEY
 import com.madrid.data.dataSource.remote.utils.Constants.LANGUAGE
 import com.madrid.data.dataSource.remote.utils.Constants.PAGE
 import com.madrid.data.dataSource.remote.utils.Constants.QUERY
+import com.madrid.data.repositories.SearchRemoteSource
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.defaultRequest
@@ -20,7 +21,7 @@ import io.ktor.http.URLProtocol.Companion.HTTPS
 import io.ktor.http.encodedPath
 import kotlinx.serialization.json.Json
 
-class SearchApiImpl() : SearchApi {
+class SearchRemoteSourceImpl() : SearchRemoteSource {
 
     private val client = HttpClient(CIO) {
         defaultRequest {

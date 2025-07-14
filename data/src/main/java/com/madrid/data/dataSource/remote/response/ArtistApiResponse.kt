@@ -1,4 +1,4 @@
-package com.madrid.data.dataSource.remote.artists
+package com.madrid.data.dataSource.remote.response
 
 
 import com.google.gson.annotations.SerializedName
@@ -9,7 +9,7 @@ data class ArtistApiResponse(
     @SerializedName("page")
     val page: Int = 0,
     @SerializedName("results")
-    val results: List<Result> = listOf(),
+    val artistResults: List<ArtistsResult> = listOf(),
     @SerializedName("total_pages")
     val totalPages: Int = 0,
     @SerializedName("total_results")
@@ -17,7 +17,7 @@ data class ArtistApiResponse(
 )
 
 @Serializable
-data class Result(
+data class ArtistsResult(
     @SerializedName("adult")
     val adult: Boolean = false,
     @SerializedName("gender")
@@ -27,7 +27,7 @@ data class Result(
     @SerializedName("known_for")
     val knownFor: List<KnownFor> = listOf(),
     @SerializedName("known_for_department")
-    val knownForDepartment: String = "",
+    val role: String = "",
     @SerializedName("name")
     val name: String = "",
     @SerializedName("original_name")

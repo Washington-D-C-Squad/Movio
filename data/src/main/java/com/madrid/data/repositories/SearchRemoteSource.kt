@@ -1,11 +1,11 @@
-package com.madrid.data.dataSource.remote.search
+package com.madrid.data.repositories
 
-import com.madrid.data.dataSource.remote.artists.ArtistApiResponse
-import com.madrid.data.dataSource.remote.movies.MovieResponse
-import com.madrid.data.dataSource.remote.multiMedia.MultiMediaResponse
-import com.madrid.data.dataSource.remote.series.SeriesResponse
+import com.madrid.data.dataSource.remote.response.ArtistApiResponse
+import com.madrid.data.dataSource.remote.response.MovieResponse
+import com.madrid.data.dataSource.remote.response.MultiMediaResponse
+import com.madrid.data.dataSource.remote.response.SeriesResponse
 
-interface SearchApi {
+interface SearchRemoteSource {
 
 
     suspend fun searchMoviesByName (name: String,language: String ) : MovieResponse

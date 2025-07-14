@@ -1,4 +1,4 @@
-package com.madrid.data.repositories.mappers
+package com.madrid.data.dataSource.local.mappers
 
 
 import com.madrid.data.dataSource.local.entity.SeriesEntity
