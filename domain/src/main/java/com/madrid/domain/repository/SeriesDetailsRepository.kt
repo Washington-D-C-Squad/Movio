@@ -1,6 +1,6 @@
-package com.example.domain.repository
+package com.madrid.domain.repository
 
-import com.example.domain.entity.Series
+import com.madrid.domain.entity.Series
 import kotlinx.coroutines.flow.Flow
 
 interface SeriesDetailsRepository {

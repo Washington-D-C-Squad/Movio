@@ -1,10 +1,9 @@
-package com.example.domain.repository
+package com.madrid.domain.repository
 
-import com.example.domain.entity.Artist
-import com.example.domain.entity.Media
-import com.example.domain.entity.Movie
-import com.example.domain.entity.RecentSearch
-import com.example.domain.entity.Series
+import com.madrid.domain.entity.Artist
+import com.madrid.domain.entity.Media
+import com.madrid.domain.entity.Movie
+import com.madrid.domain.entity.Series
 import kotlinx.coroutines.flow.Flow
 
 interface SearchRepository {

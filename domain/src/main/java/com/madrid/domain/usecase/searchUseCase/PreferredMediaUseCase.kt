@@ -1,7 +1,7 @@
-package com.example.domain.usecase.searchUseCase
+package com.madrid.domain.usecase.searchUseCase
 
-import com.example.domain.entity.Media
-import com.example.domain.repository.SearchRepository
+import com.madrid.domain.entity.Media
+import com.madrid.domain.repository.SearchRepository
 
 class PreferredMediaUseCase(private val searchRepository: SearchRepository) {
     suspend fun getPreferredMedia(): List<Media> {

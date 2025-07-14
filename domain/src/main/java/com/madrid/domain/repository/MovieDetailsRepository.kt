@@ -1,6 +1,6 @@
-package com.example.domain.repository
+package com.madrid.domain.repository
 
-import com.example.domain.entity.Movie
+import com.madrid.domain.entity.Movie
 import kotlinx.coroutines.flow.Flow
 
 interface MovieDetailsRepository {

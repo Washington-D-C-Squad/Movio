@@ -1,4 +1,4 @@
-package com.example.domain.entity
+package com.madrid.domain.entity
 
 data class Episode(
     val id: Int,

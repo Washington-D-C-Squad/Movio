@@ -1,7 +1,7 @@
-package com.example.domain.usecase.mediaDeatailsUseCase
+package com.madrid.domain.usecase.mediaDeatailsUseCase
 
-import com.example.domain.entity.Series
-import com.example.domain.repository.SeriesDetailsRepository
+import com.madrid.domain.entity.Series
+import com.madrid.domain.repository.SeriesDetailsRepository
 import kotlinx.coroutines.flow.Flow
 
 class SeriesDetailsUseCase(private val seriesDetailsRepository: SeriesDetailsRepository) {

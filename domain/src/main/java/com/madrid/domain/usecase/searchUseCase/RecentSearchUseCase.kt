@@ -1,7 +1,6 @@
-package com.example.domain.usecase.searchUseCase
+package com.madrid.domain.usecase.searchUseCase
 
-import com.example.domain.entity.RecentSearch
-import com.example.domain.repository.SearchRepository
+import com.madrid.domain.repository.SearchRepository
 
 class RecentSearchUseCase(private val searchRepository: SearchRepository) {
     suspend fun getRecentSearches() = searchRepository.getRecentSearches()

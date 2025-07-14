@@ -1,6 +1,6 @@
-package com.example.domain.usecase.mediaDeatailsUseCase
+package com.madrid.domain.usecase.mediaDeatailsUseCase
 
-import com.example.domain.repository.MovieDetailsRepository
+import com.madrid.domain.repository.MovieDetailsRepository
 import kotlinx.coroutines.flow.Flow
 
 class MovieDetailsUseCase(private val movieDetailsRepository: MovieDetailsRepository) {
