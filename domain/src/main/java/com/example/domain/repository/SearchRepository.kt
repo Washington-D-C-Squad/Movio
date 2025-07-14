@@ -13,8 +13,6 @@ interface SearchRepository {
 
     suspend fun getTrendingMedia(): Media
 
-//    suspend fun getTopRatedMedia(query: String): Media
-
     suspend fun getTopRatedMovies(query: String): List<Movie>
     suspend fun getTopRatedSeries(query: String): List<Series>
 
