@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
+import com.madrid.designsystem.MovioTheme
 import com.madrid.designsystem.component.MovioButton
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
@@ -33,12 +33,12 @@ fun SearchHeader(
 ) {
     Column(
         modifier = Modifier
-            .padding(horizontal = AppTheme.spacing.large, vertical = AppTheme.spacing.medium)
+            .padding(horizontal = MovioTheme.spacing.large, vertical = MovioTheme.spacing.medium)
     ) {
         MovioText(
             text = "Search",
-            textStyle = AppTheme.textStyle.headLine.largeBold18,
-            color = AppTheme.colors.surfaceColor.onSurface,
+            textStyle = MovioTheme.textStyle.headLine.largeBold18,
+            color = MovioTheme.colors.surfaceColor.onSurface,
             modifier = Modifier.padding(bottom = 8.dp)
         )
         Row(
@@ -46,23 +46,23 @@ fun SearchHeader(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    AppTheme.colors.surfaceColor.surfaceVariant,
-                    RoundedCornerShape(AppTheme.radius.xLarge)
+                    MovioTheme.colors.surfaceColor.surfaceVariant,
+                    RoundedCornerShape(MovioTheme.radius.xLarge)
                 )
-                .padding(horizontal = AppTheme.spacing.medium, vertical = AppTheme.spacing.small)
+                .padding(horizontal = MovioTheme.spacing.medium, vertical = MovioTheme.spacing.small)
         ) {
             MovioIcon(
                 painter = painterResource(id = DesignSystemR.drawable.outline_clock_circle),
                 contentDescription ="search content description",// stringResource(id = DesignSystemR.string.search_content_description),
-                tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
-                modifier = Modifier.size(AppTheme.spacing.large)
+                tint = MovioTheme.colors.surfaceColor.onSurfaceVariant,
+                modifier = Modifier.size(MovioTheme.spacing.large)
             )
-            Spacer(modifier = Modifier.width(AppTheme.spacing.small))
+            Spacer(modifier = Modifier.width(MovioTheme.spacing.small))
             BasicTextField(
                 value = searchQuery,
                 onValueChange = onSearchChange,
                 singleLine = true,
-                textStyle = AppTheme.textStyle.body.medium14.copy(color = AppTheme.colors.surfaceColor.onSurface),
+                textStyle = MovioTheme.textStyle.body.medium14.copy(color = MovioTheme.colors.surfaceColor.onSurface),
                 keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(
                     onSearch = { onSubmit() }
@@ -74,8 +74,8 @@ fun SearchHeader(
                     if (searchQuery.isEmpty()) {
                         MovioText(
                             text = "Search",
-                            textStyle = AppTheme.textStyle.body.medium14,
-                            color = AppTheme.colors.surfaceColor.onSurfaceVariant
+                            textStyle = MovioTheme.textStyle.body.medium14,
+                            color = MovioTheme.colors.surfaceColor.onSurfaceVariant
                         )
                     }
                     innerTextField()
@@ -83,14 +83,14 @@ fun SearchHeader(
             )
             MovioButton(
                 onClick = onClear,
-                modifier = Modifier.size(AppTheme.spacing.xLarge),
-                color = AppTheme.colors.surfaceColor.surfaceVariant
+                modifier = Modifier.size(MovioTheme.spacing.xLarge),
+                color = MovioTheme.colors.surfaceColor.surfaceVariant
             ) {
                 MovioIcon(
                     painter = painterResource(id = DesignSystemR.drawable.trash),
                     contentDescription = "clear content description ",//stringResource(id = DesignSystemR.string.clear_content_description),
-                    tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
-                    modifier = Modifier.size(AppTheme.spacing.large)
+                    tint = MovioTheme.colors.surfaceColor.onSurfaceVariant,
+                    modifier = Modifier.size(MovioTheme.spacing.large)
                 )
             }
         }

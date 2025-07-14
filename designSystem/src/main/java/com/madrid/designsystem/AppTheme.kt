@@ -6,18 +6,16 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
-import androidx.compose.runtime.Stable
 import androidx.compose.runtime.staticCompositionLocalOf
 import com.madrid.designsystem.radius.MovioRadius
 import com.madrid.designsystem.radius.defaultRadius
 import com.madrid.designsystem.spacing.MovioSpacing
 import com.madrid.designsystem.spacing.defaultSpacing
-import dark
-import defaultTextStyle
-import light
+dark
+defaultTextStyle
+light
 
-@Stable
-object AppTheme {
+object MovioTheme {
 
     val textStyle: MovioTextStyle
         @Composable @ReadOnlyComposable get() = LocalMovioTextStyle.current

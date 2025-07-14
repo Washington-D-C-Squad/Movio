@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import com.madrid.designsystem.AppTheme
+import com.madrid.designsystem.MovioTheme
 import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
@@ -22,19 +22,19 @@ fun BottomRowForVideoLibrary(
     videosNumber: Number
 ) {
     Box(
-        modifier = Modifier.background(color = AppTheme.colors.surfaceColor.surfaceVariant)
+        modifier = Modifier.background(color = MovioTheme.colors.surfaceColor.surfaceVariant)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(AppTheme.spacing.small),
+                .padding(MovioTheme.spacing.small),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             MovioText(
                 text = "$videosNumber ${stringResource(com.madrid.presentation.R.string.video_library_video_number)}",
-                color = AppTheme.colors.surfaceColor.onSurfaceVariant,
-                textStyle = AppTheme.textStyle.label.smallRegular12,
+                color = MovioTheme.colors.surfaceColor.onSurfaceVariant,
+                textStyle = MovioTheme.textStyle.label.smallRegular12,
             )
             MovioIcon(
                 painter = painterResource(R.drawable.video_lib),

@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
-import com.madrid.designsystem.AppTheme
+import com.madrid.designsystem.MovioTheme
 import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioButton
 import com.madrid.designsystem.component.MovioIcon
@@ -19,12 +19,12 @@ fun ActionButton(
     isLoading: Boolean = false,
     text: String,
     onClick: () -> Unit,
-    color: Color = AppTheme.colors.brandColors.primary,
+    color: Color = MovioTheme.colors.brandColors.primary,
     icon: Painter = painterResource(R.drawable.loading),
 ) {
     MovioButton(
         modifier = modifier
-            .padding(horizontal = AppTheme.spacing.medium)
+            .padding(horizontal = MovioTheme.spacing.medium)
             .fillMaxWidth(),
         color = color,
         onClick = onClick
@@ -33,15 +33,15 @@ fun ActionButton(
             MovioIcon(
                 painter = icon,
                 contentDescription = "loading icon",
-                tint = AppTheme.colors.brandColors.onPrimary,
-                modifier = Modifier.padding(end = AppTheme.spacing.extraSmall)
+                tint = MovioTheme.colors.brandColors.onPrimary,
+                modifier = Modifier.padding(end = MovioTheme.spacing.extraSmall)
             )
         }
         MovioText(
-            modifier = Modifier.padding(vertical = AppTheme.spacing.medium),
+            modifier = Modifier.padding(vertical = MovioTheme.spacing.medium),
             text = text,
-            color = AppTheme.colors.brandColors.onPrimary,
-            textStyle = AppTheme.textStyle.label.medium14,
+            color = MovioTheme.colors.brandColors.onPrimary,
+            textStyle = MovioTheme.textStyle.label.medium14,
         )
     }
 }

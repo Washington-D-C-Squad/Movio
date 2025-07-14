@@ -19,7 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import com.madrid.designsystem.AppTheme
+import com.madrid.designsystem.MovioTheme
 import com.madrid.designsystem.R as DesignSystemR
 import com.madrid.designsystem.component.MovioText
 import com.madrid.designsystem.component.MovioIcon
@@ -36,33 +36,33 @@ fun RecentSearchList(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = AppTheme.spacing.large)
+            .padding(horizontal = MovioTheme.spacing.large)
             .background(
-                AppTheme.colors.surfaceColor.surface,
-                RoundedCornerShape(AppTheme.radius.large)
+                MovioTheme.colors.surfaceColor.surface,
+                RoundedCornerShape(MovioTheme.radius.large)
             )
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = AppTheme.spacing.small)
+                .padding(vertical = MovioTheme.spacing.small)
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(AppTheme.spacing.large),
+                    .padding(MovioTheme.spacing.large),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 MovioText(
                     text = "recent search " , // stringResource(id = DesignSystemR.string.recent_search),
-                    textStyle = AppTheme.textStyle.headLine.medium18,
-                    color = AppTheme.colors.surfaceColor.onSurface
+                    textStyle = MovioTheme.textStyle.headLine.medium18,
+                    color = MovioTheme.colors.surfaceColor.onSurface
                 )
                 MovioText(
                     text = "clear all ", // stringResource(id = DesignSystemR.string.clear_all),
-                    textStyle = AppTheme.textStyle.body.medium14,
-                    color = AppTheme.colors.surfaceColor.onSurfaceVariant,
+                    textStyle = MovioTheme.textStyle.body.medium14,
+                    color = MovioTheme.colors.surfaceColor.onSurfaceVariant,
                     modifier = Modifier.clickable { onClearAll() }
                 )
             }
@@ -92,36 +92,36 @@ private fun RecentSearchItem(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onItemClick() }
-            .padding(horizontal = AppTheme.spacing.large, vertical = AppTheme.spacing.medium),
+            .padding(horizontal = MovioTheme.spacing.large, vertical = MovioTheme.spacing.medium),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
         MovioIcon(
             painter = painterResource(id = DesignSystemR.drawable.outline_clock_circle),
             contentDescription = "description " , //stringResource(id = DesignSystemR.string.clock_content_description),
-            tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
-            modifier = Modifier.size(AppTheme.spacing.medium)
+            tint = MovioTheme.colors.surfaceColor.onSurfaceVariant,
+            modifier = Modifier.size(MovioTheme.spacing.medium)
         )
 
-        Spacer(modifier = Modifier.width(AppTheme.spacing.medium))
+        Spacer(modifier = Modifier.width(MovioTheme.spacing.medium))
 
         MovioText(
             text = searchText,
-            textStyle = AppTheme.textStyle.body.medium14,
-            color = AppTheme.colors.surfaceColor.onSurface,
+            textStyle = MovioTheme.textStyle.body.medium14,
+            color = MovioTheme.colors.surfaceColor.onSurface,
             modifier = Modifier.weight(1f)
         )
 
         MovioButton(
             onClick = onRemoveClick,
-            modifier = Modifier.size(AppTheme.spacing.large),
-            color = AppTheme.colors.surfaceColor.surface
+            modifier = Modifier.size(MovioTheme.spacing.large),
+            color = MovioTheme.colors.surfaceColor.surface
         ) {
             MovioIcon(
                 painter = painterResource(id = DesignSystemR.drawable.trash),
                 contentDescription = "delete content description" , //stringResource(id = DesignSystemR.string.delete_content_description),
-                tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
-                modifier = Modifier.size(AppTheme.spacing.medium)
+                tint = MovioTheme.colors.surfaceColor.onSurfaceVariant,
+                modifier = Modifier.size(MovioTheme.spacing.medium)
             )
         }
     }

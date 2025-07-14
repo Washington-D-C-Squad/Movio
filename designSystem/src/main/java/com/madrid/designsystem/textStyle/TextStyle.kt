@@ -6,7 +6,7 @@ import androidx.compose.ui.unit.sp
 import com.madrid.designsystem.R
 
 
-val inter = FontFamily(
+private val inter = FontFamily(
     Font(R.font.inter, weight = FontWeight.Normal),
     Font(R.font.inter_medium, weight = FontWeight.Medium),
     Font(R.font.inter_bold, weight = FontWeight.Bold),

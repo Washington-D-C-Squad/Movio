@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.madrid.designsystem.AppTheme
+import com.madrid.designsystem.MovioTheme
 import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
 
@@ -40,8 +40,8 @@ fun VideoLibrary(
             modifier = Modifier
                 .padding(top = 80.dp)
                 .size(width = width, height = height)
-                .clip(RoundedCornerShape(AppTheme.radius.small))
-                .background(color = AppTheme.colors.surfaceColor.surface)
+                .clip(RoundedCornerShape(MovioTheme.radius.small))
+                .background(color = MovioTheme.colors.surfaceColor.surface)
                 .clickable { onClick() }
         ) {
             Box(
@@ -56,8 +56,8 @@ fun VideoLibrary(
                             brush = Brush.radialGradient(
                                 colors = listOf(
                                     Color.Transparent,
-                                    AppTheme.colors.surfaceColor.surface.copy(alpha = 0.3f),
-                                    AppTheme.colors.surfaceColor.surface.copy(alpha = 0.8f)
+                                    MovioTheme.colors.surfaceColor.surface.copy(alpha = 0.3f),
+                                    MovioTheme.colors.surfaceColor.surface.copy(alpha = 0.8f)
                                 ),
                             )
                         )
@@ -127,7 +127,7 @@ fun ShowGridForVideoLibraryBackground() {
             .alpha(0.2f)
             .zIndex(2f)
             .offset(x = (105).dp, y = 40.dp)
-            .padding(horizontal = AppTheme.spacing.large),
+            .padding(horizontal = MovioTheme.spacing.large),
         highlightedCells = setOf(
             Pair(4, 3),
         )
