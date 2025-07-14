@@ -3,11 +3,11 @@ package com.madrid.presentation.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.example.presentation.navigation.route.searchRoute
 import com.madrid.presentation.navigation.route.homeRoute
 import com.madrid.presentation.navigation.route.libraryRoute
 import com.madrid.presentation.navigation.route.moreRoute
 import com.madrid.presentation.navigation.route.onBoardingRoute
-import com.madrid.presentation.navigation.route.searchRoute
 import com.madrid.presentation.navigation.route.splashRoute
 
 @Composable
