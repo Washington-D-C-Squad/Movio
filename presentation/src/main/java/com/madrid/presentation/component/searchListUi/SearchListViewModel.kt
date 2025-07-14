@@ -1,11 +1,21 @@
+<<<<<<<< HEAD:app/src/main/java/com/madrid/movio/screens/SearchListViewModel.kt
+package com.madrid.movio.screens
+
+import androidx.lifecycle.ViewModel
+========
 package com.madrid.presentation.component.searchListUi
 
 import androidx.lifecycle.ViewModel
 import com.madrid.data.InMemoryRecentSearchRepository
+>>>>>>>> refactor/domain:presentation/src/main/java/com/madrid/presentation/component/searchListUi/SearchListViewModel.kt
 import com.madrid.domain.RecentSearchItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+<<<<<<<< HEAD:app/src/main/java/com/madrid/movio/screens/SearchListViewModel.kt
+import com.madrid.data.InMemoryRecentSearchRepository
+========
+>>>>>>>> refactor/domain:presentation/src/main/java/com/madrid/presentation/component/searchListUi/SearchListViewModel.kt
 
 class SearchListViewModel(private val repo: InMemoryRecentSearchRepository) : ViewModel() {
     private val _recentSearches = MutableStateFlow<List<RecentSearchItem>>(emptyList())
