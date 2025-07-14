@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -75,7 +76,7 @@ fun SearchTextInputField(
                     modifier = Modifier.size(20.dp)
                 )
 
-                Spacer(modifier = Modifier.fillMaxWidth())
+                Spacer(modifier = Modifier.width(10.dp))
                 Box(modifier = Modifier.weight(1f)) {
                     if (value.isEmpty()) {
                         MovioText(
@@ -86,7 +87,7 @@ fun SearchTextInputField(
                     }
                     innerTextField()
                 }
-                Spacer(modifier = Modifier.fillMaxWidth())
+                Spacer(modifier = Modifier.width(10.dp))
                 MovioIcon(
                     painter = endIconPainter,
                     contentDescription = "Clear Icon",
