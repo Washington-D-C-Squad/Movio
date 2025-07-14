@@ -3,6 +3,7 @@ package com.madrid.data.repositories.mappers
 
 import com.madrid.data.dataSource.local.entity.SeriesEntity
 import com.madrid.domain.entity.Series
+import kotlinx.datetime.LocalDate
 
 fun Series.toSeriesEntity(): SeriesEntity {
     return SeriesEntity(
@@ -10,7 +11,7 @@ fun Series.toSeriesEntity(): SeriesEntity {
         title = this.title,
         imageUrl = this.imageUrl,
         rate = this.rate,
-        yearOfRelease = this.yearOfRelease,
+        yearOfRelease = this.yearOfRelease.toString(),
         description = this.description,
     )
 }
@@ -21,12 +22,12 @@ fun SeriesEntity.toSeries(): Series {
         title = this.title,
         imageUrl = this.imageUrl,
         rate = this.rate,
-        yearOfRelease = this.yearOfRelease,
+        yearOfRelease = LocalDate.parse(this.yearOfRelease),
         description = this.description,
-        genre = TODO(),
-        topCast = TODO(),
-        reviews = TODO(),
-        seasons = TODO(),
+        genre = listOf(),
+        topCast = listOf(),
+        reviews = listOf(),
+        seasons = listOf(),
     )
 }
 

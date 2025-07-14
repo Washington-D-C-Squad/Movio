@@ -30,7 +30,7 @@ abstract class MovioDatabase : RoomDatabase() {
     abstract fun artistDao(): ArtistDao
 
     companion object {
-        const val DATABASE_NAME = "movie_database"
+        const val DATABASE_NAME = "MOVIO_DATABASE"
 
         @Volatile
         private var instance: MovioDatabase? = null

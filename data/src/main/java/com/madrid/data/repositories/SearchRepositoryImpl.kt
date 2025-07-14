@@ -8,8 +8,9 @@ import com.madrid.domain.entity.Series
 import com.madrid.domain.repository.SearchRepository
 import kotlinx.coroutines.flow.Flow
 
-class SearchRepository(
-    private val searchRemoteSource: SearchRemoteSource
+class SearchRepositoryImpl(
+    private val searchRemoteSource: SearchRemoteSource,
+    private val localSource: SearchLocalSource
 ) : SearchRepository {
     override suspend fun getMostSearchedCategories(): List<String> {
         TODO("Not yet implemented")

@@ -3,6 +3,7 @@ package com.madrid.data.repositories.mappers
 
 import com.madrid.data.dataSource.local.entity.ArtistEntity
 import com.madrid.domain.entity.Artist
+import kotlinx.datetime.LocalDate
 
 fun Artist.toArtistEntity(): ArtistEntity {
     return ArtistEntity(
@@ -11,7 +12,7 @@ fun Artist.toArtistEntity(): ArtistEntity {
         imageUrl = this.imageUrl,
         description = this.description,
         role = this.role,
-        dateOfBirth = this.dateOfBirth,
+        dateOfBirth = this.dateOfBirth.toString(),
         country = this.country
     )
 }
@@ -23,7 +24,7 @@ fun ArtistEntity.toArtist(): Artist {
         imageUrl = this.imageUrl,
         description = this.description,
         role = this.role,
-        dateOfBirth = this.dateOfBirth,
+        dateOfBirth = LocalDate.parse(this.dateOfBirth),
         country = this.country
     )
 }

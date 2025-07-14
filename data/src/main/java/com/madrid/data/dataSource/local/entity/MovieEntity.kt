@@ -2,7 +2,6 @@ package com.madrid.data.dataSource.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.datetime.LocalDate
 
 @Entity(tableName = "MOVIE_TABLE")
 data class MovieEntity(
@@ -10,7 +9,7 @@ data class MovieEntity(
     val title: String,
     val imageUrl: String,
     val rate: Double,
-    val yearOfRelease: LocalDate,
+    val yearOfRelease: String,
     val movieDuration: String,
     val description: String,
 )
