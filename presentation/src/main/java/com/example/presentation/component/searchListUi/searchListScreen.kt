@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -21,8 +22,9 @@ import androidx.compose.ui.unit.dp
 import com.example.data.InMemoryRecentSearchRepository
 import com.example.designsystem.AppTheme
 import com.example.designsystem.component.textInputField.SearchTextInputField
+import com.example.presentation.component.RecentSearchList
 import com.example.presentation.component.search.RecentSearchHeader
-import com.example.presentation.component.search.RecentSearchList
+import com.example.domain.RecentSearchItem
 
 @Composable
 fun SearchScreen() {
@@ -52,7 +54,7 @@ fun SearchScreen() {
             onImeAction = {
                 if (searchQuery.isNotBlank()) {
                     viewModel.addRecentSearch(
-                        com.example.domain.RecentSearchItem(
+                        RecentSearchItem(
                             id = System.currentTimeMillis(),
                             query = searchQuery
                         )
@@ -61,13 +63,13 @@ fun SearchScreen() {
             },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .width(360.dp)
+                .fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(8.dp))
         RecentSearchHeader(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .width(360.dp),
+                .fillMaxWidth(),
             onClearAll = { viewModel.clearAll() }
         )
         Spacer(modifier = Modifier.height(4.dp))
@@ -75,7 +77,7 @@ fun SearchScreen() {
             items = filteredRecentSearches.map { it.query },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .width(360.dp),
+                .fillMaxWidth(),
             searchQuery = searchQuery,
             onRemove = { index ->
                 val item = filteredRecentSearches.getOrNull(index)

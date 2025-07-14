@@ -8,18 +8,20 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.designsystem.component.textInputField.SearchTextInputField
-import com.example.presentation.component.search.RecentSearchHeader
-import com.example.presentation.component.search.RecentSearchList
-import com.example.presentation.component.searchListUi.SearchListViewModel
 import com.example.data.InMemoryRecentSearchRepository
+import com.example.designsystem.component.textInputField.SearchTextInputField
+import com.example.domain.RecentSearchItem
+import com.example.presentation.component.RecentSearchList
+import com.example.presentation.component.search.RecentSearchHeader
+import com.example.presentation.component.searchListUi.SearchListViewModel
+import kotlin.collections.map
 
 @Composable
 fun RecentSearchScreen() {
@@ -47,7 +49,7 @@ fun RecentSearchScreen() {
         )
         Spacer(modifier = Modifier.height(4.dp))
         RecentSearchList(
-            items = recentSearches.map { it.query },
+            items = recentSearches.map { item: RecentSearchItem -> item.query },
             modifier = Modifier.fillMaxWidth()
         )
     }

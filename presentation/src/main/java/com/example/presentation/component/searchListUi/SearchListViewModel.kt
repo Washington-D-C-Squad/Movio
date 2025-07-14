@@ -3,6 +3,7 @@ package com.example.presentation.component.searchListUi
 import androidx.lifecycle.ViewModel
 import com.example.data.InMemoryRecentSearchRepository
 import com.example.domain.RecentSearchItem
+import com.example.presentation.component.search.RecentSearchItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

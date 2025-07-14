@@ -5,17 +5,18 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.draw.clip
 import com.example.designsystem.AppTheme
 import com.example.designsystem.component.MovioText
-import androidx.compose.foundation.layout.Column
-import androidx.compose.ui.res.stringResource
 import com.example.designsystem.R
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.ui.draw.clip
 
 @Composable
 fun RecentSearchHeader(
@@ -39,7 +40,7 @@ fun RecentSearchHeader(
             textStyle = AppTheme.textStyle.label.smallRegular14,
             color = AppTheme.colors.surfaceColor.onSurfaceVariant,
             modifier = Modifier
-                .clip(RoundedCornerShape(8.dp))
+                .clip(RoundedCornerShape(AppTheme.radius.medium))
                 .clickable { onClearAll() }
         )
     }

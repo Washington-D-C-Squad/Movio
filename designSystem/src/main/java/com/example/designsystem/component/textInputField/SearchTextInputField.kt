@@ -6,10 +6,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -28,8 +28,6 @@ import com.example.designsystem.AppTheme
 import com.example.designsystem.component.MovioIcon
 import com.example.designsystem.component.MovioText
 import com.example.designsystem.R
-import com.example.designsystem.spacing.defaultSpacing
-import com.example.designsystem.radius.defaultRadius
 
 @Composable
 fun SearchTextInputField(
@@ -56,7 +54,7 @@ fun SearchTextInputField(
         modifier = modifier
             .height(48.dp)
             .fillMaxWidth()
-            .background(backgroundColor, RoundedCornerShape(defaultRadius.medium)),
+            .background(color = backgroundColor, shape = RoundedCornerShape(AppTheme.radius.medium)),
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = imeAction),
         keyboardActions = KeyboardActions(
             onDone = { onImeAction() },
@@ -67,7 +65,7 @@ fun SearchTextInputField(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = defaultSpacing.medium)
+                    .padding(horizontal = AppTheme.spacing.medium)
             ) {
                 MovioIcon(
                     painter = startIconPainter,

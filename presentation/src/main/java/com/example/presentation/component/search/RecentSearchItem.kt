@@ -18,6 +18,8 @@ import com.example.designsystem.AppTheme
 import com.example.designsystem.R
 import com.example.designsystem.component.MovioIcon
 import com.example.designsystem.component.MovioText
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.width
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 
@@ -39,16 +41,14 @@ fun RecentSearchItem(
     ) {
         MovioIcon(
             painter = painterResource(id = R.drawable.outline_history),
-            contentDescription = stringResource(id = R.string.history_icon_desc),
+            contentDescription = "History Icon",
             tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
             modifier = Modifier.size(24.dp)
         )
-        Spacer(modifier = Modifier.size(8.dp))
+        Spacer(modifier = Modifier.width(8.dp))
         Box(modifier = Modifier.weight(1f)) {
             if (searchQuery.isNotBlank() && text.startsWith(searchQuery, ignoreCase = true)) {
                 MovioText(
-                    color = AppTheme.colors.surfaceColor.onSurface,
-                    textStyle = AppTheme.textStyle.label.smallRegular14,
                     annotatedString = buildAnnotatedString {
                         withStyle(style = androidx.compose.ui.text.SpanStyle(color = AppTheme.colors.surfaceColor.onSurface)) {
                             append(text.substring(0, searchQuery.length))
@@ -56,7 +56,9 @@ fun RecentSearchItem(
                         withStyle(style = androidx.compose.ui.text.SpanStyle(color = AppTheme.colors.surfaceColor.onSurfaceVariant)) {
                             append(text.substring(searchQuery.length))
                         }
-                    }
+                    },
+                    textStyle = AppTheme.textStyle.label.smallRegular14,
+                    color = AppTheme.colors.surfaceColor.onSurface
                 )
             } else {
                 MovioText(
@@ -68,7 +70,7 @@ fun RecentSearchItem(
         }
         MovioIcon(
             painter = painterResource(id = R.drawable.outline_add),
-            contentDescription = stringResource(id = R.string.remove_icon_desc),
+            contentDescription = stringResource(id = R.string.remove_icon),
             tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
             modifier = Modifier
                 .size(24.dp)

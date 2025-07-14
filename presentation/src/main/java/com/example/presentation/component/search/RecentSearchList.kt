@@ -1,8 +1,9 @@
-package com.example.presentation.component.search
+package com.example.presentation.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.example.presentation.component.search.RecentSearchItem
 
 @Composable
 fun RecentSearchList(
