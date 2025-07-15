@@ -9,6 +9,7 @@ class MovioApp : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
+            androidContext(this@MovioApp)
             modules(app, roomModule)
         }
     }
