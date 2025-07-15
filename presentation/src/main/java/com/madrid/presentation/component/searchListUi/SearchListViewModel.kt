@@ -1,42 +1,32 @@
-<<<<<<<< HEAD:app/src/main/java/com/madrid/movio/screens/SearchListViewModel.kt
-package com.madrid.movio.screens
-
-import androidx.lifecycle.ViewModel
-========
 package com.madrid.presentation.component.searchListUi
 
 import androidx.lifecycle.ViewModel
-import com.madrid.data.InMemoryRecentSearchRepository
->>>>>>>> refactor/domain:presentation/src/main/java/com/madrid/presentation/component/searchListUi/SearchListViewModel.kt
-import com.madrid.domain.RecentSearchItem
+import androidx.lifecycle.viewModelScope
+import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-<<<<<<<< HEAD:app/src/main/java/com/madrid/movio/screens/SearchListViewModel.kt
-import com.madrid.data.InMemoryRecentSearchRepository
-========
->>>>>>>> refactor/domain:presentation/src/main/java/com/madrid/presentation/component/searchListUi/SearchListViewModel.kt
+import kotlinx.coroutines.launch
 
-class SearchListViewModel(private val repo: InMemoryRecentSearchRepository) : ViewModel() {
-    private val _recentSearches = MutableStateFlow<List<RecentSearchItem>>(emptyList())
-    val recentSearches: StateFlow<List<RecentSearchItem>> = _recentSearches.asStateFlow()
+class SearchListViewModel(private val repo: RecentSearchUseCase) : ViewModel() {
+    private val _recentSearches = MutableStateFlow<List<String>>(emptyList())
+    val recentSearches: StateFlow<List<String>> = _recentSearches.asStateFlow()
 
     fun loadRecentSearches() {
-        _recentSearches.value = repo.getRecentSearches()
+        viewModelScope.launch {
+            repo.getRecentSearches().collect { searches ->
+                _recentSearches.value = searches
+            }
+        }
     }
 
-    fun addRecentSearch(item: RecentSearchItem) {
-        repo.addRecentSearch(item)
-        _recentSearches.value = repo.getRecentSearches()
+    fun addRecentSearch(item: String) {
+        viewModelScope.launch {
+            repo.addRecentSearch(item)
+            repo.getRecentSearches().collect { searches ->
+                _recentSearches.value = searches
+            }
+        }
     }
 
-    fun removeRecentSearch(id: String) {
-        repo.removeRecentSearch(id)
-        _recentSearches.value = repo.getRecentSearches()
-    }
-
-    fun clearAll() {
-        repo.clearAllRecentSearches()
-        _recentSearches.value = repo.getRecentSearches()
-    }
 }

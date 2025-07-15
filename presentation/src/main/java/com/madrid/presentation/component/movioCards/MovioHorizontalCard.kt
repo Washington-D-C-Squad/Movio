@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -23,15 +22,15 @@ import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.component.MovioText
 
 @Composable
-fun HorizontalMovioCard(
+fun MovioHorizontalCard(
     movieTitle: String,
     movieRate: String,
     movieCategory: String,
     movieImageUrl: String,
     height: Dp,
     width: Dp,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -42,7 +41,8 @@ fun HorizontalMovioCard(
         horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
     ) {
         BasicImageCard(
-            imageUrl = movieImageUrl, height = height, width = width
+            imageUrl = movieImageUrl, height = height, width = width,
+            radius = AppTheme.radius.small
         )
         Column(
             modifier = modifier
@@ -86,11 +86,11 @@ private fun MovioCatergory(
 
 @Preview(showBackground = true)
 @Composable
-fun HorizontalCardPreview() {
+private fun HorizontalCardPreview() {
     AppTheme {
-        HorizontalMovioCard(
+        MovioHorizontalCard(
             movieTitle = "Spider-Man: Homecoming",
-            movieImageUrl = painterResource(com.madrid.designsystem.R.drawable.film_photo_sample).toString(),
+            movieImageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
             movieRate = "3.0",
             width = 180.dp,
             height = 150.dp,

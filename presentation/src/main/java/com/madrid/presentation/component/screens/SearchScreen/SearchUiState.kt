@@ -1,4 +1,4 @@
-package com.madrid.presentation.component.screens.SearchScreen
+package com.madrid.presentation.component.screens.searchScreen
 
 
 
