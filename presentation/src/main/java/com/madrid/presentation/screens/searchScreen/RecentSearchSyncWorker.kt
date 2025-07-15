@@ -6,18 +6,17 @@ import androidx.work.WorkerParameters
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import org.koin.core.context.GlobalContext
 import java.util.concurrent.TimeUnit
 
 class RecentSearchSyncWorker(
     appContext: Context,
     params: WorkerParameters
 ) : CoroutineWorker(appContext, params), KoinComponent {
+    private val recentSearchUseCase: RecentSearchUseCase by inject()
     override suspend fun doWork(): Result {
-        // Use Koin to get the use case
-        val recentSearchUseCase: RecentSearchUseCase = GlobalContext.get().koin.get()
         recentSearchUseCase.clearAllRecentSearches()
         return Result.success()
     }
