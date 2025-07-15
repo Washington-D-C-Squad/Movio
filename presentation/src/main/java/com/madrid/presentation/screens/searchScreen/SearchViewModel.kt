@@ -22,6 +22,8 @@ class SearchViewModel(
         loadInitialData()
     }
 
+
+
     private fun loadInitialData() {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, errorMessage = null)
@@ -34,12 +36,13 @@ class SearchViewModel(
                     )
                 },
                 onSuccess = {
-//                    val preferredMedia = preferredMediaUseCase.getPreferredMedia()
-//                    val preferredMovies = preferredMedia.flatMap { it.movies }
-//                    _uiState.value = _uiState.value.copy(
-//                        exploreMoreMovies = preferredMovies,
-//                        isLoading = false
-//                    )
+                    val (movies) = mediaUseCase.getTopRatedMedia("")
+
+                    _uiState.value = _uiState.value.copy(
+                        forYouMovies = movies,
+                        exploreMoreMovies =movies,
+                        isLoading = false
+                    )
                 }
             )
         }
@@ -82,9 +85,7 @@ class SearchViewModel(
         _uiState.value = _uiState.value.copy(errorMessage = null)
     }
 
-    fun navigateToMovieDetails(movieId: String) {
-        // TODO: implement navigation logic
-    }
+
 
     private suspend fun safeCall(
         onError: (String) -> Unit,
