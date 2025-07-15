@@ -42,7 +42,7 @@ fun HeaderSectionBar(
             .fillMaxWidth()
             .height(36.dp)
             .horizontalScroll(rememberScrollState()),
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium),
+        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         tabs.forEachIndexed { index, title ->
