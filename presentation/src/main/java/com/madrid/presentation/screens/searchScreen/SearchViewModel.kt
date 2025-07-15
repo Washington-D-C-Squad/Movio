@@ -147,6 +147,29 @@ class SearchViewModel(
             onError = {}
         )
     }
+    fun searchFilteredMovies(query: String) {
+        tryToExecute(
+            function = { mediaUseCase.getMovieByQuery(query).first() },
+            onSuccess = { result ->
+                updateState { current ->
+                    current.copy(
+                        filteredScreenUiState = current.filteredScreenUiState.copy(
+                            movie = result.map { movie ->
+                                SearchScreenState.MovieUiState(
+                                    title = movie.title,
+                                    id = movie.id.toString(),
+                                    imageUrl = movie.imageUrl,
+                                    rating = movie.rate.toString(),
+                                )
+                            }
+                        ),
+                        searchUiState = current.searchUiState.copy(isLoading = false)
+                    )
+                }
+            },
+            onError = {}
+        )
+    }
 
     fun searchSeries(query: String) {
         tryToExecute(
@@ -185,14 +208,14 @@ class SearchViewModel(
         tryToExecute(
             function = { mediaUseCase.getTopRatedMedia(query).first },
             onSuccess = { result ->
-                updateState { currentState ->
-                    currentState.copy(
-                        filteredScreenUiState = currentState.filteredScreenUiState.copy(
-                            series = result.map { rate ->
-                                SearchScreenState.SeriesUiState(
+                updateState { current ->
+                    current.copy(
+                        filteredScreenUiState = current.filteredScreenUiState.copy(
+                            topResult = result.map { rate ->
+                                SearchScreenState.MovieUiState(
                                     id = rate.id.toString(),
-                                    title = rate.title.toString(),
-                                    imageUrl = rate.imageUrl.toString(),
+                                    title = rate.title,
+                                    imageUrl = rate.imageUrl,
                                     rating = rate.rate.toString()
                                 )
                             },
@@ -202,11 +225,11 @@ class SearchViewModel(
                 }
             },
             onError = {
-                updateState { currentState ->
-                    currentState.copy(
-                        filteredScreenUiState = currentState.filteredScreenUiState.copy(
+                updateState { current ->
+                    current.copy(
+                        filteredScreenUiState = current.filteredScreenUiState.copy(
                             isLoading = false,
-                            errorMessage = "Failed to load "
+                            errorMessage = "Failed to load top result"
                         )
                     )
                 }

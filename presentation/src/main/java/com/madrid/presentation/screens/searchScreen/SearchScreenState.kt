@@ -28,10 +28,11 @@ data class SearchScreenState(
         val searchResultCount: String = "1",
         val isLoading: Boolean = false,
         val errorMessage: String? = null,
-        val topResult : List<MovieUiState> = listOf(MovieUiState()),
-        val movie : List<MovieUiState> = listOf(MovieUiState()),
-        val series :List<SeriesUiState> = listOf(SeriesUiState()),
-        val artist:List< ArtistUiState> = listOf(ArtistUiState())
+        val topResult: List<MovieUiState> = emptyList(),
+        val movie: List<MovieUiState> = emptyList(),
+        val series: List<SeriesUiState> = emptyList(),
+        val artist: List<ArtistUiState> = emptyList(),
+
     )
 
 

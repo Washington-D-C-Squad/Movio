@@ -57,7 +57,7 @@ fun FilteredScreen(
             searchQuery = searchQuery,
             onSearchQueryChange = { query ->
                 searchQuery = query
-                viewModel.searchMovies(query)
+                viewModel.searchFilteredMovies(query)
                 viewModel.searchSeries(query)
                 viewModel.artists(query)
                 viewModel.topResult(query)
