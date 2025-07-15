@@ -39,6 +39,11 @@ android {
 }
 
 dependencies {
+    implementation(project(":designSystem"))
+    implementation(project(":detectImageContent"))
+    implementation(project(":domain"))
+    implementation(project(":data"))
+
     implementation(libs.androidx.ui.tooling.preview)
     debugImplementation(libs.ui.tooling)
 
@@ -51,17 +56,17 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation(libs.koin.compose.viewmodel)
-    implementation(project(":designSystem"))
-    implementation(project(":detectImageContent"))
-    implementation(project(":domain"))
-    implementation(project(":data"))
+
 
     implementation(libs.androidx.navigation.compose)
-    implementation("io.coil-kt:coil-compose:2.6.0")
-    implementation("io.insert-koin:koin-androidx-compose:3.5.3")
 
-    implementation("io.insert-koin:koin-android:3.5.3")
+    // Koin
+    implementation(libs.koin.androidx.compose)
+    api(libs.koin.annotations)
+    implementation(libs.koin.android)
+
+    //coil
+    implementation("io.coil-kt:coil-compose:2.6.0")
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1")
 

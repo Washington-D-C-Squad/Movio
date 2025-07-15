@@ -8,7 +8,7 @@ data class Series(
     val imageUrl: String,
     val rate: Double,
     val yearOfRelease: LocalDate,
-    val seasons: List<Season>,
+    val seasons: List<Season>?,
     val description: String,
     val genre: List<String>,
     val topCast: List<Artist>,
