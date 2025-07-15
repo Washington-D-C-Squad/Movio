@@ -1,5 +1,6 @@
 package com.madrid.data.dataSource.remote.search
 
+import android.util.Log
 import com.madrid.data.BuildConfig.API_KEY
 import com.madrid.data.BuildConfig.BASE_URL
 import com.madrid.data.dataSource.remote.response.ArtistApiResponse
@@ -38,13 +39,15 @@ class SearchRemoteSourceImpl() : SearchRemoteSource {
                 protocol = HTTPS
                 host = BASE_URL
                 encodedPath = "/3/search/movie"
-                parameters.append( PAGE, "1")
+                parameters.append(PAGE, "1")
                 parameters.append(LANGUAGE, language)
                 parameters.append(QUERY, name)
                 parameters.append(KEY, API_KEY)
             }
         }
-        return json.decodeFromString<MovieResponse>(result.bodyAsText())
+        val movies = json.decodeFromString<MovieResponse>(result.bodyAsText())
+        Log.i("SearchIMpl", "searchMoviesByName:$movies ")
+        return movies
     }
 
     override suspend fun searchSeriesByName(name: String, language: String): SeriesResponse {

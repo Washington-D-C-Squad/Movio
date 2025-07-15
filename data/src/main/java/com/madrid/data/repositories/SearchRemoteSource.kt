@@ -7,8 +7,7 @@ import com.madrid.data.dataSource.remote.response.SeriesResponse
 
 interface SearchRemoteSource {
 
-
-    suspend fun searchMoviesByName (name: String,language: String ) : MovieResponse
+    suspend fun searchMoviesByName(name: String, language: String): MovieResponse
 
     suspend fun searchSeriesByName(name: String, language: String): SeriesResponse
 

@@ -5,17 +5,17 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.madrid.designsystem.AppTheme
-import com.madrid.presentation.component.searchListUi.SearchScreen
+import com.madrid.presentation.screens.searchScreen.SearchScreen
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            AppTheme() {
+            AppTheme {
                 SearchScreen()
             }
-
         }
     }
 }
