@@ -1,6 +1,5 @@
 package com.madrid.data.dataSource.local
 
-import android.content.Context
 import com.madrid.data.dataSource.local.entity.ArtistEntity
 import com.madrid.data.dataSource.local.entity.MovieCategoryEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
@@ -9,47 +8,46 @@ import com.madrid.data.repositories.SearchLocalSource
 import kotlinx.coroutines.flow.Flow
 
 class SearchLocalDataSource(
-    private val context: Context
+    private val database: MovioDatabase
 ) : SearchLocalSource {
 
+//    private val database = MovioDatabase.Companion.getInstance(context)
 
-    private val dao = MovioDatabase.Companion.getInstance(context)
-
-    suspend fun insertMovie(movie: MovieEntity) {
-        dao.movieDao().insertMovie(movie)
-    }
-
-    suspend fun insertSeries(series: SeriesEntity) {
-        dao.seriesDao().insertSeries(series)
+    override suspend fun insertMovie(movie: MovieEntity) {
+        database.movieDao().insertMovie(movie)
     }
 
     // movies
     override fun getTopRatedMovies(): Flow<List<MovieEntity>> {
-        return dao.movieDao().getTopRatedMovies()
+        return database.movieDao().getTopRatedMovies()
     }
 
     override fun getMoviesByTitle(query: String): Flow<List<MovieEntity>> {
-        return dao.movieDao().getMovieByTitle("%$query%")
+        return database.movieDao().getMovieByTitle("%$query%")
     }
 
     // recent searches
     override fun getRecentSearches(): Flow<List<MovieCategoryEntity>> {
-        return dao.movieCategoryDao().getAllCategoriesBySearchCount()
+        return database.movieCategoryDao().getAllCategoriesBySearchCount()
     }
 
 
     // series
+    override suspend fun insertSeries(series: SeriesEntity) {
+        database.seriesDao().insertSeries(series)
+    }
+
     override fun getSeriesByTitle(query: String): Flow<List<SeriesEntity>> {
-        return dao.seriesDao().getSeriesByTitle("%$query%")
+        return database.seriesDao().getSeriesByTitle("%$query%")
     }
 
     override fun getTopRatedSeries(): Flow<List<SeriesEntity>> {
-        return dao.seriesDao().getTopRatedSeries()
+        return database.seriesDao().getTopRatedSeries()
     }
 
     // artists
-    override fun getArtistsByTitle(query: String): Flow<List<ArtistEntity>> {
-        return dao.artistDao().getArtistByName("%$query%")
+    override fun getArtistsByName(query: String): Flow<List<ArtistEntity>> {
+        return database.artistDao().getArtistByName("%$query%")
     }
 
 
