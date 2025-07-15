@@ -22,3 +22,18 @@ fun MovioText(
         modifier = modifier, maxLines = maxLines, overflow = overflow
     )
 }
+
+@Composable
+fun MovioTextHighlight(
+    text: AnnotatedString,
+    color: Color,
+    textStyle: TextStyle,
+    modifier: Modifier = Modifier,
+    maxLines: Int = Int.MAX_VALUE,
+    overflow: TextOverflow = TextOverflow.Ellipsis
+) {
+    Text(
+        text = text, style = textStyle.copy(color = color),
+        modifier = modifier, maxLines = maxLines, overflow = overflow
+    )
+}

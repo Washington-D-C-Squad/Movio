@@ -84,6 +84,7 @@ class SearchViewModel(
 
 
     fun clearAll() {
+        updateState { it.copy(recentSearchUiState = emptyList()) }
         tryToExecute(
             function = {
                 recentSearchUseCase.clearAllRecentSearches()

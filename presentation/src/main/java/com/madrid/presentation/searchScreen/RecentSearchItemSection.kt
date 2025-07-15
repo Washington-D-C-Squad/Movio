@@ -25,6 +25,7 @@ import com.madrid.designsystem.component.MovioText
 import kotlin.text.isNotBlank
 import kotlin.text.startsWith
 import kotlin.text.substring
+import com.madrid.presentation.searchScreen.HighlightedText
 
 @Composable
 fun RecentSearchItem(
@@ -50,30 +51,15 @@ fun RecentSearchItem(
         )
         Spacer(modifier = Modifier.width(8.dp))
         Box(modifier = Modifier.weight(1f)) {
-            if (searchQuery.isNotBlank() && text.startsWith(searchQuery, ignoreCase = true)) {
-                MovioText(
-                    text = buildAnnotatedString {
-                        withStyle(style = SpanStyle(color = AppTheme.colors.surfaceColor.onSurface)) {
-                            append(text.substring(0, searchQuery.length))
-                        }
-                        withStyle(style = SpanStyle(color = AppTheme.colors.surfaceColor.onSurfaceVariant)) {
-                            append(text.substring(searchQuery.length))
-                        }
-                    }.toString(),
-                    textStyle = AppTheme.textStyle.label.smallRegular14,
-                    color = AppTheme.colors.surfaceColor.onSurface
-                )
-            } else {
-                MovioText(
-                    text = text,
-                    textStyle = AppTheme.textStyle.label.smallRegular14,
-                    color = AppTheme.colors.surfaceColor.onSurface
-                )
-            }
+            HighlightedText(
+                text = text,
+                searchQuery = searchQuery
+            )
         }
         MovioIcon(
             painter = painterResource(id = R.drawable.outline_add),
-            contentDescription = stringResource(id = com.madrid.presentation.R.string.remove),            tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
+            contentDescription = stringResource(id = com.madrid.presentation.R.string.remove),
+            tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
             modifier = Modifier
                 .size(24.dp)
                 .clickable { onRemove() }
