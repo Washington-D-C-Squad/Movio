@@ -169,4 +169,10 @@ class SearchViewModel(
             _searchQuery.value = ""
         }
     }
+
+    companion object {
+        @JvmStatic
+        fun clearRecentSearchesStatic() {
+        }
+    }
 }

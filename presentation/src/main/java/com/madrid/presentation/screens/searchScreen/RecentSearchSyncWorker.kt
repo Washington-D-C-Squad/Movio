@@ -1,0 +1,38 @@
+package com.madrid.presentation.screens.searchScreen
+
+import android.content.Context
+import androidx.work.CoroutineWorker
+import androidx.work.WorkerParameters
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.core.context.GlobalContext
+import java.util.concurrent.TimeUnit
+
+class RecentSearchSyncWorker(
+    appContext: Context,
+    params: WorkerParameters
+) : CoroutineWorker(appContext, params), KoinComponent {
+    override suspend fun doWork(): Result {
+        // Use Koin to get the use case
+        val recentSearchUseCase: RecentSearchUseCase = GlobalContext.get().koin.get()
+        recentSearchUseCase.clearAllRecentSearches()
+        return Result.success()
+    }
+
+    companion object {
+        private const val WORK_NAME = "recent_search_clear_worker"
+
+        fun enqueue(context: Context) {
+            val workRequest = PeriodicWorkRequestBuilder<RecentSearchSyncWorker>(1, TimeUnit.HOURS)
+                .build()
+            WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+                WORK_NAME,
+                ExistingPeriodicWorkPolicy.UPDATE,
+                workRequest
+            )
+        }
+    }
+} 
