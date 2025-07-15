@@ -1,6 +1,5 @@
 package com.madrid.data.repositories
 
-import android.util.Log
 import com.madrid.data.dataSource.local.mappers.toArtist
 import com.madrid.data.dataSource.local.mappers.toArtistEntity
 import com.madrid.data.dataSource.local.mappers.toMovie
@@ -16,11 +15,9 @@ import com.madrid.domain.entity.Movie
 import com.madrid.domain.entity.Series
 import com.madrid.domain.repository.SearchRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import kotlin.collections.map
 
 class SearchRepositoryImpl(
     private val searchRemoteSource: SearchRemoteSource,
@@ -101,9 +98,9 @@ class SearchRepositoryImpl(
         TODO("Not yet implemented")
     }
 
-
     override suspend fun getMostSearchedCategories(): List<String> {
-        TODO("Not yet implemented")
+        val localCategories = localSource.getRecentCategories()
+        return localCategories.first().map { it.title }
     }
 
     override suspend fun getMediaByCategory(category: String): Media {
