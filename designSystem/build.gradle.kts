@@ -48,6 +48,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation("androidx.compose.ui:ui-tooling")
+
     //material3
     implementation(libs.material3)
     implementation(libs.androidx.material3.window.size.class1)
