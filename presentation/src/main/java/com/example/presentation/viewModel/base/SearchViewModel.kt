@@ -7,6 +7,9 @@ import com.madrid.domain.usecase.searchUseCase.PreferredMediaUseCase
 import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import com.madrid.domain.usecase.searchUseCase.TrendingMediaUseCase
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class SearchViewModel(
     private val artistUseCase: ArtistUseCase,
@@ -17,9 +20,32 @@ class SearchViewModel(
 ) : BaseViewModel<SearchScreenState>(
     SearchScreenState()
 ) {
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
+
     init {
         loadRecentSearches()
         loadInitialData()
+    }
+
+    fun onSearchQueryChange(newQuery: String) {
+        _searchQuery.value = newQuery
+    }
+
+    fun onSearchSubmit() {
+        val query = _searchQuery.value.trim()
+        if (query.isNotBlank()) {
+            addToRecentSearches(query)
+            _searchQuery.value = ""
+        }
+    }
+
+    fun addToRecentSearches(query: String) {
+        val currentList = currentState.recentSearchUiState.toMutableList()
+        currentList.remove(query)
+        currentList.add(0, query)
+        val newList = currentList.take(10)
+        updateState { it.copy(recentSearchUiState = newList) }
     }
 
     fun loadRecentSearches() {
@@ -41,10 +67,14 @@ class SearchViewModel(
         )
     }
 
-    fun removeRecentSearch(item: String) {
+    fun removeRecentSearch(searchItem: String) {
+        val currentList = currentState.recentSearchUiState.toMutableList()
+        currentList.remove(searchItem)
+        updateState { it.copy(recentSearchUiState = currentList) }
+        // Optionally persist to data source here
         tryToExecute(
             function = {
-                recentSearchUseCase.removeRecentSearch(item)
+                recentSearchUseCase.removeRecentSearch(searchItem)
                 recentSearchUseCase.getRecentSearches().first()
             },
             onSuccess = { result -> updateState { it.copy(recentSearchUiState = result) } },
