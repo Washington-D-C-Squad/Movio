@@ -1,5 +1,7 @@
 package com.madrid.presentation.component.screens.searchScreen
 
+import com.madrid.domain.entity.Movie
+
 
 data class SearchUiState(
     val forYouMovies: List<Movie> = emptyList(),
