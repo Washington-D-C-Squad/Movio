@@ -31,27 +31,30 @@ class SearchRepositoryImpl(
     }
 
     override suspend fun getSeriesByQuery(query: String): Flow<List<Series>> {
+        val result = searchRemoteSource.searchSeriesByName(
+            name = query,
+            language = "en-US"
+        ).seriesResults.map {
+            it.toSeries()
+        }
         return flow {
             emit(
-                searchRemoteSource.searchSeriesByName(
-                    name = query,
-                    language = "en-US"
-                ).seriesResults.map {
-                    it.toSeries()
-                }
+                result
             )
         }
+
     }
 
     override suspend fun getArtistByQuery(query: String): Flow<List<Artist>> {
+        val result = searchRemoteSource.searchArtistByName(
+            name = query,
+            language = "en-US"
+        ).artistResults.map {
+            it.toArtist()
+        }
         return flow {
             emit(
-                searchRemoteSource.searchArtistByName(
-                    name = query,
-                    language = "en-US"
-                ).artistResults.map {
-                    it.toArtist()
-                }
+                result
             )
         }
     }
