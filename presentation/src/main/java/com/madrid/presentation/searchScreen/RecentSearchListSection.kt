@@ -31,7 +31,6 @@ fun RecentSearchList(
     }
     Column(modifier = modifier) {
         if (filteredItems.isEmpty()) {
-            // No results message removed: show nothing
         } else {
             filteredItems.forEach { item ->
                 RecentSearchItem(
