@@ -15,7 +15,7 @@ class SearchViewModel(
     private val artistUseCase: ArtistUseCase,
     private val mediaUseCase: MediaUseCase,
     private val preferredMediaUseCase: PreferredMediaUseCase,
-    private val recentSearchUseCase: RecentSearchUseCase,
+    override val recentSearchUseCase: RecentSearchUseCase,
     private val trendingMediaUseCase: TrendingMediaUseCase,
 ) : BaseViewModel<SearchScreenState>(
     SearchScreenState()
@@ -54,6 +54,20 @@ class SearchViewModel(
             onSuccess = { result -> updateState { it.copy(recentSearchUiState = result) } },
             onError = {}
         )
+    }
+
+    fun addToRecentSearches(query: String) {
+        val currentList = state.value.recentSearchUiState.toMutableList()
+        currentList.remove(query)
+        currentList.add(0, query)
+        val newList = currentList.take(10)
+        updateState { it.copy(recentSearchUiState = newList) }
+    }
+
+    fun removeRecentSearch(searchItem: String) {
+        val currentList = state.value.recentSearchUiState.toMutableList()
+        currentList.remove(searchItem)
+        updateState { it.copy(recentSearchUiState = currentList) }
     }
 
     private fun loadInitialData() {
@@ -146,5 +160,13 @@ class SearchViewModel(
             },
             onError = {}
         )
+    }
+
+    override fun onSearchSubmit() {
+        val query = searchQuery.value.trim()
+        if (query.isNotBlank()) {
+            addToRecentSearches(query)
+            _searchQuery.value = ""
+        }
     }
 }

@@ -21,7 +21,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.presentation.viewModel.base.SearchViewModel
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R as DesignSystemR
 import com.madrid.designsystem.component.textInputField.BasicTextInputField
@@ -29,6 +28,7 @@ import com.madrid.presentation.R
 import org.koin.androidx.compose.koinViewModel
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import com.madrid.presentation.screens.searchScreen.SearchViewModel
 
 @Composable
 fun RecentSearchScreen(viewModel: SearchViewModel = koinViewModel()) {

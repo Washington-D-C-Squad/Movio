@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.madrid.designsystem.AppTheme
-import com.madrid.presentation.screens.searchScreen.SearchScreen
+import com.madrid.presentation.searchScreen.RecentSearchScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AppTheme {
-                SearchScreen()
+                RecentSearchScreen()
             }
         }
     }
