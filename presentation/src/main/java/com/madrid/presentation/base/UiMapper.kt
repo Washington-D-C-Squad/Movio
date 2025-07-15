@@ -1,5 +1,6 @@
-package com.example.presentation.viewModel.base
+package com.madrid.presentation.base
 
+import com.madrid.presentation.screens.searchScreen.SearchScreenState
 import com.madrid.domain.entity.Movie
 
 fun Movie.toUiState() = SearchScreenState.MovieUiState(
@@ -9,3 +10,5 @@ fun Movie.toUiState() = SearchScreenState.MovieUiState(
     rating = rate.toString(),
     category = String()
 )
+
+
