@@ -11,13 +11,11 @@ class SearchLocalDataSource(
     private val database: MovioDatabase
 ) : SearchLocalSource {
 
-//    private val database = MovioDatabase.Companion.getInstance(context)
-
+    // movies
     override suspend fun insertMovie(movie: MovieEntity) {
         database.movieDao().insertMovie(movie)
     }
 
-    // movies
     override fun getTopRatedMovies(): Flow<List<MovieEntity>> {
         return database.movieDao().getTopRatedMovies()
     }
@@ -25,12 +23,6 @@ class SearchLocalDataSource(
     override fun getMoviesByTitle(query: String): Flow<List<MovieEntity>> {
         return database.movieDao().getMovieByTitle("%$query%")
     }
-
-    // recent searches
-    override fun getRecentSearches(): Flow<List<MovieCategoryEntity>> {
-        return database.movieCategoryDao().getAllCategoriesBySearchCount()
-    }
-
 
     // series
     override suspend fun insertSeries(series: SeriesEntity) {
@@ -46,9 +38,23 @@ class SearchLocalDataSource(
     }
 
     // artists
+    override suspend fun insertArtist(series: ArtistEntity) {
+        database.artistDao().insertArtist(series)
+    }
+
     override fun getArtistsByName(query: String): Flow<List<ArtistEntity>> {
         return database.artistDao().getArtistByName("%$query%")
     }
 
+    // categories
+    override suspend fun insertCategory(category: MovieCategoryEntity) {
+        database.movieCategoryDao().insertCategory(category)
+    }
+
+    override fun getRecentCategories(): Flow<List<MovieCategoryEntity>> {
+        return database.movieCategoryDao().getAllCategoriesBySearchCount()
+    }
+
+    // recent searches
 
 }

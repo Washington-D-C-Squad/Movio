@@ -8,31 +8,32 @@ import kotlinx.coroutines.flow.Flow
 
 interface SearchLocalSource {
 
-    // insert
+    // movies
     suspend fun insertMovie(movie: MovieEntity)
 
-
-
-
     fun getMoviesByTitle(query: String): Flow<List<MovieEntity>>
+
+    fun getTopRatedMovies(): Flow<List<MovieEntity>>
 
 
     // series
     suspend fun insertSeries(series: SeriesEntity)
 
     fun getSeriesByTitle(query: String): Flow<List<SeriesEntity>>
+
+    fun getTopRatedSeries(): Flow<List<SeriesEntity>>
+
     // artists
     suspend fun insertArtist(series: ArtistEntity)
 
     fun getArtistsByName(query: String): Flow<List<ArtistEntity>>
 
+    // categories
+    suspend fun insertCategory(category: MovieCategoryEntity)
+
+    fun getRecentCategories(): Flow<List<MovieCategoryEntity>>
 
     // recent searches
-    fun getRecentSearches(): Flow<List<MovieCategoryEntity>>
-
-    fun getTopRatedMovies(): Flow<List<MovieEntity>>
-
-    fun getTopRatedSeries(): Flow<List<SeriesEntity>>
 
 
 
