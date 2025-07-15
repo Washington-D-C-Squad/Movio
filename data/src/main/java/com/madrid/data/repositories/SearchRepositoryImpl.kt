@@ -115,11 +115,21 @@ class SearchRepositoryImpl(
     }
 
     override suspend fun getTopRatedMovies(query: String): List<Movie> {
-        TODO("Not yet implemented")
+        val localMoviesEntities = localSource.getTopRatedMovies()
+        val isCacheEmpty: Boolean = localMoviesEntities.first().isEmpty()
+        if (!isCacheEmpty) {
+            return localMoviesEntities.first().map { it.toMovie() }
+        }
+        return emptyList()
     }
 
     override suspend fun getTopRatedSeries(query: String): List<Series> {
-        TODO("Not yet implemented")
+        val localSeriesEntities = localSource.getTopRatedSeries()
+        val isCacheEmpty: Boolean = localSeriesEntities.first().isEmpty()
+        if (!isCacheEmpty) {
+            return localSeriesEntities.first().map { it.toSeries() }
+        }
+        return emptyList()
     }
 
 
