@@ -111,6 +111,8 @@ dependencies {
 
     implementation("androidx.compose.foundation:foundation")
 
+    implementation(libs.androidx.navigation.compose)
+
     //firebase
     implementation("com.google.firebase:firebase-analytics")
     implementation(platform("com.google.firebase:firebase-bom:33.16.0"))
