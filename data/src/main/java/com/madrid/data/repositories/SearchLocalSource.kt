@@ -4,6 +4,7 @@ import com.madrid.data.dataSource.local.entity.ArtistEntity
 import com.madrid.data.dataSource.local.entity.MovieCategoryEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
+import com.madrid.domain.entity.Artist
 import kotlinx.coroutines.flow.Flow
 
 interface SearchLocalSource {
@@ -24,7 +25,7 @@ interface SearchLocalSource {
     fun getTopRatedSeries(): Flow<List<SeriesEntity>>
 
     // artists
-    suspend fun insertArtist(series: ArtistEntity)
+    suspend fun insertArtist(artist: ArtistEntity)
 
     fun getArtistsByName(query: String): Flow<List<ArtistEntity>>
 
