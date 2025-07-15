@@ -12,6 +12,8 @@ import com.madrid.data.dataSource.remote.utils.Constants.LANGUAGE
 import com.madrid.data.dataSource.remote.utils.Constants.PAGE
 import com.madrid.data.dataSource.remote.utils.Constants.QUERY
 import com.madrid.data.repositories.SearchRemoteSource
+import com.madrid.domain.entity.Movie
+import com.madrid.domain.entity.Series
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.defaultRequest
@@ -20,6 +22,7 @@ import io.ktor.client.request.header
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.URLProtocol.Companion.HTTPS
 import io.ktor.http.encodedPath
+import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.json.Json
 
 class SearchRemoteSourceImpl() : SearchRemoteSource {
@@ -94,5 +97,35 @@ class SearchRemoteSourceImpl() : SearchRemoteSource {
             }
         }
         return json.decodeFromString<MultiMediaResponse>(result.bodyAsText())
+    }
+
+    override suspend fun getTopRatedMovies(language: String): MovieResponse {
+        val result = client.get {
+            url {
+                protocol = HTTPS
+                host = BASE_URL
+                encodedPath = "/3/movie/top_rated"
+                parameters.append(PAGE, "1")
+                parameters.append(LANGUAGE, language)
+                parameters.append(KEY, API_KEY)
+            }
+        }
+        return json.decodeFromString<MovieResponse>(result.bodyAsText())
+
+    }
+
+    override suspend fun getTopRatedSeries(language: String): SeriesResponse {
+        val result = client.get {
+            url {
+                protocol = HTTPS
+                host = BASE_URL
+                encodedPath = "/3/tv/top_rated"
+                parameters.append(PAGE, "1")
+                parameters.append(LANGUAGE, language)
+                parameters.append(KEY, API_KEY)
+            }
+        }
+        return json.decodeFromString<SeriesResponse>(result.bodyAsText())
+
     }
 }
