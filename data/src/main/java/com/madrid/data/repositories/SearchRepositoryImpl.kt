@@ -17,14 +17,15 @@ class SearchRepositoryImpl(
 ) : SearchRepository {
 
     override suspend fun getMovieByQuery(query: String): Flow<List<Movie>> {
+        val result = searchRemoteSource.searchMoviesByName(
+            name = query,
+            language = "en-US"
+        ).movieResults.map {
+            it.toMovie()
+        }
         return flow {
             emit(
-                searchRemoteSource.searchMoviesByName(
-                    name = query,
-                    language = "en-US"
-                ).movieResults.map {
-                    it.toMovie()
-                }
+               result
             )
         }
     }
