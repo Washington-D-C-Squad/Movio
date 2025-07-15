@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import org.intellij.lang.annotations.Language
 
 class SearchRepositoryImpl(
     private val searchRemoteSource: SearchRemoteSource,
@@ -106,7 +107,7 @@ class SearchRepositoryImpl(
     override suspend fun getMediaByCategory(category: String): Media {
         TODO("Not yet implemented")
     }
-
+//////////////
     override suspend fun getTrendingMedia(): Media {
         TODO("Not yet implemented")
     }
@@ -114,19 +115,54 @@ class SearchRepositoryImpl(
     override suspend fun getTopRatedMovies(query: String): List<Movie> {
         val localMoviesEntities = localSource.getTopRatedMovies()
         val isCacheEmpty: Boolean = localMoviesEntities.first().isEmpty()
-        if (!isCacheEmpty) {
-            return localMoviesEntities.first().map { it.toMovie() }
+        if (isCacheEmpty) {
+            val result = searchRemoteSource.getTopRatedMovies(
+            language = "en-US"
+        ).movieResults.map {
+            it.toMovie()
         }
-        return emptyList()
+        // Cache the result locally
+            result.map { it.toMovieEntity() }
+                .map { localSource.insertMovie(it) }
+            return flow {
+                emit(
+                    result
+                )
+            }
+        return flow {
+            emit(
+                result
+            )
+        }
+        }
+        
+         return localMoviesEntities.first().map { it.toMovie() }
     }
 
     override suspend fun getTopRatedSeries(query: String): List<Series> {
         val localSeriesEntities = localSource.getTopRatedSeries()
         val isCacheEmpty: Boolean = localSeriesEntities.first().isEmpty()
-        if (!isCacheEmpty) {
-            return localSeriesEntities.first().map { it.toSeries() }
+        if (isCacheEmpty) {
+            val result = searchRemoteSource.getTopRatedSeries(
+            language = "en-US"
+        ).seriesResults.map {
+            it.toSeries()
         }
-        return emptyList()
+        // Cache the result locally
+            result.map { it.toSeriesEntity() }
+                .map { localSource.insertSeries(it) }
+            return flow {
+                emit(
+                    result
+                )
+            }
+        return flow {
+            emit(
+                result
+            )
+        }
+        }
+            return localSeriesEntities.first().map { it.toSeries() }
     }
 
 

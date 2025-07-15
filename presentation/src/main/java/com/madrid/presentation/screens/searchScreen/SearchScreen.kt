@@ -1,22 +1,19 @@
 package com.madrid.presentation.screens.searchScreen
 
-
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -28,11 +25,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.designsystem.component.CustomTextTitel
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
+import com.madrid.designsystem.component.textInputField.BasicTextInputField
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
+import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.RecentSearchLayout
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -42,8 +42,13 @@ fun SearchScreen(
 ) {
     val uiState by viewModel.state.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
-
+    var isRecentSearchActive by remember { mutableStateOf(false) }
     // In SearchScreen composable
+    if (isRecentSearchActive) {
+
+        RecentSearchLayout()
+
+    }
     ContentSearchScreen(
         forYouMovies = uiState.searchUiState.forYouMovies,
         exploreMoreMovies = uiState.searchUiState.exploreMoreMovies,
@@ -86,143 +91,97 @@ fun ContentSearchScreen(
     searchResults: List<SearchScreenState.MovieUiState> = emptyList(),
     searchQuery: String = "",
     onSearchQueryChange: (String) -> Unit = {},
+    onSearchBarClick: () -> Unit = {},
     onMovieClick: (SearchScreenState.MovieUiState) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
-    var localSearchQuery by remember { mutableStateOf(searchQuery) }
-
-    Column(
+    val showSearchResults = searchQuery.isNotBlank()
+    val moviesToShow = if (showSearchResults) searchResults else forYouMovies
+    LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium)
     ) {
-        // Search Bar
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    AppTheme.colors.surfaceColor.surfaceContainer,
-                    RoundedCornerShape(12.dp)
+        item {
+            BasicTextInputField(
+                value = searchQuery,
+                onValueChange = { onSearchQueryChange(it)
+                    onSearchBarClick()  },
+                hintText = "search..",
+                startIconPainter = painterResource(R.drawable.search_normal),
+                endIconPainter = null,
+
+                modifier = Modifier.fillMaxWidth()
+                    .clickable { onSearchBarClick() }
+                    .padding( top = AppTheme.spacing.medium)
+            )
+        }
+        item {
+            CustomTextTitel(
+                primaryText = "For You",
+                secondaryText = "See all",
+                endIcon = painterResource(R.drawable.outline_alt_arrow_left),
+                onSeeAllClick = {}
+            )
+        }
+        if (moviesToShow.isEmpty()) {
+            item {
+                MovioText(
+                    text = "No movies found",
+                    color = AppTheme.colors.surfaceColor.onSurface_3,
+                    textStyle = AppTheme.textStyle.body.medium14,
+                    modifier = Modifier.padding(bottom = AppTheme.spacing.xLarge)
                 )
-                .padding(horizontal = 12.dp, vertical = 8.dp)
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                MovioIcon(
-                    painter = painterResource(R.drawable.bold_search_normal),
-                    contentDescription = "Search Icon",
-                    tint = AppTheme.colors.surfaceColor.onSurface
-                )
-                BasicTextField(
-                    value = localSearchQuery,
-                    onValueChange = {
-                        localSearchQuery = it
-                        onSearchQueryChange(it)
-                    },
-                    singleLine = true,
+            }
+        } else {
+            item {
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier.padding(bottom = AppTheme.spacing.xLarge)
+                ) {
+                    items(moviesToShow) { movie ->
+                        MovioVerticalCard(
+                            description = movie.title,
+                            movieImage = movie.imageUrl,
+                            rate = movie.rating,
+                            width = 160.dp,
+                            height = 200.dp,
+                            paddingvalue = AppTheme.spacing.small,
+                            onClick = { onMovieClick(movie) }
+                        )
+                    }
+                }
+            }
+        }
+        if (!showSearchResults && exploreMoreMovies.isNotEmpty()) {
+            item {
+                CustomTextTitel(primaryText = "Explore more")
+            }
+            item {
+                Box(
                     modifier = Modifier
-                        .weight(1f)
-                        .padding(start = 8.dp),
-                    decorationBox = { innerTextField ->
-                        if (localSearchQuery.isEmpty()) {
-                            MovioText(
-                                text = "Search...",
-                                color = AppTheme.colors.surfaceColor.onSurface_3,
-                                textStyle = AppTheme.textStyle.body.medium14
+                        .fillMaxWidth()
+                        .height(600.dp)
+                ) {
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        contentPadding = PaddingValues(bottom =AppTheme.spacing.medium),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium),
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        items(exploreMoreMovies) { movie ->
+                            MovioVerticalCard(
+                                description = movie.title,
+                                movieImage = movie.imageUrl,
+                                rate = movie.rating,
+                                width = 160.dp,
+                                height = 200.dp,
+                                onClick = { onMovieClick(movie) }
                             )
                         }
-                        innerTextField()
                     }
-                )
-            }
-        }
-
-        val showSearchResults = localSearchQuery.isNotBlank()
-        val moviesToShow = when {
-            showSearchResults -> searchResults
-            else -> forYouMovies
-        }
-
-        // Section Title
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            MovioText(
-                text = if (showSearchResults) "Search Results" else "For you",
-                color = AppTheme.colors.surfaceColor.onSurface,
-                textStyle = AppTheme.textStyle.headLine.medium18
-            )
-            if (!showSearchResults) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    MovioText(
-                        text = "See all",
-                        color = AppTheme.colors.surfaceColor.onSurface_2,
-                        textStyle = AppTheme.textStyle.body.medium14
-                    )
-                    MovioIcon(
-                        painter = painterResource(R.drawable.outline_alt_arrow_left),
-                        contentDescription = "See all arrow",
-                        tint = AppTheme.colors.surfaceColor.onSurface_2,
-                        modifier = Modifier
-                            .padding(start = 4.dp)
-                            .clickable {}
-                    )
-                }
-            }
-        }
-
-        if (moviesToShow.isEmpty()) {
-            MovioText(
-                text = "No movies found",
-                color = AppTheme.colors.surfaceColor.onSurface_3,
-                textStyle = AppTheme.textStyle.body.medium14,
-                modifier = Modifier.padding(bottom = 24.dp)
-            )
-        } else {
-            LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                modifier = Modifier.padding(bottom = 24.dp)
-            ) {
-                items(moviesToShow) { movie ->
-                    MovioVerticalCard(
-                        description = movie.title,
-                        movieImage = movie.imageUrl,
-                        rate = movie.rating,
-                        width = 160.dp,
-                        height = 200.dp,
-                        paddingvalue = 8.dp,
-                        onClick = { onMovieClick(movie) }
-                    )
-                }
-            }
-        }
-
-        if (!showSearchResults) {
-            MovioText(
-                text = "Explore more",
-                color = AppTheme.colors.surfaceColor.onSurface,
-                textStyle = AppTheme.textStyle.headLine.medium18,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                items(exploreMoreMovies) { movie ->
-                    MovioVerticalCard(
-                        description = movie.title,
-                        movieImage = movie.imageUrl,
-                        rate = movie.rating,
-                        width = 160.dp,
-                        height = 200.dp,
-                        paddingvalue = 8.dp,
-                        onClick = { onMovieClick(movie) }
-                    )
                 }
             }
         }

@@ -9,7 +9,7 @@ import com.madrid.presentation.navigation.route.signUpRoute
 
 fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
     navigation(
-        route = Screen.Authentication.Login.route,
+        route = Screen.AuthGraph.route,
         startDestination = Screen.Authentication.Login.route,
     ) {
         loginRoute(navController)

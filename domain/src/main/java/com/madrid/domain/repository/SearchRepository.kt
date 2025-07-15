@@ -5,6 +5,7 @@ import com.madrid.domain.entity.Media
 import com.madrid.domain.entity.Movie
 import com.madrid.domain.entity.Series
 import kotlinx.coroutines.flow.Flow
+import org.intellij.lang.annotations.Language
 
 interface SearchRepository {
 
@@ -16,8 +17,8 @@ interface SearchRepository {
 
     suspend fun getTrendingMedia(): Media
 
-    suspend fun getTopRatedMovies(query: String): List<Movie>
-    suspend fun getTopRatedSeries(query: String): List<Series>
+    suspend fun getTopRatedMovies(language: String): Flow<List<Movie>>
+    suspend fun getTopRatedSeries(language: String): Flow<List<Series>>
 
     suspend fun getMovieByQuery(query: String): Flow<List<Movie>>
     suspend fun getSeriesByQuery(query: String): Flow<List<Series>>
