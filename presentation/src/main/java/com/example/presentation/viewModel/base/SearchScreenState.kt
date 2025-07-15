@@ -1,11 +1,5 @@
 package com.example.presentation.viewModel.base
 
-data class wxwx(
-    val name : String = "",
-    val age: Int,
-    val imgUrl: String
-)
-
 data class SearchScreenState(
     val searchUiState: SearchUiState = SearchUiState(),
     val recentSearchUiState: List<String> = emptyList(),

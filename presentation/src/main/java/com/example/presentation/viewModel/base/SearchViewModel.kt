@@ -41,6 +41,17 @@ class SearchViewModel(
         )
     }
 
+    fun removeRecentSearch(item: String) {
+        tryToExecute(
+            function = {
+                recentSearchUseCase.removeRecentSearch(item)
+                recentSearchUseCase.getRecentSearches().first()
+            },
+            onSuccess = { result -> updateState { it.copy(recentSearchUiState = result) } },
+            onError = {}
+        )
+    }
+
 
     fun clearAll() {
         tryToExecute(

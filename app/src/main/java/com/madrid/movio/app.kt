@@ -11,7 +11,11 @@ import com.madrid.detectImageContent.SensitiveContentDetection
 import com.madrid.domain.repository.SearchRepository
 import com.madrid.domain.usecase.searchUseCase.ArtistUseCase
 import com.madrid.domain.usecase.searchUseCase.MediaUseCase
-import com.madrid.presentation.screens.searchScreen.SearchViewModel
+import com.madrid.domain.usecase.searchUseCase.PreferredMediaUseCase
+import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
+import com.madrid.domain.usecase.searchUseCase.TrendingMediaUseCase
+import com.example.presentation.viewModel.base.SearchViewModel
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -20,16 +24,19 @@ val app = module {
 
     // data
     single<SearchRepository> { SearchRepositoryImpl(get(), get()) }
-    single<SearchLocalSource> { SearchLocalDataSource(get()) }
-    single<SearchRemoteSource> {  SearchRemoteSourceImpl() }
+    single<SearchLocalSource> { SearchLocalDataSource(androidContext()) }
+    single<SearchRemoteSource> { SearchRemoteSourceImpl() }
 
-    // presentation
-    viewModel { SearchViewModel(get()) }
-
-
-    //domain
+    // use cases
     single { ArtistUseCase(get()) }
     single { MediaUseCase(get()) }
+    single { PreferredMediaUseCase(get()) }
+    single { RecentSearchUseCase(get()) }
+    single { TrendingMediaUseCase(get()) }
+
+    // presentation
+    viewModel { SearchViewModel(get(), get(), get(), get(), get()) }
+
     // detectImageContent
     single { GetImageBitmap(get()) }
     single { SensitiveContentDetection(get()) }
