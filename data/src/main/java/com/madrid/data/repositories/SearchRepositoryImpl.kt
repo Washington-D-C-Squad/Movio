@@ -131,18 +131,21 @@ class SearchRepositoryImpl(
 
 
     override suspend fun getRecentSearches(): Flow<List<String>> {
-        TODO("Not yet implemented")
+        return localSource.getRecentSearches()
+            .map { entitiesList ->
+                entitiesList.map { it.searchQuery }
+            }
     }
 
     override suspend fun addRecentSearch(item: String) {
-        TODO("Not yet implemented")
+        localSource.addRecentSearch(item)
     }
 
     override suspend fun removeRecentSearch(item: String) {
-        TODO("Not yet implemented")
+        localSource.removeRecentSearch(item)
     }
 
     override suspend fun clearAllRecentSearches() {
-        TODO("Not yet implemented")
+        localSource.clearAllRecentSearches()
     }
 }

@@ -3,6 +3,7 @@ package com.madrid.data.repositories
 import com.madrid.data.dataSource.local.entity.ArtistEntity
 import com.madrid.data.dataSource.local.entity.MovieCategoryEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
+import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
 import com.madrid.domain.entity.Artist
 import kotlinx.coroutines.flow.Flow
@@ -35,8 +36,13 @@ interface SearchLocalSource {
     fun getRecentCategories(): Flow<List<MovieCategoryEntity>>
 
     // recent searches
+    fun getRecentSearches(): Flow<List<RecentSearchEntity>>
 
+    suspend fun addRecentSearch(item: String)
 
+    suspend fun removeRecentSearch(item: String)
+
+    suspend fun clearAllRecentSearches()
 
 
 }

@@ -3,6 +3,7 @@ package com.madrid.data.dataSource.local
 import com.madrid.data.dataSource.local.entity.ArtistEntity
 import com.madrid.data.dataSource.local.entity.MovieCategoryEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
+import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
 import com.madrid.data.repositories.SearchLocalSource
 import kotlinx.coroutines.flow.Flow
@@ -38,8 +39,8 @@ class SearchLocalDataSource(
     }
 
     // artists
-    override suspend fun insertArtist(series: ArtistEntity) {
-        database.artistDao().insertArtist(series)
+    override suspend fun insertArtist(artist: ArtistEntity) {
+        database.artistDao().insertArtist(artist)
     }
 
     override fun getArtistsByName(query: String): Flow<List<ArtistEntity>> {
@@ -56,5 +57,19 @@ class SearchLocalDataSource(
     }
 
     // recent searches
+    override fun getRecentSearches(): Flow<List<RecentSearchEntity>> {
+        return database.recentSearchDao().getRecentSearches()
+    }
 
+    override suspend fun addRecentSearch(item: String) {
+        database.recentSearchDao().addRecentSearch(item)
+    }
+
+    override suspend fun removeRecentSearch(item: String) {
+        database.recentSearchDao().removeRecentSearch(item)
+    }
+
+    override suspend fun clearAllRecentSearches() {
+        database.recentSearchDao().clearAllRecentSearches()
+    }
 }
