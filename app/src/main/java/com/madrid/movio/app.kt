@@ -1,16 +1,18 @@
 package com.madrid.movio
 
-import com.madrid.data.dataSource.local.SearchLocalDataSource
-import com.madrid.data.repositories.SearchLocalSource
-import com.madrid.data.repositories.SearchRepositoryImpl
 
+import com.madrid.data.dataSource.local.SearchLocalDataSource
+import com.madrid.data.dataSource.remote.search.SearchRemoteSourceImpl
+import com.madrid.data.repositories.SearchLocalSource
+import com.madrid.data.repositories.SearchRemoteSource
+import com.madrid.data.repositories.SearchRepositoryImpl
 import com.madrid.detectImageContent.GetImageBitmap
 import com.madrid.detectImageContent.SensitiveContentDetection
 import com.madrid.domain.repository.SearchRepository
 import com.madrid.domain.usecase.searchUseCase.ArtistUseCase
 import com.madrid.domain.usecase.searchUseCase.MediaUseCase
-import com.madrid.presentation.component.filteredImage.FilteredImageViewModel
-import org.koin.core.module.dsl.viewModel
+import com.madrid.presentation.screens.searchScreen.SearchViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 
@@ -19,9 +21,12 @@ val app = module {
     // data
     single<SearchRepository> { SearchRepositoryImpl(get(), get()) }
     single<SearchLocalSource> { SearchLocalDataSource(get()) }
+    single<SearchRemoteSource> {  SearchRemoteSourceImpl() }
 
     // presentation
-    viewModel { FilteredImageViewModel(get(), get()) }
+    viewModel { SearchViewModel(get()) }
+
+
     //domain
     single { ArtistUseCase(get()) }
     single { MediaUseCase(get()) }

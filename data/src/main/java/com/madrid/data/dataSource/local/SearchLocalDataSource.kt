@@ -5,8 +5,6 @@ import com.madrid.data.dataSource.local.entity.ArtistEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
 import com.madrid.data.repositories.SearchLocalSource
-import com.madrid.data.repositories.mappers.toMovieEntity
-import com.madrid.domain.entity.Movie
 import kotlinx.coroutines.flow.Flow
 
 class SearchLocalDataSource(
