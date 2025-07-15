@@ -147,4 +147,103 @@ class SearchViewModel(
             onError = {}
         )
     }
+
+    fun searchSeries(query: String) {
+        tryToExecute(
+            function = { mediaUseCase.getSeriesByQuery(query).first() },
+            onSuccess = { result ->
+                updateState { currentState ->
+                    currentState.copy(
+                        filteredScreenUiState = currentState.filteredScreenUiState.copy(
+                            series = result.map { series ->
+                                SearchScreenState.SeriesUiState(
+                                    id = series.id.toString(),
+                                    title = series.title.toString(),
+                                    imageUrl = series.imageUrl.toString(),
+                                    rating = series.rate.toString()
+                                )
+                            },
+                            isLoading = false
+                        )
+                    )
+                }
+            },
+            onError = {
+                updateState { currentState ->
+                    currentState.copy(
+                        searchUiState = currentState.searchUiState.copy(
+                            isLoading = false,
+                            errorMessage = "Failed to load series"
+                        )
+                    )
+                }
+            }
+        )
+    }
+
+    fun topResult(query: String) {
+        tryToExecute(
+            function = { mediaUseCase.getTopRatedMedia(query).first },
+            onSuccess = { result ->
+                updateState { currentState ->
+                    currentState.copy(
+                        filteredScreenUiState = currentState.filteredScreenUiState.copy(
+                            series = result.map { rate ->
+                                SearchScreenState.SeriesUiState(
+                                    id = rate.id.toString(),
+                                    title = rate.title.toString(),
+                                    imageUrl = rate.imageUrl.toString(),
+                                    rating = rate.rate.toString()
+                                )
+                            },
+                            isLoading = false
+                        )
+                    )
+                }
+            },
+            onError = {
+                updateState { currentState ->
+                    currentState.copy(
+                        filteredScreenUiState = currentState.filteredScreenUiState.copy(
+                            isLoading = false,
+                            errorMessage = "Failed to load "
+                        )
+                    )
+                }
+            }
+        )
+    }
+
+    fun artists(query: String) {
+        tryToExecute(
+            function = { artistUseCase.getArtistByQuery(query).first() },
+            onSuccess = { result ->
+                updateState { currentState ->
+                    currentState.copy(
+                        filteredScreenUiState = currentState.filteredScreenUiState.copy(
+                            artist = result.map { artist ->
+                                SearchScreenState.ArtistUiState(
+                                    id = artist.id.toString(),
+                                    name = artist.name,
+                                    imageUrl = artist.imageUrl.toString(),
+                                )
+                            },
+                            isLoading = false
+                        )
+                    )
+                }
+            },
+            onError = {
+                updateState { currentState ->
+                    currentState.copy(
+                        filteredScreenUiState = currentState.filteredScreenUiState.copy(
+                            isLoading = false,
+                            errorMessage = "Failed to load "
+                        )
+                    )
+                }
+            }
+        )
+    }
 }
+

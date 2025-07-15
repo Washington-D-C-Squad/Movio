@@ -1,7 +1,9 @@
 package com.madrid.presentation.screens.searchScreen
 
+import com.madrid.domain.entity.Artist
+
 data class wxwx(
-    val name : String = "",
+    val name: String = "",
     val age: Int,
     val imgUrl: String
 )
@@ -9,32 +11,52 @@ data class wxwx(
 data class SearchScreenState(
     val searchUiState: SearchUiState = SearchUiState(),
     val recentSearchUiState: List<String> = emptyList(),
-
-    //TODO add the remain ui state
+    val filteredScreenUiState: FilteredScreenUiState = FilteredScreenUiState()
 ) {
     data class SearchUiState(
-        val forYouMovies: List<MovieUiState> = listOf(MovieUiState()),
-        val exploreMoreMovies: List<MovieUiState> = listOf(MovieUiState()),
-        val searchResults: List<MovieUiState> = listOf(MovieUiState()),
+        val forYouMovies: List<MovieUiState> =  emptyList(),
+        val exploreMoreMovies: List<MovieUiState> =  emptyList(),
+        val searchResults: List<MovieUiState> =  emptyList(),
         val isLoading: Boolean = false,
         val errorMessage: String? = null
     )
+    data class RecentSearchUiState(
+        val recentSearch: List<String> = emptyList()
+    )
+
+    data class FilteredScreenUiState(
+        val searchResultCount: String = "1",
+        val isLoading: Boolean = false,
+        val errorMessage: String? = null,
+        val topResult : List<MovieUiState> = listOf(MovieUiState()),
+        val movie : List<MovieUiState> = listOf(MovieUiState()),
+        val series :List<SeriesUiState> = listOf(SeriesUiState()),
+        val artist:List< ArtistUiState> = listOf(ArtistUiState())
+    )
+
+
     data class MovieUiState(
-        val id: String="",
+        val id: String = "",
+        val title: String = "",
+        val imageUrl: String = "",
+        val rating: String = "",
+        val category: String = ""
+    )
+    data class SeriesUiState(
+        val id: String ="",
         val title: String="",
         val imageUrl: String="",
         val rating: String="",
         val category: String=""
     )
-    data class SeriesUiState(
-        val id: String,
-        val title: String,
-        val imageUrl: String,
-        val rating: String,
-        val category: String
+    data class ArtistUiState(
+        val id: String ="",
+        val name:String ="",
+        val role: String = "",
+        val country: String?=null,
+        val description: String?=null,
+        val imageUrl : String ="",
     )
-    data class RecentSearchUiState (
-        val recentSearch : List<String> = emptyList()
-    )
+
     //TODO add the remain ui state
 }
