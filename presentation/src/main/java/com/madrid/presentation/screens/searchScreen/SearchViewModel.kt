@@ -34,12 +34,7 @@ class SearchViewModel(
                     )
                 },
                 onSuccess = {
-//                    val preferredMedia = preferredMediaUseCase.getPreferredMedia()
-//                    val preferredMovies = preferredMedia.flatMap { it.movies }
-//                    _uiState.value = _uiState.value.copy(
-//                        exploreMoreMovies = preferredMovies,
-//                        isLoading = false
-//                    )
+
                 }
             )
         }
@@ -60,8 +55,6 @@ class SearchViewModel(
                         errorMessage = "Search failed: $msg",
                         isLoading = false
                     )
-                    Log.i("SearchVMErr", "searchMoviesByName:$msg ")
-
                 },
                 onSuccess = {
                     mediaUseCase.getMovieByQuery(query).collect {

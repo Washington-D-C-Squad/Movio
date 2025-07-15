@@ -75,6 +75,9 @@ dependencies {
     implementation("io.insert-koin:koin-core:3.5.3")
     implementation("io.insert-koin:koin-android:3.5.3")
 
+    implementation(libs.kotlinx.datetime)
+
+
     val room_version = "2.7.2"
     implementation("androidx.room:room-runtime:$room_version")
     // use Kotlin Symbol Processing (KSP
@@ -85,4 +88,5 @@ dependencies {
     testImplementation("androidx.room:room-testing:${room_version}")
     //  Paging 3 Integration
     implementation("androidx.room:room-paging:${room_version}")
+
 }
