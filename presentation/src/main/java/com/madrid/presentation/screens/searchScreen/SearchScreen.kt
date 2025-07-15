@@ -28,11 +28,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.presentation.viewModel.base.SearchScreenState
+import com.example.presentation.viewModel.base.SearchViewModel
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
-import com.madrid.domain.entity.Movie
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
 import org.koin.androidx.compose.koinViewModel
 
@@ -41,14 +42,14 @@ fun SearchScreen(
     modifier: Modifier = Modifier,
     viewModel: SearchViewModel = koinViewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.state.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
 
     // In SearchScreen composable
     ContentSearchScreen(
-        forYouMovies = uiState.forYouMovies,
-        exploreMoreMovies = uiState.exploreMoreMovies,
-        searchResults = uiState.searchResults, // <-- add this
+        forYouMovies = uiState.searchUiState.forYouMovies,
+        exploreMoreMovies = uiState.searchUiState.exploreMoreMovies,
+        searchResults = uiState.searchUiState.searchResults, // <-- add this
         searchQuery = searchQuery, // <-- pass the query
         onSearchQueryChange = { query ->
             searchQuery = query
@@ -60,13 +61,13 @@ fun SearchScreen(
         modifier = modifier
     )
 
-    uiState.errorMessage?.let { errorMsg ->
+    uiState.searchUiState.errorMessage?.let { errorMsg ->
         LaunchedEffect(errorMsg) {
             // handle error
         }
     }
 
-    if (uiState.isLoading) {
+    if (uiState.searchUiState.isLoading) {
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
@@ -82,12 +83,12 @@ fun SearchScreen(
 
 @Composable
 fun ContentSearchScreen(
-    forYouMovies: List<Movie> = emptyList(),
-    exploreMoreMovies: List<Movie> = emptyList(),
-    searchResults: List<Movie> = emptyList(),
+    forYouMovies: List<SearchScreenState.MovieUiState> = emptyList(),
+    exploreMoreMovies: List<SearchScreenState.MovieUiState> = emptyList(),
+    searchResults: List<SearchScreenState.MovieUiState> = emptyList(),
     searchQuery: String = "",
     onSearchQueryChange: (String) -> Unit = {},
-    onMovieClick: (Movie) -> Unit = {},
+    onMovieClick: (SearchScreenState.MovieUiState) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     var localSearchQuery by remember { mutableStateOf(searchQuery) }
@@ -191,7 +192,7 @@ fun ContentSearchScreen(
                     MovioVerticalCard(
                         description = movie.title,
                         movieImage = movie.imageUrl,
-                        rate = movie.rate.toString(),
+                        rate = movie.rating,
                         width = 160.dp,
                         height = 200.dp,
                         paddingvalue = 8.dp,
@@ -218,7 +219,7 @@ fun ContentSearchScreen(
                     MovioVerticalCard(
                         description = movie.title,
                         movieImage = movie.imageUrl,
-                        rate = movie.rate.toString(),
+                        rate = movie.rating,
                         width = 160.dp,
                         height = 200.dp,
                         paddingvalue = 8.dp,
@@ -229,8 +230,3 @@ fun ContentSearchScreen(
         }
     }
 }
-
-
-
-
-

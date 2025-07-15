@@ -7,7 +7,9 @@ import com.madrid.domain.usecase.searchUseCase.PreferredMediaUseCase
 import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import com.madrid.domain.usecase.searchUseCase.TrendingMediaUseCase
 import kotlinx.coroutines.flow.first
+import org.koin.android.annotation.KoinViewModel
 
+@KoinViewModel
 class SearchViewModel(
     private val artistUseCase: ArtistUseCase,
     private val mediaUseCase: MediaUseCase,
@@ -119,5 +121,29 @@ class SearchViewModel(
         }
         return moviesUiState
 
+    }
+
+    fun searchMovies(query: String) {
+        tryToExecute(
+            function = { mediaUseCase.getMovieByQuery(query).first() },
+            onSuccess = { result ->
+                updateState {
+                    it.copy(
+                        searchUiState = it.searchUiState.copy(
+                            searchResults = result.map { movie ->
+                                SearchScreenState.MovieUiState(
+                                    title = movie.title,
+                                    id = movie.id.toString(),
+                                    imageUrl = movie.imageUrl,
+                                    rating = movie.rate.toString(),
+                                )
+                            },
+                            isLoading = false
+                        )
+                    )
+                }
+            },
+            onError = {}
+        )
     }
 }

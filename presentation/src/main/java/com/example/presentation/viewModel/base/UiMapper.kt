@@ -1,6 +1,6 @@
 package com.example.presentation.viewModel.base
 
-import com.example.domain.entity.Movie
+import com.madrid.domain.entity.Movie
 
 fun Movie.toUiState() = SearchScreenState.MovieUiState(
     id = String(),
