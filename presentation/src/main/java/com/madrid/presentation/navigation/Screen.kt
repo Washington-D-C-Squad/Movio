@@ -2,14 +2,15 @@ package com.madrid.presentation.navigation
 
 sealed class Screen(val route:String) {
     sealed class Authentication(val authRoute: String): Screen(authRoute){
-        object Login: Authentication("login")
-        object SignUp: Authentication("signUp")
-        object ForgetPassword: Authentication("forgetPassword")
+        data object Login: Authentication("login")
+        data object SignUp: Authentication("signUp")
+        data object ForgetPassword: Authentication("forgetPassword")
     }
-    object Splash: Screen("splash")
-    object OnBoarding: Screen("onBoarding")
-    object Home: Screen("home")
-    object Search: Screen("search")
-    object Library: Screen("library")
-    object More: Screen("more")
+    data object AuthGraph : Screen("auth")
+    data object Splash: Screen("splash")
+    data object OnBoarding: Screen("onBoarding")
+    data object Home: Screen("home")
+    data object Search: Screen("search")
+    data object Library: Screen("library")
+    data object More: Screen("more")
 }
