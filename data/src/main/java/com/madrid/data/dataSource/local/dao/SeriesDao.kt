@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
+import com.madrid.domain.entity.Series
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -23,6 +24,9 @@ interface SeriesDao {
 
     @Query("SELECT * FROM SERIES_TABLE WHERE title LIKE :title")
     fun getSeriesByTitle(title: String): Flow<List<SeriesEntity>>
+
+    @Query("SELECT * FROM SERIES_TABLE ORDER BY rate DESC")
+    fun getTopRatedSeries(): Flow<List<SeriesEntity>>
 
     @Query("SELECT * FROM SERIES_TABLE")
     fun getAllSeries(): Flow<List<SeriesEntity>>
