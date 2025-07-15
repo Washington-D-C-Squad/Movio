@@ -13,7 +13,6 @@ import com.madrid.detectImageContent.SensitiveContentDetection
 import com.madrid.domain.repository.SearchRepository
 import com.madrid.domain.usecase.searchUseCase.ArtistUseCase
 import com.madrid.domain.usecase.searchUseCase.MediaUseCase
-import com.madrid.presentation.screens.searchScreen.SearchViewModel
 import org.koin.android.ext.koin.androidContext
 import com.madrid.domain.usecase.searchUseCase.PreferredMediaUseCase
 import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
