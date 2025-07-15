@@ -1,4 +1,4 @@
-package com.example.presentation.viewModel.base
+package com.madrid.presentation.screens.searchScreen
 
 import com.madrid.domain.entity.Media
 import com.madrid.domain.usecase.searchUseCase.ArtistUseCase
@@ -6,6 +6,7 @@ import com.madrid.domain.usecase.searchUseCase.MediaUseCase
 import com.madrid.domain.usecase.searchUseCase.PreferredMediaUseCase
 import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import com.madrid.domain.usecase.searchUseCase.TrendingMediaUseCase
+import com.madrid.presentation.base.BaseViewModel
 import kotlinx.coroutines.flow.first
 import org.koin.android.annotation.KoinViewModel
 

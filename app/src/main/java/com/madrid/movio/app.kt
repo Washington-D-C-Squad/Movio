@@ -1,7 +1,7 @@
 package com.madrid.movio
 
 
-import com.example.presentation.viewModel.base.SearchViewModel
+import com.madrid.presentation.screens.searchScreen.SearchViewModel
 import com.madrid.data.dataSource.local.SearchLocalDataSource
 import com.madrid.data.dataSource.remote.search.SearchRemoteSourceImpl
 import com.madrid.data.repositories.SearchLocalSource

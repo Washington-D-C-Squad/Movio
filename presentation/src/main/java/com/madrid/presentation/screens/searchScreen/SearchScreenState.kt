@@ -1,4 +1,4 @@
-package com.example.presentation.viewModel.base
+package com.madrid.presentation.screens.searchScreen
 
 data class wxwx(
     val name : String = "",
