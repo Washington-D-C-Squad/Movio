@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.component.MovioText
 import com.madrid.presentation.R
+import androidx.compose.foundation.layout.padding
 
 @Composable
 fun RecentSearchHeader(
@@ -38,8 +39,8 @@ fun RecentSearchHeader(
             textStyle = AppTheme.textStyle.label.smallRegular14,
             color = AppTheme.colors.surfaceColor.onSurfaceVariant,
             modifier = Modifier
-                .clip(RoundedCornerShape(AppTheme.radius.medium))
                 .clickable { onClearAll() }
+                .padding(8.dp)
         )
     }
 }
