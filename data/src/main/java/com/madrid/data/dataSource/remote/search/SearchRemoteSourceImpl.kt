@@ -46,7 +46,6 @@ class SearchRemoteSourceImpl() : SearchRemoteSource {
             }
         }
         val movies = json.decodeFromString<MovieResponse>(result.bodyAsText())
-        Log.i("SearchIMpl", "searchMoviesByName:$movies ")
         return movies
     }
 
