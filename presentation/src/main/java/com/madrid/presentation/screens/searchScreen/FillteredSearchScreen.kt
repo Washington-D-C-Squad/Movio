@@ -49,7 +49,6 @@ fun FilteredScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-
         val uiState by viewModel.state.collectAsState()
         var searchQuery by remember { mutableStateOf("") }
         var isRecentSearchActive by remember { mutableStateOf(false) }
@@ -142,7 +141,6 @@ private fun ContentFilteredScreen(
                 },
             )
         }
-
         item {
             when (selectedTabIndex) {
                 0 -> if (topRated.isNotEmpty()) TopResult(topRated)
@@ -267,7 +265,7 @@ private fun Artist(
                 MovioArtistsCard(
                     artistsName = artist.name,
                     imageUrl = artist.imageUrl,
-                    width = 160.dp,
+                    width = 101.dp,
                     onClick = { }
                 )
             }
