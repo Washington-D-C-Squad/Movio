@@ -1,91 +1,62 @@
 package com.madrid.presentation.component.screens.searchScreen
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
+import com.madrid.presentation.worker.RecentSearchSyncWorker
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class SearchViewModel(
-    private val movieRepository: MovieRepository
+    private val recentSearchUseCase: RecentSearchUseCase
 ) : ViewModel()  {
 
     private val _uiState = MutableStateFlow(SearchUiState())
     val uiState: StateFlow<SearchUiState> = _uiState.asStateFlow()
 
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
+
     init {
-        loadInitialData()
+        refreshRecentSearches()
     }
 
-    private fun loadInitialData() {
+    fun refreshRecentSearches() {
         viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(isLoading = true, errorMessage = null)
-
-            safeCall(
-                onError = { msg ->
-                    _uiState.value = _uiState.value.copy(
-                        errorMessage = "Failed to load movies: $msg",
-                        isLoading = false
-                    )
-                },
-                onSuccess = {
-                    val forYou = movieRepository.getForYouMovies()
-                    val explore = movieRepository.getExploreMoreMovies()
-
-                    _uiState.value = _uiState.value.copy(
-                        forYouMovies = forYou,
-                        exploreMoreMovies = explore,
-                        isLoading = false
-                    )
-                }
-            )
+            val flow = recentSearchUseCase.getRecentSearches()
+            flow.collect { searches ->
+                _uiState.value = _uiState.value.copy(recentSearches = searches)
+            }
         }
     }
 
-    fun searchMovies(query: String) {
-        if (query.isBlank()) {
-            _uiState.value = _uiState.value.copy(searchResults = emptyList())
-            return
-        }
-
-        viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(isLoading = true, errorMessage = null)
-
-            safeCall(
-                onError = { msg ->
-                    _uiState.value = _uiState.value.copy(
-                        errorMessage = "Search failed: $msg",
-                        isLoading = false
-                    )
-                },
-                onSuccess = {
-                    val results = movieRepository.searchMovies(query)
-                    _uiState.value = _uiState.value.copy(
-                        searchResults = results,
-                        isLoading = false
-                    )
-                }
-            )
-        }
+    fun clearRecentSearchesWithWorker(context: Context) {
+        val workRequest = OneTimeWorkRequestBuilder<RecentSearchSyncWorker>().build()
+        WorkManager.getInstance(context).enqueue(workRequest)
+        // Optionally refresh after worker runs
+        refreshRecentSearches()
     }
 
-    fun clearError() {
-        _uiState.value = _uiState.value.copy(errorMessage = null)
+    fun onSearchQueryChange(newQuery: String) {
+        _searchQuery.value = newQuery
     }
 
-    fun navigateToMovieDetails(movieId: String) {
-        // TODO: implement navigation logic
+    fun onRecentSearchItemClick(index: Int) {
+        _searchQuery.value = uiState.value.recentSearches.getOrNull(index) ?: ""
     }
 
-    private suspend fun safeCall(
-        onError: (String) -> Unit,
-        onSuccess: suspend () -> Unit
-    ) {
-        try {
-            onSuccess()
-        } catch (e: Exception) {
-            onError(e.message ?: "Unknown error")
+    fun removeRecentSearch(index: Int) {
+        val item = uiState.value.recentSearches.getOrNull(index)
+        if (item != null) {
+            viewModelScope.launch {
+                recentSearchUseCase.removeRecentSearch(item)
+                refreshRecentSearches()
+            }
         }
     }
 }
