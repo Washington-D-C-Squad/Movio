@@ -57,19 +57,6 @@ fun FilteredScreen(
         topRated = uiState.filteredScreenUiState.topResult
     )
 
-
-    if (uiState.searchUiState.isLoading) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            MovioIcon(
-                painter = painterResource(R.drawable.loading),
-                contentDescription = "Loading",
-                tint = AppTheme.colors.brandColors.primary
-            )
-        }
-    }
 }
 
 
