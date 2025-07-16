@@ -55,7 +55,6 @@ fun FilteredScreen(
         topRated = uiState.filteredScreenUiState.topResult,
         viewModel = viewModel
     )
-
 }
 
 
@@ -141,8 +140,8 @@ private fun TopResult(
                     description = movie.title,
                     movieImage = movie.imageUrl,
                     rate = movie.rating,
-                    width = 160.dp,
-                    height = 200.dp,
+                    width = 101.dp,
+                    height = 178.dp,
                     onClick = { }
                 )
             }
@@ -175,8 +174,8 @@ private fun Movie(
                     description = movie.title,
                     movieImage = movie.imageUrl,
                     rate = movie.rating,
-                    width = 160.dp,
-                    height = 200.dp,
+                    width = 101.dp,
+                    height = 178.dp,
                     onClick = { /* onMovieClick(movie.title) */ }
                 )
             }

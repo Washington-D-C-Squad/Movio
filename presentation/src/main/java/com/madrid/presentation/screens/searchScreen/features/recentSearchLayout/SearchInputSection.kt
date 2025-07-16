@@ -23,7 +23,7 @@ fun SearchInputSection(
         },
         hintText = "Search...",
         startIconPainter = painterResource(R.drawable.search_normal),
-        endIconPainter = null,
+        endIconPainter = painterResource(R.drawable.outline_add),
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onSearchBarClick() }
