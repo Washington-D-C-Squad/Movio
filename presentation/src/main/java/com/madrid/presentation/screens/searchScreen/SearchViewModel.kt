@@ -11,6 +11,7 @@ import com.madrid.presentation.base.BaseViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
+import kotlin.math.exp
 
 @KoinViewModel
 class SearchViewModel(
@@ -52,6 +53,21 @@ class SearchViewModel(
             onError = {}
         )
     }
+
+    fun addToRecentSearches(query: String) {
+        val currentList = state.value.recentSearchUiState.toMutableList()
+        currentList.remove(query)
+        currentList.add(0, query)
+        val newList = currentList.take(10)
+        updateState { it.copy(recentSearchUiState = newList) }
+    }
+
+    fun removeRecentSearch(searchItem: String) {
+        val currentList = state.value.recentSearchUiState.toMutableList()
+        currentList.remove(searchItem)
+        updateState { it.copy(recentSearchUiState = currentList) }
+    }
+
     private fun loadInitialData() {
         updateState {
             it.copy(
@@ -168,5 +184,19 @@ class SearchViewModel(
             },
             onError = {}
         )
+    }
+
+    override fun onSearchSubmit() {
+        val query = searchQuery.value.trim()
+        if (query.isNotBlank()) {
+            addToRecentSearches(query)
+            _searchQuery.value = ""
+        }
+    }
+
+    companion object {
+        @JvmStatic
+        fun clearRecentSearchesStatic() {
+        }
     }
 }
