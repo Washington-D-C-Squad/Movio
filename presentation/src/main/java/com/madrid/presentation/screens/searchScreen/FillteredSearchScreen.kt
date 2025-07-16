@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -43,6 +42,7 @@ fun FilteredScreen(
     val uiState by viewModel.state.collectAsState()
     var isRecentSearchActive by remember { mutableStateOf(false) }
 
+
     ContentFilteredScreen(
         onSearchBarClick = {
             isRecentSearchActive = false
@@ -60,17 +60,17 @@ fun FilteredScreen(
 private fun ContentFilteredScreen(
     viewModel: SearchViewModel,
     onSearchBarClick: () -> Unit = {},
-    topRated: List<SearchScreenState.MovieUiState> = emptyList(),
-    movies: List<SearchScreenState.MovieUiState> = emptyList(),
-    series: List<SearchScreenState.SeriesUiState> = emptyList(),
-    artist: List<SearchScreenState.ArtistUiState> = emptyList(),
+    topRated: List<SearchScreenState.MovieUiState> ,
+    movies: List<SearchScreenState.MovieUiState> ,
+    series: List<SearchScreenState.SeriesUiState> ,
+    artist: List<SearchScreenState.ArtistUiState> ,
 ) {
     var selectedTabIndex by remember { mutableStateOf(0) }
     var localSearchQuery by remember { mutableStateOf("") }
 
     LazyColumn(
         modifier = Modifier
-            .fillMaxSize().statusBarsPadding()
+            .fillMaxSize()
             .background(AppTheme.colors.surfaceColor.onSurface)
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium)
@@ -104,12 +104,11 @@ private fun ContentFilteredScreen(
             Crossfade(targetState = selectedTabIndex, label = "TabContentAnimation") { index ->
                 when (index) {
                     0 -> if (topRated.isNotEmpty()) TopResult(topRated)
-                    1 -> if (movies.isNotEmpty()) Movie(movies)
+                    1 -> if (movies.isNotEmpty())Movie(movies)
                     2 -> if (series.isNotEmpty()) Series(series)
                     3 -> if (artist.isNotEmpty()) Artist(artist)
                 }
             }
-
         }
     }
 }
@@ -121,11 +120,11 @@ private fun TopResult(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(600.dp)
+            .height(660.dp)
     ) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
-            contentPadding = PaddingValues(bottom = AppTheme.spacing.medium),
+            contentPadding = PaddingValues(vertical = AppTheme.spacing.medium),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium),
             modifier = Modifier.fillMaxSize()
@@ -154,12 +153,12 @@ private fun Movie(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(600.dp)
+            .height(660.dp)
     ) {
         LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(bottom = AppTheme.spacing.medium),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            columns = GridCells.Fixed(3),
+            contentPadding = PaddingValues(vertical = AppTheme.spacing.medium),
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium),
             modifier = Modifier.fillMaxSize()
         ) {
@@ -188,12 +187,12 @@ private fun Series(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(600.dp)
+            .height(660.dp)
     ) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
-            contentPadding = PaddingValues(bottom = AppTheme.spacing.medium),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            contentPadding = PaddingValues(vertical = AppTheme.spacing.medium),
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium),
             modifier = Modifier.fillMaxSize()
         ) {
@@ -225,7 +224,7 @@ private fun Artist(
     ) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
-            contentPadding = PaddingValues(bottom = AppTheme.spacing.medium),
+            contentPadding = PaddingValues(vertical = AppTheme.spacing.medium),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium),
             modifier = Modifier.fillMaxSize()
@@ -248,10 +247,11 @@ private fun Artist(
 
 @Composable
 private fun SearchResultMessage(items: String, modifier: Modifier = Modifier) {
-    MovioText(
-        stringResource(id = com.madrid.presentation.R.string.search_result_count, items),
-        AppTheme.colors.surfaceColor.onSurfaceVariant,
-        AppTheme.textStyle.label.smallRegular14,
-        modifier = modifier
-    )
+    Box( modifier = modifier.padding(bottom = AppTheme.spacing.medium)) {
+        MovioText(
+            stringResource(id = com.madrid.presentation.R.string.search_result_count, items),
+            AppTheme.colors.surfaceColor.onSurfaceVariant,
+            AppTheme.textStyle.label.smallRegular14,
+        )
+    }
 }
