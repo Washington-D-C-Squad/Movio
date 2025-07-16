@@ -50,10 +50,6 @@ abstract class BaseViewModel<S>(initialState: S) : ViewModel() {
         _state.update(updater)
     }
 
-    protected val currentState: S
-        get() = _state.value
-
-
     private fun runWithErrorHandling(
         onError: (Throwable) -> Unit,
         scope: CoroutineScope,
