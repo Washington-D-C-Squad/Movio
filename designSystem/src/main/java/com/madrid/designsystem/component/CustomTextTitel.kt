@@ -11,8 +11,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
-
-
 @Composable
 fun CustomTextTitel(
     primaryText: String,
@@ -29,7 +27,7 @@ fun CustomTextTitel(
     ) { MovioText(
             text = primaryText,
             color = AppTheme.colors.surfaceColor.onSurface,
-            textStyle = AppTheme.textStyle.label.largeMedium16,
+            textStyle = AppTheme.textStyle.title.medium16,
             modifier = Modifier.weight(1f)
         )
         if (secondaryText != null || endIcon != null) {
@@ -37,8 +35,8 @@ fun CustomTextTitel(
                 secondaryText?.let {
                     MovioText(
                         text = it,
-                        color = AppTheme.colors.surfaceColor.onSurface_3,
-                        textStyle = AppTheme.textStyle.label.medium14,
+                        color = AppTheme.colors.surfaceColor.onSurfaceVariant,
+                        textStyle = AppTheme.textStyle.title.medium14,
                         modifier = Modifier.padding(end = AppTheme.spacing.small)
                     )
                 }
@@ -46,7 +44,7 @@ fun CustomTextTitel(
                     MovioIcon(
                         painter = it,
                         contentDescription = "See all",
-                        tint = AppTheme.colors.surfaceColor.onSurface_3,
+                        tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
                         modifier = Modifier.clickable { onSeeAllClick?.invoke() }
                     )
                 }

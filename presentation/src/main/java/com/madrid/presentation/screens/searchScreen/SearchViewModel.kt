@@ -11,7 +11,6 @@ import com.madrid.presentation.base.BaseViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
-import kotlin.math.exp
 
 @KoinViewModel
 class SearchViewModel(
@@ -26,16 +25,13 @@ class SearchViewModel(
     init {
         loadRecentSearches()
         loadInitialData()
-    }
-
-    fun loadRecentSearches() {
+    }fun loadRecentSearches() {
         tryToExecute(
             function = { recentSearchUseCase.getRecentSearches().first() },
             onSuccess = { result -> updateState { it.copy(recentSearchUiState = result) } },
             onError = {}
         )
     }
-
     fun addRecentSearch(recentSearch: String) {
         tryToExecute(
             function = {
@@ -46,8 +42,6 @@ class SearchViewModel(
             onError = {}
         )
     }
-
-
     fun clearAll() {
         tryToExecute(
             function = {
@@ -58,7 +52,6 @@ class SearchViewModel(
             onError = {}
         )
     }
-
     private fun loadInitialData() {
         updateState {
             it.copy(
@@ -68,7 +61,6 @@ class SearchViewModel(
                 )
             )
         }
-
         tryToExecute(
             function = {
                  mediaUseCase.getTopRatedMedia("fafafdf")
@@ -93,7 +85,6 @@ class SearchViewModel(
                         }
                     }
                 }
-
                 viewModelScope.launch {
                     forYou.collect {movies->
                         updateState {
@@ -113,20 +104,7 @@ class SearchViewModel(
                         }
                     }
                 }
-
-
-
-
-//                updateState {
-//                    it.copy(
-//                        searchUiState = it.searchUiState.copy(
-//                            forYouMovies = forYou.mapToMoviesUiState(),
-//                            exploreMoreMovies = explore.toMovieUiStateList(),
-//                            isLoading = false
-//                        )
-//                    )
-//                }
-            },
+                        },
             onError = { e ->
                 updateState {
                     it.copy(

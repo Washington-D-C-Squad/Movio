@@ -29,7 +29,6 @@ import com.example.designsystem.component.CustomTextTitel
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
 import com.madrid.designsystem.component.textInputField.BasicTextInputField
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.RecentSearchLayout
@@ -43,12 +42,7 @@ fun SearchScreen(
     val uiState by viewModel.state.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
     var isRecentSearchActive by remember { mutableStateOf(false) }
-    // In SearchScreen composable
-    if (isRecentSearchActive) {
-
-        RecentSearchLayout()
-
-    }
+    if (isRecentSearchActive) { RecentSearchLayout() }
     ContentSearchScreen(
         forYouMovies = uiState.searchUiState.forYouMovies,
         exploreMoreMovies = uiState.searchUiState.exploreMoreMovies,
@@ -58,18 +52,15 @@ fun SearchScreen(
             searchQuery = query
             viewModel.searchMovies(query)
         },
-        onMovieClick = { movie ->
-            //viewModel.navigateToMovieDetails(movie.id)
-        },
+        onMovieClick = { movie -> },
+        isLoading = uiState.searchUiState.isLoading,
         modifier = modifier
     )
-
     uiState.searchUiState.errorMessage?.let { errorMsg ->
         LaunchedEffect(errorMsg) {
             // handle error
         }
     }
-
     if (uiState.searchUiState.isLoading) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -82,10 +73,9 @@ fun SearchScreen(
             )
         }
     }
-}
-
-@Composable
+}@Composable
 fun ContentSearchScreen(
+    modifier: Modifier = Modifier,
     forYouMovies: List<SearchScreenState.MovieUiState> = emptyList(),
     exploreMoreMovies: List<SearchScreenState.MovieUiState> = emptyList(),
     searchResults: List<SearchScreenState.MovieUiState> = emptyList(),
@@ -93,97 +83,89 @@ fun ContentSearchScreen(
     onSearchQueryChange: (String) -> Unit = {},
     onSearchBarClick: () -> Unit = {},
     onMovieClick: (SearchScreenState.MovieUiState) -> Unit = {},
-    modifier: Modifier = Modifier
+    isLoading: Boolean = false,
 ) {
     val showSearchResults = searchQuery.isNotBlank()
     val moviesToShow = if (showSearchResults) searchResults else forYouMovies
     LazyColumn(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium)
-    ) {
-        item {
-            BasicTextInputField(
-                value = searchQuery,
-                onValueChange = { onSearchQueryChange(it)
-                    onSearchBarClick()  },
-                hintText = "search..",
-                startIconPainter = painterResource(R.drawable.search_normal),
-                endIconPainter = null,
+            modifier = modifier
 
-                modifier = Modifier.fillMaxWidth()
-                    .clickable { onSearchBarClick() }
-                    .padding( top = AppTheme.spacing.medium)
-            )
-        }
-        item {
-            CustomTextTitel(
-                primaryText = "For You",
-                secondaryText = "See all",
-                endIcon = painterResource(R.drawable.outline_alt_arrow_left),
-                onSeeAllClick = {}
-            )
-        }
-        if (moviesToShow.isEmpty()) {
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
             item {
-                MovioText(
-                    text = "No movies found",
-                    color = AppTheme.colors.surfaceColor.onSurface_3,
-                    textStyle = AppTheme.textStyle.body.medium14,
-                    modifier = Modifier.padding(bottom = AppTheme.spacing.xLarge)
+                BasicTextInputField(
+                    value = searchQuery,
+                    onValueChange = {
+                        onSearchQueryChange(it)
+                        onSearchBarClick()
+                    },
+                    hintText = "search..",
+                    startIconPainter = painterResource(R.drawable.search_normal),
+                    endIconPainter = null,
+
+                    modifier = Modifier.fillMaxWidth()
+                        .clickable { onSearchBarClick() }
+                        .padding(AppTheme.spacing.medium)
                 )
             }
-        } else {
-            item {
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    modifier = Modifier.padding(bottom = AppTheme.spacing.xLarge)
-                ) {
-                    items(moviesToShow) { movie ->
-                        MovioVerticalCard(
-                            description = movie.title,
-                            movieImage = movie.imageUrl,
-                            rate = movie.rating,
-                            width = 160.dp,
-                            height = 200.dp,
-                            paddingvalue = AppTheme.spacing.small,
-                            onClick = { onMovieClick(movie) }
-                        )
-                    }
+            if (!showSearchResults && !isLoading) {
+                item {
+                    CustomTextTitel(
+                        primaryText = "For You",
+                        secondaryText = "See all",
+                        endIcon = painterResource(R.drawable.outline_alt_arrow_left),
+                        onSeeAllClick = {}
+                    )
                 }
-            }
-        }
-        if (!showSearchResults && exploreMoreMovies.isNotEmpty()) {
-            item {
-                CustomTextTitel(primaryText = "Explore more")
-            }
-            item {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(600.dp)
-                ) {
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        contentPadding = PaddingValues(bottom =AppTheme.spacing.medium),
+                item {
+                    LazyRow(
                         horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium),
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.padding(bottom = AppTheme.spacing.xLarge)
                     ) {
-                        items(exploreMoreMovies) { movie ->
+                        items(moviesToShow) { movie ->
                             MovioVerticalCard(
                                 description = movie.title,
                                 movieImage = movie.imageUrl,
                                 rate = movie.rating,
                                 width = 160.dp,
                                 height = 200.dp,
+                                paddingvalue = AppTheme.spacing.small,
                                 onClick = { onMovieClick(movie) }
                             )
+                        }
+                    }
+                }
+                item {
+                    CustomTextTitel(primaryText = "Explore more")
+                }
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(600.dp)
+                    ) {
+                        LazyVerticalGrid(
+                            columns = GridCells.Fixed(2),
+                            contentPadding = PaddingValues(bottom = AppTheme.spacing.medium),
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium),
+                            modifier = Modifier.fillMaxSize()
+                        ) {
+                            items(exploreMoreMovies) { movie ->
+                                MovioVerticalCard(
+                                    description = movie.title,
+                                    movieImage = movie.imageUrl,
+                                    rate = movie.rating,
+                                    width = 180.dp,
+                                    height = 200.dp,
+                                    onClick = { onMovieClick(movie) }
+                                )
+                            }
                         }
                     }
                 }
             }
         }
     }
-}
