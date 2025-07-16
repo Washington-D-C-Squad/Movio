@@ -1,53 +1,49 @@
-package com.madrid.data.dataSource.remote.response
-
+package com.madrid.data.dataSource.remote.response.series
 
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
+
 @Serializable
-data class MultiMediaResponse(
+data class SimilarSeriesResponse(
     @SerializedName("page")
     val page: Int = 0,
     @SerializedName("results")
-    val multiMediaResults: List<MultiMediaResult> = listOf(),
+    val results: List<SimilarSeries> = listOf(),
     @SerializedName("total_pages")
     val totalPages: Int = 0,
     @SerializedName("total_results")
-    val totalResults: Int = 0
+    val totalResults: Int = 0,
 )
 
 @Serializable
-data class MultiMediaResult(
+data class SimilarSeries(
     @SerializedName("adult")
     val adult: Boolean = false,
     @SerializedName("backdrop_path")
-    val gender: String = " ",
+    val backdropPath: String = "",
+    @SerializedName("genre_ids")
+    val genreIds: List<Int> = listOf(),
     @SerializedName("id")
     val id: Int = 0,
-    @SerializedName("name")
-    val name: String = "",
+    @SerializedName("origin_country")
+    val originCountry: List<String> = listOf(),
+    @SerializedName("original_language")
+    val originalLanguage: String = "",
     @SerializedName("original_name")
     val originalName: String = "",
     @SerializedName("overview")
     val overview: String = "",
-    @SerializedName("poster_path")
-    val posterPath: String = "",
-    @SerializedName("media_type")
-    val mediaType: String = "",
-    @SerializedName("original_language")
-    val originalLanguage: String = "",
-    @SerializedName("genre_ids")
-    val genreIds: List<Int> = listOf(),
     @SerializedName("popularity")
     val popularity: Double = 0.0,
+    @SerializedName("poster_path")
+    val posterPath: String = "",
     @SerializedName("first_air_date")
-    val firstAirDate: String = "",
+    val releaseDate: String = "",
+    @SerializedName("name")
+    val name: String = "",
     @SerializedName("vote_average")
     val voteAverage: Double = 0.0,
     @SerializedName("vote_count")
     val voteCount: Int = 0,
-    @SerializedName("origin_country")
-    val originCountry: List<String> = listOf()
 )
-
-

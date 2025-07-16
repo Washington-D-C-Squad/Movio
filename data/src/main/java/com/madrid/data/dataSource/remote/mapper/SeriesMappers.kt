@@ -1,7 +1,7 @@
 package com.madrid.data.dataSource.remote.mapper
 
 
-import com.madrid.data.dataSource.remote.response.SeriesResult
+import com.madrid.data.dataSource.remote.response.series.SeriesResult
 import com.madrid.domain.entity.Series
 import kotlinx.datetime.LocalDate
 

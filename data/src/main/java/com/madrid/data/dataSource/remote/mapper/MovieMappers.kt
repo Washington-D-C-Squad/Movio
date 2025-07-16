@@ -1,6 +1,6 @@
 package com.madrid.data.dataSource.remote.mapper
 
-import com.madrid.data.dataSource.remote.response.MovieResult
+import com.madrid.data.dataSource.remote.response.movie.MovieResult
 import com.madrid.domain.entity.Movie
 import kotlinx.datetime.LocalDate
 

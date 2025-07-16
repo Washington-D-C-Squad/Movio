@@ -15,84 +15,47 @@ import com.madrid.domain.entity.Movie
 import com.madrid.domain.entity.Series
 import com.madrid.domain.repository.SearchRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
-import org.intellij.lang.annotations.Language
 
 class SearchRepositoryImpl(
-    private val searchRemoteSource: SearchRemoteSource,
+    private val remoteDataSource: RemoteDataSource,
     private val localSource: SearchLocalSource
 ) : SearchRepository {
 
-    override suspend fun getMovieByQuery(query: String): Flow<List<Movie>> {
-        val localMoviesEntities = localSource.getMoviesByTitle(query)
-        val isCacheEmpty: Boolean = localMoviesEntities.first().isEmpty()
-        if (isCacheEmpty) {
-            val result = searchRemoteSource.searchMoviesByName(
+
+    override suspend fun getMovieByQuery(query: String): List<Movie> {
+        val result = localSource.getMoviesByTitle(query)
+        if (result.isEmpty()) {
+            remoteDataSource.searchMoviesByQuery(
                 name = query,
-                language = "en-US"
             ).movieResults.map {
                 it.toMovie()
             }
-            // Cache the result locally
-            result.map { it.toMovieEntity() }.map {
-                localSource.insertMovie(it)
-            }
-            return flow {
-                emit(
-                    result
-                )
-            }
-        } else {
-            return localMoviesEntities
-                .map { entitiesList ->
-                    entitiesList.map { it.toMovie() }
-                }
         }
+        return localSource.getMoviesByTitle(query).map { it.toMovie() }
     }
 
-    override suspend fun getSeriesByQuery(query: String): Flow<List<Series>> {
-        val localSeriesEntities = localSource.getSeriesByTitle(query)
-        val isCacheEmpty: Boolean = localSeriesEntities.first().isEmpty()
-        if (isCacheEmpty) {
-            val result = searchRemoteSource.searchSeriesByName(
+    override suspend fun getSeriesByQuery(query: String): List<Series> {
+        val result = localSource.getSeriesByTitle(query)
+        if (result.isEmpty()) {
+            remoteDataSource.searchSeriesByQuery(
                 name = query,
-                language = "en-US"
-            ).seriesResults.map { it.toSeries() }
-            // Cache the result locally
-            result.map { it.toSeriesEntity() }
-                .map { localSource.insertSeries(it) }
-            return flow { emit(result) }
-        } else {
-            return localSeriesEntities
-                .map { entitiesList -> entitiesList.map { it.toSeries() } }
+            ).seriesResults.map {
+                it.toSeries()
+            }
         }
-
+        return localSource.getSeriesByTitle(query).map { it.toSeries() }
     }
 
-    override suspend fun getArtistByQuery(query: String): Flow<List<Artist>> {
-        val localArtistEntities = localSource.getArtistsByName(query)
-        val isCacheEmpty: Boolean = localArtistEntities.first().isEmpty()
-        if (isCacheEmpty) {
-            val result = searchRemoteSource.searchArtistByName(
+    override suspend fun getArtistByQuery(query: String): List<Artist> {
+        val result = localSource.getArtistsByTitle(query)
+        if (result.isEmpty()) {
+            remoteDataSource.searchArtistByQuery(
                 name = query,
-                language = "en-US"
-            ).artistResults.map { it.toArtist() }
-            // Cache the result locally
-            result.map { it.toArtistEntity() }
-                .map { localSource.insertArtist(it) }
-            return flow {
-                emit(
-                    result
-                )
+            ).artistResults.map {
+                it.toArtist()
             }
-        } else {
-            return localArtistEntities
-                .map { entitiesList ->
-                    entitiesList.map { it.toArtist() }
-                }
         }
+        return localSource.getArtistsByTitle(query).map { it.toArtist() }
     }
 
     override suspend fun getMediaByQuery(query: String): Flow<List<Media>> {
@@ -107,62 +70,21 @@ class SearchRepositoryImpl(
     override suspend fun getMediaByCategory(category: String): Media {
         TODO("Not yet implemented")
     }
-//////////////
+
+
+    //////////////
     override suspend fun getTrendingMedia(): Media {
         TODO("Not yet implemented")
     }
 
     override suspend fun getTopRatedMovies(query: String): List<Movie> {
         val localMoviesEntities = localSource.getTopRatedMovies()
-        val isCacheEmpty: Boolean = localMoviesEntities.first().isEmpty()
-        if (isCacheEmpty) {
-            val result = searchRemoteSource.getTopRatedMovies(
-            language = "en-US"
-        ).movieResults.map {
-            it.toMovie()
-        }
-        // Cache the result locally
-            result.map { it.toMovieEntity() }
-                .map { localSource.insertMovie(it) }
-            return flow {
-                emit(
-                    result
-                )
-            }
-        return flow {
-            emit(
-                result
-            )
-        }
-        }
-        
-         return localMoviesEntities.first().map { it.toMovie() }
+         return localMoviesEntities.map { it.toMovie() }
     }
 
     override suspend fun getTopRatedSeries(query: String): List<Series> {
         val localSeriesEntities = localSource.getTopRatedSeries()
-        val isCacheEmpty: Boolean = localSeriesEntities.first().isEmpty()
-        if (isCacheEmpty) {
-            val result = searchRemoteSource.getTopRatedSeries(
-            language = "en-US"
-        ).seriesResults.map {
-            it.toSeries()
-        }
-        // Cache the result locally
-            result.map { it.toSeriesEntity() }
-                .map { localSource.insertSeries(it) }
-            return flow {
-                emit(
-                    result
-                )
-            }
-        return flow {
-            emit(
-                result
-            )
-        }
-        }
-            return localSeriesEntities.first().map { it.toSeries() }
+        return localSeriesEntities.map { it.toSeries() }
     }
 
 

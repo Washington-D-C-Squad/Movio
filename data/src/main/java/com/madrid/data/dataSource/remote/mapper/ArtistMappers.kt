@@ -1,7 +1,7 @@
 package com.madrid.data.dataSource.remote.mapper
 
 
-import com.madrid.data.dataSource.remote.response.ArtistsResult
+import com.madrid.data.dataSource.remote.response.artist.ArtistsResult
 import com.madrid.domain.entity.Artist
 
 fun ArtistsResult.toArtist(): Artist {
