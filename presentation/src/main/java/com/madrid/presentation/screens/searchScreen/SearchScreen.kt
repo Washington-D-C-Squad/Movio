@@ -99,7 +99,7 @@ fun ContentSearchScreen(
     searchHistory: List<String>,
     onSearchItemClick: (String) -> Unit,
     onRemoveItem: (String) -> Unit,
-    onClearAll: (String) -> Unit,
+    onClearAll: () -> Unit,
 
     isLoading: Boolean = false,
 ) {
@@ -148,7 +148,7 @@ fun ContentSearchScreen(
                 searchHistory = searchHistory,
                 onSearchItemClick = { onSearchItemClick(it) },
                 onRemoveItem = { onRemoveItem(it) },
-                onClearAll = { onClearAll },
+                onClearAll = { onClearAll() },
             )
         }
 
