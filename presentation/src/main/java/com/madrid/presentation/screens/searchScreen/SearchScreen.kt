@@ -1,5 +1,6 @@
 package com.madrid.presentation.screens.searchScreen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,7 +39,8 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SearchScreen(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
+        .background(AppTheme.colors.surfaceColor.surface),
     viewModel: SearchViewModel = koinViewModel()
 ) {
     val uiState by viewModel.state.collectAsState()
