@@ -14,4 +14,10 @@
     <string name="search">البحث</string>
     <string name="library">المكتبة</string>
     <string name="more">المزيد</string>
+    <string name="top_result">افضل النتائج</string>
+    <string name="Movies">الافلام</string>
+    <string name="Series">المسلسلات</string>
+    <string name="Artists">الممثلون</string>
+    <string name="search_result_count">نتائج البحث (%1$s عنصر)</string>
+
 </resources>

@@ -14,4 +14,10 @@
         <string name="search">Search</string>
         <string name="library">Library</string>
         <string name="more">More</string>
+        <string name="top_result">Top Result</string>
+        <string name="Movies">Movies</string>
+        <string name="Series">Series</string>
+        <string name="Artists">Artists</string>
+        <string name="search_result_count">SearchResult (%1$s items)</string>
+
 </resources>

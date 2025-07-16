@@ -1,23 +1,21 @@
 package com.madrid.presentation.screens.searchScreen
 
 import HeaderSectionBar
-import androidx.compose.foundation.clickable
+import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,114 +24,88 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.designsystem.component.CustomTextTitel
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
-import com.madrid.designsystem.component.textInputField.BasicTextInputField
-import com.madrid.domain.entity.Artist
-import com.madrid.domain.entity.Movie
 import com.madrid.presentation.composables.movioCards.MovioArtistsCard
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
-import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.RecentSearchLayout
+import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.SearchInputSection
 import org.koin.androidx.compose.koinViewModel
+
 
 @Composable
 fun FilteredScreen(
     viewModel: SearchViewModel = koinViewModel()
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        val uiState by viewModel.state.collectAsState()
-        var searchQuery by remember { mutableStateOf("") }
-        var isRecentSearchActive by remember { mutableStateOf(false) }
+    val uiState by viewModel.state.collectAsState()
+    var isRecentSearchActive by remember { mutableStateOf(false) }
 
-        ContentFilteredScreen(
-            searchQuery = searchQuery,
-            onSearchQueryChange = { query ->
-                searchQuery = query
-                viewModel.searchFilteredMovies(query)
-                viewModel.searchSeries(query)
-                viewModel.artists(query)
-                viewModel.topResult(query)
-            },
-            onSearchBarClick = {
-                isRecentSearchActive = true
-            },
-            movies = uiState.filteredScreenUiState.movie,
-            artist = uiState.filteredScreenUiState.artist,
-            series = uiState.filteredScreenUiState.series,
-            topRated = uiState.filteredScreenUiState.topResult
-        )
+    ContentFilteredScreen(
+        onSearchQueryChange = { query ->
+            interactionListener.onSearchQuerySubmitted(query, viewModel)
+        },
+        onSearchBarClick = {
+            isRecentSearchActive = false
+        },
+        movies = uiState.filteredScreenUiState.movie,
+        artist = uiState.filteredScreenUiState.artist,
+        series = uiState.filteredScreenUiState.series,
+        topRated = uiState.filteredScreenUiState.topResult
+    )
 
-        uiState.searchUiState.errorMessage?.let { errorMsg ->
-            LaunchedEffect(errorMsg) {
-                // handle error
-            }
 
-            if (uiState.searchUiState.isLoading) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    MovioIcon(
-                        painter = painterResource(R.drawable.loading),
-                        contentDescription = "Loading",
-                        tint = AppTheme.colors.brandColors.primary
-                    )
-                }
-            }
+    if (uiState.searchUiState.isLoading) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            MovioIcon(
+                painter = painterResource(R.drawable.loading),
+                contentDescription = "Loading",
+                tint = AppTheme.colors.brandColors.primary
+            )
         }
     }
 }
 
+
 @Composable
 private fun ContentFilteredScreen(
-    searchQuery: String,
     onSearchQueryChange: (String) -> Unit = {},
     onSearchBarClick: () -> Unit = {},
     topRated: List<SearchScreenState.MovieUiState> = emptyList(),
     movies: List<SearchScreenState.MovieUiState> = emptyList(),
     series: List<SearchScreenState.SeriesUiState> = emptyList(),
     artist: List<SearchScreenState.ArtistUiState> = emptyList(),
-
-    ) {
+) {
     var selectedTabIndex by remember { mutableStateOf(0) }
+    var localSearchQuery by remember { mutableStateOf("") }
 
     LazyColumn(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize().statusBarsPadding()
+            .background(AppTheme.colors.surfaceColor.onSurface)
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium)
     ) {
         item {
-            BasicTextInputField(
-                value = searchQuery,
-                onValueChange = {
-                    onSearchQueryChange(it)
-                    onSearchBarClick()
-                },
-                hintText = "Search...",
-                startIconPainter = painterResource(R.drawable.search_normal),
-                endIconPainter = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { onSearchBarClick() }
-                    .padding(top = AppTheme.spacing.medium)
+            SearchInputSection(
+                localSearchQuery,
+                localSearchQuery,
+                onSearchQueryChange,
+                onSearchBarClick
             )
         }
         item {
             HeaderSectionBar(
                 tabs = listOf(
-                    tabs.TopResult.name,
-                    tabs.Movies.name,
-                    tabs.Series.name,
-                    tabs.Artists.name
+                    stringResource(com.madrid.presentation.R.string.top_result),
+                    stringResource(com.madrid.presentation.R.string.Movies),
+                    stringResource(com.madrid.presentation.R.string.Series),
+                    stringResource(com.madrid.presentation.R.string.Artists),
                 ),
                 selectedTabIndex = selectedTabIndex,
                 onTabSelected = { index ->
@@ -142,12 +114,15 @@ private fun ContentFilteredScreen(
             )
         }
         item {
-            when (selectedTabIndex) {
-                0 -> if (topRated.isNotEmpty()) TopResult(topRated)
-                1 -> if (movies.isNotEmpty()) Movie(movies)
-                2 -> if (series.isNotEmpty()) Series(series)
-                3 -> if (artist.isNotEmpty()) Artist(artist)
+            Crossfade(targetState = selectedTabIndex, label = "TabContentAnimation") { index ->
+                when (index) {
+                    0 -> if (topRated.isNotEmpty()) TopResult(topRated)
+                    1 -> if (movies.isNotEmpty()) Movie(movies)
+                    2 -> if (series.isNotEmpty()) Series(series)
+                    3 -> if (artist.isNotEmpty()) Artist(artist)
+                }
             }
+
         }
     }
 }
@@ -168,6 +143,9 @@ private fun TopResult(
             verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium),
             modifier = Modifier.fillMaxSize()
         ) {
+            items(topRated) {
+                SearchResultMessage(items = topRated.size.toString())
+            }
             items(topRated) { movie ->
                 MovioVerticalCard(
                     description = movie.title,
@@ -185,8 +163,7 @@ private fun TopResult(
 @Composable
 private fun Movie(
     movies: List<SearchScreenState.MovieUiState> = emptyList(),
-
-    ) {
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -199,6 +176,9 @@ private fun Movie(
             verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium),
             modifier = Modifier.fillMaxSize()
         ) {
+            items(movies) {
+                SearchResultMessage(items = movies.size.toString())
+            }
             items(movies) { movie ->
                 MovioVerticalCard(
                     description = movie.title,
@@ -216,8 +196,7 @@ private fun Movie(
 @Composable
 private fun Series(
     series: List<SearchScreenState.SeriesUiState> = emptyList(),
-
-    ) {
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -230,6 +209,9 @@ private fun Series(
             verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium),
             modifier = Modifier.fillMaxSize()
         ) {
+            items(series) {
+                SearchResultMessage(items = series.size.toString())
+            }
             items(series) { series ->
                 MovioVerticalCard(
                     description = series.title,
@@ -246,9 +228,8 @@ private fun Series(
 
 @Composable
 private fun Artist(
-    artist: List<SearchScreenState.ArtistUiState> = emptyList(),
-
-    ) {
+    artists: List<SearchScreenState.ArtistUiState> = emptyList()
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -261,7 +242,10 @@ private fun Artist(
             verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium),
             modifier = Modifier.fillMaxSize()
         ) {
-            items(artist) { artist ->
+            items(artists) {
+                SearchResultMessage(items = artists.size.toString())
+            }
+            items(artists) { artist ->
                 MovioArtistsCard(
                     artistsName = artist.name,
                     imageUrl = artist.imageUrl,
@@ -273,9 +257,13 @@ private fun Artist(
     }
 }
 
-enum class tabs {
-    TopResult(),
-    Movies,
-    Series,
-    Artists
+
+@Composable
+private fun SearchResultMessage(items: String, modifier: Modifier = Modifier) {
+    MovioText(
+        stringResource(id = com.madrid.presentation.R.string.search_result_count, items),
+        AppTheme.colors.surfaceColor.onSurfaceVariant,
+        AppTheme.textStyle.label.smallRegular14,
+        modifier = modifier
+    )
 }
