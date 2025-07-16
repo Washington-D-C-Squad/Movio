@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
@@ -143,7 +144,7 @@ private fun TopResult(
             verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium),
             modifier = Modifier.fillMaxSize()
         ) {
-            items(topRated) {
+            item(span = { GridItemSpan(3) }) {
                 SearchResultMessage(items = topRated.size.toString())
             }
             items(topRated) { movie ->
@@ -176,9 +177,10 @@ private fun Movie(
             verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium),
             modifier = Modifier.fillMaxSize()
         ) {
-            items(movies) {
+            item(span = { GridItemSpan(3) }) {
                 SearchResultMessage(items = movies.size.toString())
             }
+
             items(movies) { movie ->
                 MovioVerticalCard(
                     description = movie.title,
@@ -186,7 +188,7 @@ private fun Movie(
                     rate = movie.rating,
                     width = 160.dp,
                     height = 200.dp,
-                    onClick = { }
+                    onClick = { /* onMovieClick(movie.title) */ }
                 )
             }
         }
@@ -203,13 +205,13 @@ private fun Series(
             .height(600.dp)
     ) {
         LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
+            columns = GridCells.Fixed(3),
             contentPadding = PaddingValues(bottom = AppTheme.spacing.medium),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium),
             modifier = Modifier.fillMaxSize()
         ) {
-            items(series) {
+            item(span = { GridItemSpan(3) }){
                 SearchResultMessage(items = series.size.toString())
             }
             items(series) { series ->
@@ -236,13 +238,13 @@ private fun Artist(
             .height(600.dp)
     ) {
         LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
+            columns = GridCells.Fixed(3),
             contentPadding = PaddingValues(bottom = AppTheme.spacing.medium),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium),
             modifier = Modifier.fillMaxSize()
         ) {
-            items(artists) {
+            item(span = { GridItemSpan(3) }){
                 SearchResultMessage(items = artists.size.toString())
             }
             items(artists) { artist ->
