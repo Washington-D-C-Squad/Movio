@@ -5,11 +5,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -31,7 +33,6 @@ import com.example.designsystem.component.CustomTextTitel
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
 import com.madrid.designsystem.component.textInputField.BasicTextInputField
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.RecentSearchLayout
@@ -62,7 +63,7 @@ fun SearchScreen(
     )
     uiState.searchUiState.errorMessage?.let { errorMsg ->
         LaunchedEffect(errorMsg) {
-            // handle error
+
         }
     }
     if (uiState.searchUiState.isLoading) {
@@ -92,10 +93,12 @@ fun ContentSearchScreen(
     val showSearchResults = searchQuery.isNotBlank()
     val moviesToShow = if (showSearchResults) searchResults else forYouMovies
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(minSize = 160.dp), // Only one item per row
-        modifier = modifier
-            .fillMaxSize(),
-        contentPadding = PaddingValues(vertical = 16.dp)
+        columns = GridCells.Adaptive(minSize = 160.dp),
+        modifier = modifier.fillMaxSize()
+            .windowInsetsPadding(WindowInsets.systemBars),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         item (
             span = { GridItemSpan(maxLineSpan) }
@@ -107,44 +110,31 @@ fun ContentSearchScreen(
                 hintText = "search..",
                 startIconPainter = painterResource(R.drawable.search_normal),
                 endIconPainter = null,
-
                 modifier = Modifier.fillMaxWidth()
-                    .padding(horizontal = 16.dp)
                     .clickable { onSearchBarClick() }
                     .padding( top = AppTheme.spacing.medium)
             )
         }
-        item(
-            span = { GridItemSpan(maxLineSpan) }
-        ) {
-            CustomTextTitel(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                primaryText = "For You",
-                secondaryText = "See all",
-                endIcon = painterResource(R.drawable.outline_alt_arrow_left),
-                onSeeAllClick = {}
-            )
-        }
-        if (moviesToShow.isEmpty()) {
-            item {
-                MovioText(
-                    text = "No movies found",
-                    color = AppTheme.colors.surfaceColor.onSurface_3,
-                    textStyle = AppTheme.textStyle.body.medium14,
-                    modifier = Modifier.padding(bottom = AppTheme.spacing.xLarge)
+        if (!showSearchResults && !isLoading)  {
+            item(
+                span = { GridItemSpan(maxLineSpan) }
+            ) {
+                CustomTextTitel(
+                    modifier = Modifier.padding(horizontal = AppTheme.spacing.medium),
+                    primaryText = "For You",
+                    secondaryText = "See all",
+                    endIcon = painterResource(R.drawable.outline_alt_arrow_left),
+                    onSeeAllClick = {}
                 )
             }
-        } else {
             item (
                 span = { GridItemSpan(maxLineSpan) }
             ){
-
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     modifier = Modifier.padding(
-                        bottom = AppTheme.spacing.xLarge,
-                    ),
-                    contentPadding = PaddingValues(horizontal = 16.dp)
+                        bottom = AppTheme.spacing.xLarge)
+                        .height(233.dp),
                 ) {
                     items(moviesToShow) { movie ->
                         MovioVerticalCard(
@@ -161,22 +151,18 @@ fun ContentSearchScreen(
             }
         }
         if (!showSearchResults && exploreMoreMovies.isNotEmpty()) {
-
             item (
                 span = { GridItemSpan(maxLineSpan) }
-            ){
-                CustomTextTitel(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    primaryText = "Explore more"
-                )
+            ){ CustomTextTitel(
+                    primaryText = "Explore more")
             }
             items(exploreMoreMovies) { movie ->
                 MovioVerticalCard(
                     description = movie.title,
                     movieImage = movie.imageUrl,
                     rate = movie.rating,
-                    width = 160.dp,
-                    height = 200.dp,
+                    width = 328.dp,
+                    height = 233.dp,
                     onClick = { onMovieClick(movie) }
                 )
             }
