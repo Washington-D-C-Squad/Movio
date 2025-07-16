@@ -18,7 +18,7 @@ class SearchViewModel(
     private val artistUseCase: ArtistUseCase,
     private val mediaUseCase: MediaUseCase,
     private val preferredMediaUseCase: PreferredMediaUseCase,
-    private val recentSearchUseCase: RecentSearchUseCase,
+    override val recentSearchUseCase: RecentSearchUseCase,
     private val trendingMediaUseCase: TrendingMediaUseCase,
 ) : BaseViewModel<SearchScreenState>(
     SearchScreenState()
@@ -26,16 +26,13 @@ class SearchViewModel(
     init {
         loadRecentSearches()
         loadInitialData()
-    }
-
-    fun loadRecentSearches() {
+    }fun loadRecentSearches() {
         tryToExecute(
             function = { recentSearchUseCase.getRecentSearches().first() },
             onSuccess = { result -> updateState { it.copy(recentSearchUiState = result) } },
             onError = {}
         )
     }
-
     fun addRecentSearch(recentSearch: String) {
         tryToExecute(
             function = {
@@ -46,8 +43,6 @@ class SearchViewModel(
             onError = {}
         )
     }
-
-
     fun clearAll() {
         tryToExecute(
             function = {
@@ -59,6 +54,20 @@ class SearchViewModel(
         )
     }
 
+    fun addToRecentSearches(query: String) {
+        val currentList = state.value.recentSearchUiState.toMutableList()
+        currentList.remove(query)
+        currentList.add(0, query)
+        val newList = currentList.take(10)
+        updateState { it.copy(recentSearchUiState = newList) }
+    }
+
+    fun removeRecentSearch(searchItem: String) {
+        val currentList = state.value.recentSearchUiState.toMutableList()
+        currentList.remove(searchItem)
+        updateState { it.copy(recentSearchUiState = currentList) }
+    }
+
     private fun loadInitialData() {
         updateState {
             it.copy(
@@ -68,7 +77,6 @@ class SearchViewModel(
                 )
             )
         }
-
         tryToExecute(
             function = {
                  mediaUseCase.getTopRatedMedia("fafafdf")
@@ -93,7 +101,6 @@ class SearchViewModel(
                         }
                     }
                 }
-
                 viewModelScope.launch {
                     forYou.collect {movies->
                         updateState {
@@ -113,20 +120,7 @@ class SearchViewModel(
                         }
                     }
                 }
-
-
-
-
-//                updateState {
-//                    it.copy(
-//                        searchUiState = it.searchUiState.copy(
-//                            forYouMovies = forYou.mapToMoviesUiState(),
-//                            exploreMoreMovies = explore.toMovieUiStateList(),
-//                            isLoading = false
-//                        )
-//                    )
-//                }
-            },
+                        },
             onError = { e ->
                 updateState {
                     it.copy(
@@ -191,6 +185,21 @@ class SearchViewModel(
             onError = {}
         )
     }
+
+    override fun onSearchSubmit() {
+        val query = searchQuery.value.trim()
+        if (query.isNotBlank()) {
+            addToRecentSearches(query)
+            _searchQuery.value = ""
+        }
+    }
+
+    companion object {
+        @JvmStatic
+        fun clearRecentSearchesStatic() {
+        }
+    }
+}
     fun searchFilteredMovies(query: String) {
         tryToExecute(
             function = { mediaUseCase.getMovieByQuery(query).first() },
@@ -312,5 +321,5 @@ class SearchViewModel(
             }
         )
     }
-}
+
 

@@ -1,19 +1,19 @@
 package com.madrid.presentation.screens.searchScreen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -25,29 +25,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.designsystem.component.CustomTextTitel
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
 import com.madrid.designsystem.component.textInputField.BasicTextInputField
-import com.madrid.presentation.composables.movioCards.MovioVerticalCard
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.RecentSearchLayout
+import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.forYouAndExploreScreen
+import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.recentSearchScreen
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SearchScreen(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
+        .background(AppTheme.colors.surfaceColor.surface),
     viewModel: SearchViewModel = koinViewModel()
 ) {
     val uiState by viewModel.state.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
+
+
     var isRecentSearchActive by remember { mutableStateOf(false) }
-    // In SearchScreen composable
     if (isRecentSearchActive) {
-
         RecentSearchLayout()
-
     }
     ContentSearchScreen(
         forYouMovies = uiState.searchUiState.forYouMovies,
@@ -57,19 +56,21 @@ fun SearchScreen(
         onSearchQueryChange = { query ->
             searchQuery = query
             viewModel.searchMovies(query)
+            viewModel.addRecentSearch(query)
         },
-        onMovieClick = { movie ->
-            //viewModel.navigateToMovieDetails(movie.id)
-        },
-        modifier = modifier
-    )
+        onMovieClick = { movie -> },
+        isLoading = uiState.searchUiState.isLoading,
 
+        searchHistory = uiState.recentSearchUiState,
+        onSearchItemClick = { searchQuery = it },
+        onRemoveItem = { viewModel.removeRecentSearch(it) },
+        onClearAll = { viewModel.clearAll() }
+    )
     uiState.searchUiState.errorMessage?.let { errorMsg ->
         LaunchedEffect(errorMsg) {
-            // handle error
+
         }
     }
-
     if (uiState.searchUiState.isLoading) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -86,104 +87,72 @@ fun SearchScreen(
 
 @Composable
 fun ContentSearchScreen(
+    modifier: Modifier = Modifier,
     forYouMovies: List<SearchScreenState.MovieUiState> = emptyList(),
     exploreMoreMovies: List<SearchScreenState.MovieUiState> = emptyList(),
     searchResults: List<SearchScreenState.MovieUiState> = emptyList(),
     searchQuery: String = "",
-    onSearchQueryChange: (String) -> Unit = {},
+    onSearchQueryChange: (String) -> Unit ,
     onSearchBarClick: () -> Unit = {},
     onMovieClick: (SearchScreenState.MovieUiState) -> Unit = {},
-    modifier: Modifier = Modifier
+
+    searchHistory: List<String>,
+    onSearchItemClick: (String) -> Unit,
+    onRemoveItem: (String) -> Unit,
+    onClearAll: () -> Unit,
+
+    isLoading: Boolean = false,
 ) {
+
+
     val showSearchResults = searchQuery.isNotBlank()
     val moviesToShow = if (showSearchResults) searchResults else forYouMovies
-    LazyColumn(
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(minSize = 160.dp),
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium)
+            .windowInsetsPadding(WindowInsets.systemBars),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        item {
+        item(
+            span = { GridItemSpan(maxLineSpan) }
+        ) {
             BasicTextInputField(
                 value = searchQuery,
-                onValueChange = { onSearchQueryChange(it)
-                    onSearchBarClick()  },
+                onValueChange = {
+                    onSearchQueryChange(it)
+                    onSearchBarClick()
+                },
                 hintText = "search..",
                 startIconPainter = painterResource(R.drawable.search_normal),
                 endIconPainter = null,
-
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .clickable { onSearchBarClick() }
-                    .padding( top = AppTheme.spacing.medium)
+                    .padding(top = AppTheme.spacing.medium)
             )
         }
-        item {
-            CustomTextTitel(
-                primaryText = "For You",
-                secondaryText = "See all",
-                endIcon = painterResource(R.drawable.outline_alt_arrow_left),
-                onSeeAllClick = {}
+        if(searchQuery.isEmpty()){
+            forYouAndExploreScreen(
+                showSearchResults = showSearchResults,
+                isLoading = isLoading,
+                moviesToShow = moviesToShow,
+                onMovieClick = onMovieClick,
+                exploreMoreMovies = exploreMoreMovies
             )
         }
-        if (moviesToShow.isEmpty()) {
-            item {
-                MovioText(
-                    text = "No movies found",
-                    color = AppTheme.colors.surfaceColor.onSurface_3,
-                    textStyle = AppTheme.textStyle.body.medium14,
-                    modifier = Modifier.padding(bottom = AppTheme.spacing.xLarge)
-                )
-            }
-        } else {
-            item {
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    modifier = Modifier.padding(bottom = AppTheme.spacing.xLarge)
-                ) {
-                    items(moviesToShow) { movie ->
-                        MovioVerticalCard(
-                            description = movie.title,
-                            movieImage = movie.imageUrl,
-                            rate = movie.rating,
-                            width = 160.dp,
-                            height = 200.dp,
-                            paddingvalue = AppTheme.spacing.small,
-                            onClick = { onMovieClick(movie) }
-                        )
-                    }
-                }
-            }
+        if(searchQuery.isNotEmpty()){
+            recentSearchScreen(
+                searchHistory = searchHistory,
+                onSearchItemClick = { onSearchItemClick(it) },
+                onRemoveItem = { onRemoveItem(it) },
+                onClearAll = { onClearAll() },
+            )
         }
-        if (!showSearchResults && exploreMoreMovies.isNotEmpty()) {
-            item {
-                CustomTextTitel(primaryText = "Explore more")
-            }
-            item {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(600.dp)
-                ) {
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        contentPadding = PaddingValues(bottom =AppTheme.spacing.medium),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium),
-                        modifier = Modifier.fillMaxSize()
-                    ) {
-                        items(exploreMoreMovies) { movie ->
-                            MovioVerticalCard(
-                                description = movie.title,
-                                movieImage = movie.imageUrl,
-                                rate = movie.rating,
-                                width = 160.dp,
-                                height = 200.dp,
-                                onClick = { onMovieClick(movie) }
-                            )
-                        }
-                    }
-                }
-            }
-        }
+
+
+
     }
 }

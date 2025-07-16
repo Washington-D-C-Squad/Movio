@@ -20,4 +20,6 @@
     <string name="Artists">الممثلون</string>
     <string name="search_result_count">نتائج البحث (%1$s عنصر)</string>
 
+    <string name="recent_search">البحث الأخير</string>
+    <string name="clear_all">مسح الكل</string>
 </resources>

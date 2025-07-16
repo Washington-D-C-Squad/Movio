@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +25,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.madrid.designsystem.AppTheme
 
@@ -43,7 +46,9 @@ fun BasicTextInputField(
     iconColorInFocus: Color = AppTheme.colors.surfaceColor.onSurface,
     iconColorNotFocus: Color = AppTheme.colors.surfaceColor.onSurfaceContainer,
     cursorColor: Color = AppTheme.colors.surfaceColor.onSurface,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
     val isFocused by interactionSource.collectIsFocusedAsState()
     BasicTextField(
@@ -125,6 +130,8 @@ fun BasicTextInputField(
                 }
             }
         },
-        cursorBrush = SolidColor(cursorColor)
+        cursorBrush = SolidColor(cursorColor),
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions
     )
 }

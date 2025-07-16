@@ -14,6 +14,9 @@
         <string name="search">Search</string>
         <string name="library">Library</string>
         <string name="more">More</string>
+        <string name="recent_search">Recent Search</string>
+        <string name="clear_all">Clear All</string>
+        <string name="remove">Remove</string>
         <string name="top_result">Top Result</string>
         <string name="Movies">Movies</string>
         <string name="Series">Series</string>

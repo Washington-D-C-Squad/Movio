@@ -13,5 +13,8 @@ interface SearchLocalSource {
 
     fun getArtistsByTitle(query: String): Flow<List<ArtistEntity>>
 
-
+    fun getRecentSearches(): Flow<List<String>>
+    suspend fun addRecentSearch(item: String)
+    suspend fun removeRecentSearch(item: String)
+    suspend fun clearAllRecentSearches()
 }
