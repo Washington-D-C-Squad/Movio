@@ -25,7 +25,7 @@ fun RecentSearchHeader(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(19.dp),
+            .height(32.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         MovioText(
@@ -40,7 +40,7 @@ fun RecentSearchHeader(
             color = AppTheme.colors.surfaceColor.onSurfaceVariant,
             modifier = Modifier
                 .clickable { onClearAll() }
-                .padding(8.dp)
+                .padding(horizontal = 12.dp, vertical = 8.dp)
         )
     }
 }
