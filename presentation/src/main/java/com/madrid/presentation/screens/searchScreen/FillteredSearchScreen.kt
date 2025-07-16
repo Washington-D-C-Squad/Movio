@@ -1,6 +1,7 @@
 package com.madrid.presentation.screens.searchScreen
 
 import HeaderSectionBar
+import androidx.annotation.UiThread
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.component.MovioText
+import com.madrid.presentation.R
 import com.madrid.presentation.composables.movioCards.MovioArtistsCard
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.SearchInputSection
@@ -42,8 +44,19 @@ fun FilteredScreen(
 ) {
     val uiState by viewModel.state.collectAsState()
     var isRecentSearchActive by remember { mutableStateOf(false) }
+    var localSearchQuery by remember { mutableStateOf("") }
+    var TypeOfFilterSearch by remember { mutableStateOf("movies") }
 
     ContentFilteredScreen(
+        onChangeTypeOfFilterSearch = {
+            TypeOfFilterSearch = it
+        },
+        typeOfFilterSearch = TypeOfFilterSearch,
+        localSearchQuery = localSearchQuery,
+        onChangeLocalSearchQuery = {
+            localSearchQuery = it
+            interactionListener.onSearchQuerySubmitted(it, viewModel)
+        },
         onSearchBarClick = {
             isRecentSearchActive = false
         },
@@ -51,26 +64,46 @@ fun FilteredScreen(
         artist = uiState.filteredScreenUiState.artist,
         series = uiState.filteredScreenUiState.series,
         topRated = uiState.filteredScreenUiState.topResult,
-        viewModel = viewModel
+        viewModel = viewModel,
+        onSearchMovie = {
+            viewModel.searchMovies(localSearchQuery)
+//            viewModel.searchFilteredMovies(localSearchQuery)
+        },
+        onSearchSeries = {
+//            viewModel.searc(localSearchQuery)
+
+        },
+        onSearchArtist = {
+
+        }
     )
 }
 
 
 @Composable
 private fun ContentFilteredScreen(
+    onChangeTypeOfFilterSearch :(String)-> Unit ,
+    typeOfFilterSearch : String ,
+    localSearchQuery : String ,
+    onChangeLocalSearchQuery :(String)-> Unit ,
     viewModel: SearchViewModel,
     onSearchBarClick: () -> Unit = {},
+
+    onSearchMovie : ()->Unit ,
+    onSearchSeries :()->Unit ,
+    onSearchArtist :()-> Unit ,
+
     topRated: List<SearchScreenState.MovieUiState> = emptyList(),
     movies: List<SearchScreenState.MovieUiState> = emptyList(),
     series: List<SearchScreenState.SeriesUiState> = emptyList(),
     artist: List<SearchScreenState.ArtistUiState> = emptyList(),
 ) {
     var selectedTabIndex by remember { mutableStateOf(0) }
-    var localSearchQuery by remember { mutableStateOf("") }
 
     LazyColumn(
         modifier = Modifier
-            .fillMaxSize().statusBarsPadding()
+            .fillMaxSize()
+            .statusBarsPadding()
             .background(AppTheme.colors.surfaceColor.onSurface)
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium)
@@ -79,8 +112,20 @@ private fun ContentFilteredScreen(
             SearchInputSection(
                 searchQuery = localSearchQuery,
                 onSearchQueryChange = {
-                    localSearchQuery = it
-                    interactionListener.onSearchQuerySubmitted(it, viewModel)
+                    onChangeLocalSearchQuery(it)
+                    when(typeOfFilterSearch){
+                        "topRated"->{
+
+                        }
+                        "movies"->{
+                            onSearchMovie()
+                        }
+                        "series"->{}
+                        else -> {
+                            //artist
+
+                        }
+                    }
                 },
                 onSearchBarClick = onSearchBarClick
             )
@@ -89,10 +134,10 @@ private fun ContentFilteredScreen(
         item {
             HeaderSectionBar(
                 tabs = listOf(
-                    stringResource(com.madrid.presentation.R.string.top_result),
-                    stringResource(com.madrid.presentation.R.string.Movies),
-                    stringResource(com.madrid.presentation.R.string.Series),
-                    stringResource(com.madrid.presentation.R.string.Artists),
+                    stringResource(R.string.top_result),
+                    stringResource(R.string.Movies),
+                    stringResource(R.string.Series),
+                    stringResource(R.string.Artists),
                 ),
                 selectedTabIndex = selectedTabIndex,
                 onTabSelected = { index ->
@@ -103,10 +148,25 @@ private fun ContentFilteredScreen(
         item {
             Crossfade(targetState = selectedTabIndex, label = "TabContentAnimation") { index ->
                 when (index) {
-                    0 -> if (topRated.isNotEmpty()) TopResult(topRated)
-                    1 -> if (movies.isNotEmpty()) Movie(movies)
-                    2 -> if (series.isNotEmpty()) Series(series)
-                    3 -> if (artist.isNotEmpty()) Artist(artist)
+                    0 -> if (topRated.isNotEmpty()) {
+                        onChangeTypeOfFilterSearch("topRated")
+                        TopResult(topRated)
+                    }
+                    1 -> if (movies.isNotEmpty()) {
+                        onChangeTypeOfFilterSearch("movies")
+                        onSearchMovie()
+                        Movie(movies)
+                    }
+                    2 -> if (series.isNotEmpty()) {
+                        onChangeTypeOfFilterSearch("series")
+                        onSearchSeries()
+                        Series(series)
+                    }
+                    3 -> if (artist.isNotEmpty()) {
+                        onChangeTypeOfFilterSearch("artist")
+                        onSearchArtist()
+                        Artist(artist)
+                    }
                 }
             }
 
@@ -115,7 +175,7 @@ private fun ContentFilteredScreen(
 }
 
 @Composable
-private fun TopResult(
+fun TopResult(
     topRated: List<SearchScreenState.MovieUiState> = emptyList(),
 ) {
     Box(
@@ -148,7 +208,7 @@ private fun TopResult(
 }
 
 @Composable
-private fun Movie(
+fun Movie(
     movies: List<SearchScreenState.MovieUiState> = emptyList(),
 ) {
     Box(
@@ -182,7 +242,7 @@ private fun Movie(
 }
 
 @Composable
-private fun Series(
+fun Series(
     series: List<SearchScreenState.SeriesUiState> = emptyList(),
 ) {
     Box(
@@ -215,7 +275,7 @@ private fun Series(
 }
 
 @Composable
-private fun Artist(
+fun Artist(
     artists: List<SearchScreenState.ArtistUiState> = emptyList()
 ) {
     Box(
@@ -247,9 +307,9 @@ private fun Artist(
 
 
 @Composable
-private fun SearchResultMessage(items: String, modifier: Modifier = Modifier) {
+ fun SearchResultMessage(items: String, modifier: Modifier = Modifier) {
     MovioText(
-        stringResource(id = com.madrid.presentation.R.string.search_result_count, items),
+        stringResource(id = R.string.search_result_count, items),
         AppTheme.colors.surfaceColor.onSurfaceVariant,
         AppTheme.textStyle.label.smallRegular14,
         modifier = modifier

@@ -15,14 +15,14 @@ import com.example.designsystem.component.CustomTextTitel
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
-import com.madrid.presentation.screens.searchScreen.SearchScreenState
+import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState.MovieUiState
 
 fun LazyGridScope.forYouAndExploreScreen(
     showSearchResults: Boolean,
     isLoading: Boolean,
-    moviesToShow: List<SearchScreenState.MovieUiState>,
-    onMovieClick: (SearchScreenState.MovieUiState) -> Unit = {},
-    exploreMoreMovies: List<SearchScreenState.MovieUiState> = emptyList(),
+    forYouMovies: List<MovieUiState>,
+    exploreMoreMovies: List<MovieUiState> = emptyList(),
+    onMovieClick: (MovieUiState) -> Unit = {},
 ) {
     if (!showSearchResults && !isLoading) {
         item(
@@ -47,7 +47,7 @@ fun LazyGridScope.forYouAndExploreScreen(
                     )
                     .height(233.dp),
             ) {
-                items(moviesToShow) { movie ->
+                items(forYouMovies) { movie ->
                     MovioVerticalCard(
                         description = movie.title,
                         movieImage = movie.imageUrl,

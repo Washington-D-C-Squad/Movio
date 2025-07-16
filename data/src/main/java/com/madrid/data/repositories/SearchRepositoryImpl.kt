@@ -1,5 +1,6 @@
 package com.madrid.data.repositories
 
+import android.util.Log
 import com.madrid.data.dataSource.remote.mapper.toArtist
 import com.madrid.data.dataSource.remote.mapper.toMovie
 import com.madrid.data.dataSource.remote.mapper.toSeries
@@ -47,6 +48,7 @@ class SearchRepositoryImpl(
     }
 
     override suspend fun getArtistByQuery(query: String): Flow<List<Artist>> {
+
         val result = searchRemoteSource.searchArtistByName(
             name = query,
             language = "en-US"

@@ -28,7 +28,7 @@ import com.madrid.presentation.R
 import org.koin.androidx.compose.koinViewModel
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import com.madrid.presentation.screens.searchScreen.SearchViewModel
+import com.madrid.presentation.screens.searchScreen.viewModel.SearchViewModel
 
 @Composable
 fun RecentSearchScreen(viewModel: SearchViewModel = koinViewModel()) {

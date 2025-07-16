@@ -34,6 +34,7 @@ class SearchRemoteSourceImpl() : SearchRemoteSource {
     }
     val json = Json {
         ignoreUnknownKeys = true
+        coerceInputValues = true
     }
 
     override suspend fun searchMoviesByName(name: String, language: String): MovieResponse {
@@ -53,32 +54,35 @@ class SearchRemoteSourceImpl() : SearchRemoteSource {
     }
 
     override suspend fun searchSeriesByName(name: String, language: String): SeriesResponse {
-        val result = client.get {
-            url {
-                protocol = HTTPS
-                host = BASE_URL
-                encodedPath = "search/tv"
-                parameters.append(KEY, API_KEY)
-                parameters.append(LANGUAGE, language)
-                parameters.append(QUERY, name)
-                parameters.append("include_adult", "false")
-            }
-        }
+//        val result = client.get {
+//            url {
+//                protocol = HTTPS
+//                host = BASE_URL
+//                encodedPath = "search/tv"
+//                parameters.append(KEY, API_KEY)
+//                parameters.append(LANGUAGE, language)
+//                parameters.append(QUERY, name)
+//            }
+//        }
+        val result = client.get("https://api.themoviedb.org/3/search/tv?include_adult=false&language=en-US&page=1&query=$name&api_key=b77ea619291736aea2b7740de4f6bfdc")
         return json.decodeFromString<SeriesResponse>(result.bodyAsText())
     }
 
     override suspend fun searchArtistByName(name: String, language: String): ArtistApiResponse {
-        val result = client.get {
-            url {
-                protocol = HTTPS
-                host = BASE_URL
-                encodedPath = "search/person"
-                parameters.append(KEY, API_KEY)
-                parameters.append(LANGUAGE, language)
-                parameters.append(QUERY, name)
-            }
-        }
-        return json.decodeFromString<ArtistApiResponse>(result.bodyAsText())
+        val result = client.get(
+            "https://api.themoviedb.org/3/search/person?language=en-US&page=1&query=$name&api_key=b77ea619291736aea2b7740de4f6bfdc")
+//        val result = client.get {
+//            url {
+//                protocol = HTTPS
+//                host = BASE_URL
+//                encodedPath = "search/person"
+//                parameters.append(KEY, API_KEY)
+//                parameters.append(LANGUAGE, language)
+//                parameters.append(QUERY, name)
+//            }
+//        }
+        val res = json.decodeFromString<ArtistApiResponse>(result.bodyAsText())
+        return res
     }
 
     override suspend fun searchMultiMediaByName(
