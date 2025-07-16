@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
@@ -45,16 +46,14 @@ fun FilteredScreen(
     var isRecentSearchActive by remember { mutableStateOf(false) }
 
     ContentFilteredScreen(
-        onSearchQueryChange = { query ->
-            interactionListener.onSearchQuerySubmitted(query, viewModel)
-        },
         onSearchBarClick = {
             isRecentSearchActive = false
         },
         movies = uiState.filteredScreenUiState.movie,
         artist = uiState.filteredScreenUiState.artist,
         series = uiState.filteredScreenUiState.series,
-        topRated = uiState.filteredScreenUiState.topResult
+        topRated = uiState.filteredScreenUiState.topResult,
+        viewModel = viewModel
     )
 
 }
@@ -62,7 +61,7 @@ fun FilteredScreen(
 
 @Composable
 private fun ContentFilteredScreen(
-    onSearchQueryChange: (String) -> Unit = {},
+    viewModel:SearchViewModel,
     onSearchBarClick: () -> Unit = {},
     topRated: List<SearchScreenState.MovieUiState> = emptyList(),
     movies: List<SearchScreenState.MovieUiState> = emptyList(),
@@ -81,11 +80,14 @@ private fun ContentFilteredScreen(
     ) {
         item {
             SearchInputSection(
-                localSearchQuery,
-                localSearchQuery,
-                onSearchQueryChange,
-                onSearchBarClick
+                searchQuery = localSearchQuery,
+                onSearchQueryChange = {
+                    localSearchQuery = it
+                    interactionListener.onSearchQuerySubmitted(it, viewModel)
+                },
+                onSearchBarClick = onSearchBarClick
             )
+
         }
         item {
             HeaderSectionBar(
