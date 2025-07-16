@@ -4,8 +4,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.madrid.designsystem.AppTheme
-import com.madrid.presentation.searchScreen.RecentSearchScreen
+import com.madrid.presentation.composables.CustomBottomBar
+import com.madrid.presentation.composables.navDestinations
+import com.madrid.presentation.navigation.MovioNavGraph
+import com.madrid.presentation.navigation.Screen
 
 
 class MainActivity : ComponentActivity() {
@@ -14,8 +24,25 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AppTheme {
-                RecentSearchScreen()
             }
+        }
+    }
+}
+
+@Composable
+fun MainScreen() {
+    val navController = rememberNavController()
+    val navBackStackEntry = navController.currentBackStackEntryAsState().value
+    val currentRoute = navBackStackEntry?.destination?.route
+    Box(Modifier.fillMaxSize()) {
+        CustomBottomBar(
+            currentRoute = currentRoute ?: Screen.Home.route,
+            onNavDestinationClicked = { navController.navigate(it) },
+            navItems = navDestinations,
+            modifier = Modifier.align(Alignment.BottomCenter)
+        )
+        Box(modifier = Modifier.align(Alignment.Center)) {
+            MovioNavGraph(navController = navController)
         }
     }
 }
