@@ -3,15 +3,14 @@ package com.madrid.data.repositories
 import com.madrid.data.dataSource.local.entity.ArtistEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
-import kotlinx.coroutines.flow.Flow
 
 interface SearchLocalSource {
 
-    fun getMoviesByTitle(query: String): Flow<List<MovieEntity>>
+    fun getMoviesByTitle(query: String): List<MovieEntity>
 
-    fun getSeriesByTitle(query: String): Flow<List<SeriesEntity>>
+    fun getSeriesByTitle(query: String): List<SeriesEntity>
 
-    fun getArtistsByTitle(query: String): Flow<List<ArtistEntity>>
+    fun getArtistsByTitle(query: String): List<ArtistEntity>
 
 
 }

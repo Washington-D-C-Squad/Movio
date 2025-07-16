@@ -1,10 +1,10 @@
-package com.madrid.data.dataSource.remote.response
+package com.madrid.data.dataSource.remote.response.series
 
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SeriesResponse(
+data class SearchSeriesResponse(
     @SerializedName("page")
     val page: Int = 0,
     @SerializedName("results")

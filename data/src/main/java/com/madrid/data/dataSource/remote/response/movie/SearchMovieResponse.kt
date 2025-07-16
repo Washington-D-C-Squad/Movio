@@ -1,11 +1,11 @@
-package com.madrid.data.dataSource.remote.response
+package com.madrid.data.dataSource.remote.response.movie
 
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MovieResponse(
+data class SearchMovieResponse(
     @SerialName("page")
     val page: Int = 0,
     @SerialName("results")
