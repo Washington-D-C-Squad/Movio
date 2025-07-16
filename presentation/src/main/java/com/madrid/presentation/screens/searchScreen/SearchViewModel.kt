@@ -18,7 +18,7 @@ class SearchViewModel(
     private val artistUseCase: ArtistUseCase,
     private val mediaUseCase: MediaUseCase,
     private val preferredMediaUseCase: PreferredMediaUseCase,
-    private val recentSearchUseCase: RecentSearchUseCase,
+    override val recentSearchUseCase: RecentSearchUseCase,
     private val trendingMediaUseCase: TrendingMediaUseCase,
 ) : BaseViewModel<SearchScreenState>(
     SearchScreenState()

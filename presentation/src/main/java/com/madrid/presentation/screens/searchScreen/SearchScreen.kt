@@ -42,8 +42,12 @@ fun SearchScreen(
 ) {
     val uiState by viewModel.state.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
+
+
     var isRecentSearchActive by remember { mutableStateOf(false) }
-    if (isRecentSearchActive) { RecentSearchLayout() }
+    if (isRecentSearchActive) {
+        RecentSearchLayout()
+    }
     ContentSearchScreen(
         forYouMovies = uiState.searchUiState.forYouMovies,
         exploreMoreMovies = uiState.searchUiState.exploreMoreMovies,
@@ -52,14 +56,15 @@ fun SearchScreen(
         onSearchQueryChange = { query ->
             searchQuery = query
             viewModel.searchMovies(query)
+            viewModel.addRecentSearch(query)
         },
         onMovieClick = { movie -> },
         isLoading = uiState.searchUiState.isLoading,
 
         searchHistory = uiState.recentSearchUiState,
         onSearchItemClick = { searchQuery = it },
-        onRemoveItem = {},
-        onClearAll = {}
+        onRemoveItem = { viewModel.removeRecentSearch(it) },
+        onClearAll = { viewModel.clearAll() }
     )
     uiState.searchUiState.errorMessage?.let { errorMsg ->
         LaunchedEffect(errorMsg) {
@@ -78,21 +83,23 @@ fun SearchScreen(
             )
         }
     }
-}@Composable
+}
+
+@Composable
 fun ContentSearchScreen(
     modifier: Modifier = Modifier,
     forYouMovies: List<SearchScreenState.MovieUiState> = emptyList(),
     exploreMoreMovies: List<SearchScreenState.MovieUiState> = emptyList(),
     searchResults: List<SearchScreenState.MovieUiState> = emptyList(),
     searchQuery: String = "",
-    onSearchQueryChange: (String) -> Unit = {},
+    onSearchQueryChange: (String) -> Unit ,
     onSearchBarClick: () -> Unit = {},
     onMovieClick: (SearchScreenState.MovieUiState) -> Unit = {},
 
-    searchHistory : List<String>,
-    onSearchItemClick:(String)->Unit ,
-    onRemoveItem :(String)->Unit,
-    onClearAll : (String)->Unit ,
+    searchHistory: List<String>,
+    onSearchItemClick: (String) -> Unit,
+    onRemoveItem: (String) -> Unit,
+    onClearAll: (String) -> Unit,
 
     isLoading: Boolean = false,
 ) {
@@ -109,13 +116,15 @@ fun ContentSearchScreen(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        item (
+        item(
             span = { GridItemSpan(maxLineSpan) }
-        ){
+        ) {
             BasicTextInputField(
                 value = searchQuery,
-                onValueChange = { onSearchQueryChange(it)
-                    onSearchBarClick()  },
+                onValueChange = {
+                    onSearchQueryChange(it)
+                    onSearchBarClick()
+                },
                 hintText = "search..",
                 startIconPainter = painterResource(R.drawable.search_normal),
                 endIconPainter = null,
@@ -125,19 +134,25 @@ fun ContentSearchScreen(
                     .padding(top = AppTheme.spacing.medium)
             )
         }
-        forYouAndExploreScreen(
-            showSearchResults = showSearchResults,
-            isLoading = isLoading,
-            moviesToShow = moviesToShow,
-            onMovieClick = onMovieClick,
-            exploreMoreMovies = exploreMoreMovies
-        )
+        if(searchQuery.isEmpty()){
+            forYouAndExploreScreen(
+                showSearchResults = showSearchResults,
+                isLoading = isLoading,
+                moviesToShow = moviesToShow,
+                onMovieClick = onMovieClick,
+                exploreMoreMovies = exploreMoreMovies
+            )
+        }
+        if(searchQuery.isNotEmpty()){
+            recentSearchScreen(
+                searchHistory = searchHistory,
+                onSearchItemClick = { onSearchItemClick(it) },
+                onRemoveItem = { onRemoveItem(it) },
+                onClearAll = { onClearAll },
+            )
+        }
 
-        recentSearchScreen(
-            searchHistory = searchHistory,
-            onSearchItemClick = { onSearchItemClick(it) },
-            onRemoveItem = { onRemoveItem(it) },
-            onClearAll = { onClearAll },
-        )
+
+
     }
 }

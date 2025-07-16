@@ -44,7 +44,10 @@ fun LazyGridScope.recentSearchScreen(
             )
         }
     }
-    items(searchHistory.size) { searchItem ->
+    items(
+       count =  searchHistory.size,
+        span = { GridItemSpan(maxLineSpan) }
+    ) { searchItem ->
         RecentSearchItem(
             searchText = searchHistory[searchItem],
             onItemClick = { onSearchItemClick(searchHistory[searchItem]) },
