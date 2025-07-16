@@ -1,4 +1,6 @@
-package com.madrid.presentation.screens.searchScreen
+package com.madrid.presentation.screens.searchScreen.viewModel.interactionListener
+
+import com.madrid.presentation.screens.searchScreen.viewModel.SearchViewModel
 
 
 val interactionListener = object : SearchInteractionListener {

@@ -1,4 +1,4 @@
-package com.madrid.presentation.base
+package com.madrid.presentation.screens.searchScreen.viewModel.base
 
 
 import androidx.lifecycle.ViewModel

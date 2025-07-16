@@ -1,6 +1,8 @@
-package com.madrid.presentation.screens.searchScreen
+package com.madrid.presentation.screens.searchScreen.viewModel
 
+import androidx.compose.runtime.Immutable
 
+@Immutable
 data class SearchScreenState(
     val searchUiState: SearchUiState = SearchUiState(),
     val recentSearchUiState: List<String> = emptyList(),
@@ -26,7 +28,7 @@ data class SearchScreenState(
         val series: List<SeriesUiState> = emptyList(),
         val artist: List<ArtistUiState> = emptyList(),
 
-    )
+        )
 
 
     data class MovieUiState(

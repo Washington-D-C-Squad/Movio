@@ -22,19 +22,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
 import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.R
-import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
 import com.madrid.presentation.composables.movioCards.MovioArtistsCard
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.SearchInputSection
+import com.madrid.presentation.screens.searchScreen.viewModel.SearchViewModel
+import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
+import com.madrid.presentation.screens.searchScreen.viewModel.interactionListener.interactionListener
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -60,7 +58,7 @@ fun FilteredScreen(
 
 @Composable
 private fun ContentFilteredScreen(
-    viewModel:SearchViewModel,
+    viewModel: SearchViewModel,
     onSearchBarClick: () -> Unit = {},
     topRated: List<SearchScreenState.MovieUiState> = emptyList(),
     movies: List<SearchScreenState.MovieUiState> = emptyList(),

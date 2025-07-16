@@ -1,4 +1,4 @@
-package com.madrid.presentation.screens.searchScreen
+package com.madrid.presentation.screens.searchScreen.viewModel
 
 import androidx.lifecycle.viewModelScope
 import com.madrid.domain.entity.Media
@@ -7,7 +7,7 @@ import com.madrid.domain.usecase.searchUseCase.MediaUseCase
 import com.madrid.domain.usecase.searchUseCase.PreferredMediaUseCase
 import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import com.madrid.domain.usecase.searchUseCase.TrendingMediaUseCase
-import com.madrid.presentation.base.BaseViewModel
+import com.madrid.presentation.screens.searchScreen.viewModel.base.BaseViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
