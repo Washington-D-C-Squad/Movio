@@ -1,12 +1,5 @@
 package com.madrid.presentation.screens.searchScreen
 
-import com.madrid.domain.entity.Artist
-
-data class wxwx(
-    val name: String = "",
-    val age: Int,
-    val imgUrl: String
-)
 
 data class SearchScreenState(
     val searchUiState: SearchUiState = SearchUiState(),
@@ -59,5 +52,4 @@ data class SearchScreenState(
         val imageUrl : String ="",
     )
 
-    //TODO add the remain ui state
 }
