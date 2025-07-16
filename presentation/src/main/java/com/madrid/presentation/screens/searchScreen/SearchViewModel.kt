@@ -9,9 +9,9 @@ import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import com.madrid.domain.usecase.searchUseCase.TrendingMediaUseCase
 import com.madrid.presentation.base.BaseViewModel
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
-import kotlin.math.exp
 
 @KoinViewModel
 class SearchViewModel(
@@ -250,7 +250,7 @@ class SearchViewModel(
 
     fun topResult(query: String) {
         tryToExecute(
-            function = { mediaUseCase.getTopRatedMedia(query).first },
+            function = { mediaUseCase.getMovieByQuery(query).first() },
             onSuccess = { result ->
                 updateState { current ->
                     current.copy(
