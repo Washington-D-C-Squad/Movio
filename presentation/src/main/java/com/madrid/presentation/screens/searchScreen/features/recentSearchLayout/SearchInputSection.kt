@@ -11,18 +11,15 @@ import com.madrid.designsystem.R
 import com.madrid.designsystem.component.textInputField.BasicTextInputField
 
 @Composable
- fun SearchInputSection(
+fun SearchInputSection(
     searchQuery: String,
-    localSearchQuery: String,
     onSearchQueryChange: (String) -> Unit,
     onSearchBarClick: () -> Unit
 ) {
-    var localSearchQuery1 = localSearchQuery
     BasicTextInputField(
         value = searchQuery,
-        onValueChange = {
-            localSearchQuery1 = it
-            onSearchQueryChange(it)
+        onValueChange = { newText ->
+            onSearchQueryChange(newText)
         },
         hintText = "Search...",
         startIconPainter = painterResource(R.drawable.search_normal),
@@ -33,3 +30,4 @@ import com.madrid.designsystem.component.textInputField.BasicTextInputField
             .padding(top = AppTheme.spacing.medium)
     )
 }
+
