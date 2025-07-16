@@ -37,7 +37,6 @@ val app = module {
         )
     }
 
-
     //domain
     single { ArtistUseCase(get()) }
     single { MediaUseCase(get()) }
