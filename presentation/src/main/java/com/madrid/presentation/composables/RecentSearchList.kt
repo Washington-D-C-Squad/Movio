@@ -83,7 +83,7 @@ fun RecentSearchList(
 }
 
 @Composable
-private fun RecentSearchItem(
+fun RecentSearchItem(
     searchText: String,
     onItemClick: () -> Unit,
     onRemoveClick: () -> Unit
