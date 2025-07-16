@@ -8,7 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
-import com.example.designsystem.AppTheme
+import com.madrid.designsystem.AppTheme
+import com.madrid.designsystem.component.MovioIcon
+import com.madrid.designsystem.component.MovioText
 
 
 @Composable

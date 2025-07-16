@@ -10,6 +10,7 @@ import com.madrid.domain.entity.Series
 import com.madrid.domain.repository.SearchRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import org.intellij.lang.annotations.Language
 
 class SearchRepositoryImpl(
     private val searchRemoteSource: SearchRemoteSource,
@@ -71,20 +72,36 @@ class SearchRepositoryImpl(
     override suspend fun getMediaByCategory(category: String): Media {
         TODO("Not yet implemented")
     }
-
+//////////////
     override suspend fun getTrendingMedia(): Media {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getTopRatedMovies(query: String): List<Movie> {
-        TODO("Not yet implemented")
+    override suspend fun getTopRatedMovies(language: String): Flow<List<Movie> >{
+        val result = searchRemoteSource.getTopRatedMovies(
+            language = "en-US"
+        ).movieResults.map {
+            it.toMovie()
+        }
+        return flow {
+            emit(
+                result
+            )
+        }
     }
 
-    override suspend fun getTopRatedSeries(query: String): List<Series> {
-        TODO("Not yet implemented")
+    override suspend fun getTopRatedSeries(language: String):Flow<List<Series>> {
+        val result = searchRemoteSource.getTopRatedSeries(
+            language = "en-US"
+        ).seriesResults.map {
+            it.toSeries()
+        }
+        return flow {
+            emit(
+                result
+            )
+        }
     }
-
-
 
     override suspend fun getRecentSearches(): Flow<List<String>> {
         TODO("Not yet implemented")
