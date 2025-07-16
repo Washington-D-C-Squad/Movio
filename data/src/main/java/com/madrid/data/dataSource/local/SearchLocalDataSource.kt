@@ -6,7 +6,6 @@ import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
 import com.madrid.data.repositories.SearchLocalSource
-import kotlinx.coroutines.flow.Flow
 
 class SearchLocalDataSource(
     private val database: MovioDatabase
@@ -17,11 +16,11 @@ class SearchLocalDataSource(
         database.movieDao().insertMovie(movie)
     }
 
-    fun getTopRatedMovies(): Flow<List<MovieEntity>> {
+    fun getTopRatedMovies(): List<MovieEntity> {
         return database.movieDao().getTopRatedMovies()
     }
 
-    override fun getMoviesByTitle(query: String): List<MovieEntity> {
+    override suspend fun getMoviesByTitle(query: String): List<MovieEntity> {
         return database.movieDao().getMovieByTitle("%$query%")
     }
 
@@ -30,15 +29,15 @@ class SearchLocalDataSource(
         database.seriesDao().insertSeries(series)
     }
 
-    override fun getSeriesByTitle(query: String): List<SeriesEntity> {
+    override suspend fun getSeriesByTitle(query: String): List<SeriesEntity> {
+        return database.seriesDao().getSeriesByTitle("%$query%")
+    }
+
+    override suspend fun getArtistsByTitle(query: String): List<ArtistEntity> {
         return database.artistDao().getArtistByName("%$query%")
     }
 
-    override fun getArtistsByTitle(query: String): List<ArtistEntity> {
-        TODO("Not yet implemented")
-    }
-
-    fun getTopRatedSeries(): Flow<List<SeriesEntity>> {
+    fun getTopRatedSeries(): List<SeriesEntity> {
         return database.seriesDao().getTopRatedSeries()
     }
 
@@ -47,30 +46,29 @@ class SearchLocalDataSource(
         database.artistDao().insertArtist(artist)
     }
 
-
     // categories
     suspend fun insertCategory(category: MovieCategoryEntity) {
         database.movieCategoryDao().insertCategory(category)
     }
 
-    fun getRecentCategories(): Flow<List<MovieCategoryEntity>> {
+    fun getRecentCategories(): List<MovieCategoryEntity> {
         return database.movieCategoryDao().getAllCategoriesBySearchCount()
     }
 
     // recent searches
-    fun getRecentSearches(): Flow<List<RecentSearchEntity>> {
+    override suspend fun getRecentSearches(): List<RecentSearchEntity> {
         return database.recentSearchDao().getRecentSearches()
     }
 
-    suspend fun addRecentSearch(item: RecentSearchEntity) {
+    override suspend fun addRecentSearch(item: RecentSearchEntity) {
         database.recentSearchDao().addRecentSearch(item)
     }
 
-    suspend fun removeRecentSearch(query: String) {
+    override suspend fun removeRecentSearch(query: String) {
         database.recentSearchDao().removeRecentSearch(query)
     }
 
-    suspend fun clearAllRecentSearches() {
+    override suspend fun clearAllRecentSearches() {
         database.recentSearchDao().clearAllRecentSearches()
     }
 }

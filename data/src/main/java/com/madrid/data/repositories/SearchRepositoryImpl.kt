@@ -1,5 +1,6 @@
 package com.madrid.data.repositories
 
+import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 import com.madrid.data.dataSource.local.mappers.toArtist
 import com.madrid.data.dataSource.local.mappers.toArtistEntity
 import com.madrid.data.dataSource.local.mappers.toMovie
@@ -63,9 +64,11 @@ class SearchRepositoryImpl(
     }
 
     override suspend fun getMostSearchedCategories(): List<String> {
-        val localCategories = localSource.getRecentCategories()
-        return localCategories.first().map { it.title }
+//        val localCategories = localSource.getRecentCategories()
+//        return localCategories.first().map { it.title }
+        TODO()
     }
+
 
     override suspend fun getMediaByCategory(category: String): Media {
         TODO("Not yet implemented")
@@ -78,25 +81,27 @@ class SearchRepositoryImpl(
     }
 
     override suspend fun getTopRatedMovies(query: String): List<Movie> {
-        val localMoviesEntities = localSource.getTopRatedMovies()
-         return localMoviesEntities.map { it.toMovie() }
+//        val localMoviesEntities = localSource.getTopRatedMovies()
+//         return localMoviesEntities.map { it.toMovie() }
+        TODO()
     }
 
     override suspend fun getTopRatedSeries(query: String): List<Series> {
-        val localSeriesEntities = localSource.getTopRatedSeries()
-        return localSeriesEntities.map { it.toSeries() }
+//        val localSeriesEntities = localSource.getTopRatedSeries()
+//        return localSeriesEntities.map { it.toSeries() }
+        TODO()
     }
 
 
-    override suspend fun getRecentSearches(): Flow<List<String>> {
-        return localSource.getRecentSearches()
-            .map { entitiesList ->
-                entitiesList.map { it.searchQuery }
-            }
+    override suspend fun getRecentSearches(): List<String> {
+        return localSource.getRecentSearches().map { it.searchQuery }
     }
 
     override suspend fun addRecentSearch(item: String) {
-        localSource.addRecentSearch(item)
+        val recentSearchEntity = RecentSearchEntity(
+            searchQuery = item
+        )
+        localSource.addRecentSearch(recentSearchEntity)
     }
 
     override suspend fun removeRecentSearch(item: String) {

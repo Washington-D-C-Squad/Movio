@@ -8,11 +8,19 @@ import com.madrid.data.dataSource.local.entity.SeriesEntity
 
 interface SearchLocalSource {
 
-    fun getMoviesByTitle(query: String): List<MovieEntity>
+    suspend fun getMoviesByTitle(query: String): List<MovieEntity>
 
-    fun getSeriesByTitle(query: String): List<SeriesEntity>
+    suspend fun getSeriesByTitle(query: String): List<SeriesEntity>
 
-    fun getArtistsByTitle(query: String): List<ArtistEntity>
+    suspend  fun getArtistsByTitle(query: String): List<ArtistEntity>
 
+    // recent searches
+    suspend fun getRecentSearches(): List<RecentSearchEntity>
+
+    suspend fun addRecentSearch(item: RecentSearchEntity)
+
+    suspend fun removeRecentSearch(query: String)
+
+    suspend fun clearAllRecentSearches()
 
 }

@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.madrid.data.dataSource.local.entity.RecentSearchEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RecentSearchDao {
@@ -13,7 +12,7 @@ interface RecentSearchDao {
      suspend fun addRecentSearch(query: RecentSearchEntity)
 
      @Query("SELECT * FROM RECENT_TABLE")
-     fun getRecentSearches(): Flow<List<RecentSearchEntity>>
+     fun getRecentSearches(): List<RecentSearchEntity>
 
      @Query("DELETE FROM RECENT_TABLE WHERE searchQuery = :query")
      suspend fun removeRecentSearch(query: String)
