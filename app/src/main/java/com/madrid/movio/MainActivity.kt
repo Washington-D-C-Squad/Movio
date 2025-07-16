@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,21 +34,23 @@ class MainActivity : ComponentActivity() {
 }
 
 
-
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
     val navBackStackEntry = navController.currentBackStackEntryAsState().value
     val currentRoute = navBackStackEntry?.destination?.route
-    Box(Modifier.fillMaxSize()) {
+    Column (Modifier.fillMaxSize()) {
+        Column (
+            modifier = Modifier.fillMaxSize().weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            MovioNavGraph(navController = navController)
+        }
         CustomBottomBar(
             currentRoute = currentRoute ?: Screen.Home.route,
             onNavDestinationClicked = { navController.navigate(it) },
             navItems = navDestinations,
-            modifier = Modifier.align(Alignment.BottomCenter)
         )
-        Box(modifier = Modifier.align(Alignment.Center)) {
-            MovioNavGraph(navController = navController)
-        }
     }
 }

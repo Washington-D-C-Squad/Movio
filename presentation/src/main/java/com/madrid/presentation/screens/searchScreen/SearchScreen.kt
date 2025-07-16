@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
@@ -29,6 +30,7 @@ import com.example.designsystem.component.CustomTextTitel
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
+import com.madrid.designsystem.component.MovioText
 import com.madrid.designsystem.component.textInputField.BasicTextInputField
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.RecentSearchLayout
@@ -87,85 +89,95 @@ fun ContentSearchScreen(
 ) {
     val showSearchResults = searchQuery.isNotBlank()
     val moviesToShow = if (showSearchResults) searchResults else forYouMovies
-    LazyColumn(
-            modifier = modifier
-
-                .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(minSize = 160.dp), // Only one item per row
+        modifier = modifier
+            .fillMaxSize(),
+        contentPadding = PaddingValues(vertical = 16.dp)
     ) {
-            item {
-                BasicTextInputField(
-                    value = searchQuery,
-                    onValueChange = {
-                        onSearchQueryChange(it)
-                        onSearchBarClick()
-                    },
-                    hintText = "search..",
-                    startIconPainter = painterResource(R.drawable.search_normal),
-                    endIconPainter = null,
+        item (
+            span = { GridItemSpan(maxLineSpan) }
+        ){
+            BasicTextInputField(
+                value = searchQuery,
+                onValueChange = { onSearchQueryChange(it)
+                    onSearchBarClick()  },
+                hintText = "search..",
+                startIconPainter = painterResource(R.drawable.search_normal),
+                endIconPainter = null,
 
-                    modifier = Modifier.fillMaxWidth()
-                        .clickable { onSearchBarClick() }
-                        .padding(AppTheme.spacing.medium)
+                modifier = Modifier.fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .clickable { onSearchBarClick() }
+                    .padding( top = AppTheme.spacing.medium)
+            )
+        }
+        item(
+            span = { GridItemSpan(maxLineSpan) }
+        ) {
+            CustomTextTitel(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                primaryText = "For You",
+                secondaryText = "See all",
+                endIcon = painterResource(R.drawable.outline_alt_arrow_left),
+                onSeeAllClick = {}
+            )
+        }
+        if (moviesToShow.isEmpty()) {
+            item {
+                MovioText(
+                    text = "No movies found",
+                    color = AppTheme.colors.surfaceColor.onSurface_3,
+                    textStyle = AppTheme.textStyle.body.medium14,
+                    modifier = Modifier.padding(bottom = AppTheme.spacing.xLarge)
                 )
             }
-            if (!showSearchResults && !isLoading) {
-                item {
-                    CustomTextTitel(
-                        primaryText = "For You",
-                        secondaryText = "See all",
-                        endIcon = painterResource(R.drawable.outline_alt_arrow_left),
-                        onSeeAllClick = {}
-                    )
-                }
-                item {
-                    LazyRow(
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        modifier = Modifier.padding(bottom = AppTheme.spacing.xLarge)
-                    ) {
-                        items(moviesToShow) { movie ->
-                            MovioVerticalCard(
-                                description = movie.title,
-                                movieImage = movie.imageUrl,
-                                rate = movie.rating,
-                                width = 160.dp,
-                                height = 200.dp,
-                                paddingvalue = AppTheme.spacing.small,
-                                onClick = { onMovieClick(movie) }
-                            )
-                        }
-                    }
-                }
-                item {
-                    CustomTextTitel(primaryText = "Explore more")
-                }
-                item {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(600.dp)
-                    ) {
-                        LazyVerticalGrid(
-                            columns = GridCells.Fixed(2),
-                            contentPadding = PaddingValues(bottom = AppTheme.spacing.medium),
-                            horizontalArrangement = Arrangement.spacedBy(12.dp),
-                            verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium),
-                            modifier = Modifier.fillMaxSize()
-                        ) {
-                            items(exploreMoreMovies) { movie ->
-                                MovioVerticalCard(
-                                    description = movie.title,
-                                    movieImage = movie.imageUrl,
-                                    rate = movie.rating,
-                                    width = 180.dp,
-                                    height = 200.dp,
-                                    onClick = { onMovieClick(movie) }
-                                )
-                            }
-                        }
+        } else {
+            item (
+                span = { GridItemSpan(maxLineSpan) }
+            ){
+
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier.padding(
+                        bottom = AppTheme.spacing.xLarge,
+                    ),
+                    contentPadding = PaddingValues(horizontal = 16.dp)
+                ) {
+                    items(moviesToShow) { movie ->
+                        MovioVerticalCard(
+                            description = movie.title,
+                            movieImage = movie.imageUrl,
+                            rate = movie.rating,
+                            width = 160.dp,
+                            height = 200.dp,
+                            paddingvalue = AppTheme.spacing.small,
+                            onClick = { onMovieClick(movie) }
+                        )
                     }
                 }
             }
         }
+        if (!showSearchResults && exploreMoreMovies.isNotEmpty()) {
+
+            item (
+                span = { GridItemSpan(maxLineSpan) }
+            ){
+                CustomTextTitel(
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    primaryText = "Explore more"
+                )
+            }
+            items(exploreMoreMovies) { movie ->
+                MovioVerticalCard(
+                    description = movie.title,
+                    movieImage = movie.imageUrl,
+                    rate = movie.rating,
+                    width = 160.dp,
+                    height = 200.dp,
+                    onClick = { onMovieClick(movie) }
+                )
+            }
+        }
     }
+}

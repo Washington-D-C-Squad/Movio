@@ -22,7 +22,7 @@ fun CustomTextTitel(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = AppTheme.spacing.medium, vertical = AppTheme.spacing.small),
+            .padding( vertical = AppTheme.spacing.small),
         verticalAlignment = Alignment.CenterVertically
     ) { MovioText(
             text = primaryText,
