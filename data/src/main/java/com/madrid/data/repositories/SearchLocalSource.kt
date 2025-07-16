@@ -38,9 +38,9 @@ interface SearchLocalSource {
     // recent searches
     fun getRecentSearches(): Flow<List<RecentSearchEntity>>
 
-    suspend fun addRecentSearch(item: String)
+    suspend fun addRecentSearch(item: RecentSearchEntity)
 
-    suspend fun removeRecentSearch(item: String)
+    suspend fun removeRecentSearch(query: String)
 
     suspend fun clearAllRecentSearches()
 

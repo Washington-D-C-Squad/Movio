@@ -13,13 +13,15 @@ import com.madrid.data.dataSource.local.entity.ArtistEntity
 import com.madrid.data.dataSource.local.entity.MovieCategoryEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
+import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 
 @Database(
     entities = [
         MovieEntity::class,
         SeriesEntity::class,
         MovieCategoryEntity::class,
-        ArtistEntity::class
+        ArtistEntity::class,
+        RecentSearchEntity::class
     ],
     version = 1
 )

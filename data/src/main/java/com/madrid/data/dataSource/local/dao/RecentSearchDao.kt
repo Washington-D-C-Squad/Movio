@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface RecentSearchDao {
      @Insert(onConflict = OnConflictStrategy.REPLACE)
-     suspend fun addRecentSearch(query: String)
+     suspend fun addRecentSearch(query: RecentSearchEntity)
 
      @Query("SELECT * FROM RECENT_TABLE")
      fun getRecentSearches(): Flow<List<RecentSearchEntity>>

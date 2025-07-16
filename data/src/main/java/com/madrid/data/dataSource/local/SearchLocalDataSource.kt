@@ -61,12 +61,12 @@ class SearchLocalDataSource(
         return database.recentSearchDao().getRecentSearches()
     }
 
-    override suspend fun addRecentSearch(item: String) {
+    override suspend fun addRecentSearch(item: RecentSearchEntity) {
         database.recentSearchDao().addRecentSearch(item)
     }
 
-    override suspend fun removeRecentSearch(item: String) {
-        database.recentSearchDao().removeRecentSearch(item)
+    override suspend fun removeRecentSearch(query: String) {
+        database.recentSearchDao().removeRecentSearch(query)
     }
 
     override suspend fun clearAllRecentSearches() {
