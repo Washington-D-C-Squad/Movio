@@ -50,13 +50,12 @@ fun LazyGridScope.filterSearchScreen(
             }
             items(
                count =  topRated.size,
-                span = { GridItemSpan(maxLineSpan) }
             ) { index ->
                 MovioVerticalCard(
                     description = topRated[index].title,
                     movieImage = topRated[index].imageUrl,
                     rate = topRated[index].rating,
-                    width = 101.dp,
+                    width = 100.dp,
                     height = 178.dp,
                     onClick = { }
                 )
@@ -71,14 +70,13 @@ fun LazyGridScope.filterSearchScreen(
             }
             items(
                 count = movies.size,
-                span = { GridItemSpan(maxLineSpan) }
 
             ) { index ->
                 MovioVerticalCard(
                     description = movies[index].title,
                     movieImage =  movies[index].imageUrl,
                     rate =  movies[index].rating,
-                    width = 101.dp,
+                    width = 100.dp,
                     height = 178.dp,
                     onClick = { /* onMovieClick(movie.title) */ }
                 )
@@ -93,13 +91,12 @@ fun LazyGridScope.filterSearchScreen(
             }
             items(
                 count = series.size,
-                span = { GridItemSpan(maxLineSpan) }
             ) { index ->
                 MovioVerticalCard(
                     description = series[index].title,
                     movieImage =  series[index].imageUrl,
                     rate =  series[index].rating,
-                    width = 101.dp,
+                    width = 100.dp,
                     height = 178.dp,
                     onClick = { }
                 )
@@ -114,13 +111,12 @@ fun LazyGridScope.filterSearchScreen(
             }
             items(
                count =  artist.size,
-                span = { GridItemSpan(maxLineSpan) }
-
             ) { index ->
                 MovioArtistsCard(
                     artistsName = artist[index].name,
                     imageUrl = artist[index].imageUrl,
-                    width = 101.dp,
+                    width = 40.dp,
+//                    height = 233.dp,
                     onClick = { }
                 )
             }
