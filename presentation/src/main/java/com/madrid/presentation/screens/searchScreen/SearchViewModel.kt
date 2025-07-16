@@ -1,5 +1,6 @@
 package com.madrid.presentation.screens.searchScreen
 
+import androidx.lifecycle.viewModelScope
 import com.madrid.domain.entity.Media
 import com.madrid.domain.usecase.searchUseCase.ArtistUseCase
 import com.madrid.domain.usecase.searchUseCase.MediaUseCase
@@ -8,7 +9,9 @@ import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import com.madrid.domain.usecase.searchUseCase.TrendingMediaUseCase
 import com.madrid.presentation.base.BaseViewModel
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
+import kotlin.math.exp
 
 @KoinViewModel
 class SearchViewModel(
@@ -82,20 +85,61 @@ class SearchViewModel(
 
         tryToExecute(
             function = {
-                val forYou = preferredMediaUseCase.getPreferredMedia()
-                val explore = trendingMediaUseCase.getTrendingMedia()
-                forYou to explore
+                 mediaUseCase.getTopRatedMedia("fafafdf")
             },
             onSuccess = { (forYou, explore) ->
-                updateState {
-                    it.copy(
-                        searchUiState = it.searchUiState.copy(
-                            forYouMovies = forYou.mapToMoviesUiState(),
-                            exploreMoreMovies = explore.toMovieUiStateList(),
-                            isLoading = false
-                        )
-                    )
+                viewModelScope.launch {
+                    forYou.collect {movies->
+                        updateState {
+                            it.copy(
+                                searchUiState = it.searchUiState.copy(
+                                    forYouMovies =  movies.map { movie ->
+                                        SearchScreenState.MovieUiState(
+                                            title = movie.title,
+                                            id = movie.id.toString(),
+                                            imageUrl = movie.imageUrl,
+                                            rating = movie.rate.toString(),
+                                        )
+                                    },
+                                    isLoading = false
+                                )
+                            )
+                        }
+                    }
                 }
+
+                viewModelScope.launch {
+                    forYou.collect {movies->
+                        updateState {
+                            it.copy(
+                                searchUiState = it.searchUiState.copy(
+                                    exploreMoreMovies =  movies.map { movie ->
+                                        SearchScreenState.MovieUiState(
+                                            title = movie.title,
+                                            id = movie.id.toString(),
+                                            imageUrl = movie.imageUrl,
+                                            rating = movie.rate.toString(),
+                                        )
+                                    },
+                                    isLoading = false
+                                )
+                            )
+                        }
+                    }
+                }
+
+
+
+
+//                updateState {
+//                    it.copy(
+//                        searchUiState = it.searchUiState.copy(
+//                            forYouMovies = forYou.mapToMoviesUiState(),
+//                            exploreMoreMovies = explore.toMovieUiStateList(),
+//                            isLoading = false
+//                        )
+//                    )
+//                }
             },
             onError = { e ->
                 updateState {
