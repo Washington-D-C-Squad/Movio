@@ -39,17 +39,10 @@ android {
 }
 
 dependencies {
-    implementation("androidx.compose.foundation:foundation")
+    implementation(libs.foundation)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-
-    //material3
     implementation(libs.material3)
     implementation(libs.androidx.material3.window.size.class1)
-    implementation(libs.androidx.material3.adaptive.navigation.suite)
 }
