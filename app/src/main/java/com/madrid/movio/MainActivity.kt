@@ -18,8 +18,6 @@ import com.madrid.presentation.composables.CustomBottomBar
 import com.madrid.presentation.composables.navDestinations
 import com.madrid.presentation.navigation.MovioNavGraph
 import com.madrid.presentation.navigation.Screen
-import com.madrid.presentation.screens.searchScreen.FilteredScreen
-import com.madrid.presentation.screens.searchScreen.SearchScreen
 
 
 class MainActivity : ComponentActivity() {

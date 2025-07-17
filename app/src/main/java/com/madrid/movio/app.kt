@@ -1,6 +1,7 @@
 package com.madrid.movio
 
 
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.HttpClient
 import com.madrid.data.repositories.SearchRepositoryImpl
 import com.madrid.data.repositories.local.LocalDataSource
 import com.madrid.data.repositories.local.LocalDataSourceImpl
@@ -24,7 +25,7 @@ val app = module {
     // data
     single<SearchRepository> { SearchRepositoryImpl(get(), get()) }
     single<LocalDataSource> { LocalDataSourceImpl(get()) }
-    single<RemoteDataSource> { RemoteDataSourceImpl(get(), get()) }
+
 
     // presentation
     viewModel {
@@ -40,7 +41,7 @@ val app = module {
     //domain
     single { ArtistUseCase(get()) }
     single { MediaUseCase(get()) }
-    single{ PreferredMediaUseCase(get()) }
+    single { PreferredMediaUseCase(get()) }
     single { RecentSearchUseCase(get()) }
     single { TrendingMediaUseCase(get()) }
     // detectImageContent

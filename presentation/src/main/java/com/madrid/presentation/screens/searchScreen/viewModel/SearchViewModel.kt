@@ -23,40 +23,43 @@ class SearchViewModel(
 ) {
     init {
         loadRecentSearches()
+
         loadInitialData()
     }
 
-    /*
-        private fun loadRecentSearches() {
-            tryToExecute(
-                function = { recentSearchUseCase.getRecentSearches().first() },
-                onSuccess = { result -> updateState { it.copy(recentSearchUiState = result) } },
-                onError = {}
-            )
+
+    private fun loadRecentSearches() {
+        viewModelScope.launch {
+            recentSearchUseCase.getRecentSearches().collect { result ->
+                updateState { it.copy(recentSearchUiState = result) }
+            }
         }
 
-        fun addRecentSearch(recentSearch: String) {
-            tryToExecute(
-                function = {
-                    recentSearchUseCase.addRecentSearch(item = recentSearch)
-                    recentSearchUseCase.getRecentSearches().first()
-                },
-                onSuccess = { result -> updateState { it.copy(recentSearchUiState = result) } },
-                onError = {}
-            )
-        }
+    }
 
-        fun clearAll() {
-            tryToExecute(
-                function = {
-                    recentSearchUseCase.clearAllRecentSearches()
-                    recentSearchUseCase.getRecentSearches().first()
-                },
-                onSuccess = { result -> updateState { it.copy(recentSearchUiState = result) } },
-                onError = {}
-            )
+    fun addRecentSearch(recentSearch: String) {
+        viewModelScope.launch {
+            recentSearchUseCase.addRecentSearch(item = recentSearch)
+            recentSearchUseCase.getRecentSearches().collect { result ->
+                updateState {
+                    it.copy(recentSearchUiState = result)
+                }
+            }
         }
-    */
+    }
+
+    fun clearAll() {
+        viewModelScope.launch {
+            recentSearchUseCase.clearAllRecentSearches()
+            recentSearchUseCase.getRecentSearches().collect { result ->
+                updateState {
+                    it.copy(recentSearchUiState = result)
+                }
+            }
+
+        }
+    }
+
 
     fun addToRecentSearches(query: String) {
         val currentList = state.value.recentSearchUiState.toMutableList()
@@ -72,7 +75,7 @@ class SearchViewModel(
         updateState { it.copy(recentSearchUiState = currentList) }
     }
 
-    private fun loadInitialData() {
+    fun loadInitialData() {
         updateState {
             it.copy(
                 searchUiState = it.searchUiState.copy(
