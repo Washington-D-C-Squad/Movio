@@ -28,6 +28,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
@@ -48,26 +50,25 @@ fun SearchScreen(
     viewModel: SearchViewModel = koinViewModel()
 ) {
 
+
     val uiState by viewModel.state.collectAsState()
+    val searchResults = uiState.searchUiState.searchResults.collectAsLazyPagingItems()
+
     var searchQuery by remember { mutableStateOf("") }
-
-
-
-
     var isRecentSearchActive by remember { mutableStateOf(false) }
     if (isRecentSearchActive) {
         RecentSearchLayout()
     }
 
     ContentSearchScreen(
-        topRated = uiState.filteredScreenUiState.topResult,
+        topRated = searchResults,
         movies = uiState.filteredScreenUiState.movie,
         series = uiState.filteredScreenUiState.series,
         artist = uiState.filteredScreenUiState.artist,
         onClickTopRated = {
             Log.e("MY_TAGG"," first ")
 
-            viewModel.topResult(searchQuery)
+            viewModel.getData(searchQuery)
         },
         onClickMovies = {
             Log.e("MY_TAGG"," second ")
@@ -87,8 +88,8 @@ fun SearchScreen(
 
         forYouMovies = uiState.searchUiState.forYouMovies,
         exploreMoreMovies = uiState.searchUiState.exploreMoreMovies,
-        searchResults = uiState.searchUiState.searchResults, // <-- add this
-        searchQuery = searchQuery, // <-- pass the query
+        searchResults = searchResults,
+        searchQuery = searchQuery,
         onSearchQueryChange = { query ->
             searchQuery = query
             viewModel.searchMovies(query)
@@ -125,21 +126,21 @@ fun SearchScreen(
 
 @Composable
 fun ContentSearchScreen(
-    topRated: List<SearchScreenState.MovieUiState> ,
-    movies: List<SearchScreenState.MovieUiState> ,
-    series: List<SearchScreenState.SeriesUiState> ,
-    artist: List<SearchScreenState.ArtistUiState> ,
-    onClickTopRated:()->Unit ,
-    onClickMovies:()->Unit ,
-    onClickSeries:()->Unit ,
-    onClickArtist:()->Unit ,
+    topRated: LazyPagingItems<SearchScreenState.MovieUiState>,
+    movies: List<SearchScreenState.MovieUiState>,
+    series: List<SearchScreenState.SeriesUiState>,
+    artist: List<SearchScreenState.ArtistUiState>,
+    onClickTopRated:()->Unit,
+    onClickMovies:()->Unit,
+    onClickSeries:()->Unit,
+    onClickArtist:()->Unit,
 
     modifier: Modifier = Modifier,
     forYouMovies: List<SearchScreenState.MovieUiState> = emptyList(),
     exploreMoreMovies: List<SearchScreenState.MovieUiState> = emptyList(),
-    searchResults: List<SearchScreenState.MovieUiState> = emptyList(),
+    searchResults: LazyPagingItems<SearchScreenState.MovieUiState>,
     searchQuery: String = "",
-    onSearchQueryChange: (String) -> Unit ,
+    onSearchQueryChange: (String) -> Unit,
     onSearchBarClick: () -> Unit = {},
     onMovieClick: (SearchScreenState.MovieUiState) -> Unit = {},
 
@@ -159,7 +160,7 @@ fun ContentSearchScreen(
     var showRecentSearch by remember { mutableIntStateOf(0) }
     LaunchedEffect(searchQuery, typeOfFilterSearch) {
         snapshotFlow { searchQuery }
-            .debounce(1000) // wait 400ms after user stops typing
+            .debounce(1000)
             .collect { query ->
                 showRecentSearch =  0
                 if (query.isNotBlank()) {

@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.LazyPagingItems
 import com.madrid.presentation.R
 import com.madrid.presentation.composables.movioCards.MovioArtistsCard
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
@@ -13,15 +14,15 @@ import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
 
 fun LazyGridScope.filterSearchScreen(
     typeOfFilterSearch: String,
-    onChangeTypeFilterSearch:()->Unit ,
+    onChangeTypeFilterSearch:()->Unit,
 
-    selectedTabIndex:Int ,
-    onChangeSelectedTabIndex:(Int)->Unit ,
+    selectedTabIndex:Int,
+    onChangeSelectedTabIndex:(Int)->Unit,
 
-    topRated: List<SearchScreenState.MovieUiState> ,
-    movies: List<SearchScreenState.MovieUiState> ,
-    series: List<SearchScreenState.SeriesUiState> ,
-    artist: List<SearchScreenState.ArtistUiState> ,
+    topRated: LazyPagingItems<SearchScreenState.MovieUiState>,
+    movies: List<SearchScreenState.MovieUiState>,
+    series: List<SearchScreenState.SeriesUiState>,
+    artist: List<SearchScreenState.ArtistUiState>,
 ) {
     item (
         span = { GridItemSpan(maxLineSpan) }
@@ -46,15 +47,15 @@ fun LazyGridScope.filterSearchScreen(
             item(
                 span = { GridItemSpan(maxLineSpan) }
             ){
-                SearchResultMessage(items = topRated.size.toString())
+                SearchResultMessage(items = topRated.itemCount.toString())
             }
             items(
-               count =  topRated.size,
+               count =  topRated.itemCount,
             ) { index ->
                 MovioVerticalCard(
-                    description = topRated[index].title,
-                    movieImage = topRated[index].imageUrl,
-                    rate = topRated[index].rating,
+                    description = topRated[index]!!.title,
+                    movieImage = topRated[index]!!.imageUrl,
+                    rate = topRated[index]!!.rating,
                     width = 100.dp,
                     height = 178.dp,
                     onClick = { }

@@ -2,13 +2,20 @@ package com.madrid.presentation.screens.searchScreen.viewModel
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
+import androidx.paging.map
+import com.madrid.data.dataSource.local.mappers.toMovieEntity
 import com.madrid.domain.entity.Media
 import com.madrid.domain.usecase.searchUseCase.ArtistUseCase
 import com.madrid.domain.usecase.searchUseCase.MediaUseCase
 import com.madrid.domain.usecase.searchUseCase.PreferredMediaUseCase
 import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import com.madrid.domain.usecase.searchUseCase.TrendingMediaUseCase
+import com.madrid.presentation.screens.searchScreen.paging.SearchMoviePagingSource
 import com.madrid.presentation.screens.searchScreen.viewModel.base.BaseViewModel
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -171,18 +178,18 @@ class SearchViewModel(
         tryToExecute(
             function = { mediaUseCase.getMovieByQuery(query).first() },
             onSuccess = { result ->
-                Log.e("MY_TAG","$result this is here ")
+                Log.e("MY_TAG", "$result this is here ")
                 updateState {
                     it.copy(
                         searchUiState = it.searchUiState.copy(
-                            searchResults = result.map { movie ->
-                                SearchScreenState.MovieUiState(
-                                    title = movie.title,
-                                    id = movie.id.toString(),
-                                    imageUrl = movie.imageUrl,
-                                    rating = movie.rate.toString(),
-                                )
-                            },
+//                            searchResults = result.map { movie ->
+//                                SearchScreenState.MovieUiState(
+//                                    title = movie.title,
+//                                    id = movie.id.toString(),
+//                                    imageUrl = movie.imageUrl,
+//                                    rating = movie.rate.toString(),
+//                                )
+//                            },
                             isLoading = false
                         )
                     )
@@ -229,7 +236,7 @@ class SearchViewModel(
         viewModelScope.launch {
             mediaUseCase.getSeriesByQuery(query).collect {
                 updateState { currentState ->
-                    Log.e("MY_TAGG","i am here in suceess ")
+                    Log.e("MY_TAGG", "i am here in suceess ")
                     currentState.copy(
                         filteredScreenUiState = currentState.filteredScreenUiState.copy(
                             series = it.map { series ->
@@ -247,39 +254,7 @@ class SearchViewModel(
             }
 
         }
-//        tryToExecute(
-//            function = { mediaUseCase.getSeriesByQuery(query).first() },
-//            onSuccess = { result ->
-//                Log.e("MY_TAGG"," this is here  $result ")
-//
-//                updateState { currentState ->
-//                    currentState.copy(
-//                        filteredScreenUiState = currentState.filteredScreenUiState.copy(
-//                            series = result.map { series ->
-//                                SearchScreenState.SeriesUiState(
-//                                    id = series.id.toString(),
-//                                    title = series.title.toString(),
-//                                    imageUrl = series.imageUrl.toString(),
-//                                    rating = series.rate.toString()
-//                                )
-//                            },
-//                            isLoading = false
-//                        )
-//                    )
-//                }
-//            },
-//            onError = {
-//                Log.e("MY_TAGG","error")
-//                updateState { currentState ->
-//                    currentState.copy(
-//                        searchUiState = currentState.searchUiState.copy(
-//                            isLoading = false,
-//                            errorMessage = "Failed to load series"
-//                        )
-//                    )
-//                }
-//            }
-//        )
+
     }
 
     fun topResult(query: String) {
@@ -317,7 +292,7 @@ class SearchViewModel(
 
     fun artists(query: String) {
         viewModelScope.launch {
-            Log.e("MY_TAGG"," i am in call   ")
+            Log.e("MY_TAGG", " i am in call   ")
             artistUseCase.getArtistByQuery(query).collect {
                 updateState { currentState ->
                     currentState.copy(
@@ -335,44 +310,34 @@ class SearchViewModel(
                 }
             }
         }
-//        tryToExecute(
-//            function = { artistUseCase.getArtistByQuery(query).first() },
-//            onSuccess = { result ->
-//                updateState { currentState ->
-//                    currentState.copy(
-//                        filteredScreenUiState = currentState.filteredScreenUiState.copy(
-//                            artist = result.map { artist ->
-//                                SearchScreenState.ArtistUiState(
-//                                    id = artist.id.toString(),
-//                                    name = artist.name,
-//                                    imageUrl = artist.imageUrl.toString(),
-//                                )
-//                            },
-//                            isLoading = false
-//                        )
-//                    )
-//                }
-//            },
-//            onError = {
-//                Log.e("MY_TAGG"," erorr here  ")
-//
-//                updateState { currentState ->
-//                    currentState.copy(
-//                        filteredScreenUiState = currentState.filteredScreenUiState.copy(
-//                            isLoading = false,
-//                            errorMessage = "Failed to load "
-//                        )
-//                    )
-//                }
-//            }
-//        )
+
     }
 
-    companion object {
-        @JvmStatic
-        fun clearRecentSearchesStatic() {
+     fun getData(query: String) {
+        Pager(
+            config = PagingConfig(pageSize = 20),
+            pagingSourceFactory = {
+                SearchMoviePagingSource(
+                    query = query,
+                    mediaUseCase = mediaUseCase
+                )
+            }
+        ).flow.cachedIn(viewModelScope).map { pagingItem ->
+            pagingItem.map {
+                it.let { item ->
+                    SearchScreenState.MovieUiState(
+                        title = item.title,
+                        id = it.id.toString(),
+                        imageUrl = it.imageUrl,
+                        rating = it.rate.toString(),
+                    )
+                }
+            }
+        }.also { result ->
+            updateState { it.copy(searchUiState = it.searchUiState.copy(searchResults = result)) }
         }
     }
+
 }
 
 

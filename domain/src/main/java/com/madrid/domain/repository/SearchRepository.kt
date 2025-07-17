@@ -17,8 +17,8 @@ interface SearchRepository {
 
     suspend fun getTrendingMedia(): Media
 
-    suspend fun getTopRatedMovies(language: String): Flow<List<Movie>>
-    suspend fun getTopRatedSeries(language: String): Flow<List<Series>>
+    suspend fun getTopRatedMovies(language: String, page: Int): Flow<List<Movie>>
+    suspend fun getTopRatedSeries(language: String, page: Int): Flow<List<Series>>
 
     suspend fun getMovieByQuery(query: String): Flow<List<Movie>>
     suspend fun getSeriesByQuery(query: String): Flow<List<Series>>

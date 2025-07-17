@@ -103,13 +103,13 @@ class SearchRemoteSourceImpl() : SearchRemoteSource {
         return json.decodeFromString<MultiMediaResponse>(result.bodyAsText())
     }
 
-    override suspend fun getTopRatedMovies(language: String): MovieResponse {
+    override suspend fun getTopRatedMovies(language: String , page: Int): MovieResponse {
         val result = client.get {
             url {
                 protocol = HTTPS
                 host = BASE_URL
                 encodedPath = "/3/movie/top_rated"
-                parameters.append(PAGE, "1")
+                parameters.append(PAGE, page.toString())
                 parameters.append(LANGUAGE, language)
                 parameters.append(KEY, API_KEY)
             }
@@ -118,13 +118,13 @@ class SearchRemoteSourceImpl() : SearchRemoteSource {
 
     }
 
-    override suspend fun getTopRatedSeries(language: String): SeriesResponse {
+    override suspend fun getTopRatedSeries(language: String , page: Int): SeriesResponse {
         val result = client.get {
             url {
                 protocol = HTTPS
                 host = BASE_URL
                 encodedPath = "/3/tv/top_rated"
-                parameters.append(PAGE, "1")
+                parameters.append(PAGE, page.toString())
                 parameters.append(LANGUAGE, language)
                 parameters.append(KEY, API_KEY)
             }

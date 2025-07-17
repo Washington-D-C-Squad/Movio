@@ -19,8 +19,8 @@ interface SearchRemoteSource {
 
     suspend fun searchMultiMediaByName(name: String, language: String): MultiMediaResponse
 
-    suspend fun getTopRatedMovies(language: String): MovieResponse
+    suspend fun getTopRatedMovies(language: String , page: Int): MovieResponse
 
-    suspend fun getTopRatedSeries(language: String): SeriesResponse
+    suspend fun getTopRatedSeries(language: String , page: Int): SeriesResponse
 
 }

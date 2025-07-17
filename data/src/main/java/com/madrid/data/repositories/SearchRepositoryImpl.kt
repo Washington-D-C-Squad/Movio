@@ -79,9 +79,10 @@ class SearchRepositoryImpl(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getTopRatedMovies(language: String): Flow<List<Movie> >{
+    override suspend fun getTopRatedMovies(language: String , page: Int): Flow<List<Movie> >{
         val result = searchRemoteSource.getTopRatedMovies(
-            language = "en-US"
+            language = "en-US",
+            page = page
         ).movieResults.map {
             it.toMovie()
         }
@@ -92,9 +93,10 @@ class SearchRepositoryImpl(
         }
     }
 
-    override suspend fun getTopRatedSeries(language: String):Flow<List<Series>> {
+    override suspend fun getTopRatedSeries(language: String , page: Int):Flow<List<Series>> {
         val result = searchRemoteSource.getTopRatedSeries(
-            language = "en-US"
+            language = "en-US",
+            page = page
         ).seriesResults.map {
             it.toSeries()
         }
