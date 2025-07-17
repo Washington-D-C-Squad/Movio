@@ -1,6 +1,6 @@
 package com.madrid.data.dataSource.remote.response.series
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
@@ -32,7 +32,7 @@ data class SimilarSeries(
     val originalLanguage: String = "",
     @SerializedName("original_name")
     val originalName: String = "",
-    @SerializedName("overview")
+    @SerialName("overview")
     val overview: String = "",
     @SerializedName("popularity")
     val popularity: Double = 0.0,
@@ -44,6 +44,6 @@ data class SimilarSeries(
     val name: String = "",
     @SerializedName("vote_average")
     val voteAverage: Double = 0.0,
-    @SerializedName("vote_count")
+    @SerialName("vote_count")
     val voteCount: Int = 0,
 )

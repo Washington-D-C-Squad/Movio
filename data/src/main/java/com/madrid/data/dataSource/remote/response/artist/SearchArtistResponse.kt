@@ -1,73 +1,73 @@
 package com.madrid.data.dataSource.remote.response.artist
 
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class SearchArtistResponse(
     @SerializedName("page")
     val page: Int = 0,
-    @SerializedName("results")
+    @SerialName("results")
     val artistResults: List<ArtistsResult> = listOf(),
-    @SerializedName("total_pages")
+    @SerialName("total_pages")
     val totalPages: Int = 0,
-    @SerializedName("total_results")
+    @SerialName("total_results")
     val totalResults: Int = 0
 )
 
 @Serializable
 data class ArtistsResult(
-    @SerializedName("adult")
+    @SerialName("adult")
     val adult: Boolean = false,
-    @SerializedName("gender")
+    @SerialName("gender")
     val gender: Int = 0,
-    @SerializedName("id")
+    @SerialName("id")
     val id: Int = 0,
-    @SerializedName("known_for")
+    @SerialName("known_for")
     val knownFor: List<KnownFor> = listOf(),
-    @SerializedName("known_for_department")
+    @SerialName("known_for_department")
     val role: String = "",
-    @SerializedName("name")
+    @SerialName("name")
     val name: String = "",
-    @SerializedName("original_name")
+    @SerialName("original_name")
     val originalName: String = "",
-    @SerializedName("popularity")
+    @SerialName("popularity")
     val popularity: Double = 0.0,
-    @SerializedName("profile_path")
+    @SerialName("profile_path")
     val profilePath: String = ""
 )
 
 @Serializable
 data class KnownFor(
-    @SerializedName("adult")
+    @SerialName("adult")
     val adult: Boolean = false,
-    @SerializedName("backdrop_path")
+    @SerialName("backdrop_path")
     val backdropPath: String = "",
-    @SerializedName("genre_ids") //
+    @SerialName("genre_ids") //
     val genreIds: List<Int> = listOf(),
-    @SerializedName("id")
+    @SerialName("id")
     val id: Int = 0,
-    @SerializedName("media_type")
+    @SerialName("media_type")
     val mediaType: String = "",
-    @SerializedName("original_language")
+    @SerialName("original_language")
     val originalLanguage: String = "",
-    @SerializedName("original_title")
+    @SerialName("original_title")
     val originalTitle: String = "",
-    @SerializedName("overview") //
+    @SerialName("overview") //
     val overview: String = "",
-    @SerializedName("popularity")
+    @SerialName("popularity")
     val popularity: Double = 0.0,
-    @SerializedName("poster_path") //
+    @SerialName("poster_path") //
     val posterPath: String = "",
-    @SerializedName("release_date")
+    @SerialName("release_date")
     val releaseDate: String = "",
-    @SerializedName("title") //
+    @SerialName("title") //
     val title: String = "",
-    @SerializedName("video")
+    @SerialName("video")
     val video: Boolean = false,
-    @SerializedName("vote_average")
+    @SerialName("vote_average")
     val voteAverage: Double = 0.0,
-    @SerializedName("vote_count")
+    @SerialName("vote_count")
     val voteCount: Int = 0
 )

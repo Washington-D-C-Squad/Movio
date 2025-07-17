@@ -19,7 +19,12 @@ class SensitiveContentDetection(private val context: Context) {
         val result = LABELS.zip(output[0].toList()).toMap()
         val pornScore = result["porn"] ?: 0f
         val sexyScore = result["sexy"] ?: 0f
-        return pornScore > THRESHOLD || sexyScore > THRESHOLD
+        val drawingsScore = result["drawings"] ?: 0f
+        val hentaiScore = result["hentai"] ?: 0f
+        val neutralScore = result["neutral"] ?: 0f
+        return pornScore > SENSITIVE_THRESHOLD || sexyScore > SENSITIVE_THRESHOLD
+                || drawingsScore > SENSITIVE_THRESHOLD || hentaiScore > SENSITIVE_THRESHOLD
+                || neutralScore < NEUTRAL_THRESHOLD
     }
 
     private fun prepareInputBitmap(bitmap: Bitmap): Array<Array<Array<FloatArray>>> {
@@ -54,7 +59,8 @@ class SensitiveContentDetection(private val context: Context) {
     companion object {
         private const val MODEL_FILE_NAME = "nsfw_detect.tflite"
         private const val MODEL_INPUT_SIZE = 224
-        private const val THRESHOLD = 0.7f
+        private const val SENSITIVE_THRESHOLD = 0.35f
+        private const val NEUTRAL_THRESHOLD = 0.70f
         private val LABELS = listOf("drawings", "hentai", "neutral", "porn", "sexy")
     }
 
