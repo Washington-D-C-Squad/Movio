@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.madrid.data.dataSource.local.entity.MovieEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
@@ -22,16 +21,16 @@ interface MovieDao {
     suspend fun updateMovie(movie: MovieEntity)
 
     @Query("SELECT * FROM MOVIE_TABLE WHERE id = :id")
-    fun getMovieById(id: Int): Flow<MovieEntity?>
+    fun getMovieById(id: Int): MovieEntity?
 
     @Query("SELECT * FROM MOVIE_TABLE WHERE title LIKE :title")
-    fun getMovieByTitle(title: String): Flow<List<MovieEntity>>
+    fun getMovieByTitle(title: String): List<MovieEntity>
 
     @Query("SELECT * FROM MOVIE_TABLE ORDER BY rate DESC")
-    fun getTopRatedMovies(): Flow<List<MovieEntity>>
+    fun getTopRatedMovies(): List<MovieEntity>
 
     @Query("SELECT * FROM MOVIE_TABLE")
-    fun getAllMovies(): Flow<List<MovieEntity>>
+    fun getAllMovies(): List<MovieEntity>
 
     @Query("DELETE FROM MOVIE_TABLE")
     suspend fun deleteAllMovies()

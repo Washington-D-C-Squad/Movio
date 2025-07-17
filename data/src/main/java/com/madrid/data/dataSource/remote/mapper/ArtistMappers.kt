@@ -6,6 +6,7 @@ import com.madrid.data.dataSource.remote.response.artist.ArtistsResult
 import com.madrid.data.dataSource.remote.response.artist.KnownFor
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
 import com.madrid.domain.entity.ArtisKnownFor
+import com.madrid.data.dataSource.remote.response.artist.ArtistsResult
 import com.madrid.domain.entity.Artist
 import com.madrid.domain.entity.SearchResult
 
