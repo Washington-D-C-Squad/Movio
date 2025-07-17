@@ -22,4 +22,7 @@
 
     <string name="recent_search">البحث الأخير</string>
     <string name="clear_all">مسح الكل</string>
+    <string name="Rate_it">التقيم </string>
+    <string name="Add_to_list">أضف الى القائمة </string>
+    <string name="Play">تشغيل </string>
 </resources>

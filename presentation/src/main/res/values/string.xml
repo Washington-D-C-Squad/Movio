@@ -22,5 +22,9 @@
         <string name="Series">Series</string>
         <string name="Artists">Artists</string>
         <string name="search_result_count">SearchResult (%1$s items)</string>
+        <string name="Rate_it">Rate it</string>
+        <string name="Add_to_list">Add to list</string>
+        <string name="Play">Play</string>
+
 
 </resources>
