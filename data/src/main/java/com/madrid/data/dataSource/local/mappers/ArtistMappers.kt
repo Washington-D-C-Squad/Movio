@@ -24,7 +24,7 @@ fun ArtistEntity.toArtist(): Artist {
         imageUrl = this.imageUrl,
         description = this.description,
         role = this.role,
-        dateOfBirth = LocalDate.parse(this.dateOfBirth),
+        dateOfBirth = LocalDate.parse(this.dateOfBirth).toString(),
         country = this.country
     )
 }

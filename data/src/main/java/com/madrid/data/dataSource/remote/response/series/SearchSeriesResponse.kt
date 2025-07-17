@@ -1,48 +1,48 @@
-package com.madrid.data.dataSource.remote.response
+package com.madrid.data.dataSource.remote.response.series
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SeriesResponse(
+data class SearchSeriesResponse(
     @SerialName("page")
-    val page: Int = 0,
+    val page: Int?,
     @SerialName("results")
-    val seriesResults: List<SeriesResult> = listOf(),
+    val seriesResults: List<SeriesResult>?,
     @SerialName("total_pages")
-    val totalPages: Int = 0,
+    val totalPages: Int?,
     @SerialName("total_results")
-    val totalResults: Int = 0,
+    val totalResults: Int?,
 )
 
 @Serializable
 data class SeriesResult(
     @SerialName("adult")
-    val adult: Boolean = false,
+    val adult: Boolean?,
     @SerialName("backdrop_path")
-    val backdropPath: String = "",
+    val backdropPath: String?,
     @SerialName("genre_ids")
-    val genreIds: List<Int> = listOf(),
+    val genreIds: List<Int>?,
     @SerialName("id")
-    val id: Int = 0,
+    val id: Int?,
     @SerialName("origin_country")
-    val originCountry: List<String> = listOf(),
+    val originCountry: List<String>?,
     @SerialName("original_language")
-    val originalLanguage: String = "",
+    val originalLanguage: String?,
     @SerialName("original_name")
-    val originalName: String = "",
+    val originalName: String?,
     @SerialName("overview")
-    val overview: String = "",
+    val overview: String?,
     @SerialName("popularity")
-    val popularity: Double = 0.0,
+    val popularity: Double?,
     @SerialName("poster_path")
     val posterPath: String?,
     @SerialName("first_air_date")
-    val releaseDate: String = "",
+    val releaseDate: String?,
     @SerialName("name")
-    val title: String = "",
+    val title: String?,
     @SerialName("vote_average")
-    val voteAverage: Double = 0.0,
+    val voteAverage: Double?,
     @SerialName("vote_count")
-    val voteCount: Int = 0
+    val voteCount: Int?
 )
