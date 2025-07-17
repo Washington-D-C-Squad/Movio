@@ -1,6 +1,5 @@
 package com.madrid.presentation.screens.searchScreen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +26,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
@@ -38,6 +38,7 @@ import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.recentSearchScreen
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchViewModel
+import com.madrid.presentation.screens.searchScreen.viewModel.interactionListener.interactionListener
 import kotlinx.coroutines.flow.debounce
 import org.koin.androidx.compose.koinViewModel
 
@@ -51,52 +52,41 @@ fun SearchScreen(
     val uiState by viewModel.state.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
 
-
-
-
     var isRecentSearchActive by remember { mutableStateOf(false) }
     if (isRecentSearchActive) {
         RecentSearchLayout()
     }
 
     ContentSearchScreen(
+        modifier = modifier,
         topRated = uiState.filteredScreenUiState.topResult,
         movies = uiState.filteredScreenUiState.movie,
         series = uiState.filteredScreenUiState.series,
         artist = uiState.filteredScreenUiState.artist,
         onClickTopRated = {
-            Log.e("MY_TAGG"," first ")
-
-            viewModel.topResult(searchQuery)
+            interactionListener.onSearchTopResult(searchQuery,viewModel)
         },
         onClickMovies = {
-            Log.e("MY_TAGG"," second ")
-
-            viewModel.searchFilteredMovies(searchQuery)
+            interactionListener.onSearchFilteredMovies(searchQuery,viewModel)
         },
         onClickSeries = {
-            Log.e("MY_TAGG"," third ")
-
-            viewModel.searchSeries(searchQuery)
+            interactionListener.onSearchSeries(query = searchQuery,viewModel)
         },
         onClickArtist = {
-            Log.e("MY_TAGG"," fourth ")
-
             viewModel.artists(searchQuery)
+            interactionListener.onSearchArtists(searchQuery,viewModel)
         },
 
         forYouMovies = uiState.searchUiState.forYouMovies,
         exploreMoreMovies = uiState.searchUiState.exploreMoreMovies,
-        searchResults = uiState.searchUiState.searchResults, // <-- add this
-        searchQuery = searchQuery, // <-- pass the query
+        searchResults = uiState.searchUiState.searchResults,
+        searchQuery = searchQuery,
         onSearchQueryChange = { query ->
             searchQuery = query
-            viewModel.searchMovies(query)
-            viewModel.addRecentSearch(query)
+            interactionListener.onSearchFilmSubmitted(query,viewModel)
         },
         onMovieClick = { movie -> },
         isLoading = uiState.searchUiState.isLoading,
-
         searchHistory = uiState.recentSearchUiState,
         onSearchItemClick = { searchQuery = it },
         onRemoveItem = { viewModel.removeRecentSearch(it) },
@@ -133,7 +123,6 @@ fun ContentSearchScreen(
     onClickMovies:()->Unit ,
     onClickSeries:()->Unit ,
     onClickArtist:()->Unit ,
-
     modifier: Modifier = Modifier,
     forYouMovies: List<SearchScreenState.MovieUiState> = emptyList(),
     exploreMoreMovies: List<SearchScreenState.MovieUiState> = emptyList(),
@@ -142,16 +131,12 @@ fun ContentSearchScreen(
     onSearchQueryChange: (String) -> Unit ,
     onSearchBarClick: () -> Unit = {},
     onMovieClick: (SearchScreenState.MovieUiState) -> Unit = {},
-
     searchHistory: List<String>,
     onSearchItemClick: (String) -> Unit,
     onRemoveItem: (String) -> Unit,
     onClearAll: () -> Unit,
-
     isLoading: Boolean = false,
 ) {
-
-
 
     val showSearchResults = searchQuery.isNotBlank()
     var typeOfFilterSearch by remember { mutableStateOf("topRated") }
@@ -159,7 +144,7 @@ fun ContentSearchScreen(
     var showRecentSearch by remember { mutableIntStateOf(0) }
     LaunchedEffect(searchQuery, typeOfFilterSearch) {
         snapshotFlow { searchQuery }
-            .debounce(1000) // wait 400ms after user stops typing
+            .debounce(1000)
             .collect { query ->
                 showRecentSearch =  0
                 if (query.isNotBlank()) {
@@ -192,16 +177,15 @@ fun ContentSearchScreen(
                     onSearchQueryChange(it)
                     showRecentSearch =1
                 },
-                hintText = "search..",
+                hintText = stringResource(com.madrid.presentation.R.string.search),
                 startIconPainter = painterResource(R.drawable.search_normal),
-                endIconPainter = null,
+                endIconPainter = painterResource(R.drawable.outline_add),
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable { onSearchBarClick() }
                     .padding(top = AppTheme.spacing.medium)
             )
         }
-
 
         if(searchQuery.isEmpty() && showRecentSearch !=1 ){
             forYouAndExploreScreen(
@@ -246,7 +230,6 @@ fun ContentSearchScreen(
                     }
                 }
             )
-
         }
 
         if(showRecentSearch == 1 ){
@@ -257,8 +240,5 @@ fun ContentSearchScreen(
                 onClearAll = { onClearAll() },
             )
         }
-
-
-
     }
 }
