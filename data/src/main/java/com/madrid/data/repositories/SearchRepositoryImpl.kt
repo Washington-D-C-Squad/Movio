@@ -5,7 +5,6 @@ import com.madrid.data.dataSource.remote.mapper.toArtist
 import com.madrid.data.dataSource.remote.mapper.toMovie
 import com.madrid.data.dataSource.remote.mapper.toSeries
 import com.madrid.domain.entity.Artist
-import com.madrid.domain.entity.Media
 import com.madrid.domain.entity.Movie
 import com.madrid.domain.entity.Series
 import com.madrid.domain.repository.SearchRepository
@@ -109,11 +108,11 @@ class SearchRepositoryImpl(
         return localSource.getRecentSearches()
     }
 
-    override suspend fun addRecentSearch(item: String) {
+    override suspend fun addRecentSearchByQuery(item: String) {
         localSource.addRecentSearch(item)
     }
 
-    override suspend fun removeRecentSearch(item: String) {
+    override suspend fun removeRecentSearchByQuery(item: String) {
         localSource.removeRecentSearch(item)
     }
 

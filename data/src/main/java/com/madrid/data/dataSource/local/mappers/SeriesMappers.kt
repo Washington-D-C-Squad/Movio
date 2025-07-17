@@ -27,7 +27,7 @@ fun SeriesEntity.toSeries(): Series {
         genre = listOf(),
         topCast = listOf(),
         reviews = listOf(),
-        seasons = listOf(),
+        numOfSeasons = listOf(),
     )
 }
 
