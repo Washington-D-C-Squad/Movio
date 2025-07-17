@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.designsystem.component.CustomTextTitel
 import com.madrid.designsystem.AppTheme
@@ -30,8 +31,8 @@ fun LazyGridScope.forYouAndExploreScreen(
         ) {
             CustomTextTitel(
                 modifier = Modifier.padding(horizontal = AppTheme.spacing.medium),
-                primaryText = "For You",
-                secondaryText = "See all",
+                primaryText = stringResource(com.madrid.presentation.R.string.for_u),
+                secondaryText = stringResource(com.madrid.presentation.R.string.see_all),
                 endIcon = painterResource(R.drawable.outline_alt_arrow_left),
                 onSeeAllClick = {}
             )
@@ -45,15 +46,15 @@ fun LazyGridScope.forYouAndExploreScreen(
                     .padding(
                         bottom = AppTheme.spacing.xLarge
                     )
-                    .height(233.dp),
+                    .height(333.dp),
             ) {
                 items(forYouMovies) { movie ->
                     MovioVerticalCard(
                         description = movie.title,
                         movieImage = movie.imageUrl,
                         rate = movie.rating,
-                        width = 160.dp,
-                        height = 200.dp,
+                        width = 124.dp,
+                        height = 300.dp,
                         paddingvalue = AppTheme.spacing.small,
                         onClick = { onMovieClick(movie) }
                     )
@@ -66,7 +67,7 @@ fun LazyGridScope.forYouAndExploreScreen(
             span = { GridItemSpan(maxLineSpan) }
         ) {
             CustomTextTitel(
-                primaryText = "Explore more"
+                primaryText = stringResource(com.madrid.presentation.R.string.explore_more)
             )
         }
         items(exploreMoreMovies) { movie ->
@@ -74,8 +75,8 @@ fun LazyGridScope.forYouAndExploreScreen(
                 description = movie.title,
                 movieImage = movie.imageUrl,
                 rate = movie.rating,
-                width = 328.dp,
-                height = 233.dp,
+                width = 158.dp,
+                height = 180.dp,
                 onClick = { onMovieClick(movie) }
             )
         }
