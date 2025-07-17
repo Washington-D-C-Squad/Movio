@@ -1,5 +1,6 @@
 package com.madrid.data.repositories
 
+import android.util.Log
 import com.madrid.data.dataSource.remote.mapper.toArtist
 import com.madrid.data.dataSource.remote.mapper.toMovie
 import com.madrid.data.dataSource.remote.mapper.toSeries
@@ -47,6 +48,7 @@ class SearchRepositoryImpl(
     }
 
     override suspend fun getArtistByQuery(query: String): Flow<List<Artist>> {
+
         val result = searchRemoteSource.searchArtistByName(
             name = query,
             language = "en-US"
@@ -104,18 +106,18 @@ class SearchRepositoryImpl(
     }
 
     override suspend fun getRecentSearches(): Flow<List<String>> {
-        TODO("Not yet implemented")
+        return localSource.getRecentSearches()
     }
 
     override suspend fun addRecentSearch(item: String) {
-        TODO("Not yet implemented")
+        localSource.addRecentSearch(item)
     }
 
     override suspend fun removeRecentSearch(item: String) {
-        TODO("Not yet implemented")
+        localSource.removeRecentSearch(item)
     }
 
     override suspend fun clearAllRecentSearches() {
-        TODO("Not yet implemented")
+        localSource.clearAllRecentSearches()
     }
 }

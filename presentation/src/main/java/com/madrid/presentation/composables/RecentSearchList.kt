@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -18,12 +19,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R as DesignSystemR
 import com.madrid.designsystem.component.MovioText
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioButton
+import com.madrid.presentation.R
 
 @Composable
 fun RecentSearchList(
@@ -83,7 +88,7 @@ fun RecentSearchList(
 }
 
 @Composable
-private fun RecentSearchItem(
+fun RecentSearchItem(
     searchText: String,
     onItemClick: () -> Unit,
     onRemoveClick: () -> Unit
@@ -124,5 +129,33 @@ private fun RecentSearchItem(
                 modifier = Modifier.size(AppTheme.spacing.medium)
             )
         }
+    }
+}
+
+@Composable
+fun RecentSearchHeader(
+    modifier: Modifier = Modifier,
+    onClearAll: () -> Unit = {}
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(19.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        MovioText(
+            text = stringResource(id = R.string.recent_search),
+            textStyle = AppTheme.textStyle.title.medium16,
+            color = AppTheme.colors.surfaceColor.onSurface
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        MovioText(
+            text = stringResource(id = R.string.clear_all),
+            textStyle = AppTheme.textStyle.label.smallRegular14,
+            color = AppTheme.colors.surfaceColor.onSurfaceVariant,
+            modifier = Modifier.Companion
+                .clip(RoundedCornerShape(AppTheme.radius.medium))
+                .clickable { onClearAll() }
+        )
     }
 }

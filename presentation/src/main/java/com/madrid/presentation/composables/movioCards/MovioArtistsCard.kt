@@ -37,8 +37,8 @@ fun MovioArtistsCard(
         ) {
             BasicImageCard(
                 imageUrl = imageUrl,
-                height = 88.dp,
-                width = 88.dp,
+                height = 70.dp,
+                width = 70.dp,
                 radius = 100.dp,
             )
             MovioText(
@@ -47,7 +47,7 @@ fun MovioArtistsCard(
                 textStyle = AppTheme.textStyle.body.medium14,
                 maxLines = 1,
                 modifier = Modifier.padding(
-                    vertical = AppTheme.spacing.small,
+                    vertical = AppTheme.spacing.extraSmall,
                     horizontal = AppTheme.spacing.extraSmall
                 )
             )

@@ -1,21 +1,13 @@
 package com.madrid.presentation.screens.searchScreen
 
-data class wxwx(
-    val name : String = "",
-    val age: Int,
-    val imgUrl: String
-)
-
 data class SearchScreenState(
     val searchUiState: SearchUiState = SearchUiState(),
     val recentSearchUiState: List<String> = emptyList(),
-
-    //TODO add the remain ui state
 ) {
     data class SearchUiState(
-        val forYouMovies: List<MovieUiState> = listOf(MovieUiState()),
-        val exploreMoreMovies: List<MovieUiState> = listOf(MovieUiState()),
-        val searchResults: List<MovieUiState> = listOf(MovieUiState()),
+        val forYouMovies: List<MovieUiState> = emptyList(),
+        val exploreMoreMovies: List<MovieUiState> = emptyList(),
+        val searchResults: List<MovieUiState> =emptyList(),
         val isLoading: Boolean = false,
         val errorMessage: String? = null
     )
@@ -36,5 +28,4 @@ data class SearchScreenState(
     data class RecentSearchUiState (
         val recentSearch : List<String> = emptyList()
     )
-    //TODO add the remain ui state
 }

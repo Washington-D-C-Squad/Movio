@@ -13,8 +13,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.madrid.designsystem.AppTheme
+import com.madrid.detectImageContent.FilteredImage
 import com.madrid.presentation.R.string
 
 @Composable
@@ -29,8 +29,8 @@ fun BasicImageCard(
         modifier = modifier
             .size(height = height, width = width)
     ) {
-        AsyncImage(
-            model = imageUrl,
+        FilteredImage(
+            imageUrl = imageUrl,
             contentDescription = stringResource(
                 string.moive_image
             ),
