@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,6 +52,7 @@ fun MainScreen() {
             currentRoute = currentRoute ?: Screen.Home.route,
             onNavDestinationClicked = { navController.navigate(it) },
             navItems = navDestinations,
+            modifier = Modifier.navigationBarsPadding()
         )
     }
 }
