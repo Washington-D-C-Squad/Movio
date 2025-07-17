@@ -1,20 +1,19 @@
-package com.madrid.data.dataSource.local
+package com.madrid.data.repositories.local
 
 import android.content.Context
+import com.madrid.data.dataSource.local.MovioDatabase
 import com.madrid.data.dataSource.local.entity.ArtistEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
-import com.madrid.data.repositories.SearchLocalSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
-class SearchLocalDataSource(
+class LocalDataSourceImpl(
     private val context: Context
-) : SearchLocalSource {
+) : LocalDataSource {
 
 
-    private val dao = MovioDatabase.Companion.getInstance(context)
+    private val dao = MovioDatabase.getInstance(context)
 
     suspend fun insertMovie(movie: MovieEntity) {
         dao.movieDao().insertMovie(movie)
@@ -28,21 +27,24 @@ class SearchLocalDataSource(
         return dao.movieDao().getTopRatedMovies()
     }
 
-    override fun getMoviesByTitle(query: String): Flow<List<MovieEntity>> {
-        return dao.movieDao().getMovieByTitle("%$query%")
+
+    override suspend fun searchMovieByQueryFromDB(query: String): List<MovieEntity> {
+        TODO("Not yet implemented")
     }
 
-    override fun getSeriesByTitle(query: String): Flow<List<SeriesEntity>> {
-        return dao.seriesDao().getSeriesByTitle("%$query%")
+    override suspend fun searchSeriesByQueryFromDB(query: String): List<SeriesEntity> {
+        TODO("Not yet implemented")
     }
 
-    override fun getArtistsByTitle(query: String): Flow<List<ArtistEntity>> {
-        return dao.artistDao().getArtistByName("%$query%")
+    override suspend fun searchArtistByQueryFromDB(query: String): List<ArtistEntity> {
+        TODO("Not yet implemented")
     }
 
     private val recentSearches = MutableStateFlow<List<String>>(emptyList())
 
-    override fun getRecentSearches() = recentSearches.asStateFlow()
+    override suspend fun getRecentSearches(): Flow<List<String>> {
+        TODO("Not yet implemented")
+    }
 
     override suspend fun addRecentSearch(item: String) {
         val current = recentSearches.value.toMutableList()
