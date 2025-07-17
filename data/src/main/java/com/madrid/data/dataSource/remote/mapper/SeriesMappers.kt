@@ -18,7 +18,7 @@ fun SeriesResult.toSeries(): Series {
         imageUrl = "https://image.tmdb.org/t/p/original${this.posterPath}",
         rate = this.popularity ?: 0.0,
         yearOfRelease = releaseDataValue,
-        seasons = null,
+        numOfSeasons = null,
         description = this.overview ?: "",
         genre = listOf(),
         topCast = listOf(),

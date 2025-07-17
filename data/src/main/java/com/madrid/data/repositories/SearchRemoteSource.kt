@@ -4,7 +4,6 @@ import com.madrid.data.dataSource.remote.response.ArtistApiResponse
 import com.madrid.data.dataSource.remote.response.MovieResponse
 import com.madrid.data.dataSource.remote.response.MultiMediaResponse
 import com.madrid.data.dataSource.remote.response.SeriesResponse
-import com.madrid.domain.entity.Media
 import com.madrid.domain.entity.Movie
 import com.madrid.domain.entity.Series
 
