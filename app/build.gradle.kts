@@ -12,8 +12,10 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.ksp)
 
     jacoco
 }
@@ -35,7 +37,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -104,10 +107,10 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.compose.foundation.foundation2)
+    implementation(libs.foundation)
     implementation(libs.androidx.navigation.compose)
+    implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
-    implementation(libs.firebase.bom)
     implementation(libs.firebase.crashlytics.ndk)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -123,7 +126,7 @@ dependencies {
     implementation(project(":presentation"))
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    kapt(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
     implementation(libs.koin.androidx.compose)
     api(libs.koin.annotations)
     implementation(libs.koin.android)
