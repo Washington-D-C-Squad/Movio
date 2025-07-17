@@ -1,12 +1,8 @@
 package com.madrid.data.repositories
 
-import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 import com.madrid.data.dataSource.local.mappers.toArtist
-import com.madrid.data.dataSource.local.mappers.toArtistEntity
 import com.madrid.data.dataSource.local.mappers.toMovie
-import com.madrid.data.dataSource.local.mappers.toMovieEntity
 import com.madrid.data.dataSource.local.mappers.toSeries
-import com.madrid.data.dataSource.local.mappers.toSeriesEntity
 import com.madrid.data.dataSource.remote.mapper.toArtist
 import com.madrid.data.dataSource.remote.mapper.toMovie
 import com.madrid.data.dataSource.remote.mapper.toSeries
@@ -14,6 +10,7 @@ import com.madrid.domain.entity.Artist
 import com.madrid.domain.entity.Media
 import com.madrid.domain.entity.Movie
 import com.madrid.domain.entity.Series
+import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 import com.madrid.domain.repository.SearchRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -94,7 +91,7 @@ class SearchRepositoryImpl(
 
 
     override suspend fun getRecentSearches(): List<String> {
-        return localSource.getRecentSearches().map { it.searchQuery }
+        return localSource.getRecentSearches()
     }
 
     override suspend fun addRecentSearch(item: String) {

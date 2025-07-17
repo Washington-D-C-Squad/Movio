@@ -1,6 +1,7 @@
 package com.madrid.data.dataSource.remote.response.artist
 
 
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

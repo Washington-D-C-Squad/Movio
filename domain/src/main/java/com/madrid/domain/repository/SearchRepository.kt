@@ -22,7 +22,7 @@ interface SearchRepository {
 
     suspend fun getMediaByQuery(query: String): Flow<List<Media>>
 
-    suspend fun getRecentSearches(): Flow<List<String>>
+    suspend fun getRecentSearches(): List<String>
     suspend fun addRecentSearch(item: String)
     suspend fun removeRecentSearch(item: String)
     suspend fun clearAllRecentSearches()
