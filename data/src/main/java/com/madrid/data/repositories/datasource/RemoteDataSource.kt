@@ -1,4 +1,4 @@
-package com.madrid.data.repositories
+package com.madrid.data.repositories.datasource
 
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
 import com.madrid.data.dataSource.remote.response.movie.SearchMovieResponse

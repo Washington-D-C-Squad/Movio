@@ -1,7 +1,6 @@
-package com.madrid.data.repositories
+package com.madrid.data.repositories.datasource
 
 import com.madrid.data.dataSource.local.entity.ArtistEntity
-import com.madrid.data.dataSource.local.entity.MovieCategoryEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity

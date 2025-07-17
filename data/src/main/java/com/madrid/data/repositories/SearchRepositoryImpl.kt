@@ -11,6 +11,8 @@ import com.madrid.domain.entity.Media
 import com.madrid.domain.entity.Movie
 import com.madrid.domain.entity.Series
 import com.madrid.data.dataSource.local.entity.RecentSearchEntity
+import com.madrid.data.repositories.datasource.RemoteDataSource
+import com.madrid.data.repositories.datasource.SearchLocalSource
 import com.madrid.domain.repository.SearchRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -91,7 +93,7 @@ class SearchRepositoryImpl(
 
 
     override suspend fun getRecentSearches(): List<String> {
-        return localSource.getRecentSearches()
+        return localSource.getRecentSearches().map { it.searchQuery }
     }
 
     override suspend fun addRecentSearch(item: String) {

@@ -4,7 +4,7 @@ import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
 import com.madrid.data.dataSource.remote.response.movie.SearchMovieResponse
 import com.madrid.data.dataSource.remote.response.series.SearchSeriesResponse
 import com.madrid.data.dataSource.remote.utils.Constants.QUERY
-import com.madrid.data.repositories.RemoteDataSource
+import com.madrid.data.repositories.datasource.RemoteDataSource
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.HttpResponse
