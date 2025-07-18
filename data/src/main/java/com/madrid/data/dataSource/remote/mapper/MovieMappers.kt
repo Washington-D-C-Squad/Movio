@@ -1,5 +1,6 @@
 package com.madrid.data.dataSource.remote.mapper
 
+import com.madrid.data.dataSource.remote.response.movie.MovieDetailsResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieResult
 import com.madrid.data.dataSource.remote.response.movie.MovieReviewResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieReviewResult
@@ -19,7 +20,7 @@ fun MovieResult.toMovie(): Movie {
         yearOfRelease = this.releaseDate ?: "",
         movieDuration = "",
         description = this.overview ?: "",
-        genre = listOf(),
+
     )
 }
 
@@ -34,14 +35,13 @@ fun SearchMovieResponse.toSearchResult(): SearchResult {
 }
 
 
-/*
 fun Cast.tocrew(): Crew {
     return Crew(
         id = this.id?:0,
         name = this.name?:"",
         imageUrl = "https://image.tmdb.org/t/p/original${this.profilePath}",
     )
-}*/
+}
 
 fun MovieReviewResponse.toreviewResult(
 ): ReviewResult {
@@ -60,5 +60,18 @@ fun MovieReviewResult.toReview(): Review {
         rate = this.authorDetails?.rating ?: 0.0,
         dateOfRelease = this.createdAt ?: "",
         comment = this.content ?: ""
+    )
+}
+
+
+fun MovieDetailsResponse.tomovie(): Movie {
+    return Movie(
+        id = this.id ?: 0,
+        title = this.title ?: "",
+        imageUrl = "https://image.tmdb.org/t/p/original${this.posterPath}",
+        rate = this.voteAverage ?: 0.0,
+        yearOfRelease = this.releaseDate ?: "",
+        movieDuration = this.runtime?.toString() ?: "",
+        description = this.overview ?: "",
     )
 }

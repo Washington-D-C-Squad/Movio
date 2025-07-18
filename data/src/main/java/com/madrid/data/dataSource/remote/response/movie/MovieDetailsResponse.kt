@@ -3,7 +3,7 @@ package com.madrid.data.dataSource.remote.response.movie
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-data class MovieDetails(
+data class MovieDetailsResponse(
     @SerialName("adult")
     val adult: Boolean?,
     @SerialName("backdrop_path")

@@ -7,11 +7,13 @@ import com.madrid.data.dataSource.local.entity.SeriesEntity
 
 interface LocalDataSource {
 
-    suspend fun insertMovie(movie: MovieEntity)
     suspend fun getMovieById(movieId: Int): MovieEntity?
+    suspend fun getSeriesById(seriesId: Int): SeriesEntity?
+    suspend fun getArtistById(artistId: Int): ArtistEntity?
 
     suspend fun insertSeries(series: SeriesEntity)
     suspend fun insertArtist (artist: ArtistEntity)
+    suspend fun insertMovie(movie: MovieEntity)
 
     suspend fun getTopRatedMovies(): List<MovieEntity>
 

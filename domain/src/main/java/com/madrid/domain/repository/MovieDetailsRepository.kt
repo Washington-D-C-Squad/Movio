@@ -1,10 +1,16 @@
 package com.madrid.domain.repository
 
+import com.madrid.domain.entity.Artist
 import com.madrid.domain.entity.Movie
+import com.madrid.domain.entity.Series
 import kotlinx.coroutines.flow.Flow
 
 interface MovieDetailsRepository {
     suspend fun getMovieById(movieId: Int): Movie
+    suspend fun getSeriesById(seriesId: Int): Series
+    suspend fun getArtistById(artistId: Int): Artist
+
+
     suspend fun submitMovieRating(rating: Float)
     suspend fun addMovieToFavourites(movieId: Int)
     suspend fun getCollectionsList(): Flow<List<String>>

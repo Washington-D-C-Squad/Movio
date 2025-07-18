@@ -1,8 +1,11 @@
 package com.madrid.data.dataSource.remote
 
+import com.madrid.data.dataSource.remote.response.artist.ArtistDetailsResponse
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
+import com.madrid.data.dataSource.remote.response.movie.MovieDetailsResponse
 import com.madrid.data.dataSource.remote.response.movie.SearchMovieResponse
 import com.madrid.data.dataSource.remote.response.series.SearchSeriesResponse
+import com.madrid.data.dataSource.remote.response.series.SeriesDetailsResponse
 import com.madrid.data.dataSource.remote.utils.Constants.QUERY
 import com.madrid.data.repositories.datasource.RemoteDataSource
 import io.ktor.client.HttpClient
@@ -40,11 +43,31 @@ class RemoteDataSourceImpl(
 
     override suspend fun getTopRatedMovies(): SearchMovieResponse {
         val result = client.get("movie/top_rated")
-        val artist = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
-        return artist
+        val movie = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
+        return movie
     }
 
     override suspend fun getTopRatedSeries(): HttpResponse {
         return client.get("tv/top_rated")
     }
+
+    override suspend fun getMovieById(movieId: Int): MovieDetailsResponse {
+        val result = client.get("movie/$movieId")
+        val movie = json.decodeFromString<MovieDetailsResponse>(result.bodyAsText())
+        return movie
+    }
+
+    override suspend fun getSeriesById(seriesId: Int): SeriesDetailsResponse {
+        val result = client.get("tv/$seriesId")
+        val series = json.decodeFromString<SeriesDetailsResponse>(result.bodyAsText())
+        return series
+    }
+
+    override suspend fun getArtistById(artistId: Int): ArtistDetailsResponse {
+        val result = client.get("person/$artistId")
+        val artist = json.decodeFromString<ArtistDetailsResponse>(result.bodyAsText())
+        return artist
+    }
+
+
 }
