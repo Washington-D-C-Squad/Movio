@@ -9,6 +9,6 @@ class SearchSeriesPagingSource(
 ) : BasePagingSource<Series>() {
 
     override suspend fun loadPage(page: Int): List<Series> {
-        return mediaUseCase.getSeriesByQuery(query, page)
+        return mediaUseCase.getTopRatedMedia(query = query,page = page).second
     }
 }

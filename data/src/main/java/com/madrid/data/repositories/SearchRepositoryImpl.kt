@@ -23,9 +23,9 @@ class SearchRepositoryImpl(
 ) : SearchRepository {
 
 
-    override suspend fun getMovieByQuery(query: String,page : Int ): List<Movie> {
+    override suspend fun getMovieByQuery(query: String, page: Int): List<Movie> {
         val result = localSource.searchMovieByQueryFromDB(query)
-        if (result.isEmpty()) {
+        return if (result.isEmpty()) {
             val movie = remoteDataSource.searchMoviesByQuery(
                 name = query,
                 page = page
@@ -37,13 +37,16 @@ class SearchRepositoryImpl(
             movie?.map {
                 localSource.insertMovie(it.toMovieEntity())
             }
-
+            localSource.searchMovieByQueryFromDB(query).map { it.toMovie() }
+        } else {
+            result.map {
+                it.toMovie()
+            }
         }
 
-        return localSource.searchMovieByQueryFromDB(query).map { it.toMovie() }
     }
 
-    override suspend fun getSeriesByQuery(query: String,page : Int ): List<Series> {
+    override suspend fun getSeriesByQuery(query: String, page: Int): List<Series> {
         val result = localSource.searchSeriesByQueryFromDB(query)
         if (result.isEmpty()) {
             val remoteData = remoteDataSource.searchSeriesByQuery(
@@ -60,40 +63,35 @@ class SearchRepositoryImpl(
         return localSource.searchSeriesByQueryFromDB(query).map { it.toSeries() }
     }
 
-    override suspend fun getArtistByQuery(query: String,page : Int ): List<Artist> {
-        Log.d("MY_TAG", "in get artist in seerch repo imp ".toString())
+    override suspend fun getArtistByQuery(query: String, page: Int): List<Artist> {
         val result = localSource.searchArtistByQueryFromDB(query)
+        Log.d("in impl", "getArtistByQuery: $result")
         if (result.isEmpty()) {
             val remoteData = remoteDataSource.searchArtistByQuery(
                 name = query,
                 page = page
             ).artistResults?.map {
+                Log.d("in impl", "getArtistByQuery: $it")
                 it.toArtist()
             }
-            Log.d("MY_TAG", "remot data result $remoteData")
-
+            Log.d("in impl", "getArtistByQuery: $remoteData")
             remoteData?.map {
-                Log.d("MY_TAG", "remot data $it")
                 localSource.insertArtist(it.toArtistEntity())
+
             }
         }
-        Log.d("MY_TAG", "after insert ")
-        return localSource.searchArtistByQueryFromDB(query).map { it.toArtist() }
+
+        return localSource.searchArtistByQueryFromDB(query).map {
+            Log.d("in impl", "getArtistByQuery: $it")
+            it.toArtist()
+        }
     }
 
 
-    override suspend fun getTopRatedMovies(page: Int): List<Movie> {
-
-//        val result = localSource.searchMovieByQueryFromDB(query)
-//        if (result.isEmpty()) {
-//            remoteDataSource.searchMoviesByQuery(
-//                name = query,
-//            ).movieResults?.map {
-//                it.toMovie()
-//            }
-//        }
+    override suspend fun getTopRatedMovies(query: String, page: Int): List<Movie> {
         val res = remoteDataSource.getTopRatedMovies(
-            page
+            query = query,
+            page = page
         ).movieResults?.map {
             it.toMovie()
         } ?: listOf()
@@ -101,20 +99,10 @@ class SearchRepositoryImpl(
         return res
     }
 
-    override suspend fun getTopRatedSeries( page: Int): List<Series> {
-//        var result = localSource.searchSeriesByQueryFromDB(query)
-//        if (result.isEmpty()) {
-//            remoteDataSource.searchSeriesByQuery(
-//                name = query,
-//                page = page
-//            ).seriesResults?.map {
-//                it.toSeries()
-//            }
-//        }
-
+    override suspend fun getTopRatedSeries(query: String, page: Int): List<Series> {
         val res = remoteDataSource.getTopRatedSeries(
+            query = query,
             page = page
-
         ).seriesResults?.map {
             it.toSeries()
         } ?: listOf()

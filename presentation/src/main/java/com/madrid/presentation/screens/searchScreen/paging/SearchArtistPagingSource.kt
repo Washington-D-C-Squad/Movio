@@ -9,6 +9,6 @@ class SearchArtistPagingSource(
 ) : BasePagingSource<Artist>() {
 
     override suspend fun loadPage(page: Int): List<Artist> {
-        return artistUseCase.getArtistByQuery(query, page)
+        return artistUseCase.getArtistByQuery(query = query, page = page)
     }
 }

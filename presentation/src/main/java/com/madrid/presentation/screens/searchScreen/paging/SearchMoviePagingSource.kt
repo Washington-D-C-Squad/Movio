@@ -8,7 +8,7 @@ class SearchMoviePagingSource(
     private val mediaUseCase: MediaUseCase,
 ) : BasePagingSource<Movie>() {
     override suspend fun loadPage(page: Int): List<Movie> {
-        val movies = mediaUseCase.getTopRatedMedia(page).first
+        val movies = mediaUseCase.getTopRatedMedia(query = query, page = page).first
         return movies
     }
 }
