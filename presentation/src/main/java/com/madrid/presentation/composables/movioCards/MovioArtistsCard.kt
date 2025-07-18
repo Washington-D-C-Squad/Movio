@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -37,9 +38,8 @@ fun MovioArtistsCard(
         ) {
             BasicImageCard(
                 imageUrl = imageUrl,
-                height = 70.dp,
-                width = 70.dp,
                 radius = 100.dp,
+                modifier = Modifier.size(88.dp)
             )
             MovioText(
                 text = artistsName,

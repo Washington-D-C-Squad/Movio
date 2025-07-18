@@ -20,14 +20,11 @@ import com.madrid.presentation.R.string
 @Composable
 fun BasicImageCard(
     imageUrl: String,
-    height: Dp,
-    width: Dp,
     radius: Dp,
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
-            .size(height = height, width = width)
     ) {
         FilteredImage(
             imageUrl = imageUrl,
@@ -46,9 +43,9 @@ fun BasicImageCard(
 @Composable
 private fun prevcand() {
     AppTheme {
-        BasicImageCard(
-            imageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
-            height = 180.dp, width = 158.dp, AppTheme.radius.small
-        )
+//        BasicImageCard(
+//            imageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
+//            height = 180.dp, width = 158.dp, AppTheme.radius.small
+//        )
     }
 }

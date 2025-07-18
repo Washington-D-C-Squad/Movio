@@ -7,18 +7,21 @@ import androidx.room.RoomDatabase
 import com.madrid.data.dataSource.local.dao.ArtistDao
 import com.madrid.data.dataSource.local.dao.CategoryDao
 import com.madrid.data.dataSource.local.dao.MovieDao
+import com.madrid.data.dataSource.local.dao.RecentSearchDao
 import com.madrid.data.dataSource.local.dao.SeriesDao
 import com.madrid.data.dataSource.local.entity.ArtistEntity
 import com.madrid.data.dataSource.local.entity.MovieCategoryEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
+import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 
 @Database(
     entities = [
         MovieEntity::class,
         SeriesEntity::class,
         MovieCategoryEntity::class,
-        ArtistEntity::class
+        ArtistEntity::class,
+        RecentSearchEntity::class
     ],
     version = 1
 )
@@ -28,6 +31,7 @@ abstract class MovioDatabase : RoomDatabase() {
     abstract fun seriesDao(): SeriesDao
     abstract fun movieCategoryDao(): CategoryDao
     abstract fun artistDao(): ArtistDao
+    abstract fun recentSearchDao(): RecentSearchDao
 
     companion object {
         const val DATABASE_NAME = "MOVIO_DATABASE"

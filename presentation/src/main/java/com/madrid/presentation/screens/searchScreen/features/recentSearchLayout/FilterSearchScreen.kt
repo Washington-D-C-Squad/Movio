@@ -55,7 +55,7 @@ fun LazyGridScope.filterSearchScreen(
                     description = topRated[index].title,
                     movieImage = topRated[index].imageUrl,
                     rate = topRated[index].rating,
-                    width = 100.dp,
+                    width = 101.dp,
                     height = 178.dp,
                     onClick = { }
                 )
@@ -116,12 +116,9 @@ fun LazyGridScope.filterSearchScreen(
                     artistsName = artist[index].name,
                     imageUrl = artist[index].imageUrl,
                     width = 40.dp,
-//                    height = 233.dp,
                     onClick = { }
                 )
             }
         }
     }
-
-
 }

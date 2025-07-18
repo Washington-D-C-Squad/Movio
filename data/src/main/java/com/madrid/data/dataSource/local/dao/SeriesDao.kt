@@ -5,9 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SeriesDao {
@@ -22,10 +20,13 @@ interface SeriesDao {
     fun getSeriesById(id: Int): SeriesEntity?
 
     @Query("SELECT * FROM SERIES_TABLE WHERE title LIKE :title")
-    fun getSeriesByTitle(title: String): Flow<List<SeriesEntity>>
+    fun getSeriesByTitle(title: String): List<SeriesEntity>
+
+    @Query("SELECT * FROM SERIES_TABLE ORDER BY rate DESC")
+    fun getTopRatedSeries(): List<SeriesEntity>
 
     @Query("SELECT * FROM SERIES_TABLE")
-    fun getAllSeries(): Flow<List<SeriesEntity>>
+    fun getAllSeries(): List<SeriesEntity>
 
     @Query("DELETE FROM SERIES_TABLE")
     suspend fun deleteAllSeries()
