@@ -30,6 +30,7 @@
         <string name="for_u">For You</string>
         <string name="see_all">See all</string>
         <string name="explore_more">Explore more</string>
+        <string name="loading">Loading...</string>
 
 
 </resources>

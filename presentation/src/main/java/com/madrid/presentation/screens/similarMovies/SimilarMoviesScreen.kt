@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,16 +32,20 @@ import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
-import com.madrid.domain.entity.Movie
+import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
+import com.madrid.presentation.screens.searchScreen.viewModel.SearchViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SimilarMoviesScreen(
     onBackClick: () -> Unit = {},
-    onMovieClick: (Movie) -> Unit = {},
-    movies: List<Movie> = emptyList(),
-    modifier: Modifier = Modifier
+    onMovieClick: (SearchScreenState.MovieUiState) -> Unit = {},
+    modifier: Modifier = Modifier,
+    viewModel: SearchViewModel = koinViewModel()
 ) {
-    var selectedMovieId by remember { mutableStateOf<Int?>(null) }
+    val state by viewModel.state.collectAsState()
+    var selectedMovieId by remember { mutableStateOf<String?>(null) }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -79,11 +84,11 @@ fun SimilarMoviesScreen(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            items(movies) { movie ->
+            items(state.searchUiState.exploreMoreMovies) { movie ->
                 MovioVerticalCard(
                     description = movie.title,
                     movieImage = movie.imageUrl,
-                    rate = movie.rate.toString(),
+                    rate = movie.rating,
                     width = 101.33.dp,
                     height = 136.dp,
                     onClick = {
@@ -95,6 +100,31 @@ fun SimilarMoviesScreen(
                 )
             }
         }
+        if (state.searchUiState.isLoading) {
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                MovioText(
+                    text = stringResource(id = com.madrid.presentation.R.string.loading),
+                    color = AppTheme.colors.surfaceColor.onSurface,
+                    textStyle = AppTheme.textStyle.body.medium14
+                )
+            }
+        }
+        state.searchUiState.errorMessage?.let { errorMsg ->
+            Box(Modifier
+                .fillMaxWidth()
+                .padding(16.dp), contentAlignment = Alignment.Center) {
+                MovioText(
+                    text = errorMsg,
+                    color = AppTheme.colors.surfaceColor.outline,
+                    textStyle = AppTheme.textStyle.body.medium14
+                )
+            }
+        }
     }
 }
 
@@ -103,7 +133,6 @@ fun SimilarMoviesScreen(
 fun SimilarMoviesScreenPreview() {
     SimilarMoviesScreen(
         onBackClick = {},
-        onMovieClick = {},
-        movies = emptyList()
+        onMovieClick = {}
     )
 } 
