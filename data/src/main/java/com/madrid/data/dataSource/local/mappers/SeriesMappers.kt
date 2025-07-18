@@ -22,12 +22,10 @@ fun SeriesEntity.toSeries(): Series {
         title = this.title,
         imageUrl = this.imageUrl,
         rate = this.rate,
-        yearOfRelease = LocalDate.parse(this.yearOfRelease),
+        yearOfRelease = LocalDate.parse(this.yearOfRelease).toString(),
         description = this.description,
         genre = listOf(),
-        topCast = listOf(),
-        reviews = listOf(),
-        seasons = listOf(),
-    )
+
+        )
 }
 

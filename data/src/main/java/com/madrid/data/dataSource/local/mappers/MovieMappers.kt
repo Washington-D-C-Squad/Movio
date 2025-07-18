@@ -23,12 +23,11 @@ fun MovieEntity.toMovie(): Movie {
         title = this.title,
         imageUrl = this.imageUrl,
         rate = this.rate,
-        yearOfRelease = LocalDate.parse(this.yearOfRelease),
+        yearOfRelease = LocalDate.parse(this.yearOfRelease).toString(),
         movieDuration = this.movieDuration,
         description = this.description,
         genre = listOf(),
-        topCast = listOf(),
-        reviews = listOf(),
-    )
+
+        )
 }
 
