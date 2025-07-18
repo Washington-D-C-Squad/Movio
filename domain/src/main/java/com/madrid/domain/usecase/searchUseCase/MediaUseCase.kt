@@ -11,7 +11,7 @@ class MediaUseCase(private val searchRepository: SearchRepository) {
         return Pair(movies,series)
     }
     suspend fun getMovieByQuery(
-        query: String , page: Int
+        query: String , page: Int = 1
     ) = searchRepository.getMovieByQuery(query = query , page = page)
 
     suspend fun getSeriesByQuery(

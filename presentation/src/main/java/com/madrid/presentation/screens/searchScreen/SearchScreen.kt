@@ -26,6 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
@@ -63,10 +65,10 @@ fun SearchScreen(
             viewModel.addRecentSearch(it)
         },
         modifier = modifier,
-        topRated = uiState.filteredScreenUiState.topResult,
-        movies = uiState.filteredScreenUiState.movie,
-        series = uiState.filteredScreenUiState.series,
-        artist = uiState.filteredScreenUiState.artist,
+        topRated = uiState.filteredScreenUiState.topResult.collectAsLazyPagingItems(),
+        movies = uiState.filteredScreenUiState.movie.collectAsLazyPagingItems(),
+        series = uiState.filteredScreenUiState.series.collectAsLazyPagingItems(),
+        artist = uiState.filteredScreenUiState.artist.collectAsLazyPagingItems(),
         onClickTopRated = {
             viewModel.topResult(searchQuery)
         },
@@ -82,7 +84,7 @@ fun SearchScreen(
 
         forYouMovies = uiState.searchUiState.forYouMovies,
         exploreMoreMovies = uiState.searchUiState.exploreMoreMovies,
-        searchResults = uiState.searchUiState.searchResults,
+        searchResults = uiState.searchUiState.searchResults.collectAsLazyPagingItems(),
         searchQuery = searchQuery,
         onSearchQueryChange = { query ->
             searchQuery = query
@@ -121,10 +123,11 @@ fun SearchScreen(
 @Composable
 fun ContentSearchScreen(
     addRecentSearch: (String) -> Unit,
-    topRated: List<SearchScreenState.MovieUiState>,
-    movies: List<SearchScreenState.MovieUiState>,
-    series: List<SearchScreenState.SeriesUiState>,
-    artist: List<SearchScreenState.ArtistUiState>,
+    //Flow<PagingData<MovieUiState>>
+    topRated: LazyPagingItems<SearchScreenState.MovieUiState>,
+    movies: LazyPagingItems<SearchScreenState.MovieUiState>,
+    series: LazyPagingItems<SearchScreenState.SeriesUiState>,
+    artist: LazyPagingItems<SearchScreenState.ArtistUiState>,
     onClickTopRated: () -> Unit,
     onClickMovies: () -> Unit,
     onClickSeries: () -> Unit,
@@ -132,7 +135,7 @@ fun ContentSearchScreen(
     modifier: Modifier = Modifier,
     forYouMovies: List<SearchScreenState.MovieUiState> = emptyList(),
     exploreMoreMovies: List<SearchScreenState.MovieUiState> = emptyList(),
-    searchResults: List<SearchScreenState.MovieUiState> = emptyList(),
+    searchResults: LazyPagingItems<SearchScreenState.MovieUiState>,
     searchQuery: String = "",
     onSearchQueryChange: (String) -> Unit,
     onSearchBarClick: () -> Unit = {},

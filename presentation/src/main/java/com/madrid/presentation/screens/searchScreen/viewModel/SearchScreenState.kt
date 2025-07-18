@@ -4,6 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 
 @Immutable
 data class SearchScreenState(
@@ -27,10 +28,10 @@ data class SearchScreenState(
         val searchResultCount: String = "1",
         val isLoading: Boolean = false,
         val errorMessage: String? = null,
-        val topResult: List<MovieUiState> = emptyList(),
-        val movie: List<MovieUiState> = emptyList(),
-        val series: List<SeriesUiState> = emptyList(),
-        val artist: List<ArtistUiState> = emptyList(),
+        val topResult: Flow<PagingData<MovieUiState>> = flow {},
+        val movie: Flow<PagingData<MovieUiState>> = flow {},
+        val series: Flow<PagingData<SeriesUiState>> = flow {},
+        val artist: Flow<PagingData<ArtistUiState>> = flow {},
     )
 
 
