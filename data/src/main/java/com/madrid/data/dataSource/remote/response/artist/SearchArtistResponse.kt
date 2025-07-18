@@ -25,7 +25,7 @@ data class ArtistsResult(
     @SerialName("id")
     val id: Int?,
     @SerialName("known_for")
-    val knownFor: List<KnownFor>?,
+    val knownFor: List<KnownFor>? = null,
     @SerialName("known_for_department")
     val role: String?,
     @SerialName("name")
