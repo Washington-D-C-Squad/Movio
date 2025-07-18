@@ -25,8 +25,8 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun TopCastDetailsScreen(
+    movieId:String,
     viewModel: MovieDetailsViewModel = koinViewModel(),
-    movieId:String
 ) {
     val uiState by viewModel.state.collectAsState()
     TopCastDetailsContent(artist = uiState.cast)
