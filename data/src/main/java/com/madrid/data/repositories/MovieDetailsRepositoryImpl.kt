@@ -15,10 +15,11 @@ import com.madrid.domain.entity.Trailer
 import com.madrid.domain.repository.MovieDetailsRepository
 import kotlinx.coroutines.flow.Flow
 
-class MovieDetailsImpl(
+class MovieDetailsRepositoryImpl(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource,
 ) : MovieDetailsRepository {
+
     override suspend fun getMovieDetailsById(movieId: Int): Movie {
         return remoteDataSource.getMovieDetailsById(movieId).toMovie()
 
@@ -40,7 +41,6 @@ class MovieDetailsImpl(
         return remoteDataSource.getSimilarMoviesById(movieId).similarMovie?.map { it.toSimilarMovie() }
             ?: emptyList()
     }
-
 
     override suspend fun submitMovieRating(rating: Float) {
         TODO("Not yet implemented")

@@ -25,7 +25,7 @@ data class ArtistsResult(
     @SerialName("id")
     val id: Int?,
     @SerialName("known_for")
-    val knownFor: List<KnownFor>?,
+    val knownForNetwork: List<KnownForNetwork>?,
     @SerialName("known_for_department")
     val role: String?,
     @SerialName("name")
@@ -39,7 +39,7 @@ data class ArtistsResult(
 )
 
 @Serializable
-data class KnownFor(
+data class KnownForNetwork(
     @SerialName("adult")
     val adult: Boolean?,
     @SerialName("backdrop_path")

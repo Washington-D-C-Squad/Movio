@@ -13,7 +13,7 @@ data class MovieDetailsResponse(
     @SerialName("budget")
     val budget: Int?,
     @SerialName("genres")
-    val genres: List<Genre>?,
+    val movieGenres: List<MovieGenre>?,
     @SerialName("homepage")
     val homepage: String?,
     @SerialName("id")
@@ -71,7 +71,7 @@ data class BelongsToCollection(
 )
 
 @Serializable
-data class Genre(
+data class MovieGenre(
     @SerialName("id")
     val id: Int?,
     @SerialName("name")

@@ -5,7 +5,8 @@ import com.madrid.domain.repository.SeriesDetailsRepository
 import kotlinx.coroutines.flow.Flow
 
 class SeriesDetailsUseCase(private val seriesDetailsRepository: SeriesDetailsRepository) {
-    suspend fun getSeriesById(seriesId: Int): Series = seriesDetailsRepository.getSeriesById(seriesId)
+    suspend fun getSeriesById(seriesId: Int): Series =
+        seriesDetailsRepository.getSeriesDetailsById(seriesId)
 
     suspend fun submitSeriesRating(rating: Float) = seriesDetailsRepository.submitSeriesRating(rating)
 

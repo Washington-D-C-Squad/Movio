@@ -22,7 +22,7 @@ class SearchRepositoryImpl(
     private val localSource: LocalDataSource
 ) : SearchRepository {
 
-
+    // Region Movies
     override suspend fun getMovieByQuery(query: String): List<Movie> {
         val result = localSource.searchMovieByQueryFromDB(query)
         if (result.isEmpty()) {
@@ -31,16 +31,15 @@ class SearchRepositoryImpl(
             ).movieResults?.map {
                 it.toMovie()
             }
-
             movie?.map {
                 localSource.insertMovie(it.toMovieEntity())
             }
-
         }
-
         return localSource.searchMovieByQueryFromDB(query).map { it.toMovie() }
     }
+    //End Region
 
+    // Region Series
     override suspend fun getSeriesByQuery(query: String): List<Series> {
         val result = localSource.searchSeriesByQueryFromDB(query)
         if (result.isEmpty()) {
@@ -56,7 +55,9 @@ class SearchRepositoryImpl(
         }
         return localSource.searchSeriesByQueryFromDB(query).map { it.toSeries() }
     }
+    //End Region
 
+    //Region Artist
     override suspend fun getArtistByQuery(query: String): List<Artist> {
         Log.d("MY_TAG", "in get artist in seerch repo imp ".toString())
         val result = localSource.searchArtistByQueryFromDB(query)
@@ -76,7 +77,7 @@ class SearchRepositoryImpl(
         Log.d("MY_TAG", "after insert ")
         return localSource.searchArtistByQueryFromDB(query).map { it.toArtist() }
     }
-
+    //End Region
 
     override suspend fun getTopRatedMovies(query: String): List<Movie> {
 
@@ -104,7 +105,6 @@ class SearchRepositoryImpl(
                 it.toSeries()
             }
         }
-
         val res = remoteDataSource.getTopRatedSeries(
         ).seriesResults?.map {
             it.toSeries()

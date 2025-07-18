@@ -1,4 +1,4 @@
-package com.madrid.data.dataSource.remote.response.movie
+package com.madrid.data.dataSource.remote.response.common
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

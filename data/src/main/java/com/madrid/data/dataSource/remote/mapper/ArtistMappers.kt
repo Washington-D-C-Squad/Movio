@@ -2,10 +2,10 @@ package com.madrid.data.dataSource.remote.mapper
 
 
 import com.madrid.data.dataSource.remote.response.artist.ArtistDetailsResponse
-import com.madrid.data.dataSource.remote.response.artist.KnownFor
+import com.madrid.data.dataSource.remote.response.artist.ArtistsResult
+import com.madrid.data.dataSource.remote.response.artist.KnownForNetwork
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
 import com.madrid.domain.entity.ArtisKnownFor
-import com.madrid.data.dataSource.remote.response.artist.ArtistsResult
 import com.madrid.domain.entity.Artist
 import com.madrid.domain.entity.SearchResult
 
@@ -26,11 +26,11 @@ fun ArtistsResult.toArtist(): Artist {
         id = this.id ?: 0,
         name = this.name ?: "",
         imageUrl = "https://image.tmdb.org/t/p/original${this.profilePath}",
-        artisKnownFor = this.knownFor?.map { it.toArtistKnownFor() },
+        artisKnownFor = this.knownForNetwork?.map { it.toArtistKnownFor() },
     )
 }
 
-fun KnownFor.toArtistKnownFor(): ArtisKnownFor {
+fun KnownForNetwork.toArtistKnownFor(): ArtisKnownFor {
     return ArtisKnownFor(
         id = this.id ?: 0,
         imageUrl = "https://image.tmdb.org/t/p/original${this.posterPath}",
@@ -42,9 +42,8 @@ fun KnownFor.toArtistKnownFor(): ArtisKnownFor {
 fun SearchArtistResponse.toSearchResult(): SearchResult {
     return SearchResult(
         page = this.page,
-        artistResults = this.artistResults?.map { it.toArtist() },
+        searchResults = this.artistResults?.map { it.toArtist() },
         totalPages = this.totalPages,
         totalResults = this.totalResults
     )
 }
-
