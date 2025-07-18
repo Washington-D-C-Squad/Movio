@@ -24,5 +24,12 @@
         <string name="search_result_count">SearchResult (%1$s items)</string>//
         <string name="top_cast">Top Cast</string>
         <string name="selected_similar_movie">Similar Movies</string>
+        <string name="Rate_it">Rate it</string>
+        <string name="Add_to_list">Add to list</string>
+        <string name="Play">Play</string>
+        <string name="for_u">For You</string>
+        <string name="see_all">See all</string>
+        <string name="explore_more">Explore more</string>
+
 
 </resources>

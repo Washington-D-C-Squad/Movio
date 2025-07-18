@@ -41,7 +41,8 @@ fun MovioHorizontalCard(
         horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
     ) {
         BasicImageCard(
-            imageUrl = movieImageUrl, height = height, width = width,
+            imageUrl = movieImageUrl,
+            modifier = Modifier.fillMaxWidth().height(height),
             radius = AppTheme.radius.small
         )
         Column(
