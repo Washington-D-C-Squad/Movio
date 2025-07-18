@@ -10,8 +10,8 @@ import com.madrid.data.dataSource.local.mappers.toSeriesEntity
 import com.madrid.data.dataSource.remote.mapper.toArtist
 import com.madrid.data.dataSource.remote.mapper.toMovie
 import com.madrid.data.dataSource.remote.mapper.toSeries
-import com.madrid.data.repositories.local.LocalDataSource
-import com.madrid.data.repositories.remote.RemoteDataSource
+import com.madrid.data.repositories.datasource.LocalDataSource
+import com.madrid.data.repositories.datasource.RemoteDataSource
 import com.madrid.domain.entity.Artist
 import com.madrid.domain.entity.Movie
 import com.madrid.domain.entity.Series
@@ -96,21 +96,19 @@ class SearchRepositoryImpl(
     }
 
     override suspend fun getTopRatedSeries(query: String): List<Series> {
-        var result = localSource.searchSeriesByQueryFromDB(query)
+        val result = localSource.searchSeriesByQueryFromDB(query)
         if (result.isEmpty()) {
-            remoteDataSource.searchSeriesByQuery(
+            val remoteData = remoteDataSource.searchSeriesByQuery(
                 name = query,
             ).seriesResults?.map {
                 it.toSeries()
             }
+
+            remoteData?.map {
+                localSource.insertSeries(it.toSeriesEntity())
+            }
         }
-
-        val res = remoteDataSource.getTopRatedSeries(
-        ).seriesResults?.map {
-            it.toSeries()
-        } ?: listOf()
-
-        return res
+        return localSource.searchSeriesByQueryFromDB(query).map { it.toSeries() }
     }
 
 
