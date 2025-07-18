@@ -23,11 +23,11 @@ class LocalDataSourceImpl(
         dao.seriesDao().insertSeries(series)
     }
 
-    override suspend fun getTopRatedMovies(): List<MovieEntity>{
+    override suspend fun getTopRatedMovies(): List<MovieEntity> {
         return dao.movieDao().getTopRatedMovies()
     }
 
-    override suspend fun insertArtist (artist: ArtistEntity) {
+    override suspend fun insertArtist(artist: ArtistEntity) {
         dao.artistDao().insertArtist(artist = artist)
     }
 
@@ -45,27 +45,27 @@ class LocalDataSourceImpl(
         return dao.artistDao().getArtistByName("%$query%")
     }
 
-    private val recentSearches = MutableStateFlow<List<String>>(emptyList())
 
-    override suspend fun getRecentSearches(): List<RecentSearchEntity>{
+    override suspend fun getRecentSearches(): List<RecentSearchEntity> {
         return dao.recentSearchDao().getRecentSearches()
     }
 
     override suspend fun addRecentSearch(item: String) {
-        val current = recentSearches.value.toMutableList()
-        if (current.contains(item)) current.remove(item)
-        current.add(0, item)
-        recentSearches.value = current.take(10)
+        dao.recentSearchDao().addRecentSearch(
+            RecentSearchEntity(
+                searchQuery = item,
+            )
+        )
     }
 
     override suspend fun removeRecentSearch(item: String) {
-        val current = recentSearches.value.toMutableList()
-        current.remove(item)
-        recentSearches.value = current
+        dao.recentSearchDao().removeRecentSearch(
+           item
+        )
     }
 
     override suspend fun clearAllRecentSearches() {
-        recentSearches.value = emptyList()
+        dao.recentSearchDao().clearAllRecentSearches()
     }
 
 }

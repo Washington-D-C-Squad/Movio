@@ -2,6 +2,7 @@ package com.madrid.presentation.screens.searchScreen.viewModel
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.madrid.domain.entity.Media
 import com.madrid.domain.usecase.searchUseCase.ArtistUseCase
 import com.madrid.domain.usecase.searchUseCase.MediaUseCase
@@ -76,17 +77,37 @@ class SearchViewModel(
 
 
     fun addToRecentSearches(query: String) {
-        val currentList = state.value.recentSearchUiState.toMutableList()
-        currentList.remove(query)
-        currentList.add(0, query)
-        val newList = currentList.take(10)
-        updateState { it.copy(recentSearchUiState = newList) }
+        tryToExecute(
+            function = {
+                recentSearchUseCase.addRecentSearch(query)
+
+            },
+            onSuccess = {
+
+            },
+            onError = {
+
+            },
+            scope = viewModelScope,
+            dispatcher = Dispatchers.IO
+        )
     }
 
     fun removeRecentSearch(searchItem: String) {
-        val currentList = state.value.recentSearchUiState.toMutableList()
-        currentList.remove(searchItem)
-        updateState { it.copy(recentSearchUiState = currentList) }
+        tryToExecute(
+            function = {
+                recentSearchUseCase.removeRecentSearch(searchItem)
+
+            },
+            onSuccess = {
+
+            },
+            onError = {
+
+            },
+            scope = viewModelScope,
+            dispatcher = Dispatchers.IO
+        )
     }
 
     fun loadInitialData() {

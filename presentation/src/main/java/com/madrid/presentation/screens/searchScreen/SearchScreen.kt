@@ -40,7 +40,6 @@ import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.recentSearchScreen
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchViewModel
-import com.madrid.presentation.screens.searchScreen.viewModel.interactionListener.interactionListener
 import kotlinx.coroutines.flow.debounce
 import org.koin.androidx.compose.koinViewModel
 
@@ -63,6 +62,9 @@ fun SearchScreen(
     }
 
     ContentSearchScreen(
+        addRecentSearch = {
+            viewModel.addRecentSearch(it)
+        },
         modifier = modifier,
         topRated = uiState.filteredScreenUiState.topResult,
         movies = uiState.filteredScreenUiState.movie,
@@ -88,7 +90,6 @@ fun SearchScreen(
         onSearchQueryChange = { query ->
             searchQuery = query
             viewModel.searchMovies(query)
-            viewModel.addRecentSearch(query)
         },
         onMovieClick = { movie ->
             // Navigate to the required Screen --> navController.navigate(Destinations.MovieDetailsScreen)
@@ -122,14 +123,15 @@ fun SearchScreen(
 
 @Composable
 fun ContentSearchScreen(
-    topRated: List<SearchScreenState.MovieUiState> ,
-    movies: List<SearchScreenState.MovieUiState> ,
-    series: List<SearchScreenState.SeriesUiState> ,
-    artist: List<SearchScreenState.ArtistUiState> ,
-    onClickTopRated:()->Unit ,
-    onClickMovies:()->Unit ,
-    onClickSeries:()->Unit ,
-    onClickArtist:()->Unit ,
+    addRecentSearch: (String) -> Unit,
+    topRated: List<SearchScreenState.MovieUiState>,
+    movies: List<SearchScreenState.MovieUiState>,
+    series: List<SearchScreenState.SeriesUiState>,
+    artist: List<SearchScreenState.ArtistUiState>,
+    onClickTopRated: () -> Unit,
+    onClickMovies: () -> Unit,
+    onClickSeries: () -> Unit,
+    onClickArtist: () -> Unit,
     modifier: Modifier = Modifier,
     forYouMovies: List<SearchScreenState.MovieUiState> = emptyList(),
     exploreMoreMovies: List<SearchScreenState.MovieUiState> = emptyList(),
@@ -157,6 +159,7 @@ fun ContentSearchScreen(
                 showRecentSearch = 0
                 if (query.isNotBlank()) {
                     onSearchBarClick()
+                    addRecentSearch(query)
                     when (typeOfFilterSearch) {
                         "topRated" -> onClickTopRated()
                         "movies" -> onClickMovies()
@@ -171,7 +174,7 @@ fun ContentSearchScreen(
         columns = GridCells.Adaptive(minSize = 100.dp),
         modifier = modifier
             .fillMaxSize()
-            .windowInsetsPadding(WindowInsets.systemBars),
+            .statusBarsPadding(),
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -195,7 +198,7 @@ fun ContentSearchScreen(
             )
         }
 
-        if(searchQuery.isEmpty() && showRecentSearch !=1 ){
+        if (searchQuery.isEmpty() && showRecentSearch != 1) {
             forYouAndExploreScreen(
                 showSearchResults = showSearchResults,
                 isLoading = isLoading,
