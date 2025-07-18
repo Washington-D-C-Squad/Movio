@@ -155,7 +155,11 @@ class SearchViewModel(
         }
 
         val result = Pager(
-            config = PagingConfig(pageSize = 20),
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false,
+                prefetchDistance = 5
+            ),
             pagingSourceFactory = {
                 ExplorePagingSource(getExploreMoreMovieUseCase)
             }
