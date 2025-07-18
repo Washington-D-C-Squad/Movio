@@ -9,7 +9,9 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -17,22 +19,26 @@ import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.component.TopAppBar
 import com.madrid.presentation.R
 import com.madrid.presentation.composables.movioCards.MovioArtistsCard
-import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
-import com.madrid.presentation.screens.searchScreen.viewModel.SearchViewModel
+import com.madrid.presentation.screens.searchScreen.viewModel.MovieDetailsUiState
+import com.madrid.presentation.screens.searchScreen.viewModel.MovieDetailsViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun TopCastDetailsScreen(
-    viewModel: SearchViewModel = koinViewModel()
+    movieId:String,
+    viewModel: MovieDetailsViewModel = koinViewModel(),
 ) {
-    val uiState = viewModel.state.collectAsState().value
+    val uiState by viewModel.state.collectAsState()
+    TopCastDetailsContent(artist = uiState.cast)
 
-    TopCastDetailsContent(artist = uiState.filteredScreenUiState.artist)
+    LaunchedEffect(Unit) {
+        viewModel.loadCast(movieId)
+    }
 }
 
 @Composable
 fun TopCastDetailsContent(
-    artist: List<SearchScreenState.ArtistUiState>
+    artist: List<MovieDetailsUiState.CastUiState>
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 101.dp),
