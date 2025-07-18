@@ -278,18 +278,17 @@ class SearchViewModel(
 
 
     fun searchSeries(query: String) {
+        Log.d("enter search", "nooooooooooooooooooooobbbbbbb: $query")
         val result = Pager(
             config = PagingConfig(pageSize = 20),
             pagingSourceFactory = {
-                val x = SearchSeriesPagingSource(query, mediaUseCase)
-//                Log.d("series", "searchSeries: ${x}")
-                x
+               SearchSeriesPagingSource(query, mediaUseCase)
             }
         ).flow
             .cachedIn(viewModelScope)
             .map { pagingData ->
                 pagingData.map { series ->
-                    Log.d("series", "searchSeries: ${series}")
+                    Log.d("enter search", "searchSeries: ${series}")
                     SearchScreenState.SeriesUiState(
                         id = series.id.toString(),
                         title = series.title,

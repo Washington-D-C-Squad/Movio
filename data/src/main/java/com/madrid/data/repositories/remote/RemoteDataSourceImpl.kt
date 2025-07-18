@@ -1,5 +1,6 @@
 package com.madrid.data.repositories.remote
 
+import android.util.Log
 import com.madrid.data.CustomHttpClient
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
 import com.madrid.data.dataSource.remote.response.movie.SearchMovieResponse
@@ -26,6 +27,7 @@ class RemoteDataSourceImpl(
             parameters.append(PAGE, page.toString())
         }
         val movies = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
+        Log.d("in impl", "searchMoviesByQuery: $movies")
         return movies
     }
 
@@ -58,11 +60,13 @@ class RemoteDataSourceImpl(
     }
 
     override suspend fun getTopRatedMovies(
+        query: String,
         page: Int
     ): SearchMovieResponse {
 
         val result = client.buildHttpClient {
-            encodedPath = "/3/movie/top_rated"
+            encodedPath = "/3/search/movie"
+            parameters.append(QUERY, query)
             parameters.append(PAGE, page.toString())
         }
         val movie = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
@@ -71,10 +75,12 @@ class RemoteDataSourceImpl(
     }
 
     override suspend fun getTopRatedSeries(
+        query: String,
         page: Int
     ): SearchSeriesResponse {
         val result = client.buildHttpClient {
-            encodedPath = "/3/tv/top_rated"
+            encodedPath = "/3/search/tv"
+            parameters.append(QUERY, query)
             parameters.append(PAGE, page.toString())
         }
         val series = json.decodeFromString<SearchSeriesResponse>(result.bodyAsText())
