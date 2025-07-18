@@ -10,11 +10,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
-import coil.transform.RoundedCornersTransformation
+import com.madrid.detectImageContent.FilteredImage
 
 @Composable
 fun PosterCard(posterImageUrl: String, modifier: Modifier = Modifier) {
@@ -24,17 +21,13 @@ fun PosterCard(posterImageUrl: String, modifier: Modifier = Modifier) {
             .background(Color.Black.copy(alpha = 0.7f))
             .shadow(16.dp, RoundedCornerShape(12.dp), clip = false)
     ) {
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(posterImageUrl)
-                .crossfade(true)
-                .transformations(RoundedCornersTransformation(12f))
-                .build(),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
+        FilteredImage(
+            imageUrl = posterImageUrl,
             modifier = Modifier
                 .fillMaxSize()
-                .clip(RoundedCornerShape(12.dp))
+                .clip(RoundedCornerShape(12.dp)),
+            contentDescription = null,
+            contentScale = ContentScale.Crop
         )
     }
 } 

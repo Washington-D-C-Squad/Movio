@@ -54,21 +54,21 @@ fun MoviePosterDetailScreen(
                     )
                 }
             } else {
-                Box(
-                    modifier = Modifier
-                        .size(width = 200.dp, height = 260.dp)
-                        .align(Alignment.Center)
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(Color.Black.copy(alpha = 0.7f))
-                ) {
-                    PosterCard(
-                        posterImageUrl = ImageUrl,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
+            Box(
+                modifier = Modifier
+                    .size(width = 200.dp, height = 260.dp)
+                    .align(Alignment.Center)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(Color.Black.copy(alpha = 0.7f))
+            ) {
+                PosterCard(
+                    posterImageUrl = ImageUrl,
+                    modifier = Modifier.fillMaxSize()
+                )
             }
         }
     }
+}
 }
 
 @Preview(showBackground = true)
