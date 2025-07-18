@@ -22,5 +22,6 @@
     <string name="recent_search">البحث الأخير</string>
     <string name="clear_all">مسح الكل</string>
     <string name="top_cast">أفضل طاقم</string>
+    <string name="selected_similar_movie">أفلام مشابهة</string>
 
 </resources>

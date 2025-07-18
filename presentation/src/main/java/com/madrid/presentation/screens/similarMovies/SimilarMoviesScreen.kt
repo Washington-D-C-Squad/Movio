@@ -23,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.madrid.designsystem.AppTheme
@@ -127,7 +128,7 @@ fun SimilarMoviesScreen(
             }
             Spacer(modifier = Modifier.weight(1f))
             MovioText(
-                text = "similar movie",
+                text = stringResource(id = com.madrid.presentation.R.string.selected_similar_movie),
                 textStyle = AppTheme.textStyle.headLine.largeBold18,
                 color = AppTheme.colors.surfaceColor.onSurface
             )

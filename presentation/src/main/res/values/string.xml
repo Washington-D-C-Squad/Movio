@@ -23,5 +23,6 @@
         <string name="Artists">Artists</string>
         <string name="search_result_count">SearchResult (%1$s items)</string>//
         <string name="top_cast">Top Cast</string>
+        <string name="selected_similar_movie">Similar Movies</string>
 
 </resources>
