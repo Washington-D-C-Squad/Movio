@@ -27,7 +27,6 @@ class CustomHttpClient {
                 protocol = HTTPS
                 host = BASE_URL
                 parameters.append("language", "en-US")
-                parameters.append(PAGE, "1")
                 parameters.append(KEY, API_KEY)
                 apply(urlBuilder)
             }
