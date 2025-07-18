@@ -65,8 +65,7 @@ class RemoteDataSourceImpl(
     ): SearchMovieResponse {
 
         val result = client.buildHttpClient {
-            encodedPath = "/3/search/movie"
-            parameters.append(QUERY, query)
+            encodedPath = "3/movie/top_rated"
             parameters.append(PAGE, page.toString())
         }
         val movie = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())

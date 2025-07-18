@@ -22,7 +22,8 @@ class RecommendedRepositoryImp(
 
     override suspend fun getExploreMoreMovies(page: Int): List<Movie> {
         val res = remoteDataSource.getTopRatedMovies(
-            page
+            query = "",
+            page = page,
         ).movieResults?.map {
             it.toMovie()
         } ?: listOf()
