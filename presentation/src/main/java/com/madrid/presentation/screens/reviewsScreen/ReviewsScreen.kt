@@ -28,7 +28,7 @@ fun ReviewsScreen() {
             reviews = emptyList()
         )
     )
-    TODO("change UIState that is passed to the screen content")
+    //TODO("change UIState that is passed to the screen content")
 
 }
 

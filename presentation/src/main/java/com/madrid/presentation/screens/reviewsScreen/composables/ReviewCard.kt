@@ -10,10 +10,12 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -54,8 +56,10 @@ fun ReviewCard(
                     model = reviewerImageUrl,
                     contentDescription = "",
                     modifier = Modifier
-                        .size(32.dp)
                         .padding(end = AppTheme.spacing.small)
+                        .clip(CircleShape)
+                        .size(32.dp)
+
                 )
                 Column(
                     verticalArrangement = Arrangement.SpaceBetween
