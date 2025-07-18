@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.madrid.data.dataSource.local.entity.MovieCategoryEntity
-import kotlinx.coroutines.flow.Flow
 
 
 @Dao
@@ -19,17 +18,17 @@ interface CategoryDao {
     suspend fun deleteCategory(category: MovieCategoryEntity)
 
     @Query("SELECT * FROM CATEGORY_TABLE WHERE id = :id")
-    fun getCategoryById(id: Int): Flow<MovieCategoryEntity?>
+    fun getCategoryById(id: Int): MovieCategoryEntity?
 
     @Query("SELECT * FROM CATEGORY_TABLE WHERE title = :title")
-    fun getCategoryByTitle(title: String): Flow<List<MovieCategoryEntity>>
+    fun getCategoryByTitle(title: String): List<MovieCategoryEntity>
 
     @Query("SELECT * FROM CATEGORY_TABLE")
-    fun getAllCategories(): Flow<List<MovieCategoryEntity>>
+    fun getAllCategories(): List<MovieCategoryEntity>
 
     // descending order by searchCount
     @Query("SELECT * FROM CATEGORY_TABLE ORDER BY searchCount DESC")
-    fun getAllCategoriesBySearchCount(): Flow<List<MovieCategoryEntity>>
+    fun getAllCategoriesBySearchCount(): List<MovieCategoryEntity>
 
     @Query("DELETE FROM CATEGORY_TABLE")
     suspend fun deleteAllCategories()
