@@ -30,4 +30,8 @@ interface RemoteDataSource {
         page: Int
 
     ): SearchSeriesResponse
+
+    suspend fun getPopularMovie(
+        page: Int
+    ): SearchMovieResponse
 }

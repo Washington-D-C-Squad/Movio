@@ -81,4 +81,14 @@ class RemoteDataSourceImpl(
 
         return series
     }
+
+    override suspend fun getPopularMovie(page: Int): SearchMovieResponse {
+        val result = client.buildHttpClient {
+            encodedPath = "/3/movie/popular"
+            parameters.append(PAGE, page.toString())
+        }
+        val movie = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
+
+        return movie
+    }
 }
