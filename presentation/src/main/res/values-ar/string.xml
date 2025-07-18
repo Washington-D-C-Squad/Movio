@@ -19,10 +19,12 @@
     <string name="Series">المسلسلات</string>
     <string name="Artists">الممثلون</string>
     <string name="search_result_count">نتائج البحث (%1$s عنصر)</string>
-
     <string name="recent_search">البحث الأخير</string>
     <string name="clear_all">مسح الكل</string>
     <string name="Rate_it">التقيم </string>
     <string name="Add_to_list">أضف الى القائمة </string>
     <string name="Play">تشغيل </string>
+    <string name="for_u">من أجلك</string>
+    <string name="see_all">رؤية الكل</string>
+    <string name="explore_more">البحث عن المزيد</string>
 </resources>

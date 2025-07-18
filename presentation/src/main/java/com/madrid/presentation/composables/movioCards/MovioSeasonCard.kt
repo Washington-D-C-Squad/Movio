@@ -49,7 +49,8 @@ fun MovioSeasonCard(
         verticalAlignment = Alignment.Top
     ) {
         BasicImageCard(
-            imageUrl = movieImage, height = height, width = width,
+            imageUrl = movieImage,
+            modifier = Modifier.fillMaxWidth().height(height),
             radius = AppTheme.radius.small
         )
         Column(
