@@ -78,7 +78,7 @@ class SearchRepositoryImpl(
     }
 
 
-    override suspend fun getTopRatedMovies(query: String): List<Movie> {
+    override suspend fun getTopRatedMovies(query: String,page: Int): List<Movie> {
 
 //        val result = localSource.searchMovieByQueryFromDB(query)
 //        if (result.isEmpty()) {
@@ -95,7 +95,7 @@ class SearchRepositoryImpl(
         return res
     }
 
-    override suspend fun getTopRatedSeries(query: String): List<Series> {
+    override suspend fun getTopRatedSeries(query: String, page: Int): List<Series> {
         var result = localSource.searchSeriesByQueryFromDB(query)
         if (result.isEmpty()) {
             remoteDataSource.searchSeriesByQuery(
@@ -106,6 +106,7 @@ class SearchRepositoryImpl(
         }
 
         val res = remoteDataSource.getTopRatedSeries(
+
         ).seriesResults?.map {
             it.toSeries()
         } ?: listOf()
