@@ -4,7 +4,20 @@ import com.madrid.domain.repository.MovieDetailsRepository
 import kotlinx.coroutines.flow.Flow
 
 class MovieDetailsUseCase(private val movieDetailsRepository: MovieDetailsRepository) {
-    suspend fun getMovieById(movieId: Int) = movieDetailsRepository.getMovieById(movieId)
+    suspend fun getMovieDetailsById(movieId: Int) =
+        movieDetailsRepository.getMovieDetailsById(movieId)
+
+    suspend fun getMovieTrailersById(movieId: Int) =
+        movieDetailsRepository.getMovieTrailersById(movieId)
+
+    suspend fun getMovieCreditsById(movieId: Int) =
+        movieDetailsRepository.getMovieCreditsById(movieId)
+
+    suspend fun getMovieReviewsById(movieId: Int) =
+        movieDetailsRepository.getMovieCreditsById(movieId)
+
+    suspend fun getSimilarMoviesById(movieId: Int) =
+        movieDetailsRepository.getSimilarMoviesById(movieId)
 
     suspend fun submitMovieRating(rating: Float) = movieDetailsRepository.submitMovieRating(rating)
 
