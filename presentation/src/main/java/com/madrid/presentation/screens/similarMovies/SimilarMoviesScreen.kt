@@ -31,78 +31,16 @@ import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
-
-data class Movie(
-    val title: String,
-    val rating: Float,
-    val posterUrl: String,
-    val ageRating: String? = null
-)
-
-val moviesList = listOf(
-    Movie(
-        "The Dark Knight",
-        5.0f,
-        "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
-        "16"
-    ),
-    Movie(
-        "Spider-Man: Into the Spider-Verse",
-        4.8f,
-        "https://image.tmdb.org/t/p/w500/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
-        "12"
-    ),
-    Movie(
-        "Grave of the Fireflies",
-        4.8f,
-        "https://image.tmdb.org/t/p/w500/q0VOH9aVLu5QQG5kumE36e6BjLf.jpg"
-    ),
-    Movie(
-        "À l'instinct - En eaux profondes",
-        4.8f,
-        "https://image.tmdb.org/t/p/w500/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg"
-    ),
-    Movie(
-        "Fullmetal Alchemist: Brotherhood",
-        4.8f,
-        "https://image.tmdb.org/t/p/w500/4grx6h2B3p6kAMPxQ4vOBFSY6kG.jpg"
-    ),
-    Movie("Our girl", 4.2f, "https://image.tmdb.org/t/p/w500/2CAL2433ZeIihfX1Hb2139CX0pW.jpg"),
-    Movie(
-        "Ocean with David Attenborough",
-        4.4f,
-        "https://image.tmdb.org/t/p/w500/6FfCtAuVAW8XJjZ7eWeLibRLWTw.jpg"
-    ),
-    Movie(
-        "The Ugly Stepsister",
-        4.8f,
-        "https://image.tmdb.org/t/p/w500/9O1Iy9od7uGqF3Qh2l1AL5fGd2u.jpg"
-    ),
-    Movie(
-        "Thor: Ragnarok",
-        4.5f,
-        "https://image.tmdb.org/t/p/w500/rzRwTcFvttcN1ZpX2xv4j3tSdJu.jpg"
-    ),
-    Movie(
-        "Jurassic World",
-        4.0f,
-        "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"
-    ),
-    Movie("Shark Tank", 4.6f, "https://image.tmdb.org/t/p/w500/6bCplVkhowCjTHXWv49UjRPn0eK.jpg"),
-    Movie(
-        "Detective Conan",
-        4.1f,
-        "https://image.tmdb.org/t/p/w500/2vFuG6bWGyQUzYS9d69E5l85nIz.jpg"
-    )
-)
+import com.madrid.domain.entity.Movie
 
 @Composable
 fun SimilarMoviesScreen(
     onBackClick: () -> Unit = {},
     onMovieClick: (Movie) -> Unit = {},
+    movies: List<Movie> = emptyList(),
     modifier: Modifier = Modifier
 ) {
-    var selectedMovieId by remember { mutableStateOf<String?>(null) }
+    var selectedMovieId by remember { mutableStateOf<Int?>(null) }
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -141,15 +79,15 @@ fun SimilarMoviesScreen(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            items(moviesList) { movie ->
+            items(movies) { movie ->
                 MovioVerticalCard(
                     description = movie.title,
-                    movieImage = movie.posterUrl,
-                    rate = movie.rating.toString(),
+                    movieImage = movie.imageUrl,
+                    rate = movie.rate.toString(),
                     width = 101.33.dp,
                     height = 136.dp,
                     onClick = {
-                        selectedMovieId = movie.title
+                        selectedMovieId = movie.id
                         onMovieClick(movie)
                     },
                     modifier = Modifier,
@@ -165,6 +103,7 @@ fun SimilarMoviesScreen(
 fun SimilarMoviesScreenPreview() {
     SimilarMoviesScreen(
         onBackClick = {},
-        onMovieClick = {}
+        onMovieClick = {},
+        movies = emptyList()
     )
 } 
