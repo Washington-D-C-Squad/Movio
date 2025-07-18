@@ -21,6 +21,7 @@
         <string name="Movies">Movies</string>
         <string name="Series">Series</string>
         <string name="Artists">Artists</string>
-        <string name="search_result_count">SearchResult (%1$s items)</string>
+        <string name="search_result_count">SearchResult (%1$s items)</string>//
+        <string name="top_cast">Top Cast</string>
 
 </resources>
