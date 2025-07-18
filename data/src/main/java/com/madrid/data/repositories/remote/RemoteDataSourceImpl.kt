@@ -48,7 +48,7 @@ class RemoteDataSourceImpl(
         name: String,
         page: Int
     ): SearchArtistResponse {
-
+        Log.d("KTOR", "searchArtistByQuery: $name")
         val result = client.buildHttpClient {
             encodedPath = "/3/search/person"
             parameters.append(QUERY, name)

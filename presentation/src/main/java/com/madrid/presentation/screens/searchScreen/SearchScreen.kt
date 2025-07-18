@@ -1,5 +1,6 @@
 package com.madrid.presentation.screens.searchScreen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -89,7 +90,7 @@ fun SearchScreen(
         searchQuery = searchQuery,
         onSearchQueryChange = { query ->
             searchQuery = query
-            viewModel.searchFilteredMovies(query)
+//            viewModel.searchMovies(query)
         },
         onMovieClick = { movie ->
             // Navigate to the required Screen --> navController.navigate(Destinations.MovieDetailsScreen)
@@ -156,7 +157,8 @@ fun ContentSearchScreen(
     var typeOfFilterSearch by remember { mutableStateOf("topRated") }
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     var showRecentSearch by remember { mutableIntStateOf(0) }
-    LaunchedEffect(searchQuery, typeOfFilterSearch) {
+    LaunchedEffect(searchQuery) {
+        Log.d("in launch", "in launch")
         snapshotFlow { searchQuery }
             .debounce(1000)
             .collect { query ->
