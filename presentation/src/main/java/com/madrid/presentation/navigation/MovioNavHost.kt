@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.madrid.presentation.screens.SeeAllForYou.seeAllForYouScreenRoute
+import com.madrid.presentation.screens.SeeAllForYou.SeeAllForYouScreen
 import com.madrid.presentation.screens.searchScreen.SearchScreen
 
 @Composable
@@ -13,7 +13,9 @@ fun MovioNavHost(navController: NavHostController) {
         navController = navController,
         startDestination = Destinations.HomeScreen
     ) {
-        seeAllForYouScreenRoute(navController)
+        composable<Destinations.SeeAllForYouScreen> {
+            SeeAllForYouScreen()
+        }
         composable<Destinations.SplashScreen> {
             //call SplashScreen()
         }

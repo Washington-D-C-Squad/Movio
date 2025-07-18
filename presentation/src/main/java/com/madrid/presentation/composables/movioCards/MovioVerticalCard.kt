@@ -51,7 +51,7 @@ fun MovioVerticalCard(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.End
             ) {
-                RateIcon(rate = rate, tint = AppTheme.colors.systemColors.warning)
+                RateIcon(rate = rate.take(3), tint = AppTheme.colors.systemColors.warning)
             }
             BasicImageCard(
                 imageUrl = movieImage,

@@ -30,16 +30,18 @@ import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
 import com.madrid.presentation.R
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
+import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SeeAllForYouScreen(
-    navController: NavController,
     viewModel: SeeAllForYouViewModel = koinViewModel(),
 ) {
+    val navController = LocalNavController.current
     val uiState by viewModel.state.collectAsState()
+
     SeeAllForYouScreenContent(
         onClickBackIcon = {
             navController.popBackStack()

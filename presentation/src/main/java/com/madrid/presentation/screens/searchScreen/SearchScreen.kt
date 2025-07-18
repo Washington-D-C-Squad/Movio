@@ -33,8 +33,8 @@ import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.textInputField.BasicTextInputField
+import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
-import com.madrid.presentation.screens.SeeAllForYou.navigateToSeeAllForYouScreenRoute
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.RecentSearchLayout
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.filterSearchScreen
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.forYouAndExploreScreen
@@ -101,7 +101,7 @@ fun SearchScreen(
         onRemoveItem = { viewModel.removeRecentSearch(it) },
         onClearAll = { viewModel.clearAll() },
         onClickSeeAll = {
-            navController.navigateToSeeAllForYouScreenRoute()
+            navController.navigate(Destinations.SeeAllForYouScreen)
         }
     )
     uiState.searchUiState.errorMessage?.let { errorMsg ->
