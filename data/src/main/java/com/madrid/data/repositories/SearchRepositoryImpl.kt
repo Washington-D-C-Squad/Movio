@@ -24,9 +24,9 @@ class SearchRepositoryImpl(
 
 
     override suspend fun getMovieByQuery(query: String): List<Movie> {
-        var  result = localSource.searchMovieByQueryFromDB(query)
+        val result = localSource.searchMovieByQueryFromDB(query)
         if (result.isEmpty()) {
-            val movie =  remoteDataSource.searchMoviesByQuery(
+            val movie = remoteDataSource.searchMoviesByQuery(
                 name = query,
             ).movieResults?.map {
                 it.toMovie()
@@ -58,7 +58,7 @@ class SearchRepositoryImpl(
     }
 
     override suspend fun getArtistByQuery(query: String): List<Artist> {
-        Log.d("MY_TAG","in get artist in seerch repo imp ".toString())
+        Log.d("MY_TAG", "in get artist in seerch repo imp ".toString())
         val result = localSource.searchArtistByQueryFromDB(query)
         if (result.isEmpty()) {
             val remoteData = remoteDataSource.searchArtistByQuery(
@@ -66,14 +66,14 @@ class SearchRepositoryImpl(
             ).artistResults?.map {
                 it.toArtist()
             }
-            Log.d("MY_TAG","remot data result $remoteData")
+            Log.d("MY_TAG", "remot data result $remoteData")
 
             remoteData?.map {
-                Log.d("MY_TAG","remot data $it")
+                Log.d("MY_TAG", "remot data $it")
                 localSource.insertArtist(it.toArtistEntity())
             }
         }
-        Log.d("MY_TAG","after insert ")
+        Log.d("MY_TAG", "after insert ")
         return localSource.searchArtistByQueryFromDB(query).map { it.toArtist() }
     }
 
@@ -108,7 +108,7 @@ class SearchRepositoryImpl(
         val res = remoteDataSource.getTopRatedSeries(
         ).seriesResults?.map {
             it.toSeries()
-        }?: listOf()
+        } ?: listOf()
 
         return res
     }
