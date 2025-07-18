@@ -84,7 +84,7 @@ private fun EpisodeMovieImage(
     ) {
         BasicImageCard(
             imageUrl = movieImageUrl,
-            height = height, width = width,
+            modifier = Modifier.fillMaxWidth().height(height),
             radius = AppTheme.radius.small,
         )
         MovioIcon(
