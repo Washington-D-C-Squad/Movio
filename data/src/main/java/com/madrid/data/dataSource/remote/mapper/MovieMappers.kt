@@ -8,6 +8,8 @@ import com.madrid.data.dataSource.remote.response.movie.MovieResult
 import com.madrid.data.dataSource.remote.response.movie.MovieReviewResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieReviewResult
 import com.madrid.data.dataSource.remote.response.movie.SearchMovieResponse
+import com.madrid.data.dataSource.remote.response.movie.SimilarMovieNetwork
+import com.madrid.data.dataSource.remote.response.movie.SimilarMoviesResponse
 import com.madrid.data.dataSource.remote.response.movie.TrailerResponse
 import com.madrid.domain.entity.Cast
 import com.madrid.domain.entity.Movie
@@ -132,3 +134,32 @@ fun TrailerResponse.toTrailer(): Trailer {
     )
 }
 // endregion
+
+// region similar
+data class SimilarMovies(
+    val page: Int?,
+    val results: List<SimilarMovie>?,
+    val totalPages: Int?,
+    val totalResults: Int?,
+)
+
+
+fun SimilarMovieNetwork.toSimilarMovie(): SimilarMovie {
+    return SimilarMovie(
+        id = this.id ?: 0,
+        title = this.title ?: "",
+        imageUrl = "https://image.tmdb.org/t/p/original${this.posterPath}",
+        rate = this.voteAverage ?: 0.0
+    )
+
+}
+
+fun SimilarMoviesResponse.toSimilarMovies(): SimilarMovies {
+    return SimilarMovies(
+        page = this.page,
+        results = this.similarMovie?.map { it.toSimilarMovie() },
+        totalPages = this.totalPages,
+        totalResults = this.totalResults
+
+    )
+}

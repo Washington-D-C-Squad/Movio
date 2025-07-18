@@ -25,4 +25,11 @@ data class Trailer(
     val id: String
 )
 
+data class SimilarMovie(
+    val id: Int,
+    val title: String,
+    val imageUrl: String,
+    val rate: Double,
+)
+
 
