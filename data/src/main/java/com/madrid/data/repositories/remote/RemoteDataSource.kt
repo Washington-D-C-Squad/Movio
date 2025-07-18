@@ -38,7 +38,7 @@ interface RemoteDataSource {
 
     //Region Artist
     suspend fun searchArtistByQuery(name: String): SearchArtistResponse
-    suspend fun getArtistById(artistId: Int): ArtistDetailsResponse
+    suspend fun getArtistDetailsById(artistId: Int): ArtistDetailsResponse
     //End Region
 
     suspend fun getTopRatedMovies(): SearchMovieResponse

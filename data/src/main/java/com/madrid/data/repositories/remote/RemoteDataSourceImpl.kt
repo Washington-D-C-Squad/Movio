@@ -84,9 +84,8 @@ class RemoteDataSourceImpl(
     override suspend fun searchArtistByQuery(name: String): SearchArtistResponse =
         getSearchRequestByQuery<SearchArtistResponse>("/3/search/person", name)
 
-    override suspend fun getArtistById(artistId: Int): ArtistDetailsResponse {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getArtistDetailsById(artistId: Int): ArtistDetailsResponse =
+        getRequestByPath<ArtistDetailsResponse>("/3/person/$artistId")
     // End Region
 
     private suspend inline fun <reified T> getRequestByPath(path: String): T {
