@@ -2,22 +2,15 @@ package com.madrid.presentation.screens.searchScreen.viewModel
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.cachedIn
-import androidx.paging.map
-import com.madrid.data.dataSource.local.mappers.toMovieEntity
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.madrid.domain.entity.Media
 import com.madrid.domain.usecase.searchUseCase.ArtistUseCase
 import com.madrid.domain.usecase.searchUseCase.MediaUseCase
 import com.madrid.domain.usecase.searchUseCase.PreferredMediaUseCase
 import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import com.madrid.domain.usecase.searchUseCase.TrendingMediaUseCase
-import com.madrid.presentation.screens.searchScreen.paging.SearchMoviePagingSource
 import com.madrid.presentation.screens.searchScreen.viewModel.base.BaseViewModel
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
@@ -32,23 +25,39 @@ class SearchViewModel(
     SearchScreenState()
 ) {
     init {
+
         loadRecentSearches()
+
         loadInitialData()
     }
 
-    fun loadRecentSearches() {
-        tryToExecute(
-            function = { recentSearchUseCase.getRecentSearches().first() },
-            onSuccess = { result -> updateState { it.copy(recentSearchUiState = result) } },
-            onError = {}
-        )
+
+    private fun loadRecentSearches() {
+
+        viewModelScope.launch {
+            tryToExecute(
+                function = { recentSearchUseCase.getRecentSearches() },
+                onSuccess = { result ->
+                    updateState {
+                        it.copy(
+                            recentSearchUiState = result
+                        )
+                    }
+                },
+                onError = { },
+                scope = viewModelScope,
+                dispatcher = Dispatchers.IO
+            )
+
+        }
+
     }
 
     fun addRecentSearch(recentSearch: String) {
         tryToExecute(
             function = {
                 recentSearchUseCase.addRecentSearch(item = recentSearch)
-                recentSearchUseCase.getRecentSearches().first()
+                recentSearchUseCase.getRecentSearches()
             },
             onSuccess = { result -> updateState { it.copy(recentSearchUiState = result) } },
             onError = {}
@@ -59,28 +68,50 @@ class SearchViewModel(
         tryToExecute(
             function = {
                 recentSearchUseCase.clearAllRecentSearches()
-                recentSearchUseCase.getRecentSearches().first()
+                recentSearchUseCase.getRecentSearches()
             },
             onSuccess = { result -> updateState { it.copy(recentSearchUiState = result) } },
             onError = {}
         )
     }
 
+
     fun addToRecentSearches(query: String) {
-        val currentList = state.value.recentSearchUiState.toMutableList()
-        currentList.remove(query)
-        currentList.add(0, query)
-        val newList = currentList.take(10)
-        updateState { it.copy(recentSearchUiState = newList) }
+        tryToExecute(
+            function = {
+                recentSearchUseCase.addRecentSearch(query)
+
+            },
+            onSuccess = {
+
+            },
+            onError = {
+
+            },
+            scope = viewModelScope,
+            dispatcher = Dispatchers.IO
+        )
     }
 
     fun removeRecentSearch(searchItem: String) {
-        val currentList = state.value.recentSearchUiState.toMutableList()
-        currentList.remove(searchItem)
-        updateState { it.copy(recentSearchUiState = currentList) }
+        tryToExecute(
+            function = {
+                recentSearchUseCase.removeRecentSearch(searchItem)
+
+            },
+            onSuccess = {
+
+            },
+            onError = {
+
+            },
+            scope = viewModelScope,
+            dispatcher = Dispatchers.IO
+        )
     }
 
-    private fun loadInitialData() {
+    fun loadInitialData() {
+
         updateState {
             it.copy(
                 searchUiState = it.searchUiState.copy(
@@ -89,51 +120,47 @@ class SearchViewModel(
                 )
             )
         }
+
+
         tryToExecute(
             function = {
                 mediaUseCase.getTopRatedMedia("fafafdf")
             },
             onSuccess = { (forYou, explore) ->
-                viewModelScope.launch {
-                    forYou.collect { movies ->
-                        updateState {
-                            it.copy(
-                                searchUiState = it.searchUiState.copy(
-                                    forYouMovies = movies.map { movie ->
-                                        SearchScreenState.MovieUiState(
-                                            title = movie.title,
-                                            id = movie.id.toString(),
-                                            imageUrl = movie.imageUrl,
-                                            rating = movie.rate.toString(),
-                                        )
-                                    },
-                                    isLoading = false
+
+                updateState {
+                    it.copy(
+                        searchUiState = it.searchUiState.copy(
+                            forYouMovies = forYou.map { movie ->
+                                SearchScreenState.MovieUiState(
+                                    title = movie.title,
+                                    id = movie.id.toString(),
+                                    imageUrl = movie.imageUrl,
+                                    rating = movie.rate.toString(),
                                 )
-                            )
-                        }
-                    }
+                            },
+                            isLoading = false
+                        )
+                    )
                 }
-                viewModelScope.launch {
-                    forYou.collect { movies ->
-                        updateState {
-                            it.copy(
-                                searchUiState = it.searchUiState.copy(
-                                    exploreMoreMovies = movies.map { movie ->
-                                        SearchScreenState.MovieUiState(
-                                            title = movie.title,
-                                            id = movie.id.toString(),
-                                            imageUrl = movie.imageUrl,
-                                            rating = movie.rate.toString(),
-                                        )
-                                    },
-                                    isLoading = false
+                updateState {
+                    it.copy(
+                        searchUiState = it.searchUiState.copy(
+                            exploreMoreMovies = explore.map { movie ->
+                                SearchScreenState.MovieUiState(
+                                    title = movie.title,
+                                    id = movie.id.toString(),
+                                    imageUrl = movie.imageUrl,
+                                    rating = movie.rate.toString(),
                                 )
-                            )
-                        }
-                    }
+                            },
+                            isLoading = false
+                        )
+                    )
                 }
             },
             onError = { e ->
+
                 updateState {
                     it.copy(
                         searchUiState = it.searchUiState.copy(
@@ -176,20 +203,20 @@ class SearchViewModel(
 
     fun searchMovies(query: String) {
         tryToExecute(
-            function = { mediaUseCase.getMovieByQuery(query).first() },
+            function = { mediaUseCase.getMovieByQuery(query) },
             onSuccess = { result ->
                 Log.e("MY_TAG", "$result this is here ")
                 updateState {
                     it.copy(
                         searchUiState = it.searchUiState.copy(
-//                            searchResults = result.map { movie ->
-//                                SearchScreenState.MovieUiState(
-//                                    title = movie.title,
-//                                    id = movie.id.toString(),
-//                                    imageUrl = movie.imageUrl,
-//                                    rating = movie.rate.toString(),
-//                                )
-//                            },
+                            searchResults = result.map { movie ->
+                                SearchScreenState.MovieUiState(
+                                    title = movie.title,
+                                    id = movie.id.toString(),
+                                    imageUrl = movie.imageUrl,
+                                    rating = movie.rate.toString(),
+                                )
+                            },
                             isLoading = false
                         )
                     )
@@ -210,7 +237,7 @@ class SearchViewModel(
 
     fun searchFilteredMovies(query: String) {
         tryToExecute(
-            function = { mediaUseCase.getMovieByQuery(query).first() },
+            function = { mediaUseCase.getMovieByQuery(query) },
             onSuccess = { result ->
                 updateState { current ->
                     current.copy(
@@ -233,13 +260,13 @@ class SearchViewModel(
     }
 
     fun searchSeries(query: String) {
-        viewModelScope.launch {
-            mediaUseCase.getSeriesByQuery(query).collect {
-                updateState { currentState ->
-                    Log.e("MY_TAGG", "i am here in suceess ")
-                    currentState.copy(
-                        filteredScreenUiState = currentState.filteredScreenUiState.copy(
-                            series = it.map { series ->
+        tryToExecute(
+            function = { mediaUseCase.getSeriesByQuery(query) },
+            onSuccess = { result ->
+                updateState { current ->
+                    current.copy(
+                        filteredScreenUiState = current.filteredScreenUiState.copy(
+                            series = result.map { series ->
                                 SearchScreenState.SeriesUiState(
                                     id = series.id.toString(),
                                     title = series.title.toString(),
@@ -248,19 +275,21 @@ class SearchViewModel(
                                 )
                             },
                             isLoading = false
-                        )
+                        ),
+                        searchUiState = current.searchUiState.copy(isLoading = false)
                     )
                 }
-            }
-
-        }
-
+            },
+            onError = {}
+        )
     }
 
     fun topResult(query: String) {
         tryToExecute(
-            function = { mediaUseCase.getMovieByQuery(query).first() },
+            function = { mediaUseCase.getMovieByQuery(query) },
             onSuccess = { result ->
+                Log.e("MY_TAG", "$result")
+
                 updateState { current ->
                     current.copy(
                         filteredScreenUiState = current.filteredScreenUiState.copy(
@@ -278,6 +307,8 @@ class SearchViewModel(
                 }
             },
             onError = {
+                Log.e("MY_TAG", "${it.message}")
+
                 updateState { current ->
                     current.copy(
                         filteredScreenUiState = current.filteredScreenUiState.copy(
@@ -291,13 +322,16 @@ class SearchViewModel(
     }
 
     fun artists(query: String) {
-        viewModelScope.launch {
-            Log.e("MY_TAGG", " i am in call   ")
-            artistUseCase.getArtistByQuery(query).collect {
-                updateState { currentState ->
-                    currentState.copy(
+        tryToExecute(
+            function = {
+                artistUseCase.getArtistByQuery(query)
+            },
+            onSuccess = { result ->
+                Log.d("MY_TAG" , "in view model $result")
+                updateState { current ->
+                    current.copy(
                         filteredScreenUiState = currentState.filteredScreenUiState.copy(
-                            artist = it.map { artist ->
+                            artist = result.map { artist ->
                                 SearchScreenState.ArtistUiState(
                                     id = artist.id.toString(),
                                     name = artist.name,
@@ -308,36 +342,27 @@ class SearchViewModel(
                         )
                     )
                 }
-            }
-        }
-
-    }
-
-     fun getData(query: String) {
-        Pager(
-            config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = {
-                SearchMoviePagingSource(
-                    query = query,
-                    mediaUseCase = mediaUseCase
-                )
-            }
-        ).flow.cachedIn(viewModelScope).map { pagingItem ->
-            pagingItem.map {
-                it.let { item ->
-                    SearchScreenState.MovieUiState(
-                        title = item.title,
-                        id = it.id.toString(),
-                        imageUrl = it.imageUrl,
-                        rating = it.rate.toString(),
+            },
+            onError = {
+                Log.d("MY_TAG" , "in view model ${it.message}")
+                updateState { current ->
+                    current.copy(
+                        filteredScreenUiState = current.filteredScreenUiState.copy(
+                            isLoading = false,
+                            errorMessage = "Failed to load top result"
+                        )
                     )
                 }
             }
-        }.also { result ->
-            updateState { it.copy(searchUiState = it.searchUiState.copy(searchResults = result)) }
-        }
+        )
     }
 
+    companion object {
+        @JvmStatic
+        fun clearRecentSearchesStatic() {
+
+        }
+    }
 }
 
 

@@ -1,24 +1,25 @@
 package com.madrid.movio
 
 import android.os.Bundle
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.madrid.designsystem.AppTheme
 import com.madrid.presentation.composables.CustomBottomBar
-import com.madrid.presentation.composables.navDestinations
+import com.madrid.presentation.composables.navBarDestinations
+import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.navigation.MovioNavGraph
-import com.madrid.presentation.navigation.Screen
-import com.madrid.presentation.screens.searchScreen.FilteredScreen
-import com.madrid.presentation.screens.searchScreen.SearchScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -27,7 +28,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AppTheme {
-               // FilteredScreen()
                 MainScreen()
             }
         }
@@ -37,20 +37,35 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
-    val navBackStackEntry = navController.currentBackStackEntryAsState().value
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+
     val currentRoute = navBackStackEntry?.destination?.route
-    Column (Modifier.fillMaxSize()) {
-        Column (
-            modifier = Modifier.fillMaxSize().weight(1f),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            MovioNavGraph(navController = navController)
+
+    val currentDestination = navBarDestinations.find { destinationItem ->
+        destinationItem.destination::class.qualifiedName == currentRoute
+    } ?: navBarDestinations.first()
+
+    CompositionLocalProvider(LocalNavController provides navController) {
+        Column(Modifier.fillMaxSize()) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                MovioNavGraph(navController)
+            }
+
+            CustomBottomBar(
+                currentDestination = currentDestination.destination,
+                navItems = navBarDestinations,
+                onNavDestinationClicked = { destination ->
+                    navController.navigate(destination)
+                },
+                modifier = Modifier.navigationBarsPadding()
+            )
         }
-        CustomBottomBar(
-            currentRoute = currentRoute ?: Screen.Home.route,
-            onNavDestinationClicked = { navController.navigate(it) },
-            navItems = navDestinations,
-        )
     }
 }
+
