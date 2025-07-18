@@ -88,7 +88,7 @@ fun SearchScreen(
         searchQuery = searchQuery,
         onSearchQueryChange = { query ->
             searchQuery = query
-            viewModel.searchMovies(query)
+            viewModel.searchFilteredMovies(query)
         },
         onMovieClick = { movie ->
             // Navigate to the required Screen --> navController.navigate(Destinations.MovieDetailsScreen)

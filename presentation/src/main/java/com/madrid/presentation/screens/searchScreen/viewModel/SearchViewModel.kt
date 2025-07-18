@@ -281,12 +281,15 @@ class SearchViewModel(
         val result = Pager(
             config = PagingConfig(pageSize = 20),
             pagingSourceFactory = {
-                SearchSeriesPagingSource(query, mediaUseCase)
+                val x = SearchSeriesPagingSource(query, mediaUseCase)
+//                Log.d("series", "searchSeries: ${x}")
+                x
             }
         ).flow
             .cachedIn(viewModelScope)
             .map { pagingData ->
                 pagingData.map { series ->
+                    Log.d("series", "searchSeries: ${series}")
                     SearchScreenState.SeriesUiState(
                         id = series.id.toString(),
                         title = series.title,
@@ -297,6 +300,7 @@ class SearchViewModel(
             }
 
         updateState { current ->
+//            Log.d("series", "searchSeries: ${current.filteredScreenUiState.series}")
             current.copy(
                 filteredScreenUiState = current.filteredScreenUiState.copy(
                     series = result,

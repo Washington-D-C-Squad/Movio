@@ -23,7 +23,7 @@ class RemoteDataSourceImpl(
         val result = client.buildHttpClient {
             encodedPath = "/3/search/movie"
             parameters.append(QUERY, name)
-            parameters.append(PAGE, "1")
+            parameters.append(PAGE, page.toString())
         }
         val movies = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
         return movies
@@ -36,7 +36,7 @@ class RemoteDataSourceImpl(
         val result = client.buildHttpClient {
             encodedPath = "/3/search/tv"
             parameters.append(QUERY, name)
-            parameters.append(PAGE, "1")
+            parameters.append(PAGE, page.toString())
         }
         val series = json.decodeFromString<SearchSeriesResponse>(result.bodyAsText())
         return series
@@ -50,7 +50,7 @@ class RemoteDataSourceImpl(
         val result = client.buildHttpClient {
             encodedPath = "/3/search/person"
             parameters.append(QUERY, name)
-            parameters.append(PAGE, "1")
+            parameters.append(PAGE, page.toString())
         }
         val artist = json.decodeFromString<SearchArtistResponse>(result.bodyAsText())
 
@@ -63,7 +63,7 @@ class RemoteDataSourceImpl(
 
         val result = client.buildHttpClient {
             encodedPath = "/3/movie/top_rated"
-            parameters.append(PAGE, "1")
+            parameters.append(PAGE, page.toString())
         }
         val movie = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
 
@@ -75,7 +75,7 @@ class RemoteDataSourceImpl(
     ): SearchSeriesResponse {
         val result = client.buildHttpClient {
             encodedPath = "/3/tv/top_rated"
-            parameters.append(PAGE, "1")
+            parameters.append(PAGE, page.toString())
         }
         val series = json.decodeFromString<SearchSeriesResponse>(result.bodyAsText())
 
