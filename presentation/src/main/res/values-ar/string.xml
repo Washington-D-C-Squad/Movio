@@ -22,6 +22,7 @@
     <string name="recent_search">البحث الأخير</string>
     <string name="clear_all">مسح الكل</string>
     <string name="top_cast">أفضل طاقم</string>
+    <string name="selected_similar_movie">أفلام مشابهة</string>
     <string name="remove">إحذف</string>
     <string name="Rate_it">التقيم </string>
     <string name="Add_to_list">أضف الى القائمة </string>
@@ -29,4 +30,5 @@
     <string name="for_u">من أجلك</string>
     <string name="see_all">رؤية الكل</string>
     <string name="explore_more">البحث عن المزيد</string>
+    <string name="loading">جاري التحميل...</string>
 </resources>
