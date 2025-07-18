@@ -19,12 +19,10 @@
     <string name="Series">المسلسلات</string>
     <string name="Artists">الممثلون</string>
     <string name="search_result_count">نتائج البحث (%1$s عنصر)</string>
-
     <string name="recent_search">البحث الأخير</string>
     <string name="clear_all">مسح الكل</string>
     <string name="top_cast">أفضل طاقم</string>
     <string name="selected_similar_movie">أفلام مشابهة</string>
-
     <string name="remove">إحذف</string>
     <string name="Rate_it">التقيم </string>
     <string name="Add_to_list">أضف الى القائمة </string>
