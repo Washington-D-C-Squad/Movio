@@ -17,7 +17,7 @@ interface SearchRepository {
     suspend fun getPopularMovie(): List<Movie>
 
 
-    suspend fun getRecentSearches(): Flow<List<String>>
+    suspend fun getRecentSearches(): List<String>
     suspend fun addRecentSearchByQuery(query: String)
     suspend fun removeRecentSearchByQuery(query: String)
     suspend fun clearAllRecentSearches()

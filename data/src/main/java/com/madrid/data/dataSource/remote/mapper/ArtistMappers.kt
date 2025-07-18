@@ -2,7 +2,6 @@ package com.madrid.data.dataSource.remote.mapper
 
 
 import com.madrid.data.dataSource.remote.response.artist.ArtistDetailsResponse
-import com.madrid.data.dataSource.remote.response.artist.ArtistsResult
 import com.madrid.data.dataSource.remote.response.artist.KnownFor
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
 import com.madrid.domain.entity.ArtisKnownFor

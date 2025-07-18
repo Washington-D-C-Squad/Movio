@@ -14,21 +14,11 @@ import io.ktor.client.request.header
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
+
 val roomModule = module {
     single<RemoteDataSource> { RemoteDataSourceImpl(get(), get()) }
     single { Json { ignoreUnknownKeys = true } }
-    single {
-        HttpClient(CIO) {
-            install(ContentNegotiation) { json() }
-            defaultRequest {
-                header("accept", "application/json")
-                header("Content-type", "application/json")
-                header("Authorization", "Bearer ${BuildConfig.API_KEY}")
-                header(PAGE, "1")
-                url(BuildConfig.BASE_URL)
-            }
-        }
-    }
+    single { CustomHttpClient() }
     single<HttpClientEngine> { CIO.create() }
     single<HttpClientConfig<CIOEngineConfig>> { HttpClientConfig() }
 }

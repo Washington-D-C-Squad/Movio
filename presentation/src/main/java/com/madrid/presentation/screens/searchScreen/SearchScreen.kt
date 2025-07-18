@@ -65,17 +65,20 @@ fun SearchScreen(
         series = uiState.filteredScreenUiState.series,
         artist = uiState.filteredScreenUiState.artist,
         onClickTopRated = {
-            interactionListener.onSearchTopResult(searchQuery,viewModel)
+            viewModel.topResult(searchQuery)
+//            interactionListener.onSearchTopResult(searchQuery,viewModel)
         },
         onClickMovies = {
-            interactionListener.onSearchFilteredMovies(searchQuery,viewModel)
+            viewModel.searchFilteredMovies(searchQuery)
+//            interactionListener.onSearchFilteredMovies(searchQuery,viewModel)
         },
         onClickSeries = {
-            interactionListener.onSearchSeries(query = searchQuery,viewModel)
+            viewModel.searchSeries(searchQuery)
+//            interactionListener.onSearchSeries(query = searchQuery,viewModel)
         },
         onClickArtist = {
             viewModel.artists(searchQuery)
-            interactionListener.onSearchArtists(searchQuery,viewModel)
+//            interactionListener.onSearchArtists(searchQuery,viewModel)
         },
 
         forYouMovies = uiState.searchUiState.forYouMovies,
