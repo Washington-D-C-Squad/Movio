@@ -24,7 +24,7 @@ import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
 import com.madrid.presentation.R
-import com.madrid.presentation.navigation.Screen
+import com.madrid.presentation.navigation.Destinations
 
 
 @Preview(showBackground = true)
@@ -32,8 +32,8 @@ import com.madrid.presentation.navigation.Screen
 fun CustomBottomBarPreview() {
     AppTheme {
         CustomBottomBar(
-            currentRoute = Screen.Search.route,
-            navItems = navDestinations,
+            currentDestination = Destinations.HomeScreen,
+            navItems = navBarDestinations,
             onNavDestinationClicked = {},
             modifier = Modifier
                 .fillMaxWidth()
@@ -44,45 +44,47 @@ fun CustomBottomBarPreview() {
 
 
 data class NavBarItem(
-    val route: String,
+    val destination: Destinations,
     val label: String,
     val contentDescription: String = "none",
     @DrawableRes val selectedIcon: Int,
     @DrawableRes val unSelectedIcon: Int,
 )
 
-val navDestinations = listOf(
+
+val navBarDestinations = listOf(
     NavBarItem(
-        route = Screen.Home.route,
+        destination = Destinations.HomeScreen,
         label = "Home",
         contentDescription = "Home Screen",
         selectedIcon = R.drawable.icon_home_selected,
         unSelectedIcon = R.drawable.icon_home
     ),
     NavBarItem(
-        route = Screen.Search.route,
+        destination = Destinations.SearchScreen,
         label = "Search",
         selectedIcon = R.drawable.icon_search_selected,
         unSelectedIcon = R.drawable.icon_search
     ),
     NavBarItem(
-        route = Screen.Library.route,
+        destination = Destinations.LibraryScreen,
         label = "Library",
         selectedIcon = R.drawable.icon_library_selected,
         unSelectedIcon = R.drawable.icon_library,
     ),
     NavBarItem(
-        route = Screen.More.route,
+        destination = Destinations.MoreScreen,
         label = "More",
         selectedIcon = R.drawable.icon_more_selected,
         unSelectedIcon = R.drawable.icon_more
     )
 )
 
+
 @Composable
 fun CustomBottomBar(
-    currentRoute: String,
-    onNavDestinationClicked: (String) -> Unit,
+    currentDestination: Destinations,
+    onNavDestinationClicked: (Destinations) -> Unit,
     navItems: List<NavBarItem>,
     modifier: Modifier = Modifier,
     backgroundColor: Color = AppTheme.colors.surfaceColor.surface,
@@ -101,7 +103,7 @@ fun CustomBottomBar(
         verticalAlignment = Alignment.CenterVertically
     ) {
         navItems.forEach { item ->
-            val isSelected = currentRoute == item.route
+            val isSelected = currentDestination::class == item.destination::class
             CustomNavBarItem(
                 isSelected = isSelected,
                 onNavDestinationClicked = onNavDestinationClicked,
@@ -115,10 +117,11 @@ fun CustomBottomBar(
     }
 }
 
+
 @Composable
 private fun CustomNavBarItem(
     isSelected: Boolean,
-    onNavDestinationClicked: (String) -> Unit,
+    onNavDestinationClicked: (Destinations) -> Unit,
     item: NavBarItem,
     @DrawableRes iconRes: Int,
     selectedTextStyle: TextStyle,
@@ -133,7 +136,7 @@ private fun CustomNavBarItem(
                 indication = null
             ) {
                 if (!isSelected) {
-                    onNavDestinationClicked(item.route)
+                    onNavDestinationClicked(item.destination)
                 }
             }
     ) {
