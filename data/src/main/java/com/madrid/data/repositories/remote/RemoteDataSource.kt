@@ -10,7 +10,6 @@ import com.madrid.data.dataSource.remote.response.movie.SimilarMoviesResponse
 import com.madrid.data.dataSource.remote.response.movie.TrailerResponse
 import com.madrid.data.dataSource.remote.response.series.SearchSeriesResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesDetailsResponse
-import com.madrid.domain.entity.Movie
 
 interface RemoteDataSource {
 
@@ -24,7 +23,7 @@ interface RemoteDataSource {
 
     // region movie details
     suspend fun getMovieDetailsById(movieId: Int): MovieDetailsResponse
-    suspend fun getMovieTrailers(movieId: Int): TrailerResponse
+    suspend fun getMovieTrailersById(movieId: Int): TrailerResponse
     suspend fun getMovieCreditById(movieId: Int): MovieCreditsResponse
     suspend fun getMovieReviewsById(movieId:Int) : MovieReviewResponse
     suspend fun getSimilarMoviesById(movieId:Int) : SimilarMoviesResponse

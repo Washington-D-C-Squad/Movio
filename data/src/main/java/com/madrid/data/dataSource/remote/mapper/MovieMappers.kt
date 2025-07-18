@@ -1,12 +1,15 @@
 package com.madrid.data.dataSource.remote.mapper
 
-import com.madrid.data.dataSource.remote.response.movie.Cast
+import com.madrid.data.dataSource.remote.response.movie.CastNetwork
+import com.madrid.data.dataSource.remote.response.movie.Genre
+import com.madrid.data.dataSource.remote.response.movie.MovieCreditsResponse
+import com.madrid.data.dataSource.remote.response.movie.MovieDetailsResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieResult
 import com.madrid.data.dataSource.remote.response.movie.MovieReviewResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieReviewResult
 import com.madrid.data.dataSource.remote.response.movie.SearchMovieResponse
 import com.madrid.data.dataSource.remote.response.movie.TrailerResponse
-import com.madrid.domain.entity.Crew
+import com.madrid.domain.entity.Cast
 import com.madrid.domain.entity.Movie
 import com.madrid.domain.entity.Review
 import com.madrid.domain.entity.ReviewResult
@@ -14,7 +17,37 @@ import com.madrid.domain.entity.SearchResult
 import com.madrid.domain.entity.Trailer
 
 
+//region genre 
+data class MovieGenre(
+    val id: Int,
+    val title: String
+)
+
+fun Genre.toMovieGenre(): MovieGenre {
+
+    return MovieGenre(
+        id = this.id ?: 0,
+        title = this.name ?: ""
+    )
+}
+
+//End region
+
 // region movie
+
+fun MovieDetailsResponse.toMovie(): Movie {
+    return Movie(
+        id = this.id ?: 0,
+        title = this.title ?: "",
+        imageUrl = "https://image.tmdb.org/t/p/original${this.posterPath}",
+        rate = this.voteAverage ?: 0.0,
+        yearOfRelease = this.releaseDate ?: "",
+        movieDuration = this.runtime?.toString() ?: "",
+        description = this.overview ?: "",
+        genre = this.genres?.map { it.toMovieGenre().title },
+    )
+}
+
 fun MovieResult.toMovie(): Movie {
     return Movie(
         id = this.id ?: 0,
@@ -29,6 +62,7 @@ fun MovieResult.toMovie(): Movie {
 }
 // endregion
 
+
 // region search
 fun SearchMovieResponse.toSearchResult(): SearchResult {
     return SearchResult(
@@ -40,15 +74,30 @@ fun SearchMovieResponse.toSearchResult(): SearchResult {
 }
 // endregion
 
+
 // region Cast
-fun Cast.toCrew(): Crew {
-    return Crew(
+
+data class Credits(
+    val id: Int,
+    val cast: List<Cast>?,
+)
+
+fun MovieCreditsResponse.toCredits(): Credits {
+    return Credits(
+        id = this.id ?: 0,
+        cast = this.castNetwork?.map { it.toCast() },
+    )
+}
+
+fun CastNetwork.toCast(): Cast {
+    return Cast(
         id = this.id ?: 0,
         name = this.name ?: "",
         imageUrl = "https://image.tmdb.org/t/p/original${this.profilePath}",
     )
 }
 // endregion
+
 
 // region review
 fun MovieReviewResponse.toReviewResult(
@@ -73,6 +122,7 @@ fun MovieReviewResult.toReview(): Review {
 
 // endregion
 
+
 // region trailer
 
 fun TrailerResponse.toTrailer(): Trailer {
@@ -82,5 +132,3 @@ fun TrailerResponse.toTrailer(): Trailer {
     )
 }
 // endregion
-
-
