@@ -1,7 +1,6 @@
 package com.madrid.presentation.screens.SeeAllForYou
 
-import android.graphics.drawable.Icon
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -38,43 +37,46 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun SeeAllForYouScreen(
     navController: NavController,
-    viewModel: SearchViewModel = koinViewModel(),
+    viewModel: SeeAllForYouViewModel = koinViewModel(),
 ) {
     val uiState by viewModel.state.collectAsState()
     SeeAllForYouScreenContent(
         onClickBackIcon = {
             navController.popBackStack()
         },
-        exploreMoreMovies = uiState.searchUiState.exploreMoreMovies.collectAsLazyPagingItems(),
+        exploreMoreMovies = uiState.forYouMovies.collectAsLazyPagingItems(),
     )
 }
 
 @Composable
 private fun SeeAllForYouScreenContent(
     exploreMoreMovies: LazyPagingItems<SearchScreenState.MovieUiState>,
-    onClickBackIcon : ()->Unit ,
+    onClickBackIcon: () -> Unit,
     onExploreClick: (LazyPagingItems<SearchScreenState.MovieUiState>) -> Unit = {},
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 100.dp),
         modifier = Modifier
             .fillMaxSize()
+            .background(AppTheme.colors.surfaceColor.surface)
             .statusBarsPadding(),
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        item (
-            span = {androidx.compose.foundation.lazy.grid.GridItemSpan(maxLineSpan)}
-        ){
-            Row (
-                modifier = Modifier.fillMaxWidth().padding(AppTheme.spacing.extraSmall),
+        item(
+            span = { androidx.compose.foundation.lazy.grid.GridItemSpan(maxLineSpan) }
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(AppTheme.spacing.extraSmall),
                 verticalAlignment = Alignment.CenterVertically
-            ){
+            ) {
                 MovioIcon(
-                    modifier = Modifier.clickable{onClickBackIcon()},
+                    modifier = Modifier.clickable { onClickBackIcon() },
                     painter = painterResource(com.madrid.designsystem.R.drawable.arrow_left),
-                    contentDescription =null,
+                    contentDescription = null,
                     tint = AppTheme.colors.surfaceColor.onSurface
                 )
                 Spacer(Modifier.width(8.dp))
