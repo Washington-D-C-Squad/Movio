@@ -250,8 +250,11 @@ class SearchViewModel(
     fun searchFilteredMovies(query: String) {
         Log.d("hay", "in search filtered movies fn $query")
         val result = Pager(
-            config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = {
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false,
+                prefetchDistance = 5
+            ), pagingSourceFactory = {
                 SearchMoviePagingSource(query, mediaUseCase)
             }
         ).flow
@@ -283,9 +286,12 @@ class SearchViewModel(
     fun searchSeries(query: String) {
         Log.d("enter search", "nooooooooooooooooooooobbbbbbb: $query")
         val result = Pager(
-            config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = {
-               SearchSeriesPagingSource(query, mediaUseCase)
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false,
+                prefetchDistance = 5
+            ), pagingSourceFactory = {
+                SearchSeriesPagingSource(query, mediaUseCase)
             }
         ).flow
             .cachedIn(viewModelScope)
@@ -318,8 +324,11 @@ class SearchViewModel(
         Log.d("hay", "in top results fn $query")
 
         val result: Flow<PagingData<SearchScreenState.MovieUiState>> = Pager(
-            config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = {
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false,
+                prefetchDistance = 5
+            ), pagingSourceFactory = {
                 SearchMoviePagingSource(
                     query = query,
                     mediaUseCase = mediaUseCase
@@ -351,8 +360,11 @@ class SearchViewModel(
 
     fun artists(query: String) {
         val result = Pager(
-            config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = {
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false,
+                prefetchDistance = 5
+            ), pagingSourceFactory = {
                 SearchArtistPagingSource(query, artistUseCase)
             }
         ).flow

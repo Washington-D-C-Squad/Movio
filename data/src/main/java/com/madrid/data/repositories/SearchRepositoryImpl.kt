@@ -64,27 +64,30 @@ class SearchRepositoryImpl(
     }
 
     override suspend fun getArtistByQuery(query: String, page: Int): List<Artist> {
-        val result = localSource.searchArtistByQueryFromDB(query)
-        Log.d("in impl", "getArtistByQuery: $result")
-        if (result.isEmpty()) {
-            val remoteData = remoteDataSource.searchArtistByQuery(
-                name = query,
-                page = page
-            ).artistResults?.map {
-                Log.d("in impl", "getArtistByQuery: $it")
-                it.toArtist()
-            }
-            Log.d("in impl", "getArtistByQuery: $remoteData")
-            remoteData?.map {
-                localSource.insertArtist(it.toArtistEntity())
-
-            }
-        }
-
-        return localSource.searchArtistByQueryFromDB(query).map {
-            Log.d("in impl", "getArtistByQuery: $it")
+//        val result = localSource.searchArtistByQueryFromDB(query)
+//        Log.d("in impl", "getArtistByQuery: $result")
+//        if (result.isEmpty()) {
+//            val remoteData = remoteDataSource.searchArtistByQuery(
+//                name = query,
+//                page = page
+//            ).artistResults?.map {
+//                Log.d("in impl", "getArtistByQuery: $it")
+//                it.toArtist()
+//            }
+//            Log.d("in impl", "getArtistByQuery: $remoteData")
+//            remoteData?.map {
+//                localSource.insertArtist(it.toArtistEntity())
+//
+//            }
+//        }
+//
+//        return localSource.searchArtistByQueryFromDB(query).map {
+//            Log.d("in impl", "getArtistByQuery: $it")
+//            it.toArtist()
+//        }
+        return remoteDataSource.searchArtistByQuery(query, page).artistResults?.map {
             it.toArtist()
-        }
+        } ?: listOf()
     }
 
 

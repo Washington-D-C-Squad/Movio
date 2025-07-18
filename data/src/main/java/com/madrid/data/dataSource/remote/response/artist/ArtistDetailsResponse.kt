@@ -6,31 +6,31 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ArtistDetailsResponse(
     @SerialName("adult")
-    val adult: Boolean?,
+    val adult: Boolean? = null,
     @SerialName("also_known_as")
-    val nickName: List<String>?,
+    val nickName: List<String>? = null,
     @SerialName("biography")
-    val biography: String?,
+    val biography: String? = null,
     @SerialName("birthday")
-    val birthDay: String?,
+    val birthDay: String? = null,
     @SerialName("deathday")
-    val deathDay: String?,
+    val deathDay: String? = null,
     @SerialName("gender")
-    val gender: Int?,
+    val gender: Int? = null,
     @SerialName("homepage")
-    val homePage: String?,
+    val homePage: String? = null,
     @SerialName("id")
-    val id: Int?,
+    val id: Int? = null,
     @SerialName("imdb_id")
-    val imdbId: String?,
+    val imdbId: String? = null,
     @SerialName("known_for_department")
-    val role: String?,
+    val role: String? = null,
     @SerialName("name")
-    val name: String?,
+    val name: String? = null,
     @SerialName("place_of_birth")
-    val placeOfBirth: String?,
+    val placeOfBirth: String? = null,
     @SerialName("popularity")
-    val popularity: Double?,
+    val popularity: Double? = null,
     @SerialName("profile_path")
-    val profilePath: String?
+    val profilePath: String? = null
 )
