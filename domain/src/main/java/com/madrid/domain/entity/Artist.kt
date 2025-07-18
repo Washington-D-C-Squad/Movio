@@ -8,7 +8,6 @@ data class Artist(
     val country: String = "",
     val description: String = "",
     val imageUrl : String,
-    val artisKnownFor: List<ArtisKnownFor>? = listOf()
 )
 
 data class ArtisKnownFor(

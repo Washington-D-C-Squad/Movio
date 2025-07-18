@@ -8,8 +8,6 @@ data class Movie(
     val yearOfRelease: String = "",
     val movieDuration: String = "",
     val description: String = "",
-    val genre: List<String> = listOf(),
-    val crew: List<Crew> = listOf(),
 )
 
 

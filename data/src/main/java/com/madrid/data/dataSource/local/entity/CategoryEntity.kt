@@ -4,8 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "CATEGORY_TABLE")
-data class MovieCategoryEntity(
-    @PrimaryKey(autoGenerate = false) val id: Int,
-    val title: String,
+data class CategoryEntity(
+    val id: Int,
+    @PrimaryKey(autoGenerate = false) val categoryTitle: String,
     val searchCount: Int = 0,
 )

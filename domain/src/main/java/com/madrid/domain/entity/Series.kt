@@ -7,9 +7,6 @@ data class Series(
     val rate: Double,
     val yearOfRelease: String,
     val seasons: Int = 0,
-    val description: String,
-    val genre: List<String>,
-
 )
 
 
