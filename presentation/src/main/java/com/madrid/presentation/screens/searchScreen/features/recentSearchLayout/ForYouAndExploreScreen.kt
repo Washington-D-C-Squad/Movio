@@ -12,18 +12,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.LazyPagingItems
 import com.example.designsystem.component.CustomTextTitel
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
+import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState.MovieUiState
 
 fun LazyGridScope.forYouAndExploreScreen(
     showSearchResults: Boolean,
     isLoading: Boolean,
     forYouMovies: List<MovieUiState>,
-    exploreMoreMovies: List<MovieUiState> = emptyList(),
+    exploreMoreMovies: LazyPagingItems<SearchScreenState.MovieUiState>,
     onMovieClick: (MovieUiState) -> Unit = {},
+    onExploreClick: ( LazyPagingItems<SearchScreenState.MovieUiState>) -> Unit = {},
 ) {
     if (!showSearchResults && !isLoading) {
         item(
@@ -62,7 +65,7 @@ fun LazyGridScope.forYouAndExploreScreen(
             }
         }
     }
-    if (!showSearchResults && exploreMoreMovies.isNotEmpty()) {
+    if (!showSearchResults && exploreMoreMovies.itemCount != 0 ) {
         item(
             span = { GridItemSpan(maxLineSpan) }
         ) {
@@ -70,14 +73,14 @@ fun LazyGridScope.forYouAndExploreScreen(
                 primaryText = stringResource(com.madrid.presentation.R.string.explore_more)
             )
         }
-        items(exploreMoreMovies) { movie ->
+        items(exploreMoreMovies.itemCount) { index ->
             MovioVerticalCard(
-                description = movie.title,
-                movieImage = movie.imageUrl,
-                rate = movie.rating,
+                description = exploreMoreMovies[index]!!.title,
+                movieImage = exploreMoreMovies[index]!!.imageUrl,
+                rate = exploreMoreMovies[index]!!.rating,
                 width = 158.dp,
                 height = 180.dp,
-                onClick = { onMovieClick(movie) }
+                onClick = { onExploreClick(exploreMoreMovies) }
             )
         }
     }

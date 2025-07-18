@@ -83,7 +83,7 @@ fun SearchScreen(
         },
 
         forYouMovies = uiState.searchUiState.forYouMovies,
-        exploreMoreMovies = uiState.searchUiState.exploreMoreMovies,
+        exploreMoreMovies = uiState.searchUiState.exploreMoreMovies.collectAsLazyPagingItems(),
         searchResults = uiState.searchUiState.searchResults.collectAsLazyPagingItems(),
         searchQuery = searchQuery,
         onSearchQueryChange = { query ->
@@ -134,7 +134,7 @@ fun ContentSearchScreen(
     onClickArtist: () -> Unit,
     modifier: Modifier = Modifier,
     forYouMovies: List<SearchScreenState.MovieUiState> = emptyList(),
-    exploreMoreMovies: List<SearchScreenState.MovieUiState> = emptyList(),
+    exploreMoreMovies: LazyPagingItems<SearchScreenState.MovieUiState>,
     searchResults: LazyPagingItems<SearchScreenState.MovieUiState>,
     searchQuery: String = "",
     onSearchQueryChange: (String) -> Unit,

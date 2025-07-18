@@ -8,11 +8,14 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.madrid.domain.entity.Media
+import com.madrid.domain.usecase.GetExploreMoreMovieUseCase
+import com.madrid.domain.usecase.GetRecommendedMovieUseCase
 import com.madrid.domain.usecase.searchUseCase.ArtistUseCase
 import com.madrid.domain.usecase.searchUseCase.MediaUseCase
 import com.madrid.domain.usecase.searchUseCase.PreferredMediaUseCase
 import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import com.madrid.domain.usecase.searchUseCase.TrendingMediaUseCase
+import com.madrid.presentation.screens.searchScreen.paging.ExplorePagingSource
 import com.madrid.presentation.screens.searchScreen.paging.SearchArtistPagingSource
 import com.madrid.presentation.screens.searchScreen.paging.SearchMoviePagingSource
 import com.madrid.presentation.screens.searchScreen.paging.SearchSeriesPagingSource
@@ -22,12 +25,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
+import kotlin.math.exp
 
 @KoinViewModel
 class SearchViewModel(
     private val artistUseCase: ArtistUseCase,
     private val mediaUseCase: MediaUseCase,
     private val preferredMediaUseCase: PreferredMediaUseCase,
+    private val getRecommendedMovieUseCase: GetRecommendedMovieUseCase,
+    private val getExploreMoreMovieUseCase: GetExploreMoreMovieUseCase,
     override val recentSearchUseCase: RecentSearchUseCase,
     private val trendingMediaUseCase: TrendingMediaUseCase,
 ) : BaseViewModel<SearchScreenState>(
@@ -129,60 +135,54 @@ class SearchViewModel(
                 )
             )
         }
-
-
-        tryToExecute(
-            function = {
-                mediaUseCase.getTopRatedMedia(
-                    page = 1
+        viewModelScope.launch {
+            val result = getRecommendedMovieUseCase(page = 1)
+            updateState {
+                it.copy(
+                    searchUiState = it.searchUiState.copy(
+                        forYouMovies = result.map { movie ->
+                            SearchScreenState.MovieUiState(
+                                title = movie.title,
+                                id = movie.id.toString(),
+                                imageUrl = movie.imageUrl,
+                                rating = movie.rate.toString(),
+                            )
+                        },
+                        isLoading = false
+                    )
                 )
-            },
-            onSuccess = { (forYou, explore) ->
+            }
+        }
 
-                updateState {
-                    it.copy(
-                        searchUiState = it.searchUiState.copy(
-                            forYouMovies = forYou.map { movie ->
-                                SearchScreenState.MovieUiState(
-                                    title = movie.title,
-                                    id = movie.id.toString(),
-                                    imageUrl = movie.imageUrl,
-                                    rating = movie.rate.toString(),
-                                )
-                            },
-                            isLoading = false
-                        )
-                    )
-                }
-                updateState {
-                    it.copy(
-                        searchUiState = it.searchUiState.copy(
-                            exploreMoreMovies = explore.map { movie ->
-                                SearchScreenState.MovieUiState(
-                                    title = movie.title,
-                                    id = movie.id.toString(),
-                                    imageUrl = movie.imageUrl,
-                                    rating = movie.rate.toString(),
-                                )
-                            },
-                            isLoading = false
-                        )
-                    )
-                }
-            },
-            onError = { e ->
-
-                updateState {
-                    it.copy(
-                        searchUiState = it.searchUiState.copy(
-                            errorMessage = "Failed to load movies: ${e.message}",
-                            isLoading = false
-                        )
+        val result = Pager(
+            config = PagingConfig(pageSize = 20),
+            pagingSourceFactory = {
+                ExplorePagingSource(getExploreMoreMovieUseCase)
+            }
+        ).flow
+            .cachedIn(viewModelScope)
+            .map { pagingData ->
+                pagingData.map { movie ->
+                    SearchScreenState.MovieUiState(
+                        id = movie.id.toString(),
+                        title = movie.title,
+                        imageUrl = movie.imageUrl,
+                        rating = movie.rate.toString()
                     )
                 }
             }
-        )
+
+        updateState { current ->
+            current.copy(
+                searchUiState = current.searchUiState.copy(
+                    exploreMoreMovies = result,
+                    isLoading = false
+                ),
+            )
+        }
+
     }
+
 
     fun List<Media>.mapToMoviesUiState(): MutableList<SearchScreenState.MovieUiState> {
         var moviesUiState: MutableList<SearchScreenState.MovieUiState> = mutableListOf()
