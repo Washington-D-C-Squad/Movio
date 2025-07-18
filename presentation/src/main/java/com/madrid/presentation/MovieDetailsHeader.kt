@@ -16,7 +16,7 @@ import com.madrid.presentation.composables.Chips
 @Composable
 fun MovieDetailsHeader(
     movieName: String,
-    movieCategory: String,
+    movieCategory: List<String>,
     date: String, time: String,
     rate: String,
     modifier: Modifier = Modifier
@@ -31,11 +31,18 @@ fun MovieDetailsHeader(
             color = AppTheme.colors.surfaceColor.onSurface,
             textStyle = AppTheme.textStyle.headLine.medium18
         )
-        MovioText(
-            movieCategory,
-            color = AppTheme.colors.surfaceColor.onSurfaceVariant,
-            textStyle = AppTheme.textStyle.label.smallRegular14
-        )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier
+        ) {
+            movieCategory.forEach {
+                MovioText(
+                    if (it != movieCategory[movieCategory.lastIndex]) it + "," else it,
+                    color = AppTheme.colors.surfaceColor.onSurfaceVariant,
+                    textStyle = AppTheme.textStyle.label.smallRegular14
+                )
+            }
+        }
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.padding(vertical = 4.dp)
