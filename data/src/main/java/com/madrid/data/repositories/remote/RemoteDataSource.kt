@@ -27,6 +27,11 @@ interface RemoteDataSource {
 
     ): SearchMovieResponse
 
+    suspend fun getTopRatedMovies(
+        page: Int
+    ): SearchMovieResponse
+
+
     suspend fun getTopRatedSeries(
         query: String,
         page: Int

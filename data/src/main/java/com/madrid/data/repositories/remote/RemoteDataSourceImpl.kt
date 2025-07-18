@@ -65,6 +65,20 @@ class RemoteDataSourceImpl(
     ): SearchMovieResponse {
 
         val result = client.buildHttpClient {
+            encodedPath = "3/search/movie"
+            parameters.append(QUERY, query)
+            parameters.append(PAGE, page.toString())
+        }
+        val movie = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
+
+        return movie
+    }
+
+    override suspend fun getTopRatedMovies(
+        page: Int
+    ): SearchMovieResponse {
+
+        val result = client.buildHttpClient {
             encodedPath = "3/movie/top_rated"
             parameters.append(PAGE, page.toString())
         }
