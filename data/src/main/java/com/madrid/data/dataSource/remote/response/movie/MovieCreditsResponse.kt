@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MovieCredits(
+data class MovieCreditsResponse(
     @SerialName("id")
     val id: Int?,
     @SerialName("cast")

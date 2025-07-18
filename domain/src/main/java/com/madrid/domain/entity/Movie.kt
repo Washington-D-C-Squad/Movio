@@ -19,4 +19,9 @@ data class Crew(
     val imageUrl: String
 )
 
+data class Trailer(
+    val key: String,
+    val id: String
+)
+
 

@@ -1,15 +1,20 @@
 package com.madrid.data.dataSource.remote.mapper
 
+import com.madrid.data.dataSource.remote.response.movie.Cast
 import com.madrid.data.dataSource.remote.response.movie.MovieResult
 import com.madrid.data.dataSource.remote.response.movie.MovieReviewResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieReviewResult
 import com.madrid.data.dataSource.remote.response.movie.SearchMovieResponse
+import com.madrid.data.dataSource.remote.response.movie.TrailerResponse
+import com.madrid.domain.entity.Crew
 import com.madrid.domain.entity.Movie
 import com.madrid.domain.entity.Review
 import com.madrid.domain.entity.ReviewResult
 import com.madrid.domain.entity.SearchResult
+import com.madrid.domain.entity.Trailer
 
 
+// region movie
 fun MovieResult.toMovie(): Movie {
     return Movie(
         id = this.id ?: 0,
@@ -22,8 +27,9 @@ fun MovieResult.toMovie(): Movie {
         genre = listOf(),
     )
 }
+// endregion
 
-
+// region search
 fun SearchMovieResponse.toSearchResult(): SearchResult {
     return SearchResult(
         page = this.page,
@@ -32,18 +38,20 @@ fun SearchMovieResponse.toSearchResult(): SearchResult {
         totalResults = this.totalResults
     )
 }
+// endregion
 
-
-/*
-fun Cast.tocrew(): Crew {
+// region Cast
+fun Cast.toCrew(): Crew {
     return Crew(
-        id = this.id?:0,
-        name = this.name?:"",
+        id = this.id ?: 0,
+        name = this.name ?: "",
         imageUrl = "https://image.tmdb.org/t/p/original${this.profilePath}",
     )
-}*/
+}
+// endregion
 
-fun MovieReviewResponse.toreviewResult(
+// region review
+fun MovieReviewResponse.toReviewResult(
 ): ReviewResult {
     return ReviewResult(
         mediaId = this.id ?: 0,
@@ -62,3 +70,17 @@ fun MovieReviewResult.toReview(): Review {
         comment = this.content ?: ""
     )
 }
+
+// endregion
+
+// region trailer
+
+fun TrailerResponse.toTrailer(): Trailer {
+    return Trailer(
+        key = this.results.firstOrNull()?.key ?: "",
+        id = this.results.firstOrNull()?.id ?: ""
+    )
+}
+// endregion
+
+

@@ -1,19 +1,12 @@
 package com.madrid.data.repositories.remote
 
-import android.util.Log
 import com.madrid.data.CustomHttpClient
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
 import com.madrid.data.dataSource.remote.response.movie.SearchMovieResponse
 import com.madrid.data.dataSource.remote.response.series.SearchSeriesResponse
 import com.madrid.data.dataSource.remote.utils.Constants.QUERY
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.cio.CIO
-import io.ktor.client.plugins.defaultRequest
-import io.ktor.client.request.get
-import io.ktor.client.request.header
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.encodedPath
-import io.ktor.http.parameters
 import kotlinx.serialization.json.Json
 
 class RemoteDataSourceImpl(
