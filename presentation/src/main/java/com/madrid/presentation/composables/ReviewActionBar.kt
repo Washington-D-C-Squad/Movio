@@ -36,7 +36,7 @@ fun ReviewTopBar(
 ) {
     var isFavorite by rememberSaveable { mutableStateOf(initiallyFavorite) }
     val favoriteColor by animateColorAsState(
-        targetValue = if (isFavorite) Color.Red else AppTheme.colors.surfaceColor.onSurfaceContainer,
+        targetValue = if (isFavorite) Color.Red else AppTheme.colors.surfaceColor.onSurface,
         label = "FavoriteColor"
     )
     Row(
