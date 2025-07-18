@@ -18,8 +18,11 @@ fun MovioText(
     overflow: TextOverflow = TextOverflow.Ellipsis
 ) {
     Text(
-        text = text, style = textStyle.copy(color = color),
-        modifier = modifier, maxLines = maxLines, overflow = overflow
+        text = text,
+        style = textStyle.copy(color = color),
+        modifier = modifier,
+        maxLines = maxLines,
+        overflow = overflow
     )
 }
 
@@ -33,7 +36,10 @@ fun MovioTextHighlight(
     overflow: TextOverflow = TextOverflow.Ellipsis
 ) {
     Text(
-        text = text, style = textStyle.copy(color = color),
-        modifier = modifier, maxLines = maxLines, overflow = overflow
+        text = text,
+        style = textStyle.copy(color = color),
+        modifier = modifier,
+        maxLines = maxLines,
+        overflow = overflow
     )
 }
