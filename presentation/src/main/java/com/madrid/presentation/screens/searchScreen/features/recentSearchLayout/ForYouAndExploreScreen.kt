@@ -1,6 +1,8 @@
 package com.madrid.presentation.screens.searchScreen.features.recentSearchLayout
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
@@ -49,15 +51,15 @@ fun LazyGridScope.forYouAndExploreScreen(
                     .padding(
                         bottom = AppTheme.spacing.xLarge
                     )
-                    .height(333.dp),
+                    .height(233.dp),
             ) {
                 items(forYouMovies) { movie ->
                     MovioVerticalCard(
                         description = movie.title,
                         movieImage = movie.imageUrl,
                         rate = movie.rating,
-                        width = 124.dp,
-                        height = 300.dp,
+                        width = 160.dp,
+                        height = 200.dp,
                         paddingvalue = AppTheme.spacing.small,
                         onClick = { onMovieClick(movie) }
                     )
@@ -73,13 +75,16 @@ fun LazyGridScope.forYouAndExploreScreen(
                 primaryText = stringResource(com.madrid.presentation.R.string.explore_more)
             )
         }
-        items(exploreMoreMovies.itemCount) { index ->
+        items(
+            count = exploreMoreMovies.itemCount,
+        ) { index ->
             MovioVerticalCard(
+                modifier = Modifier.fillMaxWidth(fraction = 0.50f) ,
                 description = exploreMoreMovies[index]!!.title,
                 movieImage = exploreMoreMovies[index]!!.imageUrl,
                 rate = exploreMoreMovies[index]!!.rating,
-                width = 158.dp,
-                height = 180.dp,
+                width = 500.dp,
+                height = 233.dp,
                 onClick = { onExploreClick(exploreMoreMovies) }
             )
         }

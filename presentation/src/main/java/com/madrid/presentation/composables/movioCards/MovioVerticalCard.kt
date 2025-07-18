@@ -57,7 +57,7 @@ fun MovioVerticalCard(
                 imageUrl = movieImage,
                 radius = AppTheme.radius.small,
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .width(width)
                     .height(height)
                     .clip(RoundedCornerShape(AppTheme.radius.small))
             )
@@ -84,7 +84,7 @@ private fun VerticalCardPreview() {
         MovioVerticalCard(
             description = "Spider-Man: Homecoming",
             movieImage = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
-            width = 180.dp,
+            width = 200.dp,
             height = 150.dp,
             paddingvalue = 8.dp,
             onClick = {},
