@@ -31,7 +31,7 @@ fun TopAppBar(
         firstIcon?.let { iconRes ->
             MovioIcon(
                 painter = painterResource(id = iconRes),
-                contentDescription = null,
+                contentDescription = "arrow_left",
                 tint = AppTheme.colors.surfaceColor.onSurface
             )
         }
@@ -57,7 +57,7 @@ fun TopAppBar(
             secondIcon?.let { iconRes ->
                 MovioIcon(
                     painter = painterResource(id = iconRes),
-                    contentDescription = null,
+                    contentDescription = "share_arrow",
                     tint = AppTheme.colors.surfaceColor.onSurface
                 )
             }
@@ -65,7 +65,7 @@ fun TopAppBar(
             thirdIcon?.let { iconRes ->
                 MovioIcon(
                     painter = painterResource(id = iconRes),
-                    contentDescription = null,
+                    contentDescription = "outline_heart",
                     tint = AppTheme.colors.surfaceColor.onSurface
                 )
             }

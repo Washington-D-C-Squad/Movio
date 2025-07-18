@@ -1,6 +1,5 @@
 package com.madrid.presentation.screens.detailsScreen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -29,7 +28,6 @@ fun TopCastDetailsScreen(
     val uiState = viewModel.state.collectAsState().value
 
     TopCastDetailsContent(artist = uiState.filteredScreenUiState.artist)
-
 }
 
 @Composable
@@ -49,12 +47,11 @@ fun TopCastDetailsContent(
         item(
             span = { GridItemSpan(maxLineSpan) }
         ) {
-            TopAppBar(stringResource(R.string.top_cast))
+            TopAppBar(stringResource(R.string.top_cast), secondIcon = null, thirdIcon = null)
         }
         items(
             count = artist.size,
         ) { index ->
-            Log.d("artist", "TopCastDetailsContent: $artist")
             MovioArtistsCard(
                 artistsName = artist[index].name,
                 imageUrl = artist[index].imageUrl,
