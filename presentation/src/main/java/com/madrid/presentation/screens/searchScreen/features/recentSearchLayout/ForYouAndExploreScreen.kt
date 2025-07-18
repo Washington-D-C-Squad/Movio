@@ -29,6 +29,7 @@ fun LazyGridScope.forYouAndExploreScreen(
     exploreMoreMovies: LazyPagingItems<SearchScreenState.MovieUiState>,
     onMovieClick: (MovieUiState) -> Unit = {},
     onExploreClick: ( LazyPagingItems<SearchScreenState.MovieUiState>) -> Unit = {},
+    onClickSeeAll :()->Unit
 ) {
     if (!showSearchResults && !isLoading) {
         item(
@@ -39,7 +40,7 @@ fun LazyGridScope.forYouAndExploreScreen(
                 primaryText = stringResource(com.madrid.presentation.R.string.for_u),
                 secondaryText = stringResource(com.madrid.presentation.R.string.see_all),
                 endIcon = painterResource(R.drawable.outline_alt_arrow_left),
-                onSeeAllClick = {}
+                onSeeAllClick = {onClickSeeAll()}
             )
         }
         item(

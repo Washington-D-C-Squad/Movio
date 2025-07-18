@@ -33,6 +33,7 @@ import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.textInputField.BasicTextInputField
 import com.madrid.presentation.navigation.LocalNavController
+import com.madrid.presentation.screens.SeeAllForYou.navigateToSeeAllForYouScreenRoute
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.RecentSearchLayout
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.filterSearchScreen
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.forYouAndExploreScreen
@@ -98,8 +99,10 @@ fun SearchScreen(
         onSearchItemClick = { searchQuery = it },
         onRemoveItem = { viewModel.removeRecentSearch(it) },
         onClearAll = { viewModel.clearAll() },
-
-        )
+        onClickSeeAll = {
+            navController.navigateToSeeAllForYouScreenRoute()
+        }
+    )
     uiState.searchUiState.errorMessage?.let { errorMsg ->
         LaunchedEffect(errorMsg) {
 
@@ -145,6 +148,7 @@ fun ContentSearchScreen(
     onRemoveItem: (String) -> Unit,
     onClearAll: () -> Unit,
     isLoading: Boolean = false,
+    onClickSeeAll: () -> Unit,
 ) {
 
 
@@ -175,7 +179,7 @@ fun ContentSearchScreen(
         modifier = modifier
             .fillMaxSize()
             .statusBarsPadding(),
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
+        contentPadding = PaddingValues( vertical = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
@@ -204,7 +208,8 @@ fun ContentSearchScreen(
                 isLoading = isLoading,
                 forYouMovies = forYouMovies,
                 onMovieClick = onMovieClick,
-                exploreMoreMovies = exploreMoreMovies
+                exploreMoreMovies = exploreMoreMovies,
+                onClickSeeAll = { onClickSeeAll() }
             )
         }
         if (searchQuery.isNotEmpty() && showRecentSearch != 1) {
