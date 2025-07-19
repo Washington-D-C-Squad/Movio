@@ -1,5 +1,9 @@
 package com.madrid.presentation.screens.searchScreen
 
+import androidx.paging.PagingData
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+
 data class SearchScreenState(
     val searchUiState: SearchUiState = SearchUiState(),
     val recentSearchUiState: List<String> = emptyList(),
