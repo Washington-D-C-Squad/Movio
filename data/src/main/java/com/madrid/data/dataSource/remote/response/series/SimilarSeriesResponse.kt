@@ -9,7 +9,7 @@ data class SimilarSeriesResponse(
     @SerialName("page")
     val page: Int?,
     @SerialName("results")
-    val results: List<SimilarSeries>?,
+    val results: List<SimilarSeriesNetwork>?,
     @SerialName("total_pages")
     val totalPages: Int?,
     @SerialName("total_results")
@@ -17,7 +17,7 @@ data class SimilarSeriesResponse(
 )
 
 @Serializable
-data class SimilarSeries(
+data class SimilarSeriesNetwork(
     @SerialName("adult")
     val adult: Boolean?,
     @SerialName("backdrop_path")

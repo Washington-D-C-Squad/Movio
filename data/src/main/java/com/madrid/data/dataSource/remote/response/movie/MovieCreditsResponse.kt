@@ -4,15 +4,15 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MovieCredits(
+data class MovieCreditsResponse(
     @SerialName("id")
     val id: Int?,
     @SerialName("cast")
-    val cast: List<Cast>?,
+    val castNetwork: List<CastNetwork>?,
 )
 
 @Serializable
-data class Cast(
+data class CastNetwork(
     @SerialName("adult")
     val adult: Boolean?,
     @SerialName("gender")

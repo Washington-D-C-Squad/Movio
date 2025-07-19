@@ -93,6 +93,7 @@ fun SearchScreen(
 //            viewModel.searchMovies(query)
         },
         onMovieClick = { movie ->
+            navController.navigate(Destinations.MovieDetailsScreen(movie.id.toInt()))
             // Navigate to the required Screen --> navController.navigate(Destinations.MovieDetailsScreen)
         },
         isLoading = uiState.searchUiState.isLoading,

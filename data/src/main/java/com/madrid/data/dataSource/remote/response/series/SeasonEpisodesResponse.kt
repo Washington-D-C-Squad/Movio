@@ -11,7 +11,7 @@ data class SeasonEpisodesResponse(
     @SerialName("air_date")
     val releaseDate: String?,
     @SerialName("episodes")
-    val episodes: List<Episode>?,
+    val episodeNetworks: List<EpisodeNetwork>?,
     @SerialName("name")
     val title: String?,
     @SerialName("overview")
@@ -25,7 +25,7 @@ data class SeasonEpisodesResponse(
 )
 
 @Serializable
-data class Episode(
+data class EpisodeNetwork(
     @SerialName("air_date")
     val airDate: String?,
     @SerialName("episode_number")
