@@ -97,7 +97,6 @@ private fun FrameEpisodeCard(
             )
             RateIcon(
                 rate = movieRate,
-                tint = AppTheme.colors.systemColors.warning
             )
         }
         Row(

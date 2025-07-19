@@ -63,7 +63,6 @@ fun MovioSeasonCard(
                 )
                 RateIcon(
                     rate = movieRate,
-                    tint = AppTheme.colors.systemColors.warning
                 )
             }
             MovioText(

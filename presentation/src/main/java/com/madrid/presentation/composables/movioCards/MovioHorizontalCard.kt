@@ -58,7 +58,7 @@ fun MovioHorizontalCard(
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
-            RateIcon(rate = movieRate, tint = AppTheme.colors.systemColors.warning)
+            RateIcon(rate = movieRate)
             MovioCatergory(movieCategory, AppTheme.colors.surfaceColor.onSurface_3)
         }
     }

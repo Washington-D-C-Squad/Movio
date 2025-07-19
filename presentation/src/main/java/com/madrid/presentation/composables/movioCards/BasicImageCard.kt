@@ -40,9 +40,9 @@ fun BasicImageCard(
 @Composable
 private fun BasicImageCardPreview() {
     AppTheme {
-//        BasicImageCard(
-//            imageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
-//            height = 180.dp, width = 158.dp, AppTheme.radius.small
-//        )
+        BasicImageCard(
+            imageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
+            AppTheme.radius.small
+        )
     }
 }

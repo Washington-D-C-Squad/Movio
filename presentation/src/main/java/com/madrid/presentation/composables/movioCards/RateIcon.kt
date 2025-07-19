@@ -25,7 +25,6 @@ import com.madrid.presentation.R.string
 @Composable
 fun RateIcon(
     rate: String,
-    tint: Color,
     modifier: Modifier = Modifier,
     icon: Painter = painterResource(drawable.bold_star),
 ) {
@@ -43,7 +42,7 @@ fun RateIcon(
                 contentDescription = stringResource(
                    string.stars_icon_rate
                 ),
-                tint = tint,
+                tint = AppTheme.colors.systemColors.warning,
                 modifier = Modifier.size(16.dp)
             )
             MovioText(
@@ -62,6 +61,5 @@ private fun RatreIconpreview() {
     RateIcon(
         icon = painterResource(drawable.bold_star),
         rate = "5.2",
-        tint = AppTheme.colors.systemColors.warning,
     )
 }

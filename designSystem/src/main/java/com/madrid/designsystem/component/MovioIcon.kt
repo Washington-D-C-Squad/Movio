@@ -17,6 +17,7 @@ fun MovioIcon(
     Image(
         painter = painter,
         contentDescription = contentDescription,
-        modifier = modifier
+        modifier = modifier,
+        colorFilter = ColorFilter.tint(tint)
     )
 }
