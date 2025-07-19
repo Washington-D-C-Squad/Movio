@@ -28,7 +28,7 @@ fun MovioArtistsCard(
     Box(
         modifier = modifier
             .width(width)
-            .clip(RoundedCornerShape(AppTheme.radius.small))
+            .clip(RoundedCornerShape(8.dp))
             .clickable { onClick() }
     ) {
         Column(

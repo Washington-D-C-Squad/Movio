@@ -24,7 +24,7 @@ fun LoadingSearchCard(modifier: Modifier = Modifier) {
             modifier = modifier
                 .width(101.dp)
                 .height(136.dp)
-                .clip(RoundedCornerShape(AppTheme.radius.small))
+                .clip(RoundedCornerShape(8.dp))
                 .background(AppTheme.colors.surfaceColor.surfaceContainer),
         )
         Spacer(modifier = Modifier.height(8.dp))

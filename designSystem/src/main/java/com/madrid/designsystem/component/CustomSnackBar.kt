@@ -49,7 +49,7 @@ fun CustomSnackbarHost(
                 modifier = Modifier.padding(vertical = 14.dp, horizontal = 16.dp),
                 containerColor = AppTheme.colors.surfaceColor.surfaceContainer,
                 contentColor = AppTheme.colors.surfaceColor.onSurface,
-                shape = RoundedCornerShape(AppTheme.radius.small),
+                shape = RoundedCornerShape(8.dp),
                 action = {
                     snackbarData.visuals.actionLabel?.let { label ->
                         TextButton(

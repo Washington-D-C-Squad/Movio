@@ -42,7 +42,7 @@ fun VideoLibrary(
             modifier = Modifier
                 .padding(top = 80.dp)
                 .size(width = width, height = height)
-                .clip(RoundedCornerShape(AppTheme.radius.small))
+                .clip(RoundedCornerShape(8.dp))
                 .background(color = AppTheme.colors.surfaceColor.surface)
                 .clickable { onClick() }
         ) {

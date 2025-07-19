@@ -42,7 +42,7 @@ fun MovioSeasonCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 8.dp)
-            .clip(RoundedCornerShape(AppTheme.radius.small))
+            .clip(RoundedCornerShape(8.dp))
             .clickable { onClick() }
         ,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -51,7 +51,7 @@ fun MovioSeasonCard(
         BasicImageCard(
             imageUrl = movieImage,
             modifier = Modifier.fillMaxWidth().height(height),
-            radius = AppTheme.radius.small
+            radius = 8.dp
         )
         Column(
             modifier = modifier

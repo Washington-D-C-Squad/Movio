@@ -42,7 +42,7 @@ fun MovioEpisodesCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = AppTheme.spacing.small)
-            .clip(RoundedCornerShape(AppTheme.radius.small))
+            .clip(RoundedCornerShape(8.dp))
             .clickable { onClick() },
         horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
         verticalAlignment = Alignment.Top
@@ -85,7 +85,7 @@ private fun EpisodeMovieImage(
         BasicImageCard(
             imageUrl = movieImageUrl,
             modifier = Modifier.fillMaxWidth().height(height),
-            radius = AppTheme.radius.small,
+            radius = 8.dp,
         )
         MovioIcon(
             contentDescription = stringResource(

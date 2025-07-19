@@ -39,7 +39,7 @@ fun MovioVerticalCard(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
-            .clip(RoundedCornerShape(AppTheme.radius.small))
+            .clip(RoundedCornerShape(8.dp))
             .clickable { onClick() }
     ) {
         Box(contentAlignment = Alignment.TopCenter) {
@@ -55,11 +55,11 @@ fun MovioVerticalCard(
             }
             BasicImageCard(
                 imageUrl = movieImage,
-                radius = AppTheme.radius.small,
+                radius = 8.dp,
                 modifier = Modifier
                     .width(width)
                     .height(height)
-                    .clip(RoundedCornerShape(AppTheme.radius.small))
+                    .clip(RoundedCornerShape(8.dp))
             )
 
         }
