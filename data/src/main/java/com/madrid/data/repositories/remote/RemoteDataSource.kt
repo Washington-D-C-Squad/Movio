@@ -6,10 +6,39 @@ import com.madrid.data.dataSource.remote.response.series.SearchSeriesResponse
 
 interface RemoteDataSource {
 
-    suspend fun searchMoviesByQuery(name: String): SearchMovieResponse
-    suspend fun searchSeriesByQuery(name: String): SearchSeriesResponse
-    suspend fun searchArtistByQuery(name: String): SearchArtistResponse
+    suspend fun searchMoviesByQuery(
+        name: String,
+        page: Int
+    ): SearchMovieResponse
 
-    suspend fun getTopRatedMovies(): SearchMovieResponse
-    suspend fun getTopRatedSeries(): SearchSeriesResponse
+    suspend fun searchSeriesByQuery(
+        name: String,
+        page: Int
+    ): SearchSeriesResponse
+
+    suspend fun searchArtistByQuery(
+        name: String,
+        page: Int
+    ): SearchArtistResponse
+
+    suspend fun getTopRatedMovies(
+        query: String,
+        page: Int
+
+    ): SearchMovieResponse
+
+    suspend fun getTopRatedMovies(
+        page: Int
+    ): SearchMovieResponse
+
+
+    suspend fun getTopRatedSeries(
+        query: String,
+        page: Int
+
+    ): SearchSeriesResponse
+
+    suspend fun getPopularMovie(
+        page: Int
+    ): SearchMovieResponse
 }

@@ -19,7 +19,7 @@ interface SeriesDao {
     @Query("SELECT * FROM SERIES_TABLE WHERE id = :id")
     fun getSeriesById(id: Int): SeriesEntity?
 
-    @Query("SELECT * FROM SERIES_TABLE WHERE title LIKE :title")
+    @Query("SELECT * FROM SERIES_TABLE WHERE title LIKE :title LIMIT 20")
     fun getSeriesByTitle(title: String): List<SeriesEntity>
 
     @Query("SELECT * FROM SERIES_TABLE ORDER BY rate DESC")

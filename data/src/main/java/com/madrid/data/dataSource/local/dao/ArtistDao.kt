@@ -16,13 +16,13 @@ interface ArtistDao {
     suspend fun deleteArtist(artist: ArtistEntity)
 
     @Query("SELECT * FROM ARTIST_TABLE WHERE id = :id")
-    fun getArtistById(id: Int): ArtistEntity?
+    suspend fun getArtistById(id: Int): ArtistEntity?
 
     @Query("SELECT * FROM ARTIST_TABLE WHERE name LIKE :name")
-    fun getArtistByName(name: String): List<ArtistEntity>
+    suspend fun getArtistByName(name: String): List<ArtistEntity>
 
     @Query("SELECT * FROM ARTIST_TABLE")
-    fun getAllArtists(): List<ArtistEntity>
+    suspend fun getAllArtists(): List<ArtistEntity>
 
     @Query("DELETE FROM ARTIST_TABLE")
     suspend fun deleteAllArtists()
