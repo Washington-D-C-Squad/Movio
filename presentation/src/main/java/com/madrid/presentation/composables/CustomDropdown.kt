@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -120,5 +121,19 @@ fun <T> CustomDropdown(
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun CustomDropdownPreview() {
+    AppTheme {
+        var selectedItem by remember { mutableStateOf("Option 1") }
+        CustomDropdown(
+            items = listOf("Option 1", "Option 2", "Option 3"),
+            selectedItem = selectedItem,
+            labelSelector = { it },
+            onItemSelected = { selectedItem = it }
+        )
     }
 }
