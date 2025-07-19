@@ -8,8 +8,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.staticCompositionLocalOf
-import com.madrid.designsystem.radius.MovioRadius
-import com.madrid.designsystem.radius.defaultRadius
 import com.madrid.designsystem.spacing.MovioSpacing
 import com.madrid.designsystem.spacing.defaultSpacing
 import dark
@@ -26,8 +24,6 @@ object AppTheme {
         @Composable @ReadOnlyComposable get() = LocalMovioColors.current
     val spacing: MovioSpacing
         @Composable @ReadOnlyComposable get() = LocalMovioSpacing.current
-    val radius: MovioRadius
-        @Composable @ReadOnlyComposable get() = LocalMovioRadius.current
 
     @Composable
     operator fun invoke(
@@ -43,7 +39,6 @@ object AppTheme {
             LocalMovioTextStyle provides defaultTextStyle,
             LocalMovioColors provides colors,
             LocalMovioSpacing provides defaultSpacing,
-            LocalMovioRadius provides defaultRadius
         ) {
             content()
         }
@@ -53,5 +48,4 @@ object AppTheme {
     private val LocalMovioColors = staticCompositionLocalOf { light }
     private val LocalMovioTextStyle = staticCompositionLocalOf { defaultTextStyle }
     private val LocalMovioSpacing = staticCompositionLocalOf { defaultSpacing }
-    private val LocalMovioRadius = staticCompositionLocalOf { defaultRadius }
 }
