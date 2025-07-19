@@ -1,17 +1,15 @@
 package com.madrid.presentation.screens.searchScreen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -29,10 +27,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.textInputField.BasicTextInputField
+import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.RecentSearchLayout
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.filterSearchScreen
@@ -66,10 +67,10 @@ fun SearchScreen(
             viewModel.addRecentSearch(it)
         },
         modifier = modifier,
-        topRated = uiState.filteredScreenUiState.topResult,
-        movies = uiState.filteredScreenUiState.movie,
-        series = uiState.filteredScreenUiState.series,
-        artist = uiState.filteredScreenUiState.artist,
+        topRated = uiState.filteredScreenUiState.topResult.collectAsLazyPagingItems(),
+        movies = uiState.filteredScreenUiState.movie.collectAsLazyPagingItems(),
+        series = uiState.filteredScreenUiState.series.collectAsLazyPagingItems(),
+        artist = uiState.filteredScreenUiState.artist.collectAsLazyPagingItems(),
         onClickTopRated = {
             viewModel.topResult(searchQuery)
         },
@@ -84,12 +85,12 @@ fun SearchScreen(
         },
 
         forYouMovies = uiState.searchUiState.forYouMovies,
-        exploreMoreMovies = uiState.searchUiState.exploreMoreMovies,
-        searchResults = uiState.searchUiState.searchResults,
+        exploreMoreMovies = uiState.searchUiState.exploreMoreMovies.collectAsLazyPagingItems(),
+        searchResults = uiState.searchUiState.searchResults.collectAsLazyPagingItems(),
         searchQuery = searchQuery,
         onSearchQueryChange = { query ->
             searchQuery = query
-            viewModel.searchMovies(query)
+//            viewModel.searchMovies(query)
         },
         onMovieClick = { movie ->
             // Navigate to the required Screen --> navController.navigate(Destinations.MovieDetailsScreen)
@@ -99,8 +100,10 @@ fun SearchScreen(
         onSearchItemClick = { searchQuery = it },
         onRemoveItem = { viewModel.removeRecentSearch(it) },
         onClearAll = { viewModel.clearAll() },
-
-        )
+        onClickSeeAll = {
+            navController.navigate(Destinations.SeeAllForYouScreen)
+        }
+    )
     uiState.searchUiState.errorMessage?.let { errorMsg ->
         LaunchedEffect(errorMsg) {
 
@@ -124,18 +127,19 @@ fun SearchScreen(
 @Composable
 fun ContentSearchScreen(
     addRecentSearch: (String) -> Unit,
-    topRated: List<SearchScreenState.MovieUiState>,
-    movies: List<SearchScreenState.MovieUiState>,
-    series: List<SearchScreenState.SeriesUiState>,
-    artist: List<SearchScreenState.ArtistUiState>,
+    //Flow<PagingData<MovieUiState>>
+    topRated: LazyPagingItems<SearchScreenState.MovieUiState>,
+    movies: LazyPagingItems<SearchScreenState.MovieUiState>,
+    series: LazyPagingItems<SearchScreenState.SeriesUiState>,
+    artist: LazyPagingItems<SearchScreenState.ArtistUiState>,
     onClickTopRated: () -> Unit,
     onClickMovies: () -> Unit,
     onClickSeries: () -> Unit,
     onClickArtist: () -> Unit,
     modifier: Modifier = Modifier,
     forYouMovies: List<SearchScreenState.MovieUiState> = emptyList(),
-    exploreMoreMovies: List<SearchScreenState.MovieUiState> = emptyList(),
-    searchResults: List<SearchScreenState.MovieUiState> = emptyList(),
+    exploreMoreMovies: LazyPagingItems<SearchScreenState.MovieUiState>,
+    searchResults: LazyPagingItems<SearchScreenState.MovieUiState>,
     searchQuery: String = "",
     onSearchQueryChange: (String) -> Unit,
     onSearchBarClick: () -> Unit = {},
@@ -145,6 +149,7 @@ fun ContentSearchScreen(
     onRemoveItem: (String) -> Unit,
     onClearAll: () -> Unit,
     isLoading: Boolean = false,
+    onClickSeeAll: () -> Unit,
 ) {
 
 
@@ -152,7 +157,8 @@ fun ContentSearchScreen(
     var typeOfFilterSearch by remember { mutableStateOf("topRated") }
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     var showRecentSearch by remember { mutableIntStateOf(0) }
-    LaunchedEffect(searchQuery, typeOfFilterSearch) {
+    LaunchedEffect(searchQuery) {
+        Log.d("in launch", "in launch")
         snapshotFlow { searchQuery }
             .debounce(1000)
             .collect { query ->
@@ -175,7 +181,7 @@ fun ContentSearchScreen(
         modifier = modifier
             .fillMaxSize()
             .statusBarsPadding(),
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
+        contentPadding = PaddingValues( horizontal = 16.dp, vertical = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
@@ -194,7 +200,8 @@ fun ContentSearchScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable { onSearchBarClick() }
-                    .padding(top = AppTheme.spacing.medium)
+                    .padding(top = AppTheme.spacing.medium),
+                onClickEndIcon = { onSearchQueryChange("")}
             )
         }
 
@@ -204,7 +211,8 @@ fun ContentSearchScreen(
                 isLoading = isLoading,
                 forYouMovies = forYouMovies,
                 onMovieClick = onMovieClick,
-                exploreMoreMovies = exploreMoreMovies
+                exploreMoreMovies = exploreMoreMovies,
+                onClickSeeAll = { onClickSeeAll() }
             )
         }
         if (searchQuery.isNotEmpty() && showRecentSearch != 1) {
