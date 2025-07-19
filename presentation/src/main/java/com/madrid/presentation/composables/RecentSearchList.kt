@@ -44,7 +44,7 @@ fun RecentSearchList(
             .padding(horizontal = AppTheme.spacing.large)
             .background(
                 AppTheme.colors.surfaceColor.surface,
-                RoundedCornerShape(AppTheme.radius.large)
+                RoundedCornerShape(20.dp)
             )
     ) {
         Column(
