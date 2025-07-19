@@ -86,7 +86,9 @@ fun LazyGridScope.forYouAndExploreScreen(
                 rate = exploreMoreMovies[index]!!.rating,
                 width = 500.dp,
                 height = 233.dp,
-                onClick = { onExploreClick(exploreMoreMovies) }
+                onClick = {
+                    onExploreClick(exploreMoreMovies)
+                }
             )
         }
     }
