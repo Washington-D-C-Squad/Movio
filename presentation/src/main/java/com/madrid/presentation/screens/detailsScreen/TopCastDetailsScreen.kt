@@ -61,7 +61,6 @@ fun TopCastDetailsContent(
             MovioArtistsCard(
                 artistsName = artist[index].name,
                 imageUrl = artist[index].imageUrl,
-                width = 101.dp,
                 onClick = { }
             )
         }
