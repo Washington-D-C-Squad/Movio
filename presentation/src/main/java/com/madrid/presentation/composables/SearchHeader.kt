@@ -47,7 +47,7 @@ fun SearchHeader(
                 .fillMaxWidth()
                 .background(
                     AppTheme.colors.surfaceColor.surfaceVariant,
-                    RoundedCornerShape(AppTheme.radius.xLarge)
+                    RoundedCornerShape(24.dp)
                 )
                 .padding(horizontal = AppTheme.spacing.medium, vertical = AppTheme.spacing.small)
         ) {
