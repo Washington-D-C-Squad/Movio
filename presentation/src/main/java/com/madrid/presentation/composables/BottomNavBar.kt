@@ -144,7 +144,7 @@ private fun CustomNavBarItem(
             painter = painterResource(id = iconRes),
             contentDescription = item.contentDescription,
             modifier = Modifier.size(AppTheme.spacing.xLarge),
-            tint = Color.Unspecified
+            tint =AppTheme.colors.surfaceColor.onSurfaceVariant,
         )
         MovioText(
             text = item.label,

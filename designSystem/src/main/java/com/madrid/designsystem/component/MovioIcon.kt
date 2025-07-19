@@ -1,5 +1,6 @@
 package com.madrid.designsystem.component
 
+import android.graphics.Color
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,7 +17,6 @@ fun MovioIcon(
     Image(
         painter = painter,
         contentDescription = contentDescription,
-        colorFilter = ColorFilter.tint(tint),
         modifier = modifier
     )
 }
