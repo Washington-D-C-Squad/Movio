@@ -37,7 +37,7 @@ fun BasicTextInputField(
     startIconPainter: Painter?,
     endIconPainter: Painter?,
     modifier: Modifier = Modifier,
-    onClickEndIcon: () -> Unit = {},
+    onClickEndIcon: () -> Unit = { },
     borderBrushColors: List<Color> = listOf(
         AppTheme.colors.brandColors.onPrimary,
         AppTheme.colors.brandColors.primary
@@ -113,7 +113,7 @@ fun BasicTextInputField(
                     innerTextField()
                 }
 
-                if (endIconPainter != null) {
+                if (endIconPainter != null && value.isNotEmpty()) {
                     Icon(
                         painter = endIconPainter,
                         contentDescription = null,

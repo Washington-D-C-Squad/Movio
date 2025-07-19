@@ -10,6 +10,7 @@ import com.madrid.data.dataSource.remote.response.movie.SearchMovieResponse
 import com.madrid.data.dataSource.remote.response.movie.SimilarMoviesResponse
 import com.madrid.data.dataSource.remote.response.movie.TrailerResponse
 import com.madrid.data.dataSource.remote.response.series.SearchSeriesResponse
+import com.madrid.data.dataSource.remote.utils.Constants.PAGE
 import com.madrid.data.dataSource.remote.response.series.SeriesDetailsResponse
 import com.madrid.data.dataSource.remote.utils.Constants.QUERY
 import io.ktor.client.statement.bodyAsText
@@ -21,52 +22,99 @@ class RemoteDataSourceImpl(
     private val json: Json,
 ) : RemoteDataSource {
 
-    override suspend fun searchMoviesByQuery(name: String): SearchMovieResponse {
+    override suspend fun searchMoviesByQuery(
+        name: String,
+        page: Int
+    ): SearchMovieResponse {
 
         val result = client.buildHttpClient {
             encodedPath = "/3/search/movie"
             parameters.append(QUERY, name)
+            parameters.append(PAGE, page.toString())
         }
         val movies = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
+        Log.d("in impl", "searchMoviesByQuery: $movies")
         return movies
     }
 
-    override suspend fun searchSeriesByQuery(name: String): SearchSeriesResponse {
+    override suspend fun searchSeriesByQuery(
+        name: String,
+        page: Int
+    ): SearchSeriesResponse {
         val result = client.buildHttpClient {
             encodedPath = "/3/search/tv"
             parameters.append(QUERY, name)
+            parameters.append(PAGE, page.toString())
         }
         val series = json.decodeFromString<SearchSeriesResponse>(result.bodyAsText())
         return series
     }
 
-    override suspend fun searchArtistByQuery(name: String): SearchArtistResponse {
-
+    override suspend fun searchArtistByQuery(
+        name: String,
+        page: Int
+    ): SearchArtistResponse {
+        Log.d("KTOR", "searchArtistByQuery: $name")
         val result = client.buildHttpClient {
             encodedPath = "/3/search/person"
             parameters.append(QUERY, name)
+            parameters.append(PAGE, page.toString())
         }
         val artist = json.decodeFromString<SearchArtistResponse>(result.bodyAsText())
 
         return artist
     }
 
-    override suspend fun getTopRatedMovies(): SearchMovieResponse {
+    override suspend fun getTopRatedMovies(
+        query: String,
+        page: Int
+    ): SearchMovieResponse {
 
         val result = client.buildHttpClient {
-            encodedPath = "/3/movie/top_rated"
+            encodedPath = "3/search/movie"
+            parameters.append(QUERY, query)
+            parameters.append(PAGE, page.toString())
         }
         val movie = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
 
         return movie
     }
 
-    override suspend fun getTopRatedSeries(): SearchSeriesResponse {
+    override suspend fun getTopRatedMovies(
+        page: Int
+    ): SearchMovieResponse {
+
         val result = client.buildHttpClient {
-            encodedPath = "/3/tv/top_rated"
+            encodedPath = "3/movie/top_rated"
+            parameters.append(PAGE, page.toString())
+        }
+        val movie = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
+
+        return movie
+    }
+
+    override suspend fun getTopRatedSeries(
+        query: String,
+        page: Int
+    ): SearchSeriesResponse {
+        val result = client.buildHttpClient {
+            encodedPath = "/3/search/tv"
+            parameters.append(QUERY, query)
+            parameters.append(PAGE, page.toString())
         }
         val series = json.decodeFromString<SearchSeriesResponse>(result.bodyAsText())
+
         return series
+    }
+
+    override suspend fun getPopularMovie(page: Int): SearchMovieResponse {
+        val result = client.buildHttpClient {
+            encodedPath = "/3/movie/popular"
+            parameters.append(PAGE, page.toString())
+        }
+        val movie = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
+
+        return movie
     }
 
     override suspend fun getMovieDetailsById(movieId: Int): MovieDetailsResponse {

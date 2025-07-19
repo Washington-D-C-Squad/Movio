@@ -7,67 +7,67 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SearchArtistResponse(
     @SerialName("page")
-    val page: Int?,
+    val page: Int? = null,
     @SerialName("results")
-    val artistResults: List<ArtistsResult>?,
+    val artistResults: List<ArtistsResult>? = null,
     @SerialName("total_pages")
-    val totalPages: Int?,
+    val totalPages: Int? = null,
     @SerialName("total_results")
-    val totalResults: Int?
+    val totalResults: Int? = null
 )
 
 @Serializable
 data class ArtistsResult(
     @SerialName("adult")
-    val adult: Boolean?,
+    val adult: Boolean? = null,
     @SerialName("gender")
-    val gender: Int?,
+    val gender: Int? = null,
     @SerialName("id")
-    val id: Int?,
+    val id: Int? = null,
     @SerialName("known_for")
-    val knownFor: List<KnownFor>?,
+    val knownFor: List<KnownFor>? = null,
     @SerialName("known_for_department")
-    val role: String?,
+    val role: String? = null,
     @SerialName("name")
-    val name: String?,
+    val name: String? = null,
     @SerialName("original_name")
-    val originalName: String?,
+    val originalName: String? = null,
     @SerialName("popularity")
-    val popularity: Double?,
+    val popularity: Double? = null,
     @SerialName("profile_path")
-    val profilePath: String?
+    val profilePath: String? = null
 )
 
 @Serializable
 data class KnownFor(
     @SerialName("adult")
-    val adult: Boolean?,
+    val adult: Boolean? = null,
     @SerialName("backdrop_path")
-    val backdropPath: String?,
+    val backdropPath: String? = null,
     @SerialName("genre_ids")
-    val genreIds: List<Int>?,
+    val genreIds: List<Int>? = null,
     @SerialName("id")
-    val id: Int?,
+    val id: Int? = null,
     @SerialName("media_type")
-    val mediaType: String?,
+    val mediaType: String? = null,
     @SerialName("original_language")
-    val originalLanguage: String?,
+    val originalLanguage: String? = null,
     @SerialName("original_title")
-    val originalTitle: String?,
+    val originalTitle: String? = null,
     @SerialName("overview")
-    val overview: String?,
+    val overview: String? = null,
     @SerialName("popularity")
-    val popularity: Double?,
+    val popularity: Double? = null,
     @SerialName("poster_path")
-    val posterPath: String?,
+    val posterPath: String? = null,
     @SerialName("release_date")
-    val releaseDate: String?,
+    val releaseDate: String? = null,
     @SerialName("title")
-    val title: String?,
+    val title: String? = null,
     @SerialName("video")
-    val video: Boolean?,
+    val video: Boolean? = null,
     @SerialName("vote_average")
-    val voteAverage: Double?,
+    val voteAverage: Double? = null,
     @SerialName("vote_count")
-    val voteCount: Int?
+    val voteCount: Int? = null
 )
