@@ -1,18 +1,20 @@
 package com.madrid.domain.entity
 
-import kotlinx.datetime.LocalDate
-
 data class Series(
     val id: Int,
     val title: String,
     val imageUrl: String,
     val rate: Double,
-    val yearOfRelease: LocalDate,
-    val seasons: List<Season>?,
+    val yearOfRelease: String,
+    val seasons: List<Season> = listOf(),
     val description: String,
-    val genre: List<String>,
-    val topCast: List<Artist>,
-    val reviews: List<Review>
+    val genre: List<String>? = listOf(),
+    val profilePage: String = " "
 )
 
-
+data class SimilarSeries(
+    val id: Int,
+    val title: String,
+    val imageUrl: String,
+    val rate: Double,
+)

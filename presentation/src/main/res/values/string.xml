@@ -1,26 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-        <string name="continue_as_a_guest">Continue as a guest</string>
-        <string name="video_library_video_number">Video</string>">
-        <string name="current_episode">Episode %1$s</string>
-        <string name="moive_image" >movie image</string>
-        <string name="bold_video_circle" >start movie icon </string>
-        <string name="dot" >dot</string>
-        <string name="stars_icon_rate" >stars icon rate</string>
-        <string name="season">season %1$s</string>
-        <string name="episodes">%1$s Episodes</string>
-        <string name="of">of %1$s</string>
-        <string name="home">Home</string>
-        <string name="search">Search</string>
-        <string name="library">Library</string>
-        <string name="more">More</string>
-        <string name="recent_search">Recent Search</string>
-        <string name="clear_all">Clear All</string>
-        <string name="remove">Remove</string>
-        <string name="top_result">Top Result</string>
-        <string name="Movies">Movies</string>
-        <string name="Series">Series</string>
-        <string name="Artists">Artists</string>
-        <string name="search_result_count">SearchResult (%1$s items)</string>
+    <string name="continue_as_a_guest">Continue as a guest</string>
+    <string name="video_library_video_number">Video</string>">
+    <string name="current_episode">Episode %1$s</string>
+    <string name="moive_image">movie image</string>
+    <string name="bold_video_circle">start movie icon </string>
+    <string name="dot">dot</string>
+    <string name="stars_icon_rate">stars icon rate</string>
+    <string name="season">season %1$s</string>
+    <string name="episodes">%1$s Episodes</string>
+    <string name="of">of %1$s</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="library">Library</string>
+    <string name="more">More</string>
+    <string name="recent_search">Recent Search</string>
+    <string name="clear_all">Clear All</string>
+    <string name="remove">Remove</string>
+    <string name="top_result">Top Result</string>
+    <string name="Movies">Movies</string>
+    <string name="Series">Series</string>
+    <string name="Artists">Artists</string>
+    <string name="search_result_count">SearchResult (%1$s items)</string>//
+    <string name="top_cast">Top Cast</string>
+    <string name="selected_similar_movie">Similar Movies</string>
+    <string name="Rate_it">Rate it</string>
+    <string name="Add_to_list">Add to list</string>
+    <string name="Play">Play</string>
+    <string name="for_u">For You</string>
+    <string name="see_all">See all</string>
+    <string name="explore_more">Explore more</string>
+    <string name="loading">Loading...</string>
+
 
 </resources>

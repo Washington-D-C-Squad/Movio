@@ -1,11 +1,18 @@
 package com.madrid.domain.entity
 
-import kotlinx.datetime.LocalDate
-
 data class Review(
-    val id: Int,
+    val mediaId: Int = 0,
     val userId: Int,
     val rate: Double,
-    val dateOfRelease: LocalDate,
-    val comment: String
+    val dateOfRelease: String,
+    val comment: String,
+)
+
+
+data class ReviewResult(
+    val mediaId: Int,
+    val page: Int,
+    val results: List<Review>,
+    val totalPages: Int,
+    val totalResults: Int
 )

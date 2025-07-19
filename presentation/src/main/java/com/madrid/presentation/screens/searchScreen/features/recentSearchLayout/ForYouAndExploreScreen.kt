@@ -1,6 +1,8 @@
 package com.madrid.presentation.screens.searchScreen.features.recentSearchLayout
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
@@ -10,19 +12,24 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.LazyPagingItems
 import com.example.designsystem.component.CustomTextTitel
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
+import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState.MovieUiState
 
 fun LazyGridScope.forYouAndExploreScreen(
     showSearchResults: Boolean,
     isLoading: Boolean,
     forYouMovies: List<MovieUiState>,
-    exploreMoreMovies: List<MovieUiState> = emptyList(),
+    exploreMoreMovies: LazyPagingItems<SearchScreenState.MovieUiState>,
     onMovieClick: (MovieUiState) -> Unit = {},
+    onExploreClick: ( LazyPagingItems<SearchScreenState.MovieUiState>) -> Unit = {},
+    onClickSeeAll :()->Unit
 ) {
     if (!showSearchResults && !isLoading) {
         item(
@@ -30,10 +37,10 @@ fun LazyGridScope.forYouAndExploreScreen(
         ) {
             CustomTextTitel(
                 modifier = Modifier.padding(horizontal = AppTheme.spacing.medium),
-                primaryText = "For You",
-                secondaryText = "See all",
+                primaryText = stringResource(com.madrid.presentation.R.string.for_u),
+                secondaryText = stringResource(com.madrid.presentation.R.string.see_all),
                 endIcon = painterResource(R.drawable.outline_alt_arrow_left),
-                onSeeAllClick = {}
+                onSeeAllClick = {onClickSeeAll()}
             )
         }
         item(
@@ -61,22 +68,27 @@ fun LazyGridScope.forYouAndExploreScreen(
             }
         }
     }
-    if (!showSearchResults && exploreMoreMovies.isNotEmpty()) {
+    if (!showSearchResults && exploreMoreMovies.itemCount != 0 ) {
         item(
             span = { GridItemSpan(maxLineSpan) }
         ) {
             CustomTextTitel(
-                primaryText = "Explore more"
+                primaryText = stringResource(com.madrid.presentation.R.string.explore_more)
             )
         }
-        items(exploreMoreMovies) { movie ->
+        items(
+            count = exploreMoreMovies.itemCount,
+        ) { index ->
             MovioVerticalCard(
-                description = movie.title,
-                movieImage = movie.imageUrl,
-                rate = movie.rating,
-                width = 328.dp,
+                modifier = Modifier.fillMaxWidth(fraction = 0.50f) ,
+                description = exploreMoreMovies[index]!!.title,
+                movieImage = exploreMoreMovies[index]!!.imageUrl,
+                rate = exploreMoreMovies[index]!!.rating,
+                width = 500.dp,
                 height = 233.dp,
-                onClick = { onMovieClick(movie) }
+                onClick = {
+                    onExploreClick(exploreMoreMovies)
+                }
             )
         }
     }

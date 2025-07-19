@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -50,12 +51,10 @@ fun MovioVerticalCard(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.End
             ) {
-                RateIcon(rate = rate, tint = AppTheme.colors.systemColors.warning)
+                RateIcon(rate = rate.take(3), tint = AppTheme.colors.systemColors.warning)
             }
             BasicImageCard(
                 imageUrl = movieImage,
-                height = height,
-                width = width,
                 radius = AppTheme.radius.small,
                 modifier = Modifier
                     .width(width)
@@ -85,7 +84,7 @@ private fun VerticalCardPreview() {
         MovioVerticalCard(
             description = "Spider-Man: Homecoming",
             movieImage = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
-            width = 180.dp,
+            width = 200.dp,
             height = 150.dp,
             paddingvalue = 8.dp,
             onClick = {},

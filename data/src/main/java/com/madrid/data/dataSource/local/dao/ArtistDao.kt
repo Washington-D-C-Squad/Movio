@@ -5,8 +5,6 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.madrid.data.dataSource.local.entity.ArtistEntity
-import com.madrid.data.dataSource.local.entity.MovieEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ArtistDao {
@@ -18,13 +16,13 @@ interface ArtistDao {
     suspend fun deleteArtist(artist: ArtistEntity)
 
     @Query("SELECT * FROM ARTIST_TABLE WHERE id = :id")
-    fun getArtistById(id: Int): Flow<ArtistEntity?>
+    suspend fun getArtistById(id: Int): ArtistEntity?
 
     @Query("SELECT * FROM ARTIST_TABLE WHERE name LIKE :name")
-    fun getArtistByName(name: String): Flow<List<ArtistEntity>>
+    suspend fun getArtistByName(name: String): List<ArtistEntity>
 
     @Query("SELECT * FROM ARTIST_TABLE")
-    fun getAllArtists(): Flow<List<ArtistEntity>>
+    suspend fun getAllArtists(): List<ArtistEntity>
 
     @Query("DELETE FROM ARTIST_TABLE")
     suspend fun deleteAllArtists()
