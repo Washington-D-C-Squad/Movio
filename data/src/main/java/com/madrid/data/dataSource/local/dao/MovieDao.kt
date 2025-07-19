@@ -23,7 +23,7 @@ interface MovieDao {
     @Query("SELECT * FROM MOVIE_TABLE WHERE id = :id")
     fun getMovieById(id: Int): MovieEntity?
 
-    @Query("SELECT * FROM MOVIE_TABLE WHERE title LIKE :title")
+    @Query("SELECT * FROM MOVIE_TABLE WHERE title LIKE :title LIMIT 20")
     fun getMovieByTitle(title: String): List<MovieEntity>
 
     @Query("SELECT * FROM MOVIE_TABLE ORDER BY rate DESC")

@@ -1,14 +1,49 @@
 package com.madrid.data.dataSource.remote.mapper
 
+import com.madrid.data.dataSource.remote.response.common.TrailerResponse
+import com.madrid.data.dataSource.remote.response.movie.CastNetwork
+import com.madrid.data.dataSource.remote.response.movie.MovieCreditsResponse
+import com.madrid.data.dataSource.remote.response.movie.MovieDetailsResponse
+import com.madrid.data.dataSource.remote.response.movie.MovieGenre
 import com.madrid.data.dataSource.remote.response.movie.MovieResult
 import com.madrid.data.dataSource.remote.response.movie.MovieReviewResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieReviewResult
 import com.madrid.data.dataSource.remote.response.movie.SearchMovieResponse
+import com.madrid.data.dataSource.remote.response.movie.SimilarMovieNetwork
+import com.madrid.data.dataSource.remote.response.movie.SimilarMoviesResponse
+import com.madrid.domain.entity.Cast
 import com.madrid.domain.entity.Movie
 import com.madrid.domain.entity.Review
 import com.madrid.domain.entity.ReviewResult
 import com.madrid.domain.entity.SearchResult
+import com.madrid.domain.entity.SimilarMovie
+import com.madrid.domain.entity.Trailer
 
+// Region Search
+fun SearchMovieResponse.toSearchResult(): SearchResult {
+    return SearchResult(
+        page = this.page,
+        searchResults = this.movieResults?.map { it.toMovie() },
+        totalPages = this.totalPages,
+        totalResults = this.totalResults
+    )
+}
+// End Region
+
+// Region Details
+fun MovieDetailsResponse.toMovie(): Movie {
+    return Movie(
+        id = this.id ?: 0,
+        title = this.title ?: "",
+        imageUrl = "https://image.tmdb.org/t/p/original${this.posterPath}",
+        rate = this.voteAverage ?: 0.0,
+        yearOfRelease = this.releaseDate ?: "",
+        movieDuration = this.runtime?.toString() ?: "",
+        description = this.overview ?: "",
+        genre = this.movieGenres?.map { it.toMediaGenre().title },
+        profilePage = this.homepage ?: ""
+    )
+}
 
 fun MovieResult.toMovie(): Movie {
     return Movie(
@@ -20,30 +55,30 @@ fun MovieResult.toMovie(): Movie {
         movieDuration = "",
         description = this.overview ?: "",
         genre = listOf(),
+
+        )
+}
+// End Region
+
+// Region Cast
+fun MovieCreditsResponse.toCredits(): Credits {
+    return Credits(
+        id = this.id ?: 0,
+        cast = this.castNetwork?.map { it.toCast() },
     )
 }
 
-
-fun SearchMovieResponse.toSearchResult(): SearchResult {
-    return SearchResult(
-        page = this.page,
-        artistResults = this.movieResults?.map { it.toMovie() },
-        totalPages = this.totalPages,
-        totalResults = this.totalResults
-    )
-}
-
-
-/*
-fun Cast.tocrew(): Crew {
-    return Crew(
-        id = this.id?:0,
-        name = this.name?:"",
+fun CastNetwork.toCast(): Cast {
+    return Cast(
+        id = this.id ?: 0,
+        name = this.name ?: "",
         imageUrl = "https://image.tmdb.org/t/p/original${this.profilePath}",
     )
-}*/
+}
+// End Region
 
-fun MovieReviewResponse.toreviewResult(
+// Region Review
+fun MovieReviewResponse.toReviewResult(
 ): ReviewResult {
     return ReviewResult(
         mediaId = this.id ?: 0,
@@ -62,3 +97,44 @@ fun MovieReviewResult.toReview(): Review {
         comment = this.content ?: ""
     )
 }
+// End Region
+
+// Region Similar Movie
+fun SimilarMovieNetwork.toSimilarMovie(): SimilarMovie {
+    return SimilarMovie(
+        id = this.id ?: 0,
+        title = this.title ?: "",
+        imageUrl = "https://image.tmdb.org/t/p/original${this.posterPath}",
+        rate = this.voteAverage ?: 0.0
+    )
+}
+
+fun SimilarMoviesResponse.toSimilarMovies(): SimilarMedia {
+    return SimilarMedia(
+        page = this.page,
+        results = this.similarMovie?.map { it.toSimilarMovie() },
+        totalPages = this.totalPages,
+        totalResults = this.totalResults
+
+    )
+}
+// End Region
+
+//Region Genre
+fun MovieGenre.toMediaGenre(): MediaGenre {
+    return MediaGenre(
+        id = this.id ?: 0,
+        title = this.name ?: ""
+    )
+}
+//End region
+
+// Region Trailer
+
+fun TrailerResponse.toTrailer(): Trailer {
+    return Trailer(
+        key = this.results.firstOrNull()?.key ?: "",
+        id = this.results.firstOrNull()?.id ?: ""
+    )
+}
+// End Region

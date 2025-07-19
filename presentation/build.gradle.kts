@@ -43,13 +43,12 @@ dependencies {
     implementation(project(":designSystem"))
     implementation(project(":detectImageContent"))
     implementation(project(":domain"))
-    implementation(project(":data"))
 
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.work.runtime.ktx)
     debugImplementation(libs.ui.tooling)
 
-    implementation("androidx.compose.foundation:foundation")
+    implementation(libs.foundation)
     implementation(platform(libs.androidx.compose.bom))
 
     implementation(libs.androidx.core.ktx)
@@ -68,8 +67,10 @@ dependencies {
     implementation(libs.koin.android)
 
     //coil
-    implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation(libs.coil.kt.coil.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1")
-
+    //pagination
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
 }

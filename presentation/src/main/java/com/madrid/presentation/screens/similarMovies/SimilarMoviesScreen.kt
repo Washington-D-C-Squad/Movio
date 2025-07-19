@@ -69,21 +69,21 @@ fun SimilarMoviesScreen(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            items(state.searchUiState.exploreMoreMovies) { movie ->
-                MovioVerticalCard(
-                    description = movie.title,
-                    movieImage = movie.imageUrl,
-                    rate = movie.rating,
-                    width = 101.33.dp,
-                    height = 136.dp,
-                    onClick = {
-                        selectedMovieId = movie.id
-                        onMovieClick(movie)
-                    },
-                    modifier = Modifier,
-                    paddingvalue = 0.dp
-                )
-            }
+//            items(state.searchUiState.exploreMoreMovies) { movie ->
+//                MovioVerticalCard(
+//                    description = movie.title,
+//                    movieImage = movie.imageUrl,
+//                    rate = movie.rating,
+//                    width = 101.33.dp,
+//                    height = 136.dp,
+//                    onClick = {
+//                        selectedMovieId = movie.id
+//                        onMovieClick(movie)
+//                    },
+//                    modifier = Modifier,
+//                    paddingvalue = 0.dp
+//                )
+//            }
         }
         if (state.searchUiState.isLoading) {
             Box(

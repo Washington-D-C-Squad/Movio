@@ -11,7 +11,7 @@ class MovieDetailsViewModel(
 
     fun loadCast(movieId: String) {
         tryToExecute(
-            function = { artistUseCase.getArtistByQuery(movieId) },
+            function = { artistUseCase.getArtistByQuery(query = movieId , page = 1 ) },
             onSuccess = { castList ->
                 updateState {
                     it.copy(

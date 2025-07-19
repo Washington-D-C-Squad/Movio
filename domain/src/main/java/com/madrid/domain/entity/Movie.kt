@@ -8,15 +8,29 @@ data class Movie(
     val yearOfRelease: String = "",
     val movieDuration: String = "",
     val description: String = "",
-    val genre: List<String> = listOf(),
-    val crew: List<Crew> = listOf(),
+    val genre: List<String>? = listOf(),
+    val crew: List<Cast> = listOf(),
+    val profilePage: String = " "
 )
 
-
-data class Crew(
+data class Cast(
     val id: Int,
     val name: String,
-    val imageUrl: String
+    val imageUrl: String,
+
+    )
+
+
+data class Trailer(
+    val key: String,
+    val id: String
+)
+
+data class SimilarMovie(
+    val id: Int,
+    val title: String,
+    val imageUrl: String,
+    val rate: Double,
 )
 
 
