@@ -17,6 +17,7 @@ fun MovioText(
     textStyle: TextStyle,
     modifier: Modifier = Modifier,
     maxLines: Int = Int.MAX_VALUE,
+
     textAlign: TextAlign? = null ,
     overflow: TextOverflow = TextOverflow.Ellipsis
 ) {
@@ -27,6 +28,7 @@ fun MovioText(
         modifier = modifier,
         maxLines = maxLines,
         overflow = overflow
+
     )
 }
 
