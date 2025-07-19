@@ -12,6 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import androidx.paging.compose.LazyPagingItems
+import com.madrid.designsystem.component.LoadingSearchCard
 import com.madrid.presentation.R
 import com.madrid.presentation.composables.movioCards.MovioArtistsCard
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
@@ -20,17 +21,17 @@ import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
 
 fun LazyGridScope.filterSearchScreen(
     typeOfFilterSearch: String,
-    onChangeTypeFilterSearch:()->Unit,
-    selectedTabIndex:Int,
-    onChangeSelectedTabIndex:(Int)->Unit,
+    onChangeTypeFilterSearch: () -> Unit,
+    selectedTabIndex: Int,
+    onChangeSelectedTabIndex: (Int) -> Unit,
     topRated: LazyPagingItems<SearchScreenState.MovieUiState>,
     movies: LazyPagingItems<SearchScreenState.MovieUiState>,
     series: LazyPagingItems<SearchScreenState.SeriesUiState>,
     artist: LazyPagingItems<SearchScreenState.ArtistUiState>,
 ) {
-    item (
+    item(
         span = { GridItemSpan(maxLineSpan) }
-    ){
+    ) {
         HeaderSectionBar(
             tabs = listOf(
                 stringResource(R.string.top_result),
@@ -50,7 +51,7 @@ fun LazyGridScope.filterSearchScreen(
         "topRated" -> {
             item(
                 span = { GridItemSpan(maxLineSpan) }
-            ){
+            ) {
                 SearchResultMessage(items = topRated.itemCount.toString())
             }
             item(
@@ -60,8 +61,13 @@ fun LazyGridScope.filterSearchScreen(
                     columns = GridCells.Fixed(3),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.height((topRated.itemCount / 3 + 1) * 186.dp)
+                    modifier = Modifier.height(3 * 186.dp)
                 ) {
+                    if (topRated.itemCount == 0) {
+                        items(9) {
+                            LoadingSearchCard()
+                        }
+                    }
                     items(count = topRated.itemCount) { index ->
                         MovioVerticalCard(
                             description = topRated[index]!!.title,
@@ -79,18 +85,23 @@ fun LazyGridScope.filterSearchScreen(
         "movies" -> {
             item(
                 span = { GridItemSpan(maxLineSpan) }
-            ){
+            ) {
                 SearchResultMessage(items = movies.itemCount.toString())
             }
             item(
                 span = { GridItemSpan(maxLineSpan) }
             ) {
                 LazyVerticalGrid(
-                    columns = GridCells.Fixed(3), // 3 items per row
+                    columns = GridCells.Fixed(3),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.height((movies.itemCount / 3 + 1) * 186.dp)
+                    modifier = Modifier.height(3 * 186.dp)
                 ) {
+                    if (movies.itemCount == 0) {
+                        items(9) {
+                            LoadingSearchCard()
+                        }
+                    }
                     items(count = movies.itemCount) { index ->
                         MovioVerticalCard(
                             description = movies[index]!!.title,
@@ -108,18 +119,23 @@ fun LazyGridScope.filterSearchScreen(
         "series" -> {
             item(
                 span = { GridItemSpan(maxLineSpan) }
-            ){
+            ) {
                 SearchResultMessage(items = series.itemCount.toString())
             }
             item(
                 span = { GridItemSpan(maxLineSpan) }
             ) {
                 LazyVerticalGrid(
-                    columns = GridCells.Fixed(3), // 3 items per row
+                    columns = GridCells.Fixed(3),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.height((series.itemCount / 3 + 1) * 186.dp)
+                    modifier = Modifier.height(3 * 186.dp)
                 ) {
+                    if (series.itemCount == 0) {
+                        items(9) {
+                            LoadingSearchCard()
+                        }
+                    }
                     items(count = series.itemCount) { index ->
                         MovioVerticalCard(
                             description = series[index]!!.title,
@@ -137,18 +153,23 @@ fun LazyGridScope.filterSearchScreen(
         else -> {
             item(
                 span = { GridItemSpan(maxLineSpan) }
-            ){
+            ) {
                 SearchResultMessage(items = artist.itemCount.toString())
             }
             item(
                 span = { GridItemSpan(maxLineSpan) }
             ) {
                 LazyVerticalGrid(
-                    columns = GridCells.Fixed(3), // 3 items per row
+                    columns = GridCells.Fixed(3),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.height((artist.itemCount / 3 + 1) * 48.dp)
+                    modifier = Modifier.height(3 * 186.dp)
                 ) {
+                    if (artist.itemCount == 0) {
+                        items(9) {
+                            LoadingSearchCard()
+                        }
+                    }
                     items(count = artist.itemCount) { index ->
                         MovioArtistsCard(
                             artistsName = artist[index]!!.name,

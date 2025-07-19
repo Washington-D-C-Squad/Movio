@@ -10,7 +10,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.unit.dp
 import com.madrid.designsystem.AppTheme
 
@@ -26,8 +25,7 @@ fun LoadingSearchCard(modifier: Modifier = Modifier) {
                 .width(101.dp)
                 .height(136.dp)
                 .clip(RoundedCornerShape(AppTheme.radius.small))
-//                .background(AppTheme.colors.surfaceColor.surfaceContainer),
-                .background(Red),
+                .background(AppTheme.colors.surfaceColor.surfaceContainer),
         )
         Spacer(modifier = Modifier.height(8.dp))
         Box(
