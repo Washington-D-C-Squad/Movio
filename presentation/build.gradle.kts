@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.compose)
 }
 
 android {
@@ -31,10 +31,11 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    android {
-        buildFeatures {
-            compose = true
-        }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.12"
     }
 }
 
