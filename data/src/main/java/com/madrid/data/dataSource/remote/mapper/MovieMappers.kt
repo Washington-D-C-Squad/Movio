@@ -16,6 +16,7 @@ import com.madrid.domain.entity.Movie
 import com.madrid.domain.entity.Review
 import com.madrid.domain.entity.ReviewResult
 import com.madrid.domain.entity.SearchResult
+import com.madrid.domain.entity.SimilarMovie
 import com.madrid.domain.entity.Trailer
 
 

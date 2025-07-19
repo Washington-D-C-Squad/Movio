@@ -48,11 +48,6 @@ interface RemoteDataSource {
         page: Int
     ): SearchMovieResponse
 
-
-    suspend fun getTopRatedMovies(): SearchMovieResponse
-    suspend fun getTopRatedSeries(): SearchSeriesResponse
-
-
     // region movie details
     suspend fun getMovieDetailsById(movieId: Int): MovieDetailsResponse
     suspend fun getMovieTrailersById(movieId: Int): TrailerResponse

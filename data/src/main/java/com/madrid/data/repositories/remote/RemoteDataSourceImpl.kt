@@ -1,5 +1,6 @@
 package com.madrid.data.repositories.remote
 
+import android.util.Log
 import com.madrid.data.CustomHttpClient
 import com.madrid.data.dataSource.remote.response.artist.ArtistDetailsResponse
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
@@ -116,6 +117,8 @@ class RemoteDataSourceImpl(
 
         return movie
     }
+
+
 
     override suspend fun getMovieDetailsById(movieId: Int): MovieDetailsResponse {
         val result = client.buildHttpClient { encodedPath = "/3/movie/$movieId" }
