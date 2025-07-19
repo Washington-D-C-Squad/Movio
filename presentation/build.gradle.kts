@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.compose)
+    alias(libs.plugins.kotlin.compose)
+    kotlin("plugin.serialization") version "2.2.0"
 }
 
 android {
@@ -31,11 +32,10 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.12"
+    android {
+        buildFeatures {
+            compose = true
+        }
     }
 }
 
@@ -43,20 +43,34 @@ dependencies {
     implementation(project(":designSystem"))
     implementation(project(":detectImageContent"))
     implementation(project(":domain"))
+
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.work.runtime.ktx)
     debugImplementation(libs.ui.tooling)
-    implementation(libs.androidx.compose.foundation.foundation)
+
+    implementation(libs.foundation)
     implementation(platform(libs.androidx.compose.bom))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+
+
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(platform(libs.androidx.compose.bom))
+
+    // Koin
     implementation(libs.koin.androidx.compose)
+    api(libs.koin.annotations)
     implementation(libs.koin.android)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    //coil
+    implementation(libs.coil.kt.coil.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    //pagination
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
 }
