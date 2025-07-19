@@ -9,7 +9,7 @@ data class SimilarMoviesResponse(
     @SerialName("page")
     val page: Int?,
     @SerialName("results")
-    val results: List<SimilarMovie>?,
+    val similarMovie: List<SimilarMovieNetwork>?,
     @SerialName("total_pages")
     val totalPages: Int?,
     @SerialName("total_results")
@@ -17,7 +17,7 @@ data class SimilarMoviesResponse(
 )
 
 @Serializable
-data class SimilarMovie(
+data class SimilarMovieNetwork(
     @SerialName("adult")
     val adult: Boolean?,
     @SerialName("backdrop_path")

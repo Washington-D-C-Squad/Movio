@@ -6,16 +6,15 @@ data class Series(
     val imageUrl: String,
     val rate: Double,
     val yearOfRelease: String,
-    val seasons: Int = 0,
+    val seasons: List<Season> = listOf(),
     val description: String,
-    val genre: List<String>,
-
+    val genre: List<String>? = listOf(),
+    val profilePage: String = " "
 )
 
-
-data class SearchResult(
-    val page: Int?,
-    val artistResults: List<Any>?,
-    val totalPages: Int?,
-    val totalResults: Int?
+data class SimilarSeries(
+    val id: Int,
+    val title: String,
+    val imageUrl: String,
+    val rate: Double,
 )

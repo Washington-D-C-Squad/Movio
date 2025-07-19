@@ -5,15 +5,15 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class SeriesCast(
+data class SeriesCreditResponse(
     @SerialName("id")
     val id: Int?,
     @SerialName("cast")
-    val cast: List<Cast>?,
+    val seriesCastNetwork: List<SeriesCastNetwork>?,
 )
 
 @Serializable
-data class Cast(
+data class SeriesCastNetwork(
     @SerialName("adult")
     val adult: Boolean?,
     @SerialName("gender")

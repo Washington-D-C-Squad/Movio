@@ -3,7 +3,8 @@ package com.madrid.data.dataSource.remote.response.movie
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-data class MovieDetails(
+@Serializable
+data class MovieDetailsResponse(
     @SerialName("adult")
     val adult: Boolean?,
     @SerialName("backdrop_path")
@@ -13,7 +14,7 @@ data class MovieDetails(
     @SerialName("budget")
     val budget: Int?,
     @SerialName("genres")
-    val genres: List<Genre>?,
+    val movieGenres: List<MovieGenre>?,
     @SerialName("homepage")
     val homepage: String?,
     @SerialName("id")
@@ -42,8 +43,8 @@ data class MovieDetails(
     val revenue: Int?,
     @SerialName("runtime")
     val runtime: Int?,
-    @SerialName("spoken_language")
-    val spokenLanguage: List<SpokenLanguage>?,
+    @SerialName("spoken_languages")
+    val spokenLanguages: List<SpokenLanguage>?,
     @SerialName("status")
     val status: String?,
     @SerialName("tagline")
@@ -71,7 +72,7 @@ data class BelongsToCollection(
 )
 
 @Serializable
-data class Genre(
+data class MovieGenre(
     @SerialName("id")
     val id: Int?,
     @SerialName("name")

@@ -208,7 +208,7 @@ class SearchViewModel(
                     title = movie.title,
                     imageUrl = movie.imageUrl,
                     rating = movie.rate.toString(),
-                    category = movie.genre.first()
+                    category = movie.genre?.first() ?: ""
                 )
             )
         }
