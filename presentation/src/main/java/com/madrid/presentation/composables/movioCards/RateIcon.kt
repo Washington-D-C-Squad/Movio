@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,11 +15,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.presentation.R.string
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R.drawable
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
+import com.madrid.presentation.R.string
 
 
 @Composable
@@ -33,11 +31,11 @@ fun RateIcon(
 ) {
     Box(
         modifier = modifier
-            .height(AppTheme.spacing.medium)
-            .padding(end = AppTheme.spacing.small), contentAlignment = Alignment.Center
+            .height(AppTheme.spacing.medium),
+        contentAlignment = Alignment.Center
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
+            horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.extraSmall),
             verticalAlignment = Alignment.CenterVertically
         ) {
             MovioIcon(
@@ -63,10 +61,7 @@ fun RateIcon(
 private fun RatreIconpreview() {
     RateIcon(
         icon = painterResource(drawable.bold_star),
-        rate = "5.0",
+        rate = "5.2",
         tint = AppTheme.colors.systemColors.warning,
-        modifier = Modifier
-            .height(16.dp)
-            .width(38.dp)
     )
 }
