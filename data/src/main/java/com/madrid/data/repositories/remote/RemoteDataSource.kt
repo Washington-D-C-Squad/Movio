@@ -6,20 +6,14 @@ import com.madrid.data.dataSource.remote.response.common.TrailerResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieCreditsResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieDetailsResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieReviewResponse
-import com.madrid.data.dataSource.remote.response.movie.MovieCreditsResponse
-import com.madrid.data.dataSource.remote.response.movie.MovieDetailsResponse
-import com.madrid.data.dataSource.remote.response.movie.MovieReviewResponse
 import com.madrid.data.dataSource.remote.response.movie.SearchMovieResponse
 import com.madrid.data.dataSource.remote.response.movie.SimilarMoviesResponse
-import com.madrid.data.dataSource.remote.response.movie.SimilarMoviesResponse
-import com.madrid.data.dataSource.remote.response.movie.TrailerResponse
 import com.madrid.data.dataSource.remote.response.series.SearchSeriesResponse
 import com.madrid.data.dataSource.remote.response.series.SeasonEpisodesResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesCreditResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesDetailsResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesReviewResponse
 import com.madrid.data.dataSource.remote.response.series.SimilarSeriesResponse
-import com.madrid.data.dataSource.remote.response.series.SeriesDetailsResponse
 
 interface RemoteDataSource {
 

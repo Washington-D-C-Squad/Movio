@@ -4,12 +4,12 @@ import android.util.Log
 import com.madrid.data.CustomHttpClient
 import com.madrid.data.dataSource.remote.response.artist.ArtistDetailsResponse
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
+import com.madrid.data.dataSource.remote.response.common.TrailerResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieCreditsResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieDetailsResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieReviewResponse
 import com.madrid.data.dataSource.remote.response.movie.SearchMovieResponse
 import com.madrid.data.dataSource.remote.response.movie.SimilarMoviesResponse
-import com.madrid.data.dataSource.remote.response.movie.TrailerResponse
 import com.madrid.data.dataSource.remote.response.series.SearchSeriesResponse
 import com.madrid.data.dataSource.remote.response.series.SeasonEpisodesResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesCreditResponse
@@ -65,7 +65,7 @@ class RemoteDataSourceImpl(
     // End Region
 
     // Region Artist
-    override suspend fun searchArtistByQuery(name: String): SearchArtistResponse =
+    suspend fun searchArtistByQuery(name: String): SearchArtistResponse =
         getSearchRequestByQuery<SearchArtistResponse>("/3/search/person", name)
 
     override suspend fun getArtistDetailsById(artistId: Int): ArtistDetailsResponse =
