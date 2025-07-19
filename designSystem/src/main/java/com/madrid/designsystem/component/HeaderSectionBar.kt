@@ -51,7 +51,7 @@ fun HeaderSectionBar(
             val isSelected = selectedTabIndex == index
             val textColor by animateColorAsState(
                 targetValue = if (isSelected)
-                    AppTheme.colors.brandColors.primaryContainer
+                    AppTheme.colors.brandColors.onPrimaryContainer
                 else
                     AppTheme.colors.surfaceColor.onSurfaceVariant,
                 animationSpec = tween(300),
