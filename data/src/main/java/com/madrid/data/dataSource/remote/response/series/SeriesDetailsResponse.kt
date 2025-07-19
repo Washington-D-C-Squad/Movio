@@ -17,7 +17,7 @@ data class SeriesDetailsResponse(
     @SerialName("first_air_date")
     val firstAirDate: String?,
     @SerialName("genres")
-    val genres: List<Genres>?,
+    val genres: List<SeriesGenres>?,
     @SerialName("homepage")
     val homepage: String?,
     @SerialName("id")
@@ -57,7 +57,7 @@ data class SeriesDetailsResponse(
     @SerialName("production_countries")
     val productionCountries: List<ProductionCountries>?,
     @SerialName("seasons")
-    val seasons: List<Seasons>?,
+    val seasons: List<SeasonsNetwork>?,
     @SerialName("spoken_languages")
     val spokenLanguages: List<Translation>?,
     @SerialName("status")
@@ -89,7 +89,7 @@ data class Director(
 )
 
 @Serializable
-data class Genres(
+data class SeriesGenres(
     @SerialName("id")
     val id: Int?,
     @SerialName("name")
@@ -157,7 +157,7 @@ data class ProductionCountries(
 )
 
 @Serializable
-data class Seasons(
+data class SeasonsNetwork(
     @SerialName("air_date")
     val airDate: String?,
     @SerialName("episode_count")

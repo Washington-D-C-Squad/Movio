@@ -10,6 +10,7 @@ data class Movie(
     val description: String = "",
     val genre: List<String>? = listOf(),
     val crew: List<Cast> = listOf(),
+    val profilePage: String = " "
 )
 
 data class Cast(

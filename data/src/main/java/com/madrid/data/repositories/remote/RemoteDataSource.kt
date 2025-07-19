@@ -2,13 +2,23 @@ package com.madrid.data.repositories.remote
 
 import com.madrid.data.dataSource.remote.response.artist.ArtistDetailsResponse
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
+import com.madrid.data.dataSource.remote.response.common.TrailerResponse
+import com.madrid.data.dataSource.remote.response.movie.MovieCreditsResponse
+import com.madrid.data.dataSource.remote.response.movie.MovieDetailsResponse
+import com.madrid.data.dataSource.remote.response.movie.MovieReviewResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieCreditsResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieDetailsResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieReviewResponse
 import com.madrid.data.dataSource.remote.response.movie.SearchMovieResponse
 import com.madrid.data.dataSource.remote.response.movie.SimilarMoviesResponse
+import com.madrid.data.dataSource.remote.response.movie.SimilarMoviesResponse
 import com.madrid.data.dataSource.remote.response.movie.TrailerResponse
 import com.madrid.data.dataSource.remote.response.series.SearchSeriesResponse
+import com.madrid.data.dataSource.remote.response.series.SeasonEpisodesResponse
+import com.madrid.data.dataSource.remote.response.series.SeriesCreditResponse
+import com.madrid.data.dataSource.remote.response.series.SeriesDetailsResponse
+import com.madrid.data.dataSource.remote.response.series.SeriesReviewResponse
+import com.madrid.data.dataSource.remote.response.series.SimilarSeriesResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesDetailsResponse
 
 interface RemoteDataSource {
@@ -34,10 +44,27 @@ interface RemoteDataSource {
 
     ): SearchMovieResponse
 
+    // Region Series
+    suspend fun searchSeriesByQuery(name: String): SearchSeriesResponse
+    suspend fun getSeriesTrailersById(seriesId: Int): TrailerResponse
+    suspend fun getSeriesCreditsById(seriesId: Int): SeriesCreditResponse
+    suspend fun getSeriesReviewsById(seriesId: Int): SeriesReviewResponse
+    suspend fun getSimilarSeriesById(seriesId: Int): SimilarSeriesResponse
+    suspend fun getEpisodesBySeasonId(seriesId: Int, seasonNumber: Int): SeasonEpisodesResponse
+    // End Region
+
     suspend fun getTopRatedMovies(
         page: Int
     ): SearchMovieResponse
 
+    // Region Movies
+    suspend fun searchMoviesByQuery(name: String): SearchMovieResponse
+    // End Region
+
+
+    //Region Artist
+    suspend fun getArtistDetailsById(artistId: Int): ArtistDetailsResponse
+    //End Region
 
     suspend fun getTopRatedSeries(
         query: String,
