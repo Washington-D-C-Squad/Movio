@@ -20,6 +20,7 @@ val light = MovioColors(
         onSurface_2 = Color(0x61ACABAC),
         onSurface_3 = Color(0x1FACABAC),
         onSurface_4 = Color(0x66919191),
+        background = Color(0xFF1a1a2e),
     ),
     systemColors = SystemColors(
         error = Color(0xFFFEF4F2),

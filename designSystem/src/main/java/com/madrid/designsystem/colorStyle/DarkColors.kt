@@ -20,6 +20,7 @@ val dark = MovioColors(
         onSurface_2 = Color(0x61FFFFFF),
         onSurface_3 = Color(0x1FFFFFFF),
         onSurface_4 = Color(0x991A162F),
+        background = Color(0xFF1a1a2e),
     ),
     systemColors = SystemColors(
         error = Color(0xFF2A1010),
