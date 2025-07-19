@@ -186,8 +186,15 @@ class RemoteDataSourceImpl(
 
 
     override suspend fun getMovieDetailsById(movieId: Int): MovieDetailsResponse {
-        val result = client.buildHttpClient { encodedPath = "/3/movie/$movieId" }
+        val result = client.buildHttpClient {
+            encodedPath = "/3/movie/$movieId"
+
+        }
+        Log.e("MY_TAG"," middile  ${result.bodyAsText()}")
+
         val movie = json.decodeFromString<MovieDetailsResponse>(result.bodyAsText())
+        Log.e("MY_TAG"," movie  ${result.bodyAsText()}")
+
         return movie
     }
 

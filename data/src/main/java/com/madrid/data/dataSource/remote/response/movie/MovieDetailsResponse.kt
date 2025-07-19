@@ -3,6 +3,7 @@ package com.madrid.data.dataSource.remote.response.movie
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Serializable
 data class MovieDetailsResponse(
     @SerialName("adult")
     val adult: Boolean?,
@@ -42,8 +43,8 @@ data class MovieDetailsResponse(
     val revenue: Int?,
     @SerialName("runtime")
     val runtime: Int?,
-    @SerialName("spoken_language")
-    val spokenLanguage: List<SpokenLanguage>?,
+    @SerialName("spoken_languages")
+    val spokenLanguages: List<SpokenLanguage>?,
     @SerialName("status")
     val status: String?,
     @SerialName("tagline")

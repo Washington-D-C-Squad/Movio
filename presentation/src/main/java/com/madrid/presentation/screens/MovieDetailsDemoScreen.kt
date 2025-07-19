@@ -50,17 +50,18 @@ fun MovieDetailsDemoScreen(
         )
     )
 
-    MovieDetailsScreen(
-        movieData = sampleMovieData,
-        onBackClick = { /* Handle back navigation */ },
-        onShareClick = { /* Handle share */ },
-        onHeartClick = { /* Handle heart click */ },
-        onRateClick = { isRated -> /* Handle rating */ },
-        onPlayClick = { /* Handle play */ },
-        onAddToListClick = { isInList -> /* Handle add to list */ },
-        onSeeAllCastClick = { /* Handle see all cast */ },
-        modifier = modifier
-    )
+//    MovieDetailsScreen(
+//        movieData = sampleMovieData,
+//        onBackClick = { /* Handle back navigation */ },
+//        onShareClick = { /* Handle share */ },
+//        onHeartClick = { /* Handle heart click */ },
+//        onRateClick = { isRated -> /* Handle rating */ },
+//        onPlayClick = { /* Handle play */ },
+//        onAddToListClick = { isInList -> /* Handle add to list */ },
+//        onSeeAllCastClick = { /* Handle see all cast */ },
+//        viewModel = TODO(),
+//        modifier = TODO(),
+//    )
 }
 
 @Preview(showBackground = true)

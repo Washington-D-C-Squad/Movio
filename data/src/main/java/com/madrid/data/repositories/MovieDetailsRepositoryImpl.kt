@@ -1,5 +1,6 @@
 package com.madrid.data.repositories
 
+import android.util.Log
 import com.madrid.data.dataSource.remote.mapper.toCredits
 import com.madrid.data.dataSource.remote.mapper.toMovie
 import com.madrid.data.dataSource.remote.mapper.toReviewResult
@@ -21,7 +22,12 @@ class MovieDetailsRepositoryImpl(
 ) : MovieDetailsRepository {
 
     override suspend fun getMovieDetailsById(movieId: Int): Movie {
-        return remoteDataSource.getMovieDetailsById(movieId).toMovie()
+        Log.e("MY_TAG","MovieDetailsRepositoryImpl  start $movieId")
+        val res = remoteDataSource.getMovieDetailsById(movieId)
+        Log.e("MY_TAG","MovieDetailsRepositoryImpl  start ${res}")
+        val reslut = res.toMovie()
+        Log.e("MY_TAG","MovieDetailsRepositoryImpl  $reslut")
+        return reslut
 
     }
 
