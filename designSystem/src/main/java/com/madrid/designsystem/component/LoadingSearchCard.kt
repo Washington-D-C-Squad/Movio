@@ -32,7 +32,7 @@ fun LoadingSearchCard(modifier: Modifier = Modifier) {
             modifier = modifier
                 .width(101.dp)
                 .height(15.dp)
-                .clip(RoundedCornerShape(AppTheme.radius.xxLarge))
+                .clip(RoundedCornerShape(32.dp))
                 .background(AppTheme.colors.surfaceColor.surfaceContainer),
         )
     }

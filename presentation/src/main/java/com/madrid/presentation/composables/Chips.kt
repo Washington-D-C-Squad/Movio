@@ -29,10 +29,10 @@ fun Chips(
         modifier = modifier
             .background(
                 AppTheme.colors.surfaceColor.surfaceContainer,
-                shape = RoundedCornerShape(AppTheme.radius.xxLarge)
+                shape = RoundedCornerShape(32.dp)
             )   .border(
                 width = 1.dp, color = AppTheme.colors.surfaceColor.onSurface_2,
-                shape = RoundedCornerShape(AppTheme.radius.xxLarge)
+                shape = RoundedCornerShape(32.dp)
             )
             .padding(vertical = 8.dp, horizontal = 12.dp),
         contentAlignment = Alignment.Center

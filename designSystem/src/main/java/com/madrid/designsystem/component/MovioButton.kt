@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.madrid.designsystem.AppTheme
 
 @Composable
@@ -24,7 +25,7 @@ fun MovioButton(
     Box(
 
         modifier = modifier
-            .clip(RoundedCornerShape(AppTheme.radius.xxLarge))
+            .clip(RoundedCornerShape(32.dp))
             .background(color)
             .clickable { onClick() },
         contentAlignment = Alignment.Center

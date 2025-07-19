@@ -50,14 +50,14 @@ fun <T> CustomDropdown(
                 .width(dropdownWidth)
                 .background(
                     color = AppTheme.colors.surfaceColor.surfaceContainer,
-                    shape = RoundedCornerShape(AppTheme.radius.xxLarge)
+                    shape = RoundedCornerShape(32.dp)
                 )
                 .border(
                     width = 1.dp,
                     color = AppTheme.colors.surfaceColor.onSurface_2,
-                    shape = RoundedCornerShape(AppTheme.radius.xxLarge)
+                    shape = RoundedCornerShape(32.dp)
                 )
-                .clip(RoundedCornerShape(AppTheme.radius.xxLarge))
+                .clip(RoundedCornerShape(32.dp))
                 .clickable { expanded = true },
             contentAlignment = Alignment.Center
         ) {

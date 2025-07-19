@@ -31,7 +31,7 @@ fun GuestButton(
             .border(
                 width = 1.dp,
                 color = AppTheme.colors.surfaceColor.onSurface_3,
-                shape = RoundedCornerShape(AppTheme.radius.xxLarge)
+                shape = RoundedCornerShape(32.dp)
             ),
         color = color,
         onClick = onClick
