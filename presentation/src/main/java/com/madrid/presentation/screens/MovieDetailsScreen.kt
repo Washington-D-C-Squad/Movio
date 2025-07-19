@@ -55,60 +55,66 @@ fun MovieDetailsScreen(
             .fillMaxSize()
             .background(AppTheme.colors.surfaceColor.background)
     ) {
-        // Blurred background image that covers the entire screen including top bar
-        MoviePosterDetailScreen(
-            ImageUrl = movieData.backdropUrl,
-            modifier = Modifier.fillMaxSize()
-        )
-
-        // Fixed top navigation header that overlays on the blurred background
-        MovieDetailsNavigationHeader(
-            onBackClick = onBackClick,
-            onShareClick = onShareClick,
-            onHeartClick = onHeartClick,
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-        )
-
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(bottom = 32.dp)
+            modifier = Modifier.fillMaxSize()
         ) {
-            Spacer(modifier = Modifier.height(340.dp))
-
-            MovieDetailsHeader(
-                movieName = movieData.title,
-                movieCategory = movieData.genres,
-                date = movieData.releaseDate,
-                time = movieData.duration,
-                rate = movieData.rating,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
-            )
-
-            BottomMediaActions(
-                onRateClick = onRateClick,
-                onPlayClick = onPlayClick,
-                onAddToListClick = onAddToListClick,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
-            )
-
-            MovieDescription(
-                description = movieData.description,
+            // Fixed top navigation header
+            MovieDetailsNavigationHeader(
+                onBackClick = onBackClick,
+                onShareClick = onShareClick,
+                onHeartClick = onHeartClick,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            // Scrollable content
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(bottom = 32.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.BottomStart
+                ) {
+                    MoviePosterDetailScreen(
+                        ImageUrl = movieData.backdropUrl,
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
 
-            TopCastSection(
-                castMembers = movieData.castMembers,
-                onSeeAllClick = onSeeAllCastClick,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-            )
+                MovieDetailsHeader(
+                    movieName = movieData.title,
+                    movieCategory = movieData.genres,
+                    date = movieData.releaseDate,
+                    time = movieData.duration,
+                    rate = movieData.rating,
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
+                )
 
-            Spacer(modifier = Modifier.height(32.dp))
+                BottomMediaActions(
+                    onRateClick = onRateClick,
+                    onPlayClick = onPlayClick,
+                    onAddToListClick = onAddToListClick,
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
+                )
+
+                MovieDescription(
+                    description = movieData.description,
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                TopCastSection(
+                    castMembers = movieData.castMembers,
+                    onSeeAllClick = onSeeAllCastClick,
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                )
+
+                Spacer(modifier = Modifier.height(32.dp))
+            }
         }
     }
 }
