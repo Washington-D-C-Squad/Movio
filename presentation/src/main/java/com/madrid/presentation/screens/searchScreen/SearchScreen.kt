@@ -177,7 +177,7 @@ fun ContentSearchScreen(
     }
 
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(minSize = 100.dp),
+        columns = GridCells.Fixed(2),
         modifier = modifier
             .fillMaxSize()
             .statusBarsPadding(),
