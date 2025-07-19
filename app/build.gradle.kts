@@ -15,8 +15,6 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
-    alias(libs.plugins.ksp)
-
     jacoco
 }
 
@@ -101,13 +99,13 @@ tasks.register<JacocoReport>("jacocoTestReport") {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
+    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.foundation)
+    implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
-    implementation(platform(libs.firebase.bom))
+    implementation(libs.androidx.core.ktx)
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics.ndk)
     testImplementation(libs.junit)
@@ -124,7 +122,7 @@ dependencies {
     implementation(project(":presentation"))
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
+    kapt(libs.androidx.room.compiler)
     implementation(libs.koin.androidx.compose)
     api(libs.koin.annotations)
     implementation(libs.koin.android)

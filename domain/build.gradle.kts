@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.java.library)
+    id("java-library")
     alias(libs.plugins.jetbrains.kotlin.jvm)
 }
 java {
@@ -10,4 +10,7 @@ kotlin {
     compilerOptions {
         jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
+}
+dependencies {
+    implementation(libs.kotlinx.coroutines.core)
 }

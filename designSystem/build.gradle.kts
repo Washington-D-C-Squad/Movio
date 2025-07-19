@@ -35,14 +35,17 @@ android {
         buildFeatures {
             compose = true
         }
+        composeOptions {
+            kotlinCompilerExtensionVersion = libs.versions.compiler.get()
+        }
     }
 }
 
 dependencies {
-    implementation(libs.foundation)
+    implementation(libs.androidx.foundation)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.core.ktx)
-    implementation(libs.material)
-    implementation(libs.material3)
-    implementation(libs.androidx.material3.window.size.class1)
+    implementation(libs.androidx.material)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.material3.window)
 }

@@ -48,7 +48,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     implementation(libs.coil)
     implementation(libs.coil.compose)
-    implementation(libs.coil.network.okhttp)
+    // implementation(libs.coil.network.okhttp)
     implementation(libs.tensorflow.lite)
 
 }
