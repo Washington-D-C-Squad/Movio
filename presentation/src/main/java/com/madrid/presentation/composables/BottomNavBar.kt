@@ -150,7 +150,7 @@ private fun CustomNavBarItem(
             text = item.label,
             textStyle = if (isSelected) selectedTextStyle else unselectedTextStyle,
             color = labelColor,
-            modifier = Modifier.padding(top = AppTheme.spacing.extraSmall)
+            modifier = Modifier.padding(top = 4.dp)
         )
     }
 }

@@ -51,7 +51,7 @@ fun MovioEpisodesCard(
         Column(
             modifier = modifier
                 .height(height)
-                .padding(vertical = AppTheme.spacing.extraSmall),
+                .padding(vertical = 4.dp),
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
             Row(

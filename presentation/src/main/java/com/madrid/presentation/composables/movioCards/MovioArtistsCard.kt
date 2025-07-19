@@ -47,8 +47,8 @@ fun MovioArtistsCard(
                 textStyle = AppTheme.textStyle.body.medium14,
                 maxLines = 1,
                 modifier = Modifier.padding(
-                    vertical = AppTheme.spacing.extraSmall,
-                    horizontal = AppTheme.spacing.extraSmall
+                    vertical = 4.dp,
+                    horizontal = 4.dp
                 )
             )
         }

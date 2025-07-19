@@ -1,4 +1,4 @@
-package com.example.designsystem.component
+package com.madrid.designsystem.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
@@ -26,10 +26,9 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.component.MovioText
 
 @Composable
-fun FilterbBar(
+fun FilterBar(
     items: List<String>,
     selectedItem: String,
     onItemClick: (String) -> Unit,
@@ -105,7 +104,7 @@ fun FilterChip(
             ) {
                 Box(
                     modifier = Modifier
-                            .padding(top = AppTheme.spacing.extraSmall)
+                            .padding(top = 4.dp)
                         .height(1.dp)
                         .clip(RoundedCornerShape(16.dp))
                         .width(textWidthDp)

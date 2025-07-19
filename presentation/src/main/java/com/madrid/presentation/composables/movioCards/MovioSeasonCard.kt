@@ -135,7 +135,7 @@ private fun MovieDetails(
 ) {
     Column(
         modifier = modifier.padding(end = AppTheme.spacing.small),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.extraSmall)
+        verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
@@ -163,7 +163,7 @@ private fun MovieDetails(
 
 @Preview(showBackground = true)
 @Composable
-private fun seasonCardPreview() {
+private fun SeasonCardPreview() {
     AppTheme{
         MovioSeasonCard(
             movieTitle = "Spider-Man: Homecoming",

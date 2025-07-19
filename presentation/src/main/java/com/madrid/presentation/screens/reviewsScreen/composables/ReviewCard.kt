@@ -68,7 +68,7 @@ fun ReviewCard(
                         text = reviewerName,
                         color = AppTheme.colors.surfaceColor.onSurface,
                         textStyle = AppTheme.textStyle.title.medium14,
-                        modifier = Modifier.padding(bottom = AppTheme.spacing.extraSmall)
+                        modifier = Modifier.padding(bottom = 4.dp)
                     )
                     MovioText(
                         text = date,
@@ -88,7 +88,7 @@ fun ReviewCard(
                             contentDescription = "",
                             tint = AppTheme.colors.systemColors.warning,
                             modifier = Modifier
-                                .padding(end = AppTheme.spacing.extraSmall)
+                                .padding(end = 4.dp)
                                 .size(16.dp)
                         )
                         MovioText(

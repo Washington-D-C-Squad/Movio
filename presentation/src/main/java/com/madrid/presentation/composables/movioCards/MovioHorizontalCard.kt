@@ -48,7 +48,7 @@ fun MovioHorizontalCard(
         Column(
             modifier = modifier
                 .height(height)
-                .padding(vertical = AppTheme.spacing.extraSmall),
+                .padding(vertical = 4.dp),
             verticalArrangement = Arrangement.SpaceAround
         ) {
             MovioText(
@@ -72,7 +72,7 @@ private fun MovioCatergory(
     Row(
         modifier = Modifier
             .background(backgroundColor, shape = RoundedCornerShape(60.dp))
-            .padding(vertical = AppTheme.spacing.extraSmall, horizontal = AppTheme.spacing.medium),
+            .padding(vertical = 4.dp, horizontal = AppTheme.spacing.medium),
         horizontalArrangement = Arrangement.Center
     ) {
         MovioText(
