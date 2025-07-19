@@ -39,7 +39,6 @@ fun MovioEpisodesCard(
 ) {
     Row(
         modifier = modifier
-            .fillMaxWidth()
             .height(74.dp)
             .clickable { onClick() },
     ) {
