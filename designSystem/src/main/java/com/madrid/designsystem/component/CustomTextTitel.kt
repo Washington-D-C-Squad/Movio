@@ -31,7 +31,10 @@ fun CustomTextTitel(
             modifier = Modifier.weight(1f)
         )
         if (secondaryText != null || endIcon != null) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.clickable { onSeeAllClick?.invoke() }
+            ) {
                 secondaryText?.let {
                     MovioText(
                         text = it,
@@ -45,7 +48,7 @@ fun CustomTextTitel(
                         painter = it,
                         contentDescription = "See all",
                         tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
-                        modifier = Modifier.clickable { onSeeAllClick?.invoke() }
+                        modifier = Modifier
                     )
                 }
             }

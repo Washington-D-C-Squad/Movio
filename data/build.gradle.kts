@@ -89,4 +89,6 @@ dependencies {
     //  Paging 3 Integration
     implementation("androidx.room:room-paging:${room_version}")
 
+    implementation(libs.ktor.logging)
+
 }

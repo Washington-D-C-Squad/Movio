@@ -39,8 +39,7 @@ fun BottomMediaActions(
     var isSaved by remember { mutableStateOf(false) }
     Row(
         modifier = modifier
-            .fillMaxWidth()
-            .padding(vertical = 12.dp),
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
