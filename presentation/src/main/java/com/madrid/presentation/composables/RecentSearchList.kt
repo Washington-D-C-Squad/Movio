@@ -154,7 +154,7 @@ fun RecentSearchHeader(
             textStyle = AppTheme.textStyle.label.smallRegular14,
             color = AppTheme.colors.surfaceColor.onSurfaceVariant,
             modifier = Modifier.Companion
-                .clip(RoundedCornerShape(AppTheme.radius.medium))
+                .clip(RoundedCornerShape(16.dp))
                 .clickable { onClearAll() }
         )
     }
