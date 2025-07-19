@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 
 @Composable
@@ -15,11 +16,16 @@ fun MovioText(
     textStyle: TextStyle,
     modifier: Modifier = Modifier,
     maxLines: Int = Int.MAX_VALUE,
-    overflow: TextOverflow = TextOverflow.Ellipsis
+    overflow: TextOverflow = TextOverflow.Ellipsis,
+    textAlign: TextAlign? = null
+
+
 ) {
     Text(
         text = text, style = textStyle.copy(color = color),
-        modifier = modifier, maxLines = maxLines, overflow = overflow
+        modifier = modifier, maxLines = maxLines, overflow = overflow,
+        textAlign = textAlign ?: textStyle.textAlign
+
     )
 }
 
