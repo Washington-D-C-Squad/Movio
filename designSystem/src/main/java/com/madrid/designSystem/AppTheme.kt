@@ -1,4 +1,4 @@
-package com.madrid.design_system
+package com.madrid.designSystem
 
 import MovioColors
 import MovioTextStyle
@@ -9,7 +9,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.staticCompositionLocalOf
 import dark
-import defaultTextStyle
+import com.madrid.designSystem.textStyle.defaultTextStyle
 import light
 
 @Stable

@@ -1,4 +1,4 @@
-package com.madrid.design_system.component
+package com.madrid.designSystem.component
 
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.material3.Text

@@ -24,10 +24,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.design_system.AppTheme
-import com.madrid.design_system.R
-import com.madrid.design_system.component.MovioText
-import com.madrid.design_system.component.TopAppBar
+import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.R
+import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.component.TopAppBar
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchViewModel
 import org.koin.androidx.compose.koinViewModel

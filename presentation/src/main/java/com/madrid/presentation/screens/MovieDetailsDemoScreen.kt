@@ -3,7 +3,7 @@ package com.madrid.presentation.screens
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.madrid.design_system.AppTheme
+import com.madrid.designSystem.AppTheme
 import com.madrid.presentation.composables.CastMember
 
 @Composable

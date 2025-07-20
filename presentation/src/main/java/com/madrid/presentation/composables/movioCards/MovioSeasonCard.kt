@@ -20,8 +20,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.madrid.design_system.AppTheme
-import com.madrid.design_system.component.MovioText
+import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.component.MovioText
 import com.madrid.presentation.R
 
 @Composable

@@ -20,8 +20,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.design_system.AppTheme
-import com.madrid.design_system.component.MovioIcon
+import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.component.MovioIcon
 
 @Composable
 fun MovieDetailsNavigationHeader(
@@ -51,7 +51,7 @@ fun MovieDetailsNavigationHeader(
                 contentAlignment = Alignment.Center
             ) {
                 MovioIcon(
-                    painter = painterResource(com.madrid.design_system.R.drawable.arrow_left),
+                    painter = painterResource(com.madrid.designSystem.R.drawable.arrow_left),
                     contentDescription = "Back",
                     tint = Color.White,
                     modifier = Modifier.size(24.dp)
@@ -71,7 +71,7 @@ fun MovieDetailsNavigationHeader(
                 contentAlignment = Alignment.Center
             ) {
                 MovioIcon(
-                    painter = painterResource(com.madrid.design_system.R.drawable.outline_share),
+                    painter = painterResource(com.madrid.designSystem.R.drawable.outline_share),
                     contentDescription = "Share",
                     tint = Color.White,
                     modifier = Modifier.size(24.dp)
@@ -95,8 +95,8 @@ fun MovieDetailsNavigationHeader(
             ) {
                 MovioIcon(
                     painter = painterResource(
-                        if (isLiked) com.madrid.design_system.R.drawable.bold_heart
-                        else com.madrid.design_system.R.drawable.outline_heart
+                        if (isLiked) com.madrid.designSystem.R.drawable.bold_heart
+                        else com.madrid.designSystem.R.drawable.outline_heart
                     ),
                     contentDescription = "Like",
                     tint = if (isLiked) Color.Red else Color.White,

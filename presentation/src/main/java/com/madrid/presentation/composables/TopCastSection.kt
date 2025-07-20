@@ -19,8 +19,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.design_system.AppTheme
-import com.madrid.design_system.component.MovioText
+import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.component.MovioText
 import com.madrid.detectImageContent.FilteredImage
 
 data class CastMember(

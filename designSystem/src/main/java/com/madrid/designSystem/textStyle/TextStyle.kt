@@ -1,9 +1,17 @@
+package com.madrid.designSystem.textStyle
+
+import BodyTextStyle
+import DisplayTextStyle
+import HeadlineTextStyle
+import LabelTextStyle
+import MovioTextStyle
+import TitleTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.madrid.design_system.R
+import com.madrid.designSystem.R
 
 
 val inter = FontFamily(

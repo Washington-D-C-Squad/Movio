@@ -1,10 +1,10 @@
-package com.madrid.design_system.component
+package com.madrid.designSystem.component
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import com.madrid.design_system.AppTheme
+import com.madrid.designSystem.AppTheme
 import androidx.compose.ui.graphics.Color
 
 @OptIn(ExperimentalMaterial3Api::class)

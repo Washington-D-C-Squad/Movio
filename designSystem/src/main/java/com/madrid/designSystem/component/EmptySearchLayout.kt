@@ -1,4 +1,4 @@
-package com.madrid.design_system.component
+package com.madrid.designSystem.component
 
 
 import androidx.annotation.DrawableRes
@@ -19,7 +19,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.madrid.design_system.AppTheme
+import com.madrid.designSystem.AppTheme
 
 
 @Composable

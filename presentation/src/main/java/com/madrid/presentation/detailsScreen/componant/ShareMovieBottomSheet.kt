@@ -17,11 +17,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.design_system.AppTheme
-import com.madrid.design_system.R
-import com.madrid.design_system.component.MovioBottomSheet
-import com.madrid.design_system.component.MovioIcon
-import com.madrid.design_system.component.MovioText
+import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.R
+import com.madrid.designSystem.component.MovioBottomSheet
+import com.madrid.designSystem.component.MovioIcon
+import com.madrid.designSystem.component.MovioText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

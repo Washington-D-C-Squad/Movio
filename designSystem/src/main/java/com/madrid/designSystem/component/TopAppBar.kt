@@ -1,4 +1,4 @@
-package com.madrid.design_system.component
+package com.madrid.designSystem.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,8 +10,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.madrid.design_system.AppTheme
-import com.madrid.design_system.R
+import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.R
 
 @Composable
 fun TopAppBar(

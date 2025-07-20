@@ -15,7 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.madrid.design_system.AppTheme
+import com.madrid.designSystem.AppTheme
 import com.madrid.presentation.MovieDetailsHeader
 import com.madrid.presentation.composables.BottomMediaActions
 import com.madrid.presentation.composables.CastMember

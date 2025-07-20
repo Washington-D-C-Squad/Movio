@@ -1,4 +1,4 @@
-package com.madrid.design_system.component
+package com.madrid.designSystem.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
@@ -25,7 +25,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
-import com.madrid.design_system.AppTheme
+import com.madrid.designSystem.AppTheme
 
 @Composable
 fun FilterBar(

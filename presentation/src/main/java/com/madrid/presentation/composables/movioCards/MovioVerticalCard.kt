@@ -21,8 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.madrid.design_system.AppTheme
-import com.madrid.design_system.component.MovioText
+import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.component.MovioText
 
 @Composable
 fun MovioVerticalCard(
