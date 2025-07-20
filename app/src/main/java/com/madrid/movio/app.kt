@@ -25,7 +25,7 @@ import com.madrid.presentation.screens.detailsMovieScreen.DetailsMovieViewModel
 import com.madrid.presentation.screens.searchScreen.viewModel.MovieDetailsViewModel
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchViewModel
 import org.koin.android.ext.koin.androidContext
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
 val app = module {
@@ -33,44 +33,19 @@ val app = module {
     // data
     single<SearchRepository> { SearchRepositoryImpl(get(), get()) }
     single<LocalDataSource> { LocalDataSourceImpl(get()) }
-    single<RecommendedRepository> { RecommendedRepositoryImp(get(),get()) }
-    single <MovieDetailsRepository>{ MovieDetailsRepositoryImpl(get(),get()) }
+    single<RecommendedRepository> { RecommendedRepositoryImp(get(), get()) }
+    single<MovieDetailsRepository> { MovieDetailsRepositoryImpl(get(), get()) }
 
 
     single { MovioDatabase.getInstance(androidContext()) }
 
 
     // presentation
-    viewModel {
-        SearchViewModel(
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get()
-        )
-    }
-    viewModel {
-        DetailsMovieViewModel(
-            get(),
-            get(),
-            get()
-        )
-    }
-    viewModel {
-        SeeAllForYouViewModel(
-            get(),
-            get(),
-        )
-    }
-    viewModel {
-        MovieDetailsViewModel(
-            get(),
-            get(),
-        )
-    }
+    viewModelOf(::SearchViewModel)
+    viewModelOf(::DetailsMovieViewModel)
+    viewModelOf(::SeeAllForYouViewModel)
+    viewModelOf(::MovieDetailsViewModel)
+
 
     //domain
     single { ArtistUseCase(get()) }
@@ -78,7 +53,7 @@ val app = module {
     single { PreferredMediaUseCase(get()) }
     single { RecentSearchUseCase(get()) }
     single { TrendingMediaUseCase(get()) }
-    single{ GetExploreMoreMovieUseCase(get()) }
+    single { GetExploreMoreMovieUseCase(get()) }
     single { GetRecommendedMovieUseCase(get()) }
     single { MovieDetailsUseCase(get()) }
 
