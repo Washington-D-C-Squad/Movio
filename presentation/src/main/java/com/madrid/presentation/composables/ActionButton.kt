@@ -25,7 +25,7 @@ fun ActionButton(
 ) {
     MovioButton(
         modifier = modifier
-            .padding(horizontal = AppTheme.spacing.medium)
+            .padding(horizontal = 16.dp)
             .fillMaxWidth(),
         color = color,
         onClick = onClick
@@ -39,7 +39,7 @@ fun ActionButton(
             )
         }
         MovioText(
-            modifier = Modifier.padding(vertical = AppTheme.spacing.medium),
+            modifier = Modifier.padding(vertical = 16.dp),
             text = text,
             color = AppTheme.colors.brandColors.onPrimary,
             textStyle = AppTheme.textStyle.label.medium14,

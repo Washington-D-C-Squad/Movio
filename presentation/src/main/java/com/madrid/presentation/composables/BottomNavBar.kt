@@ -98,7 +98,7 @@ fun CustomBottomBar(
             .fillMaxWidth()
             .height(74.dp)
             .background(color = backgroundColor)
-            .padding(horizontal = AppTheme.spacing.large, vertical = AppTheme.spacing.medium),
+            .padding(horizontal = AppTheme.spacing.large, vertical = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {

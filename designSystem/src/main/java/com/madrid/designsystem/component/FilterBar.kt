@@ -39,7 +39,7 @@ fun FilterBar(
         LazyRow(
             modifier = modifier,
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            contentPadding = PaddingValues(horizontal = AppTheme.spacing.medium),
+            contentPadding = PaddingValues(horizontal = 16.dp),
             ) {
             items(items) { item ->
                 FilterChip(
@@ -51,7 +51,7 @@ fun FilterBar(
     } else {
         Row(
             modifier = modifier
-                .padding(horizontal = AppTheme.spacing.medium)
+                .padding(horizontal = 16.dp)
         ) {
             items.forEach { item ->
                 FilterChip(
@@ -91,7 +91,7 @@ fun FilterChip(
         modifier = modifier
 
             .clickable(onClick = onClick)
-            .padding(horizontal = AppTheme.spacing.medium, vertical = 8.dp)
+            .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Column {
             MovioText(

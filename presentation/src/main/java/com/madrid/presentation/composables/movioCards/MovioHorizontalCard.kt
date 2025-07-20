@@ -72,7 +72,7 @@ private fun MovioCatergory(
     Row(
         modifier = Modifier
             .background(backgroundColor, shape = RoundedCornerShape(60.dp))
-            .padding(vertical = 4.dp, horizontal = AppTheme.spacing.medium),
+            .padding(vertical = 4.dp, horizontal = 16.dp),
         horizontalArrangement = Arrangement.Center
     ) {
         MovioText(

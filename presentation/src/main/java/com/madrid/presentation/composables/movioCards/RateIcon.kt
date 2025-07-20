@@ -33,7 +33,7 @@ fun RateIcon(
 ) {
     Box(
         modifier = modifier
-            .height(AppTheme.spacing.medium)
+            .height(16.dp)
             .padding(end = 8.dp), contentAlignment = Alignment.Center
     ) {
         Row(

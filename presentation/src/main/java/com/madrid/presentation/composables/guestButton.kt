@@ -25,7 +25,7 @@ fun GuestButton(
 
     MovioButton(
         modifier = modifier
-            .padding(horizontal = AppTheme.spacing.medium)
+            .padding(horizontal = 16.dp)
 
             .fillMaxWidth()
             .border(
@@ -37,7 +37,7 @@ fun GuestButton(
         onClick = onClick
     ) {
         MovioText(
-            modifier = Modifier.padding(vertical = AppTheme.spacing.medium),
+            modifier = Modifier.padding(vertical = 16.dp),
             text = text,
             color = AppTheme.colors.surfaceColor.onSurface,
             textStyle = AppTheme.textStyle.label.medium14,

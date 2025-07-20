@@ -44,12 +44,12 @@ fun ShareBottomSheet(
                 text = "Share via",
                 textStyle = AppTheme.textStyle.label.largeMedium16,
                 color = AppTheme.colors.surfaceColor.onSurface,
-                modifier = Modifier.padding(bottom = AppTheme.spacing.medium)
+                modifier = Modifier.padding(bottom = 16.dp)
             )
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = AppTheme.spacing.medium),
+                    .padding(bottom = 16.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {

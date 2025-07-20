@@ -43,7 +43,7 @@ fun ReviewTopBar(
         modifier = modifier
             .fillMaxWidth()
             .height(40.dp)
-            .padding(horizontal = AppTheme.spacing.medium),
+            .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -60,7 +60,7 @@ fun ReviewTopBar(
                 color = AppTheme.colors.surfaceColor.onSurface
             )
         }
-        Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
             onShareClick?.let {
                 IconButton(
                     iconRes = R.drawable.share_arrow,

@@ -97,7 +97,7 @@ fun RecentSearchItem(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onItemClick() }
-            .padding(horizontal = AppTheme.spacing.large, vertical = AppTheme.spacing.medium),
+            .padding(horizontal = AppTheme.spacing.large, vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
@@ -105,10 +105,10 @@ fun RecentSearchItem(
             painter = painterResource(id = DesignSystemR.drawable.outline_clock_circle),
             contentDescription = "description " , //stringResource(id = DesignSystemR.string.clock_content_description),
             tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
-            modifier = Modifier.size(AppTheme.spacing.medium)
+            modifier = Modifier.size(16.dp)
         )
 
-        Spacer(modifier = Modifier.width(AppTheme.spacing.medium))
+        Spacer(modifier = Modifier.width(16.dp))
 
         MovioText(
             text = searchText,
@@ -126,7 +126,7 @@ fun RecentSearchItem(
                 painter = painterResource(id = DesignSystemR.drawable.trash),
                 contentDescription = "delete content description" , //stringResource(id = DesignSystemR.string.delete_content_description),
                 tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
-                modifier = Modifier.size(AppTheme.spacing.medium)
+                modifier = Modifier.size(16.dp)
             )
         }
     }

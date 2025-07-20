@@ -33,7 +33,7 @@ fun SearchHeader(
 ) {
     Column(
         modifier = Modifier
-            .padding(horizontal = AppTheme.spacing.large, vertical = AppTheme.spacing.medium)
+            .padding(horizontal = AppTheme.spacing.large, vertical = 16.dp)
     ) {
         MovioText(
             text = "Search",
@@ -49,7 +49,7 @@ fun SearchHeader(
                     AppTheme.colors.surfaceColor.surfaceVariant,
                     RoundedCornerShape(24.dp)
                 )
-                .padding(horizontal = AppTheme.spacing.medium, vertical = 8.dp)
+                .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
             MovioIcon(
                 painter = painterResource(id = DesignSystemR.drawable.outline_clock_circle),

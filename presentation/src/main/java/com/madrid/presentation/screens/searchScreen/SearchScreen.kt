@@ -201,7 +201,7 @@ fun ContentSearchScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable { onSearchBarClick() }
-                    .padding(top = AppTheme.spacing.medium),
+                    .padding(top = 16.dp),
                 onClickEndIcon = { onSearchQueryChange("")}
             )
         }

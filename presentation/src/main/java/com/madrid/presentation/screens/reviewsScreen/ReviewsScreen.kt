@@ -42,7 +42,7 @@ fun ReviewsScreenContent(
             .background(
                 color = AppTheme.colors.surfaceColor.surface
             )
-            .padding(horizontal = AppTheme.spacing.medium)
+            .padding(horizontal = 16.dp)
     ) {
 
         Box(
@@ -72,7 +72,7 @@ fun ReviewsScreenContent(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = AppTheme.spacing.medium),
+                .padding(top = 16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             itemsIndexed(reviewsScreenUiState.reviews) { index, item ->
