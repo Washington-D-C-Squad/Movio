@@ -1,12 +1,11 @@
-package com.madrid.data.repositories.local
+package com.madrid.data.dataSource.local
 
 import android.content.Context
-import com.madrid.data.dataSource.local.MovioDatabase
 import com.madrid.data.dataSource.local.entity.ArtistEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.madrid.data.repositories.local.LocalDataSource
 
 class LocalDataSourceImpl(
     private val context: Context

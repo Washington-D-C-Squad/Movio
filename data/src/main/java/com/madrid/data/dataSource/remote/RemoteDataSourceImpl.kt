@@ -1,4 +1,4 @@
-package com.madrid.data.repositories.remote
+package com.madrid.data.dataSource.remote
 
 import android.util.Log
 import com.madrid.data.CustomHttpClient
@@ -16,8 +16,8 @@ import com.madrid.data.dataSource.remote.response.series.SeriesCreditResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesDetailsResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesReviewResponse
 import com.madrid.data.dataSource.remote.response.series.SimilarSeriesResponse
-import com.madrid.data.dataSource.remote.utils.Constants.PAGE
-import com.madrid.data.dataSource.remote.utils.Constants.QUERY
+import com.madrid.data.dataSource.remote.utils.Constants
+import com.madrid.data.repositories.remote.RemoteDataSource
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.encodedPath
 import kotlinx.serialization.json.Json
@@ -83,8 +83,8 @@ class RemoteDataSourceImpl(
 
         val result = client.buildHttpClient {
             encodedPath = "/3/search/movie"
-            parameters.append(QUERY, name)
-            parameters.append(PAGE, page.toString())
+            parameters.append(Constants.QUERY, name)
+            parameters.append(Constants.PAGE, page.toString())
         }
         val movies = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
         Log.d("in impl", "searchMoviesByQuery: $movies")
@@ -97,8 +97,8 @@ class RemoteDataSourceImpl(
     ): SearchSeriesResponse {
         val result = client.buildHttpClient {
             encodedPath = "/3/search/tv"
-            parameters.append(QUERY, name)
-            parameters.append(PAGE, page.toString())
+            parameters.append(Constants.QUERY, name)
+            parameters.append(Constants.PAGE, page.toString())
         }
         val series = json.decodeFromString<SearchSeriesResponse>(result.bodyAsText())
         return series
@@ -116,8 +116,8 @@ class RemoteDataSourceImpl(
         Log.d("KTOR", "searchArtistByQuery: $name")
         val result = client.buildHttpClient {
             encodedPath = "/3/search/person"
-            parameters.append(QUERY, name)
-            parameters.append(PAGE, page.toString())
+            parameters.append(Constants.QUERY, name)
+            parameters.append(Constants.PAGE, page.toString())
         }
         val artist = json.decodeFromString<SearchArtistResponse>(result.bodyAsText())
 
@@ -127,7 +127,7 @@ class RemoteDataSourceImpl(
     private suspend inline fun <reified T> getSearchRequestByQuery(path: String, name: String): T {
         val result = client.buildHttpClient {
             encodedPath = path
-            parameters.append(QUERY, name)
+            parameters.append(Constants.QUERY, name)
         }
         return json.decodeFromString<T>(result.bodyAsText())
     }
@@ -138,8 +138,8 @@ class RemoteDataSourceImpl(
 
         val result = client.buildHttpClient {
             encodedPath = "3/search/movie"
-            parameters.append(QUERY, query)
-            parameters.append(PAGE, page.toString())
+            parameters.append(Constants.QUERY, query)
+            parameters.append(Constants.PAGE, page.toString())
         }
         val movie = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
 
@@ -152,7 +152,7 @@ class RemoteDataSourceImpl(
 
         val result = client.buildHttpClient {
             encodedPath = "3/movie/top_rated"
-            parameters.append(PAGE, page.toString())
+            parameters.append(Constants.PAGE, page.toString())
         }
         val movie = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
 
@@ -165,8 +165,8 @@ class RemoteDataSourceImpl(
     ): SearchSeriesResponse {
         val result = client.buildHttpClient {
             encodedPath = "/3/search/tv"
-            parameters.append(QUERY, query)
-            parameters.append(PAGE, page.toString())
+            parameters.append(Constants.QUERY, query)
+            parameters.append(Constants.PAGE, page.toString())
         }
         val series = json.decodeFromString<SearchSeriesResponse>(result.bodyAsText())
 
@@ -176,7 +176,7 @@ class RemoteDataSourceImpl(
     override suspend fun getPopularMovie(page: Int): SearchMovieResponse {
         val result = client.buildHttpClient {
             encodedPath = "/3/movie/popular"
-            parameters.append(PAGE, page.toString())
+            parameters.append(Constants.PAGE, page.toString())
         }
         val movie = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
 
