@@ -39,8 +39,8 @@ import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.filterSearchScreen
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.forYouAndExploreScreen
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.recentSearchScreen
-import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
-import com.madrid.presentation.screens.searchScreen.viewModel.SearchViewModel
+import com.madrid.presentation.viewModel.searchViewModel.SearchScreenState
+import com.madrid.presentation.viewModel.searchViewModel.SearchViewModel
 import kotlinx.coroutines.flow.debounce
 import org.koin.androidx.compose.koinViewModel
 
