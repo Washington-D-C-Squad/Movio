@@ -74,7 +74,6 @@ fun MovioVerticalCard(
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .width(width)
-                .wrapContentWidth()
         )
     }
 }
