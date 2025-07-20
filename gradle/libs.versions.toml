@@ -11,7 +11,7 @@ firebase-crashlytics-ndk = "18.4.0"
 androidx-core-ktx = "1.12.0"
 compiler = "1.5.3"
 room = "2.6.1"
-ktor = "2.3.4"
+ktor = "2.3.2"
 kotlinx-serialization = "1.6.0"
 kotlinx-datetime = "0.4.1"
 
@@ -26,7 +26,9 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-material = { group = "androidx.compose.material", name = "material" }
 androidx-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidx-material3-window = { group = "androidx.compose.material3", name = "material3-window-size-class" }
-androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version = "2.7.7" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version = "2.8.0" }
+androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version = "2.8.0" }
+androidx-navigation-common-ktx = { group = "androidx.navigation", name = "navigation-common-ktx", version = "2.8.0" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
@@ -44,7 +46,9 @@ ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.r
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor" }
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+ktor-client-logging-jvm = { group = "io.ktor", name = "ktor-client-logging-jvm", version.ref = "ktor" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
 ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
 androidx-room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
@@ -56,15 +60,16 @@ coil-kt-coil-compose = { group = "io.coil-kt", name = "coil-compose", version = 
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version = "2.6.2" }
 androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime", version = "3.2.1" }
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version = "3.2.1" }
-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics", version.ref = "firebase-analytics" }
-firebase-crashlytics-ndk = { group = "com.google.firebase", name = "firebase-crashlytics-ndk", version.ref = "firebase-crashlytics-ndk" }
-compiler = { group = "androidx.compose.compiler", name = "compiler", version.ref = "compiler" }
 material = { group = "androidx.compose.material", name = "material", version.ref = "compose" }
 coil = { group = "io.coil-kt", name = "coil", version = "2.4.0" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version = "2.4.0" }
 coil-network-okhttp = { group = "io.coil-kt", name = "coil-network-okhttp", version = "2.4.0" }
 tensorflow-lite = { group = "org.tensorflow", name = "tensorflow-lite", version = "2.13.0" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version = "1.7.3" }
+slf4j-simple = { group = "org.slf4j", name = "slf4j-simple", version = "1.7.36" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics", version.ref = "firebase-analytics" }
+firebase-crashlytics-ndk = { group = "com.google.firebase", name = "firebase-crashlytics-ndk", version.ref = "firebase-crashlytics-ndk" }
+compiler = { group = "androidx.compose.compiler", name = "compiler", version.ref = "compiler" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -74,7 +79,6 @@ jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin"
 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-kotlin-compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
