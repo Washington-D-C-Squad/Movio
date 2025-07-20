@@ -10,8 +10,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.theme.Theme
+import androidx.compose.ui.zIndex
 import com.madrid.designSystem.R
+import com.madrid.designSystem.theme.Theme
 
 @Composable
 fun TopAppBar(
@@ -23,7 +24,7 @@ fun TopAppBar(
 ) {
     Row(
         modifier = modifier
-            .fillMaxWidth()
+            .fillMaxWidth().zIndex(1f)
             .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween

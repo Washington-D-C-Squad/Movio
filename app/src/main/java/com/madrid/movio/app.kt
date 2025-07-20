@@ -6,7 +6,7 @@ import com.madrid.data.repositories.MovieDetailsRepositoryImpl
 import com.madrid.data.repositories.RecommendedRepositoryImp
 import com.madrid.data.repositories.SearchRepositoryImpl
 import com.madrid.data.repositories.local.LocalDataSource
-import com.madrid.data.repositories.local.LocalDataSourceImpl
+import com.madrid.data.dataSource.local.LocalDataSourceImpl
 import com.madrid.detectImageContent.GetImageBitmap
 import com.madrid.detectImageContent.SensitiveContentDetection
 import com.madrid.domain.repository.MovieDetailsRepository
@@ -16,14 +16,15 @@ import com.madrid.domain.usecase.GetExploreMoreMovieUseCase
 import com.madrid.domain.usecase.GetRecommendedMovieUseCase
 import com.madrid.domain.usecase.mediaDeatailsUseCase.MovieDetailsUseCase
 import com.madrid.domain.usecase.searchUseCase.ArtistUseCase
-import com.madrid.domain.usecase.searchUseCase.MediaUseCase
+import com.madrid.domain.usecase.searchUseCase.MovieUseCase
 import com.madrid.domain.usecase.searchUseCase.PreferredMediaUseCase
 import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
+import com.madrid.domain.usecase.searchUseCase.SeriesUseCase
 import com.madrid.domain.usecase.searchUseCase.TrendingMediaUseCase
-import com.madrid.presentation.screens.SeeAllForYou.SeeAllForYouViewModel
-import com.madrid.presentation.screens.detailsMovieScreen.DetailsMovieViewModel
-import com.madrid.presentation.screens.searchScreen.viewModel.MovieDetailsViewModel
-import com.madrid.presentation.screens.searchScreen.viewModel.SearchViewModel
+import com.madrid.presentation.screens.searchScreen.SeeAllForYou.SeeAllForYouViewModel
+import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
+import com.madrid.presentation.viewModel.detailsViewModel.MovieDetailsViewModel
+import com.madrid.presentation.viewModel.searchViewModel.SearchViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -32,17 +33,23 @@ val app = module {
 
     // data
     single<SearchRepository> { SearchRepositoryImpl(get(), get()) }
-    single<LocalDataSource> { LocalDataSourceImpl(get()) }
+    single { MovioDatabase.getInstance(androidContext()) }
+    single { get<MovioDatabase>().movieDao() }
+    single { get<MovioDatabase>().seriesDao() }
+    single { get<MovioDatabase>().artistDao() }
+    single { get<MovioDatabase>().categoryDao() }
+    single { get<MovioDatabase>().recentSearchDao() }
+    single<LocalDataSource> { LocalDataSourceImpl(get(), get(), get(), get(), get()) }
     single<RecommendedRepository> { RecommendedRepositoryImp(get(),get()) }
     single <MovieDetailsRepository>{ MovieDetailsRepositoryImpl(get(),get()) }
 
 
-    single { MovioDatabase.getInstance(androidContext()) }
 
 
     // presentation
     viewModel {
         SearchViewModel(
+            get(),
             get(),
             get(),
             get(),
@@ -74,7 +81,8 @@ val app = module {
 
     //domain
     single { ArtistUseCase(get()) }
-    single { MediaUseCase(get()) }
+    single { MovieUseCase(get()) }
+    single { SeriesUseCase(get()) }
     single { PreferredMediaUseCase(get()) }
     single { RecentSearchUseCase(get()) }
     single { TrendingMediaUseCase(get()) }

@@ -10,9 +10,9 @@ import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.MovioText
-import com.madrid.presentation.composables.RecentSearchItem
+import com.madrid.designSystem.theme.Theme
+import com.madrid.presentation.component.RecentSearchItem
 
 
 fun LazyGridScope.recentSearchScreen(

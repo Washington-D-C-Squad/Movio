@@ -14,8 +14,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.madrid.presentation.composables.RecentSearchList
-import com.madrid.presentation.composables.SearchHeader
+import com.madrid.presentation.component.RecentSearchList
+import com.madrid.presentation.component.header.SearchHeader
 
 @Composable
 fun RecentSearchLayout(

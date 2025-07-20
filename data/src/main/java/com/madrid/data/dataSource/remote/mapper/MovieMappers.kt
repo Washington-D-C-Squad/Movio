@@ -40,7 +40,7 @@ fun MovieDetailsResponse.toMovie(): Movie {
         yearOfRelease = this.releaseDate ?: "",
         movieDuration = this.runtime?.toString() ?: "",
         description = this.overview ?: "",
-        genre = this.movieGenres?.map { it.toMediaGenre().title },
+        genre = this.movieGenres?.map { it.toMediaGenre().title } ?: emptyList(),
         profilePage = this.homepage ?: ""
     )
 }

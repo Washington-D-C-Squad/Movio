@@ -1,7 +1,7 @@
 package com.madrid.data
 
 import com.madrid.data.repositories.remote.RemoteDataSource
-import com.madrid.data.repositories.remote.RemoteDataSourceImpl
+import com.madrid.data.dataSource.remote.RemoteDataSourceImpl
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.cio.CIO
