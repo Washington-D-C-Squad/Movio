@@ -1,6 +1,7 @@
 package com.madrid.presentation.composables.movioCards
 
-
+import android.R.string
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,19 +11,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.R
-import com.madrid.presentation.R.string
 import com.madrid.designsystem.AppTheme
+import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
 
@@ -33,116 +34,92 @@ fun MovioEpisodesCard(
     currentMovieEpisode: String,
     movieTime: String,
     movieImageUrl: String,
-    height: Dp,
-    width: Dp,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = AppTheme.spacing.small)
-            .clip(RoundedCornerShape(AppTheme.radius.small))
+        modifier = modifier
+            .height(74.dp)
             .clickable { onClick() },
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
-        verticalAlignment = Alignment.Top
     ) {
-        EpisodeMovieImage(movieImageUrl = movieImageUrl, height = height, width = width)
-        Column(
-            modifier = modifier
-                .height(height)
-                .padding(vertical = AppTheme.spacing.extraSmall),
-            verticalArrangement = Arrangement.SpaceEvenly
+        Box(
+            modifier = Modifier
+                .height(74.dp)
         ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                MovioText(
-                    modifier = Modifier.weight(1f),
-                    text = movieTitle, color = AppTheme.colors.surfaceColor.onSurface,
-                    textStyle = AppTheme.textStyle.title.medium14,
-                    maxLines = 1,
-                )
-                RateIcon(rate = movieRate, tint = AppTheme.colors.systemColors.warning)
-            }
-            Row {
-                NumberOfEpisodes(numberOfEpisodes = currentMovieEpisode)
-                TimeSection(movieTime)
-            }
+            BasicImageCard(
+                imageUrl = movieImageUrl,
+                modifier = Modifier
+                    .height(74.dp)
+                    .width(100.dp)
+                    .clip(RoundedCornerShape(AppTheme.radius.small)),
+                radius = AppTheme.radius.small,
+            )
+            MovioIcon(
+                contentDescription = "video circle",
+                tint = Color.White,
+                painter = painterResource(R.drawable.bold_video_circle),
+                modifier = Modifier
+                    .size(20.dp)
+                    .align(Alignment.Center)
+            )
         }
-    }
-}
-
-@Composable
-private fun EpisodeMovieImage(
-    movieImageUrl: String,
-    height: Dp, width: Dp
-) {
-    Box(
-        contentAlignment = Alignment.Center
-    ) {
-        BasicImageCard(
-            imageUrl = movieImageUrl,
-            modifier = Modifier.fillMaxWidth().height(height),
-            radius = AppTheme.radius.small,
-        )
-        MovioIcon(
-            contentDescription = stringResource(
-                string.bold_video_circle
-            ),
-            tint = AppTheme.colors.surfaceColor.onSurface_1,
-            painter = painterResource(R.drawable.bold_video_circle),
-            modifier = Modifier.size(34.dp)
+        FrameEpisodeCard(
+            modifier = modifier
+                .weight(1f),
+            movieTitle = movieTitle,
+            movieRate = movieRate,
+            currentMovieEpisode = currentMovieEpisode,
+            movieTime = movieTime,
         )
     }
 }
 
 @Composable
-private fun TimeSection(
+private fun FrameEpisodeCard(
+    movieTitle: String,
+    movieRate: String,
+    currentMovieEpisode: String,
     movieTime: String,
-    modifier: Modifier = Modifier
-) {
-    Box(
-        modifier = modifier,
-        contentAlignment = Alignment.Center
+    modifier: Modifier = Modifier,
+){
+    Column(
+        modifier = modifier
+            .padding(top = 15.dp, bottom = 15.dp, start = 8.dp, end = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
+        Row {
+            MovioText(
+                modifier = Modifier.weight(1f),
+                text = movieTitle,
+                color = AppTheme.colors.surfaceColor.onSurface,
+                textStyle = AppTheme.textStyle.title.medium14,
+            )
+            RateIcon(
+                rate = movieRate,
+            )
+        }
         Row(
-            horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
+            horizontalArrangement = Arrangement.spacedBy(7.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            MovioText(
+                modifier = Modifier.padding(end = 4.dp),
+                text = currentMovieEpisode,
+                color = AppTheme.colors.surfaceColor.onSurfaceContainer,
+                textStyle = AppTheme.textStyle.title.medium14,
+            )
             MovioIcon(
                 painter = painterResource(R.drawable.dot),
-                contentDescription = stringResource(string.dot),
+                contentDescription = "dot icon",
                 modifier = Modifier.size(12.dp),
                 tint = AppTheme.colors.surfaceColor.onSurfaceContainer
             )
             MovioText(
                 text = movieTime,
-                textStyle = AppTheme.textStyle.label.smallRegular12,
-                color = AppTheme.colors.surfaceColor.onSurfaceContainer
+                color = AppTheme.colors.surfaceColor.onSurfaceContainer,
+                textStyle = AppTheme.textStyle.title.medium14,
             )
         }
-
-    }
-}
-
-@Composable
-private fun NumberOfEpisodes(
-    numberOfEpisodes: String,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier = modifier.padding(end = AppTheme.spacing.small),
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        MovioText(
-            text = stringResource(string.current_episode,
-            numberOfEpisodes),
-            textStyle = AppTheme.textStyle.label.smallRegular12,
-            color = AppTheme.colors.surfaceColor.onSurfaceContainer
-        )
     }
 }
 
@@ -154,9 +131,7 @@ private fun EpisodesCardPreview() {
             movieTitle = "Spider-Man: Homecoming",
             movieImageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
             movieRate = "3.0",
-            width = 100.dp,
-            height = 74.dp,
-            currentMovieEpisode = "1",
+            currentMovieEpisode = "Episode 01",
             movieTime = "44 m",
             onClick = {}
         )
