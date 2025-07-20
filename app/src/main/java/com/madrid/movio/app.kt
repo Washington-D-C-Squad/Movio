@@ -16,9 +16,10 @@ import com.madrid.domain.usecase.GetExploreMoreMovieUseCase
 import com.madrid.domain.usecase.GetRecommendedMovieUseCase
 import com.madrid.domain.usecase.mediaDeatailsUseCase.MovieDetailsUseCase
 import com.madrid.domain.usecase.searchUseCase.ArtistUseCase
-import com.madrid.domain.usecase.searchUseCase.MediaUseCase
+import com.madrid.domain.usecase.searchUseCase.MovieUseCase
 import com.madrid.domain.usecase.searchUseCase.PreferredMediaUseCase
 import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
+import com.madrid.domain.usecase.searchUseCase.SeriesUseCase
 import com.madrid.domain.usecase.searchUseCase.TrendingMediaUseCase
 import com.madrid.presentation.screens.SeeAllForYou.SeeAllForYouViewModel
 import com.madrid.presentation.screens.detailsMovieScreen.DetailsMovieViewModel
@@ -43,6 +44,7 @@ val app = module {
     // presentation
     viewModel {
         SearchViewModel(
+            get(),
             get(),
             get(),
             get(),
@@ -74,7 +76,8 @@ val app = module {
 
     //domain
     single { ArtistUseCase(get()) }
-    single { MediaUseCase(get()) }
+    single { MovieUseCase(get()) }
+    single { SeriesUseCase(get()) }
     single { PreferredMediaUseCase(get()) }
     single { RecentSearchUseCase(get()) }
     single { TrendingMediaUseCase(get()) }

@@ -7,13 +7,14 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.madrid.domain.entity.Media
+import com.madrid.domain.entity.Movie
 import com.madrid.domain.usecase.GetExploreMoreMovieUseCase
 import com.madrid.domain.usecase.GetRecommendedMovieUseCase
 import com.madrid.domain.usecase.searchUseCase.ArtistUseCase
-import com.madrid.domain.usecase.searchUseCase.MediaUseCase
+import com.madrid.domain.usecase.searchUseCase.MovieUseCase
 import com.madrid.domain.usecase.searchUseCase.PreferredMediaUseCase
 import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
+import com.madrid.domain.usecase.searchUseCase.SeriesUseCase
 import com.madrid.domain.usecase.searchUseCase.TrendingMediaUseCase
 import com.madrid.presentation.screens.searchScreen.paging.ExplorePagingSource
 import com.madrid.presentation.screens.searchScreen.paging.SearchArtistPagingSource
@@ -25,12 +26,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
-import kotlin.math.exp
 
 @KoinViewModel
 class SearchViewModel(
     private val artistUseCase: ArtistUseCase,
-    private val mediaUseCase: MediaUseCase,
+    private val movieUseCase: MovieUseCase,
+    private val seriesUseCase: SeriesUseCase,
+
     private val preferredMediaUseCase: PreferredMediaUseCase,
     private val getRecommendedMovieUseCase: GetRecommendedMovieUseCase,
     private val getExploreMoreMovieUseCase: GetExploreMoreMovieUseCase,
@@ -187,38 +189,40 @@ class SearchViewModel(
 
     }
 
-
-    fun List<Media>.mapToMoviesUiState(): MutableList<SearchScreenState.MovieUiState> {
-        var moviesUiState: MutableList<SearchScreenState.MovieUiState> = mutableListOf()
-        this.forEach { media ->
-            moviesUiState =
-                (moviesUiState + media.toMovieUiStateList().toMutableList()).toMutableList()
-        }
-        return moviesUiState
+    fun Movie.toMovieUiState(): SearchScreenState.MovieUiState {
+        return SearchScreenState.MovieUiState(
+            id = this.id.toString(),
+            title = this.title,
+            imageUrl = this.imageUrl,
+            rating = this.rate.toString(),
+            category = this.genre.toString()
+        )
     }
 
+    /*    fun List<Movie>.mapToMoviesUiState(): MutableList<SearchScreenState.MovieUiState> {
+            var moviesUiState: MutableList<SearchScreenState.MovieUiState> = mutableListOf()
+            this.forEach { media ->
+                moviesUiState =
+                    (moviesUiState + media.toMovieUiStateList().toMutableList()).toMutableList()
+            }
+            return moviesUiState
+        }
 
-    fun Media.toMovieUiStateList(): List<SearchScreenState.MovieUiState> {
 
-        val moviesUiState: MutableList<SearchScreenState.MovieUiState> = mutableListOf()
-        movies.forEach { movie ->
-            moviesUiState.add(
-                SearchScreenState.MovieUiState(
-                    id = movie.id.toString(),
-                    title = movie.title,
-                    imageUrl = movie.imageUrl,
-                    rating = movie.rate.toString(),
-                    category = movie.genre?.first() ?: ""
+        fun Movie.toMovieUiStateList(): List<SearchScreenState.MovieUiState> {
+            val moviesUiState: MutableList<SearchScreenState.MovieUiState> = mutableListOf()
+            movies.forEach { movie ->
+                moviesUiState.add(
+                    movie.toMovieUiState()
+
                 )
-            )
-        }
-        return moviesUiState
-
-    }
+            }
+            return moviesUiState
+        }*/
 
     fun searchMovies(query: String) {
         tryToExecute(
-            function = { mediaUseCase.getMovieByQuery(query) },
+            function = { movieUseCase.invoke(query) },
             onSuccess = { result ->
                 Log.e("MY_TAG", "$result this is here ")
                 updateState {
@@ -258,7 +262,7 @@ class SearchViewModel(
                 enablePlaceholders = false,
                 prefetchDistance = 5
             ), pagingSourceFactory = {
-                SearchMoviePagingSource(query, mediaUseCase)
+                SearchMoviePagingSource(query, movieUseCase)
             }
         ).flow
             .cachedIn(viewModelScope)
@@ -293,7 +297,7 @@ class SearchViewModel(
                 enablePlaceholders = false,
                 prefetchDistance = 5
             ), pagingSourceFactory = {
-                SearchSeriesPagingSource(query, mediaUseCase)
+                SearchSeriesPagingSource(query, seriesUseCase)
             }
         ).flow
             .cachedIn(viewModelScope)
@@ -333,7 +337,7 @@ class SearchViewModel(
             ), pagingSourceFactory = {
                 SearchMoviePagingSource(
                     query = query,
-                    mediaUseCase = mediaUseCase
+                    movieUseCase = movieUseCase
                 )
             }
         ).flow
@@ -401,7 +405,7 @@ class SearchViewModel(
 //            pagingSourceFactory = {
 //                SearchMoviePagingSource(
 //                    query = query,
-//                    mediaUseCase = mediaUseCase
+//                    movieUseCase = movieUseCase
 //                )
 //            }
 //        ).flow.cachedIn(viewModelScope).map { pagingItem ->
@@ -423,7 +427,6 @@ class SearchViewModel(
     companion object {
         @JvmStatic
         fun clearRecentSearchesStatic() {
-
         }
     }
 }
