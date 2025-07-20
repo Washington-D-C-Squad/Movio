@@ -48,6 +48,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    implementation(libs.androidx.ui.tooling.preview)
+
     //material3
     implementation(libs.material3)
     implementation(libs.androidx.material3.window.size.class1)
