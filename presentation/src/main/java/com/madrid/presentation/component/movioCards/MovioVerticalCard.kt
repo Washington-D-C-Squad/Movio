@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -46,7 +47,7 @@ fun MovioVerticalCard(
                 modifier = Modifier
                     .zIndex(1f)
                     .width(width)
-                    .padding(vertical = paddingvalue),
+                    .padding(paddingvalue),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.End
             ) {
@@ -68,10 +69,10 @@ fun MovioVerticalCard(
             textStyle = AppTheme.textStyle.title.medium14,
             color = AppTheme.colors.surfaceColor.onSurface,
             maxLines = 2,
+            textAlign = TextAlign.Start,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .width(width)
-                .wrapContentWidth()
         )
     }
 }
