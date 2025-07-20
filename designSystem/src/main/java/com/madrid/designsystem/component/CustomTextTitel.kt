@@ -11,6 +11,8 @@ import androidx.compose.ui.graphics.painter.Painter
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
+
+
 @Composable
 fun CustomTextTitel(
     primaryText: String,
