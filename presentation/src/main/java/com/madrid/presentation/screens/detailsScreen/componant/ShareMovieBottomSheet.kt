@@ -17,11 +17,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.R
-import com.madrid.designsystem.component.MovioBottomSheet
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
+import com.madrid.designSystem.theme.Theme
+import com.madrid.designSystem.R
+import com.madrid.designSystem.component.MovioBottomSheet
+import com.madrid.designSystem.component.MovioIcon
+import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,7 +33,7 @@ fun ShareBottomSheet(
     MovioBottomSheet(
         show = show,
         onDismiss = onDismiss,
-        containerColor = AppTheme.colors.surfaceColor.surface
+        containerColor = Theme.color.surfaces.surface
     ) {
         Column(
             modifier = Modifier
@@ -42,14 +43,14 @@ fun ShareBottomSheet(
         ) {
             MovioText(
                 text = "Share via",
-                textStyle = AppTheme.textStyle.label.largeMedium16,
-                color = AppTheme.colors.surfaceColor.onSurface,
-                modifier = Modifier.padding(bottom = AppTheme.spacing.medium)
+                textStyle = Theme.textStyle.label.mediumMedium16,
+                color = Theme.color.surfaces.onSurface,
+                modifier = Modifier.padding(bottom = 16.dp)
             )
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = AppTheme.spacing.medium),
+                    .padding(bottom = 16.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -81,21 +82,21 @@ fun ShareItem(icon: Int, label: String, onClick: () -> Unit) {
             modifier = Modifier
                 .size(60.dp)
                 .clip(CircleShape)
-                .background(AppTheme.colors.surfaceColor.onSurfaceVariant.copy(alpha = 0.2f))
+                .background(Theme.color.surfaces.onSurfaceVariant.copy(alpha = 0.2f))
                 .clickable { onClick() },
             contentAlignment = Alignment.Center
         ) {
             MovioIcon(
                 painter = painterResource(id = icon),
                 contentDescription = label,
-                tint = AppTheme.colors.surfaceColor.onSurface,
+                tint = Theme.color.surfaces.onSurface,
                 modifier = Modifier.size(28.dp)
             )
         }
         MovioText(
             text = label,
-            textStyle = AppTheme.textStyle.label.medium14,
-            color = AppTheme.colors.surfaceColor.onSurface,
+            textStyle = Theme.textStyle.label.mediumMedium14,
+            color = Theme.color.surfaces.onSurface,
             modifier = Modifier.padding(top = 6.dp)
         )
     }
@@ -103,7 +104,7 @@ fun ShareItem(icon: Int, label: String, onClick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun ShareBottomSheetPreview() {
-    AppTheme {
+    MovioTheme {
         ShareBottomSheet(
             show = true,
             onDismiss = {}

@@ -20,9 +20,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
+import com.madrid.designSystem.theme.Theme
+import com.madrid.designSystem.component.MovioIcon
+import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.presentation.R
 import com.madrid.presentation.navigation.Destinations
 
@@ -30,7 +31,7 @@ import com.madrid.presentation.navigation.Destinations
 @Preview(showBackground = true)
 @Composable
 fun CustomBottomBarPreview() {
-    AppTheme {
+    MovioTheme {
         CustomBottomBar(
             currentDestination = Destinations.HomeScreen,
             navItems = navBarDestinations,
@@ -87,18 +88,18 @@ fun CustomBottomBar(
     onNavDestinationClicked: (Destinations) -> Unit,
     navItems: List<NavBarItem>,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = AppTheme.colors.surfaceColor.surface,
-    selectedTextStyle: TextStyle = AppTheme.textStyle.label.medium12,
-    unselectedTextStyle: TextStyle = AppTheme.textStyle.label.smallRegular12,
-    selectedTextColor: Color = AppTheme.colors.brandColors.primary,
-    unSelectedTextColor: Color = AppTheme.colors.surfaceColor.onSurfaceVariant,
+    backgroundColor: Color = Theme.color.surfaces.surface,
+    selectedTextStyle: TextStyle = Theme.textStyle.label.mediumMedium12,
+    unselectedTextStyle: TextStyle = Theme.textStyle.label.smallRegular12,
+    selectedTextColor: Color = Theme.color.brand.primary,
+    unSelectedTextColor: Color = Theme.color.surfaces.onSurfaceVariant,
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .height(74.dp)
             .background(color = backgroundColor)
-            .padding(horizontal = AppTheme.spacing.large, vertical = AppTheme.spacing.medium),
+            .padding(horizontal = 20.dp, vertical = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -143,14 +144,14 @@ private fun CustomNavBarItem(
         MovioIcon(
             painter = painterResource(id = iconRes),
             contentDescription = item.contentDescription,
-            modifier = Modifier.size(AppTheme.spacing.xLarge),
-            tint =AppTheme.colors.surfaceColor.onSurfaceVariant,
+            modifier = Modifier.size(24.dp),
+            tint =Theme.color.surfaces.onSurfaceVariant,
         )
         MovioText(
             text = item.label,
             textStyle = if (isSelected) selectedTextStyle else unselectedTextStyle,
             color = labelColor,
-            modifier = Modifier.padding(top = AppTheme.spacing.extraSmall)
+            modifier = Modifier.padding(top = 4.dp)
         )
     }
 }

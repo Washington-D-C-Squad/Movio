@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -20,15 +21,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.component.MovioIcon
+import com.madrid.designSystem.component.MovioIcon
+import com.madrid.designSystem.theme.MovioTheme
 
 @Composable
 fun MovieDetailsNavigationHeader(
+    modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {},
     onShareClick: () -> Unit = {},
     onHeartClick: () -> Unit = {},
-    modifier: Modifier = Modifier
 ) {
     var isLiked by remember { mutableStateOf(false) }
 
@@ -51,15 +52,15 @@ fun MovieDetailsNavigationHeader(
                 contentAlignment = Alignment.Center
             ) {
                 MovioIcon(
-                    painter = painterResource(com.madrid.designsystem.R.drawable.arrow_left),
+                    painter = painterResource(com.madrid.designSystem.R.drawable.arrow_left),
                     contentDescription = "Back",
                     tint = Color.White,
                     modifier = Modifier.size(24.dp)
                 )
             }
-
+            
             Spacer(modifier = Modifier.weight(1f))
-
+            
             Box(
                 modifier = Modifier
                     .size(40.dp)
@@ -71,13 +72,13 @@ fun MovieDetailsNavigationHeader(
                 contentAlignment = Alignment.Center
             ) {
                 MovioIcon(
-                    painter = painterResource(com.madrid.designsystem.R.drawable.outline_share),
+                    painter = painterResource(com.madrid.designSystem.R.drawable.outline_share),
                     contentDescription = "Share",
                     tint = Color.White,
                     modifier = Modifier.size(24.dp)
                 )
             }
-
+            
             Spacer(modifier = Modifier.width(8.dp))
 
             Box(
@@ -87,7 +88,7 @@ fun MovieDetailsNavigationHeader(
                         color = Color.Black.copy(alpha = 0.3f),
                         shape = CircleShape
                     )
-                    .clickable {
+                    .clickable { 
                         isLiked = !isLiked
                         onHeartClick()
                     },
@@ -95,8 +96,8 @@ fun MovieDetailsNavigationHeader(
             ) {
                 MovioIcon(
                     painter = painterResource(
-                        if (isLiked) com.madrid.designsystem.R.drawable.bold_heart
-                        else com.madrid.designsystem.R.drawable.outline_heart
+                        if (isLiked) com.madrid.designSystem.R.drawable.bold_heart
+                        else com.madrid.designSystem.R.drawable.outline_heart
                     ),
                     contentDescription = "Like",
                     tint = if (isLiked) Color.Red else Color.White,
@@ -110,7 +111,7 @@ fun MovieDetailsNavigationHeader(
 @Preview(showBackground = true)
 @Composable
 fun MovieDetailsNavigationHeaderPreview() {
-    AppTheme {
+    MovioTheme {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -119,4 +120,4 @@ fun MovieDetailsNavigationHeaderPreview() {
             MovieDetailsNavigationHeader()
         }
     }
-}
+} 

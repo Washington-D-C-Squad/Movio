@@ -28,9 +28,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
+import com.madrid.designSystem.theme.Theme
+import com.madrid.designSystem.component.MovioIcon
+import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
 
 
 @Composable
@@ -49,15 +50,15 @@ fun <T> CustomDropdown(
             modifier = Modifier
                 .width(dropdownWidth)
                 .background(
-                    color = AppTheme.colors.surfaceColor.surfaceContainer,
-                    shape = RoundedCornerShape(AppTheme.radius.xxLarge)
+                    color = Theme.color.surfaces.surfaceContainer,
+                    shape = RoundedCornerShape(32.dp)
                 )
                 .border(
                     width = 1.dp,
-                    color = AppTheme.colors.surfaceColor.onSurface_2,
-                    shape = RoundedCornerShape(AppTheme.radius.xxLarge)
+                    color = Theme.color.surfaces.onSurfaceAt2,
+                    shape = RoundedCornerShape(32.dp)
                 )
-                .clip(RoundedCornerShape(AppTheme.radius.xxLarge))
+                .clip(RoundedCornerShape(32.dp))
                 .clickable { expanded = true },
             contentAlignment = Alignment.Center
         ) {
@@ -68,13 +69,13 @@ fun <T> CustomDropdown(
             ) {
                 MovioText(
                     text = selectedItem?.let { labelSelector(it) } ?: "",
-                    color = AppTheme.colors.surfaceColor.onSurfaceContainer,
-                    textStyle = AppTheme.textStyle.label.smallRegular14
+                    color = Theme.color.surfaces.onSurfaceContainer,
+                    textStyle = Theme.textStyle.label.smallRegular14
                 )
                 MovioIcon(
-                    painter = painterResource(com.madrid.designsystem.R.drawable.icon_arrow_down),
+                    painter = painterResource(com.madrid.designSystem.R.drawable.icon_arrow_down),
                     contentDescription = "icon arrow down icon",
-                    tint = AppTheme.colors.surfaceColor.onSurfaceVariant
+                    tint = Theme.color.surfaces.onSurfaceVariant
                 )
             }
         }
@@ -89,12 +90,12 @@ fun <T> CustomDropdown(
             Box(
                 modifier = Modifier
                     .background(
-                        color = AppTheme.colors.surfaceColor.surface,
+                        color = Theme.color.surfaces.surface,
                         shape = RoundedCornerShape(8.dp)
                     )
                     .border(
                         width = 1.dp,
-                        color = AppTheme.colors.surfaceColor.onSurface_2,
+                        color = Theme.color.surfaces.onSurfaceAt2,
                         shape = RoundedCornerShape(8.dp)
                     )
                     .padding(8.dp)
@@ -113,8 +114,8 @@ fun <T> CustomDropdown(
                         ) {
                             MovioText(
                                 text = labelSelector(item),
-                                color = AppTheme.colors.surfaceColor.onSurfaceContainer,
-                                textStyle = AppTheme.textStyle.label.smallRegular14
+                                color = Theme.color.surfaces.onSurfaceContainer,
+                                textStyle = Theme.textStyle.label.smallRegular14
                             )
                         }
                     }
@@ -127,7 +128,7 @@ fun <T> CustomDropdown(
 @Preview
 @Composable
 fun CustomDropdownPreview() {
-    AppTheme {
+    MovioTheme {
         var selectedItem by remember { mutableStateOf("Option 1") }
         CustomDropdown(
             items = listOf("Option 1", "Option 2", "Option 3"),

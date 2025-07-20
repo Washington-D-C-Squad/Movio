@@ -14,8 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.component.MovioText
+import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
+import com.madrid.designSystem.theme.Theme
+
 
 @Composable
 fun MovioArtistsCard(
@@ -28,7 +30,7 @@ fun MovioArtistsCard(
         modifier = modifier
             .width(102.dp)
             .height(111.dp)
-            .clip(RoundedCornerShape(AppTheme.radius.small))
+            .clip(RoundedCornerShape(8.dp))
             .clickable { onClick() },
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -41,8 +43,8 @@ fun MovioArtistsCard(
         )
         MovioText(
             text = artistsName,
-            color = AppTheme.colors.surfaceColor.onSurface,
-            textStyle = AppTheme.textStyle.body.medium14,
+            color = Theme.color.surfaces.onSurface,
+            textStyle = Theme.textStyle.body.mediumMedium14,
             maxLines = 1,
             modifier = Modifier.padding()
         )
@@ -52,7 +54,7 @@ fun MovioArtistsCard(
 @Preview(showBackground = true)
 @Composable
 fun MovioArtistsCardPreview() {
-    AppTheme {
+    MovioTheme {
         MovioArtistsCard(
             imageUrl = "https://image.tmdb.org/t/p/w500/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
             artistsName = "Leonardo DiCaprio"

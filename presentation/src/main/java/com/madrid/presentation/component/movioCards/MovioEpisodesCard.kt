@@ -18,10 +18,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.R
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
+import com.madrid.designSystem.R
+import com.madrid.designSystem.component.MovioIcon
+import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
+import com.madrid.designSystem.theme.Theme
+
 
 @Composable
 fun MovioEpisodesCard(
@@ -47,8 +49,8 @@ fun MovioEpisodesCard(
                 modifier = Modifier
                     .height(74.dp)
                     .width(100.dp)
-                    .clip(RoundedCornerShape(AppTheme.radius.small)),
-                radius = AppTheme.radius.small,
+                    .clip(RoundedCornerShape(8.dp)),
+                radius = 8.dp,
             )
             MovioIcon(
                 contentDescription = "video circle",
@@ -87,8 +89,8 @@ private fun FrameEpisodeCard(
             MovioText(
                 modifier = Modifier.weight(1f),
                 text = movieTitle,
-                color = AppTheme.colors.surfaceColor.onSurface,
-                textStyle = AppTheme.textStyle.title.medium14,
+                color = Theme.color.surfaces.onSurface,
+                textStyle = Theme.textStyle.title.mediumMedium14,
             )
             RateIcon(
                 rate = movieRate,
@@ -101,19 +103,19 @@ private fun FrameEpisodeCard(
             MovioText(
                 modifier = Modifier.padding(end = 4.dp),
                 text = currentMovieEpisode,
-                color = AppTheme.colors.surfaceColor.onSurfaceContainer,
-                textStyle = AppTheme.textStyle.title.medium14,
+                color = Theme.color.surfaces.onSurfaceContainer,
+                textStyle = Theme.textStyle.title.mediumMedium14,
             )
             MovioIcon(
                 painter = painterResource(R.drawable.dot),
                 contentDescription = "dot icon",
                 modifier = Modifier.size(12.dp),
-                tint = AppTheme.colors.surfaceColor.onSurfaceContainer
+                tint = Theme.color.surfaces.onSurfaceContainer
             )
             MovioText(
                 text = movieTime,
-                color = AppTheme.colors.surfaceColor.onSurfaceContainer,
-                textStyle = AppTheme.textStyle.title.medium14,
+                color = Theme.color.surfaces.onSurfaceContainer,
+                textStyle = Theme.textStyle.title.mediumMedium14,
             )
         }
     }
@@ -122,7 +124,7 @@ private fun FrameEpisodeCard(
 @Preview(showBackground = true)
 @Composable
 private fun EpisodesCardPreview() {
-    AppTheme {
+    MovioTheme {
         MovioEpisodesCard(
             movieTitle = "Spider-Man: Homecoming",
             movieImageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",

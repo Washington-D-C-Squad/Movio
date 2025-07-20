@@ -1,4 +1,4 @@
-package com.madrid.presentation.composables.movioCards
+package com.madrid.presentation.component.movioCards
 
 
 import androidx.compose.foundation.clickable
@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,10 +20,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.component.MovioText
-import com.madrid.presentation.component.movioCards.BasicImageCard
-import com.madrid.presentation.component.movioCards.RateIcon
+import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
+import com.madrid.designSystem.theme.Theme
 
 @Composable
 fun MovioVerticalCard(
@@ -39,7 +37,7 @@ fun MovioVerticalCard(
     ) {
     Column(
         modifier = modifier
-            .clip(RoundedCornerShape(AppTheme.radius.small))
+            .clip(RoundedCornerShape(8.dp))
             .clickable { onClick() }
     ) {
         Box(contentAlignment = Alignment.TopCenter, modifier = Modifier.align(Alignment.CenterHorizontally)) {
@@ -55,19 +53,19 @@ fun MovioVerticalCard(
             }
             BasicImageCard(
                 imageUrl = movieImage,
-                radius = AppTheme.radius.small,
+                radius = 8.dp,
                 modifier = Modifier
                     .width(width)
                     .height(height)
-                    .clip(RoundedCornerShape(AppTheme.radius.small))
+                    .clip(RoundedCornerShape(8.dp))
             )
 
         }
         Spacer(modifier = Modifier.height(8.dp))
         MovioText(
             text = description,
-            textStyle = AppTheme.textStyle.title.medium14,
-            color = AppTheme.colors.surfaceColor.onSurface,
+            textStyle = Theme.textStyle.title.mediumMedium14,
+            color = Theme.color.surfaces.onSurface,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
@@ -79,7 +77,7 @@ fun MovioVerticalCard(
 @Preview(showBackground = true)
 @Composable
 private fun VerticalCardPreview() {
-    AppTheme {
+    MovioTheme {
         MovioVerticalCard(
             description = "Spider-Man",
             movieImage = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
