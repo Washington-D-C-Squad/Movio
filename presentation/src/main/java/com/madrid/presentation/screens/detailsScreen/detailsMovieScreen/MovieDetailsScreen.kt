@@ -1,4 +1,4 @@
-package com.madrid.presentation.screens
+package com.madrid.presentation.screens.detailsScreen.detailsMovieScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,23 +12,19 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.madrid.designsystem.AppTheme
-import com.madrid.presentation.MovieDetailsHeader
-import com.madrid.presentation.composables.BottomMediaActions
-import com.madrid.presentation.composables.CastMember
-import com.madrid.presentation.composables.MovieDescription
-import com.madrid.presentation.composables.MovieDetailsNavigationHeader
-import com.madrid.presentation.composables.TopCastSection
-import com.madrid.presentation.composables.movieActorBackround.MoviePosterDetailScreen
-import com.madrid.presentation.screens.detailsMovieScreen.DetailsMovieViewModel
+import com.madrid.presentation.header.MovieDetailsHeader
+import com.madrid.presentation.component.BottomMediaActions
+import com.madrid.presentation.component.CastMember
+import com.madrid.designsystem.component.TextWithReadMore
+import com.madrid.designsystem.component.TopAppBar
+import com.madrid.presentation.component.MovieDetailsNavigationHeader
+import com.madrid.presentation.component.TopCastSection
+import com.madrid.presentation.component.movieActorBackround.MoviePosterDetailScreen
+import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
 import org.koin.androidx.compose.koinViewModel
 
 data class MovieDetailsData(
@@ -71,15 +67,7 @@ fun MovieDetailsScreen(
         )
 
         // Fixed top navigation header that overlays on the blurred background
-        MovieDetailsNavigationHeader(
-            onBackClick = onBackClick,
-            onShareClick = onShareClick,
-            onHeartClick = onHeartClick,
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-        )
-
+        TopAppBar(null)
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -104,7 +92,7 @@ fun MovieDetailsScreen(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
             )
 
-            MovieDescription(
+            TextWithReadMore(
                 description = uiState.description,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
