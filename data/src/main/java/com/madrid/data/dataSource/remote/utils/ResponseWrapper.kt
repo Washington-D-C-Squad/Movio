@@ -29,6 +29,12 @@ suspend inline fun <reified T> responseWrapper(
 
             else -> throw UnknownException(e.message)
         }
+    } catch (e: RedirectResponseException) {
+        throw UnknownException(message = "Redirect Error: ${e.message}")
+    } catch (e: ServerResponseException) {
+        throw ServerErrorException()
+    } catch (e: IOException) {
+        throw InvalidRequestException(message = "Invalid Request Method: ${e.message}")
     } catch (e: Exception) {
         throw UnknownException(message = "Unknown error occurred: ${e.message}")
     }
