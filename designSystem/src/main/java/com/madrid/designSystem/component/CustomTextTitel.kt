@@ -2,6 +2,7 @@ package com.madrid.designSystem.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -30,6 +31,7 @@ fun CustomTextTitel(
             textStyle = Theme.textStyle.title.mediumMedium16,
             modifier = Modifier.weight(1f)
         )
+        Spacer(Modifier.weight(1f))
         if (secondaryText != null || endIcon != null) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,

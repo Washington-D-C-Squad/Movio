@@ -1,14 +1,15 @@
 package com.madrid.presentation.screens.searchScreen.paging
 
 import com.madrid.domain.entity.Movie
-import com.madrid.domain.usecase.searchUseCase.MediaUseCase
+import com.madrid.domain.usecase.searchUseCase.MovieUseCase
 
 class SearchMoviePagingSource(
     private val query: String,
-    private val mediaUseCase: MediaUseCase,
+    private val movieUseCase: MovieUseCase,
+
 ) : BasePagingSource<Movie>() {
     override suspend fun loadPage(page: Int): List<Movie> {
-        val movies = mediaUseCase.getTopRatedMedia(query = query, page = page).first
+        val movies = movieUseCase.invoke(query = query, page = page)
         return movies
     }
 }

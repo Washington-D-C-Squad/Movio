@@ -3,7 +3,6 @@ package com.madrid.presentation.screens.searchScreen.features.recentSearchLayout
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridScope
@@ -17,14 +16,15 @@ import com.madrid.designSystem.component.CustomTextTitel
 import com.madrid.designSystem.R
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState.MovieUiState
+import com.madrid.presentation.viewModel.searchViewModel.SearchScreenState
 
 fun LazyGridScope.forYouAndExploreScreen(
     showSearchResults: Boolean,
     isLoading: Boolean,
-    forYouMovies: List<MovieUiState>,
-    exploreMoreMovies: LazyPagingItems<MovieUiState>,
-    onMovieClick: (MovieUiState) -> Unit = {},
-    onExploreClick: ( LazyPagingItems<MovieUiState>) -> Unit = {},
+    forYouMovies: List<SearchScreenState.MovieUiState>,
+    exploreMoreMovies: LazyPagingItems<SearchScreenState.MovieUiState>,
+    onMovieClick: (SearchScreenState.MovieUiState) -> Unit = {},
+    onExploreClick: ( LazyPagingItems<SearchScreenState.MovieUiState>) -> Unit = {},
     onClickSeeAll :()->Unit
 ) {
     if (!showSearchResults && !isLoading) {
@@ -45,19 +45,16 @@ fun LazyGridScope.forYouAndExploreScreen(
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier
-                    .padding(
-                        bottom = 24.dp
-                    )
-                    .height(233.dp),
+                    .height(234.dp),
             ) {
-                items(forYouMovies) { movie ->
+                items(forYouMovies.shuffled()) { movie ->
                     MovioVerticalCard(
                         description = movie.title,
                         movieImage = movie.imageUrl,
                         rate = movie.rating,
-                        width = 160.dp,
-                        height = 200.dp,
-                        paddingValue = 8.dp,
+                        width = 124.dp,
+                        height = 177.dp,
+                        paddingValue = AppTheme.spacing.small,
                         onClick = { onMovieClick(movie) }
                     )
                 }
@@ -80,10 +77,10 @@ fun LazyGridScope.forYouAndExploreScreen(
                 description = exploreMoreMovies[index]!!.title,
                 movieImage = exploreMoreMovies[index]!!.imageUrl,
                 rate = exploreMoreMovies[index]!!.rating,
-                width = 500.dp,
-                height = 233.dp,
+                width = 1000.dp,
+                height = 222.dp,
                 onClick = {
-                    onExploreClick(exploreMoreMovies)
+                    onMovieClick(exploreMoreMovies[index]!!)
                 }
             )
         }

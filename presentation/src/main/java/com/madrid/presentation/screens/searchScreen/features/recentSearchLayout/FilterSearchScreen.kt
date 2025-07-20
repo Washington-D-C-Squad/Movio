@@ -14,10 +14,9 @@ import androidx.compose.ui.unit.times
 import androidx.paging.compose.LazyPagingItems
 import com.madrid.designSystem.component.LoadingSearchCard
 import com.madrid.presentation.R
-import com.madrid.presentation.composables.movioCards.MovioArtistsCard
+import com.madrid.presentation.component.movioCards.MovioArtistsCard
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
-import com.madrid.presentation.screens.searchScreen.SearchResultMessage
-import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
+import com.madrid.presentation.viewModel.searchViewModel.SearchScreenState
 
 fun LazyGridScope.filterSearchScreen(
     typeOfFilterSearch: String,
@@ -174,7 +173,6 @@ fun LazyGridScope.filterSearchScreen(
                         MovioArtistsCard(
                             artistsName = artist[index]!!.name,
                             imageUrl = artist[index]!!.imageUrl,
-                            width = 40.dp,
                             onClick = { }
                         )
                     }

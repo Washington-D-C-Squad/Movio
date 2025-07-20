@@ -3,6 +3,7 @@ package com.madrid.designSystem.component.textInputField
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Box
@@ -12,19 +13,25 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.theme.Theme
 
@@ -49,7 +56,9 @@ fun BasicTextInputField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
-    val isFocused by interactionSource.collectIsFocusedAsState()
+    var isFocused by remember { mutableStateOf(false) }
+    val focusRequester = remember { FocusRequester() }
+
     BasicTextField(
         value = value,
         onValueChange = onValueChange,
@@ -63,23 +72,22 @@ fun BasicTextInputField(
         singleLine = true,
         modifier = modifier
             .fillMaxWidth()
-            .border(
-                width = 1.dp,
-                brush = if (isFocused)
-                    Brush.horizontalGradient(
-                        borderBrushColors
+            .onFocusChanged { focusState -> isFocused = focusState.isFocused }
+            .focusRequester(focusRequester)
+            .focusable()
+            .then(
+                if (isFocused || value.isNotEmpty()) {
+                    Modifier.border(
+                        width = 1.dp,
+                        brush = Brush.horizontalGradient(borderBrushColors),
+                        shape = RoundedCornerShape(8.dp)
                     )
-                else
-                    Brush.horizontalGradient(
-                        listOf(
-                            Theme.color.surfaces.onSurfaceContainer,
-                            Theme.color.surfaces.onSurfaceContainer,
-                        )
-                    ),
-                shape = RoundedCornerShape(8.dp)
+                } else {
+                    Modifier
+                }
             )
             .background(Theme.color.surfaces.surfaceContainer, RoundedCornerShape(8.dp))
-            .padding(horizontal = 12.dp, vertical = 14.dp), // mimic TextField internal padding
+            .padding(horizontal = 12.dp, vertical = 14.dp),
         decorationBox = { innerTextField ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -116,7 +124,7 @@ fun BasicTextInputField(
                     Icon(
                         painter = endIconPainter,
                         contentDescription = null,
-                        tint =  if (isFocused || value.isNotEmpty())
+                        tint = if (isFocused || value.isNotEmpty())
                             iconColorInFocus
                         else {
                             iconColorNotFocus
