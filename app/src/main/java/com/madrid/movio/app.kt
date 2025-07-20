@@ -33,12 +33,17 @@ val app = module {
 
     // data
     single<SearchRepository> { SearchRepositoryImpl(get(), get()) }
-    single<LocalDataSource> { LocalDataSourceImpl(get()) }
+    single { MovioDatabase.getInstance(androidContext()) }
+    single { get<MovioDatabase>().movieDao() }
+    single { get<MovioDatabase>().seriesDao() }
+    single { get<MovioDatabase>().artistDao() }
+    single { get<MovioDatabase>().categoryDao() }
+    single { get<MovioDatabase>().recentSearchDao() }
+    single<LocalDataSource> { LocalDataSourceImpl(get(), get(), get(), get(), get()) }
     single<RecommendedRepository> { RecommendedRepositoryImp(get(),get()) }
     single <MovieDetailsRepository>{ MovieDetailsRepositoryImpl(get(),get()) }
 
 
-    single { MovioDatabase.getInstance(androidContext()) }
 
 
     // presentation
