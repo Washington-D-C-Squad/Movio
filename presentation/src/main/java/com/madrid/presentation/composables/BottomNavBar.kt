@@ -98,7 +98,7 @@ fun CustomBottomBar(
             .fillMaxWidth()
             .height(74.dp)
             .background(color = backgroundColor)
-            .padding(horizontal = AppTheme.spacing.large, vertical = 16.dp),
+            .padding(horizontal = 20.dp, vertical = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -143,7 +143,7 @@ private fun CustomNavBarItem(
         MovioIcon(
             painter = painterResource(id = iconRes),
             contentDescription = item.contentDescription,
-            modifier = Modifier.size(AppTheme.spacing.xLarge),
+            modifier = Modifier.size(24.dp),
             tint =AppTheme.colors.surfaceColor.onSurfaceVariant,
         )
         MovioText(

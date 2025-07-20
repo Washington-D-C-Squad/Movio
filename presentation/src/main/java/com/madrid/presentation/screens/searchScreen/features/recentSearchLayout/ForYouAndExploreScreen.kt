@@ -14,7 +14,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import com.example.designsystem.component.CustomTextTitel
-import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState.MovieUiState
@@ -47,7 +46,7 @@ fun LazyGridScope.forYouAndExploreScreen(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier
                     .padding(
-                        bottom = AppTheme.spacing.xLarge
+                        bottom = 24.dp
                     )
                     .height(233.dp),
             ) {

@@ -33,7 +33,7 @@ fun SearchHeader(
 ) {
     Column(
         modifier = Modifier
-            .padding(horizontal = AppTheme.spacing.large, vertical = 16.dp)
+            .padding(horizontal = 20.dp, vertical = 16.dp)
     ) {
         MovioText(
             text = "Search",
@@ -55,7 +55,7 @@ fun SearchHeader(
                 painter = painterResource(id = DesignSystemR.drawable.outline_clock_circle),
                 contentDescription ="search content description",// stringResource(id = DesignSystemR.string.search_content_description),
                 tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
-                modifier = Modifier.size(AppTheme.spacing.large)
+                modifier = Modifier.size(20.dp)
             )
             Spacer(modifier = Modifier.width(8.dp))
             BasicTextField(
@@ -83,14 +83,14 @@ fun SearchHeader(
             )
             MovioButton(
                 onClick = onClear,
-                modifier = Modifier.size(AppTheme.spacing.xLarge),
+                modifier = Modifier.size(24.dp),
                 color = AppTheme.colors.surfaceColor.surfaceVariant
             ) {
                 MovioIcon(
                     painter = painterResource(id = DesignSystemR.drawable.trash),
                     contentDescription = "clear content description ",//stringResource(id = DesignSystemR.string.clear_content_description),
                     tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
-                    modifier = Modifier.size(AppTheme.spacing.large)
+                    modifier = Modifier.size(20.dp)
                 )
             }
         }

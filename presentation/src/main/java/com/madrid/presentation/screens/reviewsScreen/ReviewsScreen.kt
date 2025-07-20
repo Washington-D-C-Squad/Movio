@@ -56,7 +56,7 @@ fun ReviewsScreenContent(
                 tint = AppTheme.colors.surfaceColor.onSurface,
                 modifier = Modifier
                     .padding(
-                        start = AppTheme.spacing.xLarge,
+                        start = 24.dp,
                     )
                     .align(Alignment.CenterStart)
             )

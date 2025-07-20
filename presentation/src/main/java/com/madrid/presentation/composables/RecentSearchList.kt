@@ -41,7 +41,7 @@ fun RecentSearchList(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = AppTheme.spacing.large)
+            .padding(horizontal = 20.dp)
             .background(
                 AppTheme.colors.surfaceColor.surface,
                 RoundedCornerShape(20.dp)
@@ -55,7 +55,7 @@ fun RecentSearchList(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(AppTheme.spacing.large),
+                    .padding(20.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -97,7 +97,7 @@ fun RecentSearchItem(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onItemClick() }
-            .padding(horizontal = AppTheme.spacing.large, vertical = 16.dp),
+            .padding(horizontal = 20.dp, vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
@@ -119,7 +119,7 @@ fun RecentSearchItem(
 
         MovioButton(
             onClick = onRemoveClick,
-            modifier = Modifier.size(AppTheme.spacing.large),
+            modifier = Modifier.size(20.dp),
             color = AppTheme.colors.surfaceColor.surface
         ) {
             MovioIcon(
