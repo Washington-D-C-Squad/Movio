@@ -101,8 +101,9 @@ fun HeaderSectionBar(
         }
     }
 }
+
 @Composable
- private fun underlineGlowBrush(): Brush {
+private fun underlineGlowBrush(): Brush {
     val glowColor = AppTheme.colors.brandColors.onPrimaryContainer
 
     return Brush.horizontalGradient(
