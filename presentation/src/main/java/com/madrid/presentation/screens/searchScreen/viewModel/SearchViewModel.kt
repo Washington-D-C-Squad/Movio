@@ -197,28 +197,7 @@ class SearchViewModel(
             category = this.genre.toString()
         )
     }
-
-    /*    fun List<Movie>.mapToMoviesUiState(): MutableList<SearchScreenState.MovieUiState> {
-            var moviesUiState: MutableList<SearchScreenState.MovieUiState> = mutableListOf()
-            this.forEach { media ->
-                moviesUiState =
-                    (moviesUiState + media.toMovieUiStateList().toMutableList()).toMutableList()
-            }
-            return moviesUiState
-        }
-
-
-        fun Movie.toMovieUiStateList(): List<SearchScreenState.MovieUiState> {
-            val moviesUiState: MutableList<SearchScreenState.MovieUiState> = mutableListOf()
-            movies.forEach { movie ->
-                moviesUiState.add(
-                    movie.toMovieUiState()
-
-                )
-            }
-            return moviesUiState
-        }*/
-
+    
     fun searchMovies(query: String) {
         tryToExecute(
             function = { movieUseCase.invoke(query) },
