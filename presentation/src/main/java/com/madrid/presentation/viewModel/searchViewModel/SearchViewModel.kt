@@ -198,25 +198,6 @@ class SearchViewModel(
     }
 
 
-    fun Media.toMovieUiStateList(): List<SearchScreenState.MovieUiState> {
-
-        val moviesUiState: MutableList<SearchScreenState.MovieUiState> = mutableListOf()
-
-        movies.forEach { movie ->
-            moviesUiState.add(
-                SearchScreenState.MovieUiState(
-                    id = movie.id.toString(),
-                    title = movie.title,
-                    imageUrl = movie.imageUrl,
-                    rating = movie.rate.toString(),
-                    category = movie.genre?.first() ?: ""
-                )
-            )
-        }
-        return moviesUiState
-
-    }
-
     fun searchMovies(query: String) {
         tryToExecute(
             function = { movieUseCase.invoke(query) },
@@ -387,14 +368,7 @@ class SearchViewModel(
             )
         }
     }
-
-
-
-    companion object {
-        @JvmStatic
-        fun clearRecentSearchesStatic() {
-        }
-    }
+    
 }
 
 
