@@ -16,7 +16,8 @@ import com.madrid.data.dataSource.remote.response.series.SeriesCreditResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesDetailsResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesReviewResponse
 import com.madrid.data.dataSource.remote.response.series.SimilarSeriesResponse
-import com.madrid.data.dataSource.remote.utils.Constants
+import com.madrid.data.dataSource.remote.utils.Constants.PAGE
+import com.madrid.data.dataSource.remote.utils.Constants.QUERY
 import com.madrid.data.repositories.remote.RemoteDataSource
 import io.ktor.client.statement.bodyAsText
 import kotlinx.serialization.json.Json
