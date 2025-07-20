@@ -23,6 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.component.MovioText
+import com.madrid.presentation.component.movioCards.BasicImageCard
+import com.madrid.presentation.component.movioCards.RateIcon
 
 @Composable
 fun MovioVerticalCard(

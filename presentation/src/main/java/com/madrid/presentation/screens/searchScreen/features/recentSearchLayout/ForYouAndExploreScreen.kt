@@ -1,10 +1,8 @@
 package com.madrid.presentation.screens.searchScreen.features.recentSearchLayout
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridScope
@@ -18,15 +16,14 @@ import com.example.designsystem.component.CustomTextTitel
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
-import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
-import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState.MovieUiState
+import com.madrid.presentation.viewModel.searchViewModel.SearchScreenState
 
 fun LazyGridScope.forYouAndExploreScreen(
     showSearchResults: Boolean,
     isLoading: Boolean,
-    forYouMovies: List<MovieUiState>,
+    forYouMovies: List<SearchScreenState.MovieUiState>,
     exploreMoreMovies: LazyPagingItems<SearchScreenState.MovieUiState>,
-    onMovieClick: (MovieUiState) -> Unit = {},
+    onMovieClick: (SearchScreenState.MovieUiState) -> Unit = {},
     onExploreClick: ( LazyPagingItems<SearchScreenState.MovieUiState>) -> Unit = {},
     onClickSeeAll :()->Unit
 ) {
