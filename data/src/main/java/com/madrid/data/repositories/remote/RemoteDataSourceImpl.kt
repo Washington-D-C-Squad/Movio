@@ -19,7 +19,6 @@ import com.madrid.data.dataSource.remote.response.series.SimilarSeriesResponse
 import com.madrid.data.dataSource.remote.utils.Constants.PAGE
 import com.madrid.data.dataSource.remote.utils.Constants.QUERY
 import io.ktor.client.statement.bodyAsText
-import io.ktor.http.encodedPath
 import kotlinx.serialization.json.Json
 
 class RemoteDataSourceImpl(
@@ -29,47 +28,47 @@ class RemoteDataSourceImpl(
 
     //Region Movies
     override suspend fun searchMoviesByQuery(name: String): SearchMovieResponse =
-        getSearchRequestByQuery<SearchMovieResponse>("/3/search/movie", name)
+        getSearchRequestByQuery<SearchMovieResponse>("search/movie", name)
 
     suspend fun getTopRatedMovies(): SearchMovieResponse =
-        getRequestByPath<SearchMovieResponse>("/3/movie/top_rated")
+        getRequestByPath<SearchMovieResponse>("movie/top_rated")
 
     suspend fun getTopRatedSeries(): SearchSeriesResponse =
-        getRequestByPath<SearchSeriesResponse>("/3/tv/top_rated")
+        getRequestByPath<SearchSeriesResponse>("tv/top_rated")
 
 
     // Region Series
     override suspend fun searchSeriesByQuery(name: String): SearchSeriesResponse =
-        getSearchRequestByQuery<SearchSeriesResponse>("/3/search/tv", name)
+        getSearchRequestByQuery<SearchSeriesResponse>("search/tv", name)
 
     override suspend fun getSeriesTrailersById(seriesId: Int): TrailerResponse =
-        getRequestByPath<TrailerResponse>("/3/tv/$seriesId/videos")
+        getRequestByPath<TrailerResponse>("tv/$seriesId/videos")
 
 
     override suspend fun getSeriesCreditsById(seriesId: Int): SeriesCreditResponse =
-        getRequestByPath<SeriesCreditResponse>("/3/tv/$seriesId/credits")
+        getRequestByPath<SeriesCreditResponse>("tv/$seriesId/credits")
 
 
     override suspend fun getSeriesReviewsById(seriesId: Int): SeriesReviewResponse =
-        getRequestByPath<SeriesReviewResponse>("/3/tv/$seriesId/reviews")
+        getRequestByPath<SeriesReviewResponse>("tv/$seriesId/reviews")
 
 
     override suspend fun getSimilarSeriesById(seriesId: Int): SimilarSeriesResponse =
-        getRequestByPath<SimilarSeriesResponse>("/3/tv/$seriesId/similar")
+        getRequestByPath<SimilarSeriesResponse>("tv/$seriesId/similar")
 
     override suspend fun getEpisodesBySeasonId(
         seriesId: Int,
         seasonNumber: Int
     ): SeasonEpisodesResponse =
-        getRequestByPath<SeasonEpisodesResponse>("/3/tv/$seriesId/season/$seasonNumber")
+        getRequestByPath<SeasonEpisodesResponse>("tv/$seriesId/season/$seasonNumber")
     // End Region
 
     // Region Artist
     suspend fun searchArtistByQuery(name: String): SearchArtistResponse =
-        getSearchRequestByQuery<SearchArtistResponse>("/3/search/person", name)
+        getSearchRequestByQuery<SearchArtistResponse>("search/person", name)
 
     override suspend fun getArtistDetailsById(artistId: Int): ArtistDetailsResponse =
-        getRequestByPath<ArtistDetailsResponse>("/3/person/$artistId")
+        getRequestByPath<ArtistDetailsResponse>("person/$artistId")
     // End Region
 
 
