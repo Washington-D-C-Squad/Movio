@@ -1,6 +1,5 @@
 package com.madrid.presentation.screens.searchScreen.viewModel
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -224,7 +223,6 @@ class SearchViewModel(
         tryToExecute(
             function = { movieUseCase.invoke(query) },
             onSuccess = { result ->
-                Log.e("MY_TAG", "$result this is here ")
                 updateState {
                     it.copy(
                         searchUiState = it.searchUiState.copy(
@@ -255,7 +253,6 @@ class SearchViewModel(
 
 
     fun searchFilteredMovies(query: String) {
-        Log.d("hay", "in search filtered movies fn $query")
         val result = Pager(
             config = PagingConfig(
                 pageSize = 20,
@@ -290,7 +287,6 @@ class SearchViewModel(
 
 
     fun searchSeries(query: String) {
-        Log.d("enter search", "nooooooooooooooooooooobbbbbbb: $query")
         val result = Pager(
             config = PagingConfig(
                 pageSize = 20,
@@ -303,7 +299,6 @@ class SearchViewModel(
             .cachedIn(viewModelScope)
             .map { pagingData ->
                 pagingData.map { series ->
-                    Log.d("enter search", "searchSeries: ${series}")
                     SearchScreenState.SeriesUiState(
                         id = series.id.toString(),
                         title = series.title,
@@ -314,7 +309,6 @@ class SearchViewModel(
             }
 
         updateState { current ->
-//            Log.d("series", "searchSeries: ${current.filteredScreenUiState.series}")
             current.copy(
                 filteredScreenUiState = current.filteredScreenUiState.copy(
                     series = result,
@@ -327,7 +321,6 @@ class SearchViewModel(
 
 
     fun topResult(query: String) {
-        Log.d("hay", "in top results fn $query")
 
         val result: Flow<PagingData<SearchScreenState.MovieUiState>> = Pager(
             config = PagingConfig(
