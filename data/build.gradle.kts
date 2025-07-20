@@ -50,6 +50,9 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    ksp {
+        arg("room.schemaLocation", "$projectDir/schemas")
+    }
 }
 
 dependencies {
@@ -76,4 +79,9 @@ dependencies {
     
     implementation(libs.koin.android)
     implementation(libs.koin.annotations)
+    constraints {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.10")
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10")
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10")
+    }
 }
