@@ -28,8 +28,10 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
+import com.madrid.domain.entity.Movie
 import com.madrid.presentation.R
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
+import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchViewModel
@@ -44,9 +46,12 @@ fun SeeAllForYouScreen(
 
     SeeAllForYouScreenContent(
         onClickBackIcon = {
-            navController.popBackStack()
+            navController.navigate(Destinations.SearchScreen)
         },
         exploreMoreMovies = uiState.forYouMovies.collectAsLazyPagingItems(),
+        onMovieClick = { movieId ->
+            navController.navigate(Destinations.MovieDetailsScreen(movieId))
+        }
     )
 }
 
@@ -55,6 +60,7 @@ private fun SeeAllForYouScreenContent(
     exploreMoreMovies: LazyPagingItems<SearchScreenState.MovieUiState>,
     onClickBackIcon: () -> Unit,
     onExploreClick: (LazyPagingItems<SearchScreenState.MovieUiState>) -> Unit = {},
+    onMovieClick: (Int) -> Unit = {}
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 100.dp),
@@ -71,6 +77,7 @@ private fun SeeAllForYouScreenContent(
         ) {
             Row(
                 modifier = Modifier
+                    .height(48.dp)
                     .fillMaxWidth()
                     .padding(AppTheme.spacing.extraSmall),
                 verticalAlignment = Alignment.CenterVertically
@@ -103,8 +110,8 @@ private fun SeeAllForYouScreenContent(
                 movieImage = exploreMoreMovies[index]!!.imageUrl,
                 rate = exploreMoreMovies[index]!!.rating,
                 width = 500.dp,
-                height = 233.dp,
-                onClick = { onExploreClick(exploreMoreMovies) }
+                height = 178.dp,
+                onClick = { onMovieClick(exploreMoreMovies[index]!!.id.toInt())}
             )
         }
     }

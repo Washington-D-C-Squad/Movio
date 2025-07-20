@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -34,24 +33,23 @@ fun MovioVerticalCard(
     height: Dp,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    paddingvalue: Dp = 8.dp,
+    paddingValue: Dp = 8.dp,
     ) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .clip(RoundedCornerShape(AppTheme.radius.small))
             .clickable { onClick() }
     ) {
-        Box(contentAlignment = Alignment.TopCenter) {
+        Box(contentAlignment = Alignment.TopCenter, modifier = Modifier.align(Alignment.CenterHorizontally)) {
             Row(
                 modifier = Modifier
                     .zIndex(1f)
                     .width(width)
-                    .padding(vertical = paddingvalue),
+                    .padding(top = paddingValue , end = paddingValue),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.End
             ) {
-                RateIcon(rate = rate.take(3))
+                RateIcon(rate = (rate.take(3).toFloat()/2).toString().take(3))
             }
             BasicImageCard(
                 imageUrl = movieImage,
@@ -72,7 +70,6 @@ fun MovioVerticalCard(
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .width(width)
-                .wrapContentWidth()
         )
     }
 }
@@ -82,11 +79,11 @@ fun MovioVerticalCard(
 private fun VerticalCardPreview() {
     AppTheme {
         MovioVerticalCard(
-            description = "Spider-Man: Homecoming",
+            description = "Spider-Man",
             movieImage = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
             width = 200.dp,
             height = 150.dp,
-            paddingvalue = 8.dp,
+            paddingValue = 8.dp,
             onClick = {},
             rate = "4.0",
         )
