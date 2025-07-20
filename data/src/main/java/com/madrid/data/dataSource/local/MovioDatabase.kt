@@ -29,7 +29,7 @@ abstract class MovioDatabase : RoomDatabase() {
 
     abstract fun movieDao(): MovieDao
     abstract fun seriesDao(): SeriesDao
-    abstract fun movieCategoryDao(): CategoryDao
+    abstract fun categoryDao(): CategoryDao
     abstract fun artistDao(): ArtistDao
     abstract fun recentSearchDao(): RecentSearchDao
 

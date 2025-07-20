@@ -1,57 +1,62 @@
-package com.madrid.data.repositories.local
+package com.madrid.data.dataSource.local
 
-import android.content.Context
-import com.madrid.data.dataSource.local.MovioDatabase
+import com.madrid.data.dataSource.local.dao.ArtistDao
+import com.madrid.data.dataSource.local.dao.CategoryDao
+import com.madrid.data.dataSource.local.dao.MovieDao
+import com.madrid.data.dataSource.local.dao.RecentSearchDao
+import com.madrid.data.dataSource.local.dao.SeriesDao
 import com.madrid.data.dataSource.local.entity.ArtistEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.madrid.data.repositories.local.LocalDataSource
 
 class LocalDataSourceImpl(
-    private val context: Context
+    private val movieDao: MovieDao,
+    private val seriesDao: SeriesDao,
+    private val artistDao: ArtistDao,
+    private val categoryDao: CategoryDao,
+    private val recentSearchDao: RecentSearchDao
 ) : LocalDataSource {
 
 
-    private val dao = MovioDatabase.getInstance(context)
-
     override suspend fun insertMovie(movie: MovieEntity) {
-        dao.movieDao().insertMovie(movie)
+        movieDao.insertMovie(movie)
     }
 
     override suspend fun insertSeries(series: SeriesEntity) {
-        dao.seriesDao().insertSeries(series)
+        seriesDao.insertSeries(series)
     }
 
     override suspend fun getTopRatedMovies(): List<MovieEntity> {
-        return dao.movieDao().getTopRatedMovies()
+        return movieDao.getTopRatedMovies()
     }
 
     override suspend fun insertArtist(artist: ArtistEntity) {
-        dao.artistDao().insertArtist(artist = artist)
+        artistDao.insertArtist(artist = artist)
     }
 
 
     override suspend fun searchMovieByQueryFromDB(query: String): List<MovieEntity> {
-        return dao.movieDao().getMovieByTitle("%$query%")
+        return movieDao.getMovieByTitle("%$query%")
 
     }
 
     override suspend fun searchSeriesByQueryFromDB(query: String): List<SeriesEntity> {
-        return dao.seriesDao().getSeriesByTitle("%$query%")
+        return seriesDao.getSeriesByTitle("%$query%")
     }
 
     override suspend fun searchArtistByQueryFromDB(query: String): List<ArtistEntity> {
-        return dao.artistDao().getArtistByName("%$query%")
+        return artistDao.getArtistByName("%$query%")
     }
 
 
     override suspend fun getRecentSearches(): List<RecentSearchEntity> {
-        return dao.recentSearchDao().getRecentSearches()
+        return recentSearchDao.getRecentSearches()
     }
 
     override suspend fun addRecentSearch(item: String) {
-        dao.recentSearchDao().addRecentSearch(
+        recentSearchDao.addRecentSearch(
             RecentSearchEntity(
                 searchQuery = item,
             )
@@ -59,13 +64,13 @@ class LocalDataSourceImpl(
     }
 
     override suspend fun removeRecentSearch(item: String) {
-        dao.recentSearchDao().removeRecentSearch(
-           item
+        recentSearchDao.removeRecentSearch(
+            item
         )
     }
 
     override suspend fun clearAllRecentSearches() {
-        dao.recentSearchDao().clearAllRecentSearches()
+        recentSearchDao.clearAllRecentSearches()
     }
 
 }
