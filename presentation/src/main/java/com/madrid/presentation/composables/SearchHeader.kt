@@ -49,7 +49,7 @@ fun SearchHeader(
                     AppTheme.colors.surfaceColor.surfaceVariant,
                     RoundedCornerShape(24.dp)
                 )
-                .padding(horizontal = AppTheme.spacing.medium, vertical = AppTheme.spacing.small)
+                .padding(horizontal = AppTheme.spacing.medium, vertical = 8.dp)
         ) {
             MovioIcon(
                 painter = painterResource(id = DesignSystemR.drawable.outline_clock_circle),
@@ -57,7 +57,7 @@ fun SearchHeader(
                 tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
                 modifier = Modifier.size(AppTheme.spacing.large)
             )
-            Spacer(modifier = Modifier.width(AppTheme.spacing.small))
+            Spacer(modifier = Modifier.width(8.dp))
             BasicTextField(
                 value = searchQuery,
                 onValueChange = onSearchChange,

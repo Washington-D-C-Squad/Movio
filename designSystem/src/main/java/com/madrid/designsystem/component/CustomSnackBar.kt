@@ -73,7 +73,7 @@ fun CustomSnackbarHost(
                         contentDescription = "",
                         tint = Color.Unspecified
                     )
-                    Spacer(modifier = Modifier.padding(horizontal = AppTheme.spacing.small))
+                    Spacer(modifier = Modifier.padding(horizontal = 8.dp))
                     MovioText(
                         text = snackbarData.visuals.message,
                         color = LocalContentColor.current,

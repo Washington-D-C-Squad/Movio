@@ -100,7 +100,7 @@ private fun YearAndTotalEpisodes(
 ) {
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         MovioText(
@@ -134,11 +134,11 @@ private fun MovieDetails(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.padding(end = AppTheme.spacing.small),
+        modifier = modifier.padding(end = 8.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             MovioText(

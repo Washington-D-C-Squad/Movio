@@ -38,7 +38,7 @@ fun FilterBar(
     if (scrollable) {
         LazyRow(
             modifier = modifier,
-            horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             contentPadding = PaddingValues(horizontal = AppTheme.spacing.medium),
             ) {
             items(items) { item ->
@@ -91,7 +91,7 @@ fun FilterChip(
         modifier = modifier
 
             .clickable(onClick = onClick)
-            .padding(horizontal = AppTheme.spacing.medium, vertical = AppTheme.spacing.small)
+            .padding(horizontal = AppTheme.spacing.medium, vertical = 8.dp)
     ) {
         Column {
             MovioText(

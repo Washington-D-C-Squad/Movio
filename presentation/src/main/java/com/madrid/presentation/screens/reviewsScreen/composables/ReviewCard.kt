@@ -37,11 +37,11 @@ fun ReviewCard(
             .fillMaxWidth()
             .background(
                 color = AppTheme.colors.surfaceColor.surfaceContainer,
-                shape = RoundedCornerShape(AppTheme.spacing.small)
+                shape = RoundedCornerShape(8.dp)
             )
             .border(
                 width = 1.dp,
-                shape = RoundedCornerShape(AppTheme.spacing.small),
+                shape = RoundedCornerShape(8.dp),
                 color = AppTheme.colors.surfaceColor.onSurface_3
             )
             .padding(12.dp)
@@ -56,7 +56,7 @@ fun ReviewCard(
                     model = reviewerImageUrl,
                     contentDescription = "",
                     modifier = Modifier
-                        .padding(end = AppTheme.spacing.small)
+                        .padding(end = 8.dp)
                         .clip(CircleShape)
                         .size(32.dp)
 

@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.unit.dp
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
@@ -22,7 +23,7 @@ fun CustomTextTitel(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding( vertical = AppTheme.spacing.small),
+            .padding( vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) { MovioText(
             text = primaryText,
@@ -40,7 +41,7 @@ fun CustomTextTitel(
                         text = it,
                         color = AppTheme.colors.surfaceColor.onSurfaceVariant,
                         textStyle = AppTheme.textStyle.title.medium14,
-                        modifier = Modifier.padding(end = AppTheme.spacing.small)
+                        modifier = Modifier.padding(end = 8.dp)
                     )
                 }
                 endIcon?.let {

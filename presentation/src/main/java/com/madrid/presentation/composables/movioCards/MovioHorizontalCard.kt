@@ -35,10 +35,10 @@ fun MovioHorizontalCard(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = AppTheme.spacing.small)
+            .padding(horizontal = 8.dp)
             .clip(RoundedCornerShape(8.dp))
             .clickable { onClick() },
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         BasicImageCard(
             imageUrl = movieImageUrl,

@@ -61,7 +61,7 @@ fun LazyGridScope.forYouAndExploreScreen(
                         rate = movie.rating,
                         width = 160.dp,
                         height = 200.dp,
-                        paddingvalue = AppTheme.spacing.small,
+                        paddingvalue = 8.dp,
                         onClick = { onMovieClick(movie) }
                     )
                 }

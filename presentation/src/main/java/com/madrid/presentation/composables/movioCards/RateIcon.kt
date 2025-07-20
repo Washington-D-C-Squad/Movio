@@ -34,10 +34,10 @@ fun RateIcon(
     Box(
         modifier = modifier
             .height(AppTheme.spacing.medium)
-            .padding(end = AppTheme.spacing.small), contentAlignment = Alignment.Center
+            .padding(end = 8.dp), contentAlignment = Alignment.Center
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             MovioIcon(

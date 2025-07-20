@@ -50,7 +50,7 @@ fun RecentSearchList(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = AppTheme.spacing.small)
+                .padding(vertical = 8.dp)
         ) {
             Row(
                 modifier = Modifier

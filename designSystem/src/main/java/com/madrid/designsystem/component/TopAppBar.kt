@@ -38,7 +38,7 @@ fun TopAppBar(
         Box(
             modifier = Modifier
                 .weight(1f)
-                .padding(horizontal = AppTheme.spacing.small),
+                .padding(horizontal = 8.dp),
             contentAlignment = Alignment.Center
         ) {
             if (text != null) {

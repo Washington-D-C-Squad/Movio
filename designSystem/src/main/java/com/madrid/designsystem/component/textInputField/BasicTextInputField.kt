@@ -77,7 +77,7 @@ fun BasicTextInputField(
                             AppTheme.colors.surfaceColor.onSurfaceContainer,
                         )
                     ),
-                shape = RoundedCornerShape(AppTheme.spacing.small)
+                shape = RoundedCornerShape(8.dp)
             )
             .background(AppTheme.colors.surfaceColor.surfaceContainer, RoundedCornerShape(8.dp))
             .padding(horizontal = 12.dp, vertical = 14.dp), // mimic TextField internal padding
