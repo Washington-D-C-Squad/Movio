@@ -1,21 +1,15 @@
-import androidx.compose.runtime.Immutable
+package com.madrid.designSystem.color
+
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
-@Immutable
 data class MovioColors(
-    val brandColors: BrandColors,
-    val surfaceColor: SurfaceColor,
-    val systemColors: SystemColors,
+    val brand: Brand,
+    val surfaces: Surfaces,
+    val system: System,
 )
 
-data class BrandColors(
-    val primary: Color,
-    val onPrimary: Color,
-    val primaryContainer: Color,
-    val onPrimaryContainer: Color,
-)
-
-data class SurfaceColor(
+data class Surfaces(
     val surface: Color,
     val onSurface: Color,
     val surfaceContainer: Color,
@@ -24,13 +18,20 @@ data class SurfaceColor(
     val onSurfaceVariant: Color,
     val outline: Color,
     val outlineVariant: Color,
-    val onSurface_1: Color,
-    val onSurface_2: Color,
-    val onSurface_3: Color,
-    val onSurface_4: Color,
+    val onSurfaceAt1: Color,
+    val onSurfaceAt2: Color,
+    val onSurfaceAt3: Color,
+    val onSurfaceAt4: Color,
 )
 
-data class SystemColors(
+data class Brand(
+    val primary: Color,
+    val onPrimary: Color,
+    val primaryContainer: Color,
+    val onPrimaryContainer: Color,
+)
+
+data class System(
     val error: Color,
     val onError: Color,
     val errorContainer: Color,
@@ -41,5 +42,9 @@ data class SystemColors(
     val success: Color,
     val onSuccess: Color,
     val successContainer: Color,
-    val onSuccessContainer: Color
+    val onSuccessContainer: Color,
+    val dropShadow: Color,
+    val defaultImageBackground: Color
 )
+
+internal val LocalMovioColor = staticCompositionLocalOf { lightThemeColors }

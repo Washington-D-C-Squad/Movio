@@ -26,7 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 
 @Composable
 fun BasicTextInputField(
@@ -38,13 +38,13 @@ fun BasicTextInputField(
     modifier: Modifier = Modifier,
     onClickEndIcon: () -> Unit = { },
     borderBrushColors: List<Color> = listOf(
-        AppTheme.colors.brandColors.onPrimary,
-        AppTheme.colors.brandColors.primary
+        Theme.color.brand.onPrimary,
+        Theme.color.brand.primary
     ),
 
-    iconColorInFocus: Color = AppTheme.colors.surfaceColor.onSurface,
-    iconColorNotFocus: Color = AppTheme.colors.surfaceColor.onSurfaceContainer,
-    cursorColor: Color = AppTheme.colors.surfaceColor.onSurface,
+    iconColorInFocus: Color = Theme.color.surfaces.onSurface,
+    iconColorNotFocus: Color = Theme.color.surfaces.onSurfaceContainer,
+    cursorColor: Color = Theme.color.surfaces.onSurface,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default
@@ -53,11 +53,11 @@ fun BasicTextInputField(
     BasicTextField(
         value = value,
         onValueChange = onValueChange,
-        textStyle = AppTheme.textStyle.label.smallRegular14.copy(
+        textStyle = Theme.textStyle.label.smallRegular14.copy(
             color = if (isFocused || value.isNotEmpty())
-                AppTheme.colors.surfaceColor.onSurface
+                Theme.color.surfaces.onSurface
             else
-                AppTheme.colors.surfaceColor.onSurfaceContainer
+                Theme.color.surfaces.onSurfaceContainer
         ),
         interactionSource = interactionSource,
         singleLine = true,
@@ -72,13 +72,13 @@ fun BasicTextInputField(
                 else
                     Brush.horizontalGradient(
                         listOf(
-                            AppTheme.colors.surfaceColor.onSurfaceContainer,
-                            AppTheme.colors.surfaceColor.onSurfaceContainer,
+                            Theme.color.surfaces.onSurfaceContainer,
+                            Theme.color.surfaces.onSurfaceContainer,
                         )
                     ),
                 shape = RoundedCornerShape(8.dp)
             )
-            .background(AppTheme.colors.surfaceColor.surfaceContainer, RoundedCornerShape(8.dp))
+            .background(Theme.color.surfaces.surfaceContainer, RoundedCornerShape(8.dp))
             .padding(horizontal = 12.dp, vertical = 14.dp), // mimic TextField internal padding
         decorationBox = { innerTextField ->
             Row(
@@ -105,8 +105,8 @@ fun BasicTextInputField(
                     if (value.isEmpty()) {
                         Text(
                             text = hintText,
-                            style = AppTheme.textStyle.label.smallRegular14,
-                            color = AppTheme.colors.surfaceColor.onSurfaceContainer
+                            style = Theme.textStyle.label.smallRegular14,
+                            color = Theme.color.surfaces.onSurfaceContainer
                         )
                     }
                     innerTextField()

@@ -1,4 +1,4 @@
-package com.example.designsystem.component
+package com.madrid.designSystem.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -9,9 +9,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
-import com.madrid.designSystem.component.MovioIcon
-import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.Theme
+
 @Composable
 fun CustomTextTitel(
     primaryText: String,
@@ -27,8 +26,8 @@ fun CustomTextTitel(
         verticalAlignment = Alignment.CenterVertically
     ) { MovioText(
             text = primaryText,
-            color = AppTheme.colors.surfaceColor.onSurface,
-            textStyle = AppTheme.textStyle.title.medium16,
+            color = Theme.color.surfaces.onSurface,
+            textStyle = Theme.textStyle.title.mediumMedium16,
             modifier = Modifier.weight(1f)
         )
         if (secondaryText != null || endIcon != null) {
@@ -39,8 +38,8 @@ fun CustomTextTitel(
                 secondaryText?.let {
                     MovioText(
                         text = it,
-                        color = AppTheme.colors.surfaceColor.onSurfaceVariant,
-                        textStyle = AppTheme.textStyle.title.medium14,
+                        color = Theme.color.surfaces.onSurfaceVariant,
+                        textStyle = Theme.textStyle.title.mediumMedium14,
                         modifier = Modifier.padding(end = 8.dp)
                     )
                 }
@@ -48,7 +47,7 @@ fun CustomTextTitel(
                     MovioIcon(
                         painter = it,
                         contentDescription = "See all",
-                        tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
+                        tint = Theme.color.surfaces.onSurfaceVariant,
                         modifier = Modifier
                     )
                 }

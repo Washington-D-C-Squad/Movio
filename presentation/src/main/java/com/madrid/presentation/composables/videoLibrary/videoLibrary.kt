@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.R
 import com.madrid.designSystem.component.MovioIcon
 
@@ -43,7 +43,7 @@ fun VideoLibrary(
                 .padding(top = 80.dp)
                 .size(width = width, height = height)
                 .clip(RoundedCornerShape(8.dp))
-                .background(color = AppTheme.colors.surfaceColor.surface)
+                .background(color = Theme.color.surfaces.surface)
                 .clickable { onClick() }
         ) {
             Box(
@@ -58,8 +58,8 @@ fun VideoLibrary(
                             brush = Brush.radialGradient(
                                 colors = listOf(
                                     Color.Transparent,
-                                    AppTheme.colors.surfaceColor.surface.copy(alpha = 0.3f),
-                                    AppTheme.colors.surfaceColor.surface.copy(alpha = 0.8f)
+                                    Theme.color.surfaces.surface.copy(alpha = 0.3f),
+                                    Theme.color.surfaces.surface.copy(alpha = 0.8f)
                                 ),
                             )
                         )

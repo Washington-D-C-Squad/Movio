@@ -1,6 +1,6 @@
 package com.madrid.presentation.screens.searchScreen.features.recentSearchLayout
 
-import HeaderSectionBar
+import com.madrid.designSystem.component.HeaderSectionBar
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.grid.GridCells

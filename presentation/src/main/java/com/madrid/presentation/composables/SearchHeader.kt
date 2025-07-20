@@ -17,12 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.MovioButton
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
 import androidx.compose.foundation.text.BasicTextField
-import com.madrid.designSystem.R as DesignSystemR
+import com.madrid.designSystem.R
 
 @Composable
 fun SearchHeader(
@@ -37,8 +37,8 @@ fun SearchHeader(
     ) {
         MovioText(
             text = "Search",
-            textStyle = AppTheme.textStyle.headLine.largeBold18,
-            color = AppTheme.colors.surfaceColor.onSurface,
+            textStyle = Theme.textStyle.headline.largeBold18,
+            color = Theme.color.surfaces.onSurface,
             modifier = Modifier.padding(bottom = 8.dp)
         )
         Row(
@@ -46,15 +46,15 @@ fun SearchHeader(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    AppTheme.colors.surfaceColor.surfaceVariant,
+                    Theme.color.surfaces.surfaceVariant,
                     RoundedCornerShape(24.dp)
                 )
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
             MovioIcon(
-                painter = painterResource(id = DesignSystemR.drawable.outline_clock_circle),
+                painter = painterResource(id = R.drawable.outline_clock_circle),
                 contentDescription ="search content description",// stringResource(id = DesignSystemR.string.search_content_description),
-                tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
+                tint = Theme.color.surfaces.onSurfaceVariant,
                 modifier = Modifier.size(20.dp)
             )
             Spacer(modifier = Modifier.width(8.dp))
@@ -62,7 +62,7 @@ fun SearchHeader(
                 value = searchQuery,
                 onValueChange = onSearchChange,
                 singleLine = true,
-                textStyle = AppTheme.textStyle.body.medium14.copy(color = AppTheme.colors.surfaceColor.onSurface),
+                textStyle = Theme.textStyle.body.mediumMedium14.copy(color = Theme.color.surfaces.onSurface),
                 keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(
                     onSearch = { onSubmit() }
@@ -74,8 +74,8 @@ fun SearchHeader(
                     if (searchQuery.isEmpty()) {
                         MovioText(
                             text = "Search",
-                            textStyle = AppTheme.textStyle.body.medium14,
-                            color = AppTheme.colors.surfaceColor.onSurfaceVariant
+                            textStyle = Theme.textStyle.body.mediumMedium14,
+                            color = Theme.color.surfaces.onSurfaceVariant
                         )
                     }
                     innerTextField()
@@ -84,12 +84,12 @@ fun SearchHeader(
             MovioButton(
                 onClick = onClear,
                 modifier = Modifier.size(24.dp),
-                color = AppTheme.colors.surfaceColor.surfaceVariant
+                color = Theme.color.surfaces.surfaceVariant
             ) {
                 MovioIcon(
-                    painter = painterResource(id = DesignSystemR.drawable.trash),
+                    painter = painterResource(id = R.drawable.trash),
                     contentDescription = "clear content description ",//stringResource(id = DesignSystemR.string.clear_content_description),
-                    tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
+                    tint = Theme.color.surfaces.onSurfaceVariant,
                     modifier = Modifier.size(20.dp)
                 )
             }

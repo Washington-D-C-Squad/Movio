@@ -13,7 +13,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -22,12 +22,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
 import com.madrid.designSystem.R
 import com.madrid.designSystem.component.MovioBottomSheet
 import com.madrid.designSystem.component.MovioButton
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
+import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.composables.movioCards.BasicImageCard
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,12 +40,12 @@ fun RatingMovieBottomSheet(
     imageUrl: String,
     nameMovie: String,) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-    var rating by remember { mutableStateOf(0) }
+    var rating by remember { mutableIntStateOf(0) }
     if (show){
         MovioBottomSheet(
-            show = show,
+            show = true,
             onDismiss = onDismiss,
-            containerColor = AppTheme.colors.surfaceColor.surface) {
+            containerColor = Theme.color.surfaces.surface) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -58,15 +59,15 @@ fun RatingMovieBottomSheet(
                 )
                 MovioText(
                     text = nameMovie,
-                    textStyle = AppTheme.textStyle.title.medium16,
-                    color = AppTheme.colors.surfaceColor.onSurface,
+                    textStyle = Theme.textStyle.title.mediumMedium16,
+                    color = Theme.color.surfaces.onSurface,
                     modifier = Modifier.padding( top = 8.dp, bottom = 24.dp)
 
                 )
                 MovioText(
                     text = "Add your overall rating for this movie",
-                    textStyle = AppTheme.textStyle.label.smallRegular12,
-                    color = AppTheme.colors.surfaceColor.onSurfaceContainer,
+                    textStyle = Theme.textStyle.label.smallRegular12,
+                    color = Theme.color.surfaces.onSurfaceContainer,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 40.dp),
@@ -83,15 +84,15 @@ fun RatingMovieBottomSheet(
                             modifier = Modifier
                                 .size(32.dp)
                                 .clickable { rating = i },
-                            tint = if (i <= rating) AppTheme.colors.systemColors.warning else AppTheme.colors.surfaceColor.onSurfaceVariant
+                            tint = if (i <= rating) Theme.color.system.warning else Theme.color.surfaces.onSurfaceVariant
                         )
                         if (i < 5) Spacer(modifier = Modifier.width(8.dp))
                     }
                 }
                 MovioButton(
-                    color = AppTheme.colors.brandColors.primary,
-                    content = {MovioText(text = "Submit",textStyle = AppTheme.textStyle.label.largeMedium16,
-                        color = AppTheme.colors.brandColors.onPrimary,)},
+                    color = Theme.color.brand.primary,
+                    content = {MovioText(text = "Submit",textStyle = Theme.textStyle.label.mediumMedium16,
+                        color = Theme.color.brand.onPrimary,)},
                     onClick = {},
                     modifier = Modifier.fillMaxWidth()
                         .height(48.dp)
@@ -105,7 +106,7 @@ fun RatingMovieBottomSheet(
 @Preview()
 @Composable
 fun  RatingMovieBottomSheetPreview(){
-    AppTheme{
+    MovioTheme{
         RatingMovieBottomSheet(  show = true,
             imageUrl = "",
             nameMovie = "mohammed",

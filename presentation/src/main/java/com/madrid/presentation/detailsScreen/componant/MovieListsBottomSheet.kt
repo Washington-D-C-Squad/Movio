@@ -17,7 +17,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -28,11 +28,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
 import com.madrid.designSystem.R
 import com.madrid.designSystem.component.MovioBottomSheet
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
+import com.madrid.designSystem.theme.Theme
 
 @Composable
 fun MovieListsBottomSheet(
@@ -48,9 +49,9 @@ fun MovieListsBottomSheet(
 
     if (show) {
         MovioBottomSheet(
-            show = show,
+            show = true,
             onDismiss = onDismiss,
-            containerColor = AppTheme.colors.surfaceColor.surface
+            containerColor = Theme.color.surfaces.surface
         ) {
             Column(
                 modifier = Modifier
@@ -68,7 +69,7 @@ fun MovieListsBottomSheet(
                         modifier = Modifier
                             .size(32.dp)
                             .background(
-                                color = AppTheme.colors.surfaceColor.surfaceContainer,
+                                color = Theme.color.surfaces.surfaceContainer,
                                 shape = CircleShape
                             )
                             .clickable { onCreateNewList() }
@@ -78,7 +79,7 @@ fun MovieListsBottomSheet(
                         MovioIcon(
                             painter = painterResource(R.drawable.add),
                             contentDescription = "Add",
-                            tint = AppTheme.colors.surfaceColor.onSurface,
+                            tint = Theme.color.surfaces.onSurface,
                             modifier = Modifier.size(24.dp)
 
                         )
@@ -87,14 +88,14 @@ fun MovieListsBottomSheet(
                     Spacer(modifier = Modifier.width(16.dp))
                     MovioText(
                         text = "Create a new list",
-                        textStyle = AppTheme.textStyle.label.smallRegular14,
-                        color = AppTheme.colors.surfaceColor.onSurface
+                        textStyle = Theme.textStyle.label.smallRegular14,
+                        color = Theme.color.surfaces.onSurface
                     )
 
                 }
-                Divider(
-                    color = AppTheme.colors.surfaceColor.onSurface_3,
+                HorizontalDivider(
                     thickness = 1.dp,
+                    color = Theme.color.surfaces.onSurfaceAt3
                 )
                 LazyColumn {
                     items(collections) { collectionName ->
@@ -107,8 +108,8 @@ fun MovieListsBottomSheet(
                         ) {
                             MovioText(
                                 text = collectionName,
-                                textStyle = AppTheme.textStyle.title.medium14,
-                                color = AppTheme.colors.surfaceColor.onSurface,
+                                textStyle = Theme.textStyle.title.mediumMedium14,
+                                color = Theme.color.surfaces.onSurface,
                                 modifier = Modifier
                                     .weight(1f)
                                     .clickable { onListClicked(collectionName) }
@@ -117,7 +118,7 @@ fun MovieListsBottomSheet(
                             if (isLoading && currentLoadingItem == collectionName) {
                                 CircularProgressIndicator(
                                     modifier = Modifier.size(24.dp),
-                                    color = AppTheme.colors.surfaceColor.onSurfaceContainer,
+                                    color = Theme.color.surfaces.onSurfaceContainer,
                                     strokeWidth = 2.dp
                                 )
                             } else {
@@ -125,7 +126,7 @@ fun MovieListsBottomSheet(
                                     modifier = Modifier
                                         .border(
                                             width = 1.dp,
-                                            color = AppTheme.colors.surfaceColor.onSurfaceContainer,
+                                            color = Theme.color.surfaces.onSurfaceContainer,
                                             shape = CircleShape
                                         )
                                         .clickable { onAddToList(collectionName) },
@@ -134,7 +135,7 @@ fun MovieListsBottomSheet(
                                     MovioIcon(
                                         painter = painterResource(R.drawable.add),
                                         contentDescription = "Add to $collectionName",
-                                        tint = AppTheme.colors.surfaceColor.onSurfaceContainer,
+                                        tint = Theme.color.surfaces.onSurfaceContainer,
                                         modifier = Modifier.size(20.dp)
                                     )
                                 }
@@ -149,7 +150,7 @@ fun MovieListsBottomSheet(
 @Preview(showBackground = true)
 @Composable
 fun PreviewMovieListsBottomSheet() {
-    AppTheme {
+    MovioTheme {
         var isLoading by remember { mutableStateOf(false) }
         var currentLoadingItem by remember { mutableStateOf<String?>(null) }
         MovieListsBottomSheet(

@@ -15,12 +15,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.R
 import com.madrid.designSystem.component.MovioBottomSheet
 import com.madrid.designSystem.component.MovioButton
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,9 +35,9 @@ fun SaveMovieBottomSheet(
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     if (show){
         MovioBottomSheet(
-            show = show,
+            show = true,
             onDismiss = onDismiss,
-            containerColor = AppTheme.colors.surfaceColor.surface
+            containerColor = Theme.color.surfaces.surface
 
         ) {
             Column(
@@ -54,24 +55,24 @@ fun SaveMovieBottomSheet(
                 )
                 MovioText(
                     text = "You don't have an account ",
-                    textStyle = AppTheme.textStyle.title.medium16,
-                    color = AppTheme.colors.surfaceColor.onSurface,
+                    textStyle = Theme.textStyle.title.mediumMedium16,
+                    color = Theme.color.surfaces.onSurface,
                     modifier = Modifier.padding( top = 16.dp, bottom = 8.dp)
 
                 )
                 MovioText(
                     text = "Please log in or create an account to save items to your favorites and access them later.",
-                    textStyle = AppTheme.textStyle.label.smallRegular12,
-                    color = AppTheme.colors.surfaceColor.onSurfaceContainer,
+                    textStyle = Theme.textStyle.label.smallRegular12,
+                    color = Theme.color.surfaces.onSurfaceContainer,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 40.dp),
                     textAlign = TextAlign.Center
                 )
                 MovioButton(
-                    color = AppTheme.colors.brandColors.primary,
-                    content = {MovioText(text = "login",textStyle = AppTheme.textStyle.label.largeMedium16,
-                        color = AppTheme.colors.brandColors.onPrimary,)},
+                    color = Theme.color.brand.primary,
+                    content = {MovioText(text = "login",textStyle = Theme.textStyle.label.mediumMedium16,
+                        color = Theme.color.brand.onPrimary,)},
                     onClick = {},
                     modifier = Modifier.fillMaxWidth()
                         .height(48.dp)
@@ -86,7 +87,7 @@ fun SaveMovieBottomSheet(
 @Preview()
 @Composable
 fun  SaveMovieBottomSheetPreview(){
-    AppTheme{
+    MovioTheme{
         SaveMovieBottomSheet(  show = true,
             onDismiss = {})
     }

@@ -13,7 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
-import com.example.designsystem.component.CustomTextTitel
+import com.madrid.designSystem.component.CustomTextTitel
 import com.madrid.designSystem.R
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState.MovieUiState
@@ -57,7 +57,7 @@ fun LazyGridScope.forYouAndExploreScreen(
                         rate = movie.rating,
                         width = 160.dp,
                         height = 200.dp,
-                        paddingvalue = 8.dp,
+                        paddingValue = 8.dp,
                         onClick = { onMovieClick(movie) }
                     )
                 }

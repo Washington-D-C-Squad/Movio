@@ -18,8 +18,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
 
 @Composable
 fun MovioHorizontalCard(
@@ -53,13 +54,13 @@ fun MovioHorizontalCard(
         ) {
             MovioText(
                 text = movieTitle,
-                color = AppTheme.colors.surfaceColor.onSurface,
-                textStyle = AppTheme.textStyle.title.medium14,
+                color = Theme.color.surfaces.onSurface,
+                textStyle = Theme.textStyle.title.mediumMedium14,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
-            RateIcon(rate = movieRate, tint = AppTheme.colors.systemColors.warning)
-            MovioCatergory(movieCategory, AppTheme.colors.surfaceColor.onSurface_3)
+            RateIcon(rate = movieRate, tint = Theme.color.system.warning)
+            MovioCatergory(movieCategory, Theme.color.surfaces.onSurfaceAt3)
         }
     }
 }
@@ -76,8 +77,8 @@ private fun MovioCatergory(
         horizontalArrangement = Arrangement.Center
     ) {
         MovioText(
-            text = moviCategory, color = AppTheme.colors.surfaceColor.onSurfaceVariant,
-            textStyle = AppTheme.textStyle.label.smallRegular12,
+            text = moviCategory, color = Theme.color.surfaces.onSurfaceVariant,
+            textStyle = Theme.textStyle.label.smallRegular12,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )
@@ -88,7 +89,7 @@ private fun MovioCatergory(
 @Preview(showBackground = true)
 @Composable
 private fun HorizontalCardPreview() {
-    AppTheme {
+    MovioTheme {
         MovioHorizontalCard(
             movieTitle = "Spider-Man: Homecoming",
             movieImageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",

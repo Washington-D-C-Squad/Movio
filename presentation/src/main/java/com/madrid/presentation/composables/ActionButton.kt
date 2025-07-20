@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.R
 import com.madrid.designSystem.component.MovioButton
 import com.madrid.designSystem.component.MovioIcon
@@ -20,7 +20,7 @@ fun ActionButton(
     isLoading: Boolean = false,
     text: String,
     onClick: () -> Unit,
-    color: Color = AppTheme.colors.brandColors.primary,
+    color: Color = Theme.color.brand.primary,
     icon: Painter = painterResource(R.drawable.loading),
 ) {
     MovioButton(
@@ -34,15 +34,15 @@ fun ActionButton(
             MovioIcon(
                 painter = icon,
                 contentDescription = "loading icon",
-                tint = AppTheme.colors.brandColors.onPrimary,
+                tint = Theme.color.brand.onPrimary,
                 modifier = Modifier.padding(end = 4.dp)
             )
         }
         MovioText(
             modifier = Modifier.padding(vertical = 16.dp),
             text = text,
-            color = AppTheme.colors.brandColors.onPrimary,
-            textStyle = AppTheme.textStyle.label.medium14,
+            color = Theme.color.brand.onPrimary,
+            textStyle = Theme.textStyle.label.mediumMedium14,
         )
     }
 }

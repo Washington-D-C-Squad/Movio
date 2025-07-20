@@ -20,15 +20,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
 import com.madrid.designSystem.component.MovioIcon
+import com.madrid.designSystem.theme.MovioTheme
 
 @Composable
 fun MovieDetailsNavigationHeader(
+    modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {},
     onShareClick: () -> Unit = {},
     onHeartClick: () -> Unit = {},
-    modifier: Modifier = Modifier
 ) {
     var isLiked by remember { mutableStateOf(false) }
     
@@ -110,7 +110,7 @@ fun MovieDetailsNavigationHeader(
 @Preview(showBackground = true)
 @Composable
 fun MovieDetailsNavigationHeaderPreview() {
-    AppTheme {
+    MovioTheme {
         Box(
             modifier = Modifier
                 .fillMaxWidth()

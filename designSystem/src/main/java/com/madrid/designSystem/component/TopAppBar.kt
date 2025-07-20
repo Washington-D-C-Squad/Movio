@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.R
 
 @Composable
@@ -32,7 +32,7 @@ fun TopAppBar(
             MovioIcon(
                 painter = painterResource(id = iconRes),
                 contentDescription = "arrow_left",
-                tint = AppTheme.colors.surfaceColor.onSurface
+                tint = Theme.color.surfaces.onSurface
             )
         }
         Box(
@@ -44,8 +44,8 @@ fun TopAppBar(
             if (text != null) {
                 MovioText(
                     text = text,
-                    textStyle = AppTheme.textStyle.headLine.largeBold18,
-                    color = AppTheme.colors.surfaceColor.onSurface
+                    textStyle = Theme.textStyle.headline.largeBold18,
+                    color = Theme.color.surfaces.onSurface
                 )
             }
         }
@@ -58,7 +58,7 @@ fun TopAppBar(
                 MovioIcon(
                     painter = painterResource(id = iconRes),
                     contentDescription = "share_arrow",
-                    tint = AppTheme.colors.surfaceColor.onSurface
+                    tint = Theme.color.surfaces.onSurface
                 )
             }
 
@@ -66,7 +66,7 @@ fun TopAppBar(
                 MovioIcon(
                     painter = painterResource(id = iconRes),
                     contentDescription = "outline_heart",
-                    tint = AppTheme.colors.surfaceColor.onSurface
+                    tint = Theme.color.surfaces.onSurface
                 )
             }
         }

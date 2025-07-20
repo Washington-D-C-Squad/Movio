@@ -11,13 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 
 @Composable
 fun LoadingSearchCard(modifier: Modifier = Modifier) {
 
     Column(
-        modifier = modifier.background(AppTheme.colors.surfaceColor.surface),
+        modifier = modifier.background(Theme.color.surfaces.surface),
     ) {
 
         Box(
@@ -25,7 +25,7 @@ fun LoadingSearchCard(modifier: Modifier = Modifier) {
                 .width(101.dp)
                 .height(136.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .background(AppTheme.colors.surfaceColor.surfaceContainer),
+                .background(Theme.color.surfaces.surfaceContainer),
         )
         Spacer(modifier = Modifier.height(8.dp))
         Box(
@@ -33,7 +33,7 @@ fun LoadingSearchCard(modifier: Modifier = Modifier) {
                 .width(101.dp)
                 .height(15.dp)
                 .clip(RoundedCornerShape(32.dp))
-                .background(AppTheme.colors.surfaceColor.surfaceContainer),
+                .background(Theme.color.surfaces.surfaceContainer),
         )
     }
 }

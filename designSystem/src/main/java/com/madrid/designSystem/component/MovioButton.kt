@@ -13,12 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 
 @Composable
 fun MovioButton(
     modifier: Modifier = Modifier,
-    color: Color = AppTheme.colors.brandColors.primary,
+    color: Color = Theme.color.brand.primary,
     onClick: () -> Unit,
     content: @Composable RowScope.() -> Unit,
 ) {

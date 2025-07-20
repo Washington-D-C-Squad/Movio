@@ -19,7 +19,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 
 
 @Composable
@@ -32,7 +32,7 @@ fun EmptySearchLayout(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(AppTheme.colors.surfaceColor.surface),
+            .background(Theme.color.surfaces.surface),
         horizontalAlignment = CenterHorizontally,
         verticalArrangement = Center
     ) {
@@ -46,16 +46,16 @@ fun EmptySearchLayout(
         )
         Text(
             text = title,
-            style = AppTheme.textStyle.title.medium16,
-            color = AppTheme.colors.surfaceColor.onSurface,
+            style = Theme.textStyle.title.mediumMedium16,
+            color = Theme.color.surfaces.onSurface,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = description,
-            style = AppTheme.textStyle.label.smallRegular12,
-            color = AppTheme.colors.surfaceColor.onSurfaceContainer,
+            style = Theme.textStyle.label.smallRegular12,
+            color = Theme.color.surfaces.onSurfaceContainer,
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()

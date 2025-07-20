@@ -10,7 +10,7 @@ import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.MovioText
 import com.madrid.presentation.composables.RecentSearchItem
 
@@ -34,13 +34,13 @@ fun LazyGridScope.recentSearchScreen(
         ) {
             MovioText(
                 text = "recent search ", // stringResource(id = DesignSystemR.string.recent_search),
-                textStyle = AppTheme.textStyle.headLine.medium18,
-                color = AppTheme.colors.surfaceColor.onSurface
+                textStyle = Theme.textStyle.headline.mediumMedium18,
+                color = Theme.color.surfaces.onSurface
             )
             MovioText(
                 text = "clear all ", // stringResource(id = DesignSystemR.string.clear_all),
-                textStyle = AppTheme.textStyle.body.medium14,
-                color = AppTheme.colors.surfaceColor.onSurfaceVariant,
+                textStyle = Theme.textStyle.body.mediumMedium14,
+                color = Theme.color.surfaces.onSurfaceVariant,
                 modifier = Modifier.clickable { onClearAll() }
             )
         }

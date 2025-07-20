@@ -20,8 +20,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.presentation.R
 
 @Composable
@@ -68,12 +69,12 @@ fun MovioSeasonCard(
                         R.string.season,
                         currentSeason
                     ),
-                    color = AppTheme.colors.surfaceColor.onSurface,
-                    textStyle = AppTheme.textStyle.title.medium14,
+                    color = Theme.color.surfaces.onSurface,
+                    textStyle = Theme.textStyle.title.mediumMedium14,
                     maxLines = 1,
                     modifier = Modifier.weight(1f),
                     )
-                RateIcon(rate = movieRate, tint = AppTheme.colors.systemColors.warning)
+                RateIcon(rate = movieRate, tint = Theme.color.system.warning)
             }
             Column  {
                 YearAndTotalEpisodes(
@@ -105,22 +106,22 @@ private fun YearAndTotalEpisodes(
     ) {
         MovioText(
             text = year,
-            textStyle = AppTheme.textStyle.label.smallRegular12,
-            color = AppTheme.colors.surfaceColor.onSurfaceContainer
+            textStyle = Theme.textStyle.label.smallRegular12,
+            color = Theme.color.surfaces.onSurfaceContainer
         )
         Box(
             modifier = Modifier
                 .width(1.dp)
                 .height(12.dp)
-                .background(AppTheme.colors.surfaceColor.onSurfaceContainer)
+                .background(Theme.color.surfaces.onSurfaceContainer)
         )
         MovioText(
             text = stringResource(
                 R.string.episodes,
                 totalEpisodes
             ),
-            textStyle = AppTheme.textStyle.label.smallRegular12,
-            color = AppTheme.colors.surfaceColor.onSurfaceContainer
+            textStyle = Theme.textStyle.label.smallRegular12,
+            color = Theme.color.surfaces.onSurfaceContainer
         )
     }
 }
@@ -143,20 +144,20 @@ private fun MovieDetails(
         ) {
             MovioText(
                 text = stringResource(R.string.season, currentSeason),
-                textStyle = AppTheme.textStyle.label.smallRegular12,
-                color = AppTheme.colors.surfaceColor.onSurfaceContainer
+                textStyle = Theme.textStyle.label.smallRegular12,
+                color = Theme.color.surfaces.onSurfaceContainer
             )
             MovioText(
                 text = stringResource(R.string.of, movieTitle),
-                textStyle = AppTheme.textStyle.label.smallRegular12,
-                color = AppTheme.colors.surfaceColor.onSurfaceContainer,
+                textStyle = Theme.textStyle.label.smallRegular12,
+                color = Theme.color.surfaces.onSurfaceContainer,
                 maxLines = 1
             )
         }
         MovioText(
             text = "$timeOfPublish $yearOfPublish",
-            textStyle = AppTheme.textStyle.label.smallRegular12,
-            color = AppTheme.colors.surfaceColor.onSurfaceContainer
+            textStyle = Theme.textStyle.label.smallRegular12,
+            color = Theme.color.surfaces.onSurfaceContainer
         )
     }
 }
@@ -164,7 +165,7 @@ private fun MovieDetails(
 @Preview(showBackground = true)
 @Composable
 private fun SeasonCardPreview() {
-    AppTheme{
+    MovioTheme{
         MovioSeasonCard(
             movieTitle = "Spider-Man: Homecoming",
             movieImage = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",

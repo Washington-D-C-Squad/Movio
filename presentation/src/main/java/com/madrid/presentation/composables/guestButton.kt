@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.MovioButton
 import com.madrid.designSystem.component.MovioText
 import com.madrid.presentation.R
@@ -30,7 +30,7 @@ fun GuestButton(
             .fillMaxWidth()
             .border(
                 width = 1.dp,
-                color = AppTheme.colors.surfaceColor.onSurface_3,
+                color = Theme.color.surfaces.onSurfaceAt3,
                 shape = RoundedCornerShape(32.dp)
             ),
         color = color,
@@ -39,8 +39,8 @@ fun GuestButton(
         MovioText(
             modifier = Modifier.padding(vertical = 16.dp),
             text = text,
-            color = AppTheme.colors.surfaceColor.onSurface,
-            textStyle = AppTheme.textStyle.label.medium14,
+            color = Theme.color.surfaces.onSurface,
+            textStyle = Theme.textStyle.label.mediumMedium14,
         )
     }
 }

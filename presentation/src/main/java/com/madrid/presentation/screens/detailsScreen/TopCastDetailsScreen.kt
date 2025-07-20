@@ -15,7 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.TopAppBar
 import com.madrid.presentation.R
 import com.madrid.presentation.composables.movioCards.MovioArtistsCard
@@ -44,7 +44,7 @@ fun TopCastDetailsContent(
         columns = GridCells.Adaptive(minSize = 101.dp),
         modifier = Modifier
             .fillMaxSize()
-            .background(AppTheme.colors.surfaceColor.surface)
+            .background(Theme.color.surfaces.surface)
             .statusBarsPadding(),
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),

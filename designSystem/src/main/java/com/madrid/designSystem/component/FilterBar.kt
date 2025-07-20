@@ -25,7 +25,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 
 @Composable
 fun FilterBar(
@@ -74,13 +74,13 @@ fun FilterChip(
     val density = LocalDensity.current
     val textLayoutResult = textMeasurer.measure(
         text = AnnotatedString(text),
-        style = AppTheme.textStyle.body.medium14
+        style = Theme.textStyle.body.mediumMedium14
     )
     val textWidthDp = with(density) { textLayoutResult.size.width.toDp() }
     val targetColor = if (isSelected) {
-        AppTheme.colors.surfaceColor.surface
+        Theme.color.surfaces.surface
     } else {
-        AppTheme.colors.surfaceColor.onSurfaceVariant
+        Theme.color.surfaces.onSurfaceVariant
     }
 
     val textColor by animateColorAsState(
@@ -97,7 +97,7 @@ fun FilterChip(
             MovioText(
                 text,
                 color = textColor,
-                textStyle = AppTheme.textStyle.body.medium14
+                textStyle = Theme.textStyle.body.mediumMedium14
             )
             AnimatedVisibility(
                 visible = isSelected
@@ -113,15 +113,4 @@ fun FilterChip(
             }
         }
     }
-}@Composable
-fun underlineGlowBrush(): Brush {
-    val glowColor = AppTheme.colors.brandColors.onPrimaryContainer
-
-    return Brush.horizontalGradient(
-        colors = listOf(
-            glowColor.copy(alpha = 0f),
-            glowColor.copy(alpha = 0.5f),
-            glowColor.copy(alpha = 0.1f)
-        )
-    )
 }

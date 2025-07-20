@@ -29,10 +29,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.madrid.designSystem.AppTheme
 import com.madrid.designSystem.R
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.textInputField.BasicTextInputField
+import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.RecentSearchLayout
@@ -41,13 +41,13 @@ import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.recentSearchScreen
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchViewModel
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SearchScreen(
-    modifier: Modifier = Modifier
-        .background(AppTheme.colors.surfaceColor.surface),
+    modifier: Modifier = Modifier,
     viewModel: SearchViewModel = koinViewModel()
 ) {
 
@@ -118,13 +118,14 @@ fun SearchScreen(
             MovioIcon(
                 painter = painterResource(R.drawable.loading),
                 contentDescription = "Loading",
-                tint = AppTheme.colors.brandColors.primary
+                tint = Theme.color.brand.primary
             )
         }
     }
 }
 
 
+@OptIn(FlowPreview::class)
 @Composable
 fun ContentSearchScreen(
     addRecentSearch: (String) -> Unit,
@@ -181,6 +182,7 @@ fun ContentSearchScreen(
         columns = GridCells.Fixed(2),
         modifier = modifier
             .fillMaxSize()
+            .background(Theme.color.surfaces.surface)
             .statusBarsPadding(),
         contentPadding = PaddingValues( horizontal = 16.dp, vertical = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),

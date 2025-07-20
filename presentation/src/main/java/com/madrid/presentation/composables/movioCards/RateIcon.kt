@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.madrid.presentation.R.string
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.R
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
@@ -50,8 +50,8 @@ fun RateIcon(
             )
             MovioText(
                 text = rate,
-                color = AppTheme.colors.systemColors.onWarning,
-                textStyle = AppTheme.textStyle.label.smallRegular12,
+                color = Theme.color.system.onWarning,
+                textStyle = Theme.textStyle.label.smallRegular12,
                 maxLines = 1,
             )
         }
@@ -60,11 +60,11 @@ fun RateIcon(
 
 @Preview(showBackground = true)
 @Composable
-private fun RatreIconpreview() {
+private fun RateIconPreview() {
     RateIcon(
         icon = painterResource(R.drawable.bold_star),
         rate = "5.0",
-        tint = AppTheme.colors.systemColors.warning,
+        tint = Theme.color.system.warning,
         modifier = Modifier
             .height(16.dp)
             .width(38.dp)

@@ -23,7 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.R as DesignSystemR
 import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.component.MovioIcon
@@ -43,7 +43,7 @@ fun RecentSearchList(
             .fillMaxWidth()
             .padding(horizontal = 20.dp)
             .background(
-                AppTheme.colors.surfaceColor.surface,
+                Theme.color.surfaces.surface,
                 RoundedCornerShape(20.dp)
             )
     ) {
@@ -61,13 +61,13 @@ fun RecentSearchList(
             ) {
                 MovioText(
                     text = "recent search " , // stringResource(id = DesignSystemR.string.recent_search),
-                    textStyle = AppTheme.textStyle.headLine.medium18,
-                    color = AppTheme.colors.surfaceColor.onSurface
+                    textStyle = Theme.textStyle.headline.mediumMedium18,
+                    color = Theme.color.surfaces.onSurface
                 )
                 MovioText(
                     text = "clear all ", // stringResource(id = DesignSystemR.string.clear_all),
-                    textStyle = AppTheme.textStyle.body.medium14,
-                    color = AppTheme.colors.surfaceColor.onSurfaceVariant,
+                    textStyle = Theme.textStyle.body.mediumMedium14,
+                    color = Theme.color.surfaces.onSurfaceVariant,
                     modifier = Modifier.clickable { onClearAll() }
                 )
             }
@@ -104,7 +104,7 @@ fun RecentSearchItem(
         MovioIcon(
             painter = painterResource(id = DesignSystemR.drawable.outline_clock_circle),
             contentDescription = "description " , //stringResource(id = DesignSystemR.string.clock_content_description),
-            tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
+            tint = Theme.color.surfaces.onSurfaceVariant,
             modifier = Modifier.size(16.dp)
         )
 
@@ -112,20 +112,20 @@ fun RecentSearchItem(
 
         MovioText(
             text = searchText,
-            textStyle = AppTheme.textStyle.body.medium14,
-            color = AppTheme.colors.surfaceColor.onSurface,
+            textStyle = Theme.textStyle.body.mediumMedium14,
+            color = Theme.color.surfaces.onSurface,
             modifier = Modifier.weight(1f)
         )
 
         MovioButton(
             onClick = onRemoveClick,
             modifier = Modifier.size(20.dp),
-            color = AppTheme.colors.surfaceColor.surface
+            color = Theme.color.surfaces.surface
         ) {
             MovioIcon(
                 painter = painterResource(id = DesignSystemR.drawable.trash),
                 contentDescription = "delete content description" , //stringResource(id = DesignSystemR.string.delete_content_description),
-                tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
+                tint = Theme.color.surfaces.onSurfaceVariant,
                 modifier = Modifier.size(16.dp)
             )
         }
@@ -145,14 +145,14 @@ fun RecentSearchHeader(
     ) {
         MovioText(
             text = stringResource(id = R.string.recent_search),
-            textStyle = AppTheme.textStyle.title.medium16,
-            color = AppTheme.colors.surfaceColor.onSurface
+            textStyle = Theme.textStyle.title.mediumMedium16,
+            color = Theme.color.surfaces.onSurface
         )
         Spacer(modifier = Modifier.weight(1f))
         MovioText(
             text = stringResource(id = R.string.clear_all),
-            textStyle = AppTheme.textStyle.label.smallRegular14,
-            color = AppTheme.colors.surfaceColor.onSurfaceVariant,
+            textStyle = Theme.textStyle.label.smallRegular14,
+            color = Theme.color.surfaces.onSurfaceVariant,
             modifier = Modifier.Companion
                 .clip(RoundedCornerShape(16.dp))
                 .clickable { onClearAll() }

@@ -21,8 +21,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
 
 @Composable
 fun MovioVerticalCard(
@@ -33,7 +34,7 @@ fun MovioVerticalCard(
     height: Dp,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    paddingvalue: Dp = 8.dp,
+    paddingValue: Dp = 8.dp,
     ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -46,11 +47,11 @@ fun MovioVerticalCard(
                 modifier = Modifier
                     .zIndex(1f)
                     .width(width)
-                    .padding(vertical = paddingvalue),
+                    .padding(vertical = paddingValue),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.End
             ) {
-                RateIcon(rate = rate.take(3), tint = AppTheme.colors.systemColors.warning)
+                RateIcon(rate = rate.take(3), tint = Theme.color.system.warning)
             }
             BasicImageCard(
                 imageUrl = movieImage,
@@ -65,8 +66,8 @@ fun MovioVerticalCard(
         Spacer(modifier = Modifier.height(8.dp))
         MovioText(
             text = description,
-            textStyle = AppTheme.textStyle.title.medium14,
-            color = AppTheme.colors.surfaceColor.onSurface,
+            textStyle = Theme.textStyle.title.mediumMedium14,
+            color = Theme.color.surfaces.onSurface,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
@@ -79,13 +80,13 @@ fun MovioVerticalCard(
 @Preview(showBackground = true)
 @Composable
 private fun VerticalCardPreview() {
-    AppTheme {
+    MovioTheme {
         MovioVerticalCard(
             description = "Spider-Man: Homecoming",
             movieImage = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
             width = 200.dp,
             height = 150.dp,
-            paddingvalue = 8.dp,
+            paddingValue = 8.dp,
             onClick = {},
             rate = "4.0",
         )

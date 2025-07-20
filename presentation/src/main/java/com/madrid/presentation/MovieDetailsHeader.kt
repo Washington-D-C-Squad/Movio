@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.MovioText
 import com.madrid.presentation.composables.Chips
 
@@ -28,8 +28,8 @@ fun MovieDetailsHeader(
     ) {
         MovioText(
             movieName,
-            color = AppTheme.colors.surfaceColor.onSurface,
-            textStyle = AppTheme.textStyle.headLine.medium18
+            color = Theme.color.surfaces.onSurface,
+            textStyle = Theme.textStyle.headline.mediumMedium18
         )
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -38,8 +38,8 @@ fun MovieDetailsHeader(
             movieCategory.forEach {
                 MovioText(
                     if (it != movieCategory[movieCategory.lastIndex]) it + "," else it,
-                    color = AppTheme.colors.surfaceColor.onSurfaceVariant,
-                    textStyle = AppTheme.textStyle.label.smallRegular14
+                    color = Theme.color.surfaces.onSurfaceVariant,
+                    textStyle = Theme.textStyle.label.smallRegular14
                 )
             }
         }
@@ -49,17 +49,17 @@ fun MovieDetailsHeader(
         ) {
             Chips(
                 icon = painterResource(com.madrid.designSystem.R.drawable.bold_star),
-                iconTint = AppTheme.colors.systemColors.warning,
+                iconTint = Theme.color.system.warning,
                 text = rate,
             )
             Chips(
                 icon = painterResource(com.madrid.designSystem.R.drawable.outline_clock_circle),
-                iconTint = AppTheme.colors.surfaceColor.onSurfaceVariant,
+                iconTint = Theme.color.surfaces.onSurfaceVariant,
                 text = time,
             )
             Chips(
                 icon = painterResource(com.madrid.designSystem.R.drawable.outline_calendar),
-                iconTint = AppTheme.colors.surfaceColor.onSurfaceVariant,
+                iconTint = Theme.color.surfaces.onSurfaceVariant,
                 text = date,
             )
         }

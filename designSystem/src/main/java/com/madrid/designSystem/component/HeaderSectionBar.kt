@@ -1,3 +1,5 @@
+package com.madrid.designSystem.component
+
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -26,8 +28,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.AppTheme
-import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.Theme
 
 @Composable
 fun HeaderSectionBar(
@@ -51,17 +52,17 @@ fun HeaderSectionBar(
             val isSelected = selectedTabIndex == index
             val textColor by animateColorAsState(
                 targetValue = if (isSelected)
-                    AppTheme.colors.brandColors.onPrimaryContainer
+                    Theme.color.brand.onPrimaryContainer
                 else
-                    AppTheme.colors.surfaceColor.onSurfaceVariant,
+                    Theme.color.surfaces.onSurfaceVariant,
                 animationSpec = tween(300),
                 label = "tabTextColor"
             )
 
             val textStyle = if (isSelected)
-                AppTheme.textStyle.title.medium14
+                Theme.textStyle.title.mediumMedium14
             else
-                AppTheme.textStyle.body.smallRegular16
+                Theme.textStyle.body.smallRegular16
 
             val underlineAlpha by animateFloatAsState(
                 targetValue = if (isSelected) 1f else 0f,
@@ -102,8 +103,8 @@ fun HeaderSectionBar(
     }
 }
 @Composable
- private fun underlineGlowBrush(): Brush {
-    val glowColor = AppTheme.colors.brandColors.onPrimaryContainer
+fun underlineGlowBrush(): Brush {
+    val glowColor = Theme.color.brand.onPrimaryContainer
 
     return Brush.horizontalGradient(
         colors = listOf(

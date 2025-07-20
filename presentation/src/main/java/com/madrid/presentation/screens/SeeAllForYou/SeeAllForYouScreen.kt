@@ -24,7 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
@@ -57,7 +57,7 @@ private fun SeeAllForYouScreenContent(
         columns = GridCells.Adaptive(minSize = 100.dp),
         modifier = Modifier
             .fillMaxSize()
-            .background(AppTheme.colors.surfaceColor.surface)
+            .background(Theme.color.surfaces.surface)
             .statusBarsPadding(),
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -76,13 +76,13 @@ private fun SeeAllForYouScreenContent(
                     modifier = Modifier.clickable { onClickBackIcon() },
                     painter = painterResource(com.madrid.designSystem.R.drawable.arrow_left),
                     contentDescription = null,
-                    tint = AppTheme.colors.surfaceColor.onSurface
+                    tint = Theme.color.surfaces.onSurface
                 )
                 Spacer(Modifier.width(8.dp))
                 MovioText(
                     text = "For you",
-                    color = AppTheme.colors.surfaceColor.onSurface,
-                    textStyle = AppTheme.textStyle.headLine.largeBold16,
+                    color = Theme.color.surfaces.onSurface,
+                    textStyle = Theme.textStyle.headline.largeBold16,
                     modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Center
                 )

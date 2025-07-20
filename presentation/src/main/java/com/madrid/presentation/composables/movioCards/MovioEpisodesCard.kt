@@ -22,9 +22,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.R
 import com.madrid.presentation.R.string
-import com.madrid.designSystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
 
 @Composable
 fun MovioEpisodesCard(
@@ -60,11 +61,11 @@ fun MovioEpisodesCard(
             ) {
                 MovioText(
                     modifier = Modifier.weight(1f),
-                    text = movieTitle, color = AppTheme.colors.surfaceColor.onSurface,
-                    textStyle = AppTheme.textStyle.title.medium14,
+                    text = movieTitle, color = Theme.color.surfaces.onSurface,
+                    textStyle = Theme.textStyle.title.mediumMedium14,
                     maxLines = 1,
                 )
-                RateIcon(rate = movieRate, tint = AppTheme.colors.systemColors.warning)
+                RateIcon(rate = movieRate, tint = Theme.color.system.warning)
             }
             Row {
                 NumberOfEpisodes(numberOfEpisodes = currentMovieEpisode)
@@ -91,7 +92,7 @@ private fun EpisodeMovieImage(
             contentDescription = stringResource(
                 string.bold_video_circle
             ),
-            tint = AppTheme.colors.surfaceColor.onSurface_1,
+            tint = Theme.color.surfaces.onSurfaceAt1,
             painter = painterResource(R.drawable.bold_video_circle),
             modifier = Modifier.size(34.dp)
         )
@@ -115,12 +116,12 @@ private fun TimeSection(
                 painter = painterResource(R.drawable.dot),
                 contentDescription = stringResource(string.dot),
                 modifier = Modifier.size(12.dp),
-                tint = AppTheme.colors.surfaceColor.onSurfaceContainer
+                tint = Theme.color.surfaces.onSurfaceContainer
             )
             MovioText(
                 text = movieTime,
-                textStyle = AppTheme.textStyle.label.smallRegular12,
-                color = AppTheme.colors.surfaceColor.onSurfaceContainer
+                textStyle = Theme.textStyle.label.smallRegular12,
+                color = Theme.color.surfaces.onSurfaceContainer
             )
         }
 
@@ -140,8 +141,8 @@ private fun NumberOfEpisodes(
         MovioText(
             text = stringResource(string.current_episode,
             numberOfEpisodes),
-            textStyle = AppTheme.textStyle.label.smallRegular12,
-            color = AppTheme.colors.surfaceColor.onSurfaceContainer
+            textStyle = Theme.textStyle.label.smallRegular12,
+            color = Theme.color.surfaces.onSurfaceContainer
         )
     }
 }
@@ -149,7 +150,7 @@ private fun NumberOfEpisodes(
 @Preview(showBackground = true)
 @Composable
 private fun EpisodesCardPreview() {
-    AppTheme {
+    MovioTheme {
         MovioEpisodesCard(
             movieTitle = "Spider-Man: Homecoming",
             movieImageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
