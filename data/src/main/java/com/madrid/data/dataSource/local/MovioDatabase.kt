@@ -54,7 +54,7 @@ abstract class MovioDatabase : RoomDatabase() {
                 MovioDatabase::class.java,
                 DATABASE_NAME
             )
-                .fallbackToDestructiveMigration(true) //TODO: Check Migration strategy
+                .fallbackToDestructiveMigration() //TODO: Check Migration strategy
                 .build()
         }
     }
