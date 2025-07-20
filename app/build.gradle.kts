@@ -11,11 +11,10 @@ val firebaseApiKey = localProperties.getProperty("FIREBASE_API_KEY") ?: "NO_KEY_
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-    id("org.jetbrains.kotlin.kapt")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
-
+    alias(libs.plugins.compose)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
     jacoco
 }
 
@@ -36,12 +35,19 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
             signingConfig = signingConfigs.getByName("debug")
+        }
+        debug {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -55,6 +61,9 @@ android {
         compose = true
         buildConfig = true
 
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compiler.get()
     }
     testOptions {
         unitTests.isIncludeAndroidResources = true
@@ -100,24 +109,14 @@ tasks.register<JacocoReport>("jacocoTestReport") {
 }
 
 dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-
-    implementation("androidx.compose.foundation:foundation")
-
     implementation(libs.androidx.navigation.compose)
-
-    //firebase
-    implementation("com.google.firebase:firebase-analytics")
-    implementation(platform("com.google.firebase:firebase-bom:33.16.0"))
-    implementation("com.google.firebase:firebase-crashlytics-ndk")
-    implementation(libs.firebase.crashlytics.buildtools)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics.ndk)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -130,13 +129,11 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
     implementation(project(":presentation"))
-    implementation(libs.room.runtime)
-    implementation(libs.room.ktx)
-    kapt(libs.room.compiler)
-
-    //koin
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler)
     implementation(libs.koin.androidx.compose)
     api(libs.koin.annotations)
     implementation(libs.koin.android)
-
+    implementation(libs.slf4j.simple)
 }
