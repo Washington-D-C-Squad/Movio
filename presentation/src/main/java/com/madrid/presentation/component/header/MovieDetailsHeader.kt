@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
@@ -16,10 +17,9 @@ import com.madrid.presentation.component.DetailsChips
 
 @Composable
 fun MovieDetailsHeader(
-    movieName: String,
-    movieCategory: List<String>,
-    date: String, time: String,
-    rate: String,
+    movieName: String, movieCategory:
+    List<String>, date: String,
+    time: String, rate: String,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -38,7 +38,7 @@ fun MovieDetailsHeader(
         ) {
             movieCategory.forEach {
                 MovioText(
-                    if (it != movieCategory[movieCategory.lastIndex]) it + "," else it,
+                    if (it != movieCategory[movieCategory.lastIndex]) "$it," else it,
                     color = AppTheme.colors.surfaceColor.onSurfaceVariant,
                     textStyle = AppTheme.textStyle.label.smallRegular14
                 )
@@ -64,5 +64,20 @@ fun MovieDetailsHeader(
                 text = date,
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TopAppBarPreview() {
+    AppTheme {
+        MovieDetailsHeader(
+            movieName = "spider man",
+            movieCategory = listOf("action", "drama", "comedy"),
+            date = "2020/10/10",
+            time = "44",
+            rate = "4.5",
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
+        )
     }
 }

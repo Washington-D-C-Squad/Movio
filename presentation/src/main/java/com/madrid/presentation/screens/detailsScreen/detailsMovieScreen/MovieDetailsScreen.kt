@@ -13,7 +13,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.madrid.designsystem.AppTheme
@@ -22,9 +21,8 @@ import com.madrid.presentation.component.BottomMediaActions
 import com.madrid.presentation.component.CastMember
 import com.madrid.designsystem.component.TextWithReadMore
 import com.madrid.designsystem.component.TopAppBar
-import com.madrid.presentation.component.MovieDetailsNavigationHeader
 import com.madrid.presentation.component.TopCastSection
-import com.madrid.presentation.component.movieActorBackround.MoviePosterDetailScreen
+import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -62,7 +60,7 @@ fun MovieDetailsScreen(
             .background(AppTheme.colors.surfaceColor.onSurfaceVariant)
     ) {
         MoviePosterDetailScreen(
-            ImageUrl = uiState.topImageUrl,
+            imageUrl = uiState.topImageUrl,
             modifier = Modifier.fillMaxSize()
         )
 

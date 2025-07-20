@@ -53,7 +53,7 @@ fun SearchHeader(
         ) {
             MovioIcon(
                 painter = painterResource(id = DesignSystemR.drawable.outline_clock_circle),
-                contentDescription ="search content description",// stringResource(id = DesignSystemR.string.search_content_description),
+                contentDescription = "search content description",// stringResource(id = DesignSystemR.string.search_content_description),
                 tint = AppTheme.colors.surfaceColor.onSurfaceVariant,
                 modifier = Modifier.size(AppTheme.spacing.large)
             )
@@ -94,5 +94,18 @@ fun SearchHeader(
                 )
             }
         }
+    }
+}
+
+
+@Composable
+fun SearchHeaderPreview(modifier: Modifier = Modifier) {
+    AppTheme {
+        SearchHeader(
+            searchQuery = "",
+            onSearchChange = { it },
+            onClear = { },
+            onSubmit = {}
+        )
     }
 }

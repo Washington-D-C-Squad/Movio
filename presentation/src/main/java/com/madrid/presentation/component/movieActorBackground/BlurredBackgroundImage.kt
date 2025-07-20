@@ -1,4 +1,4 @@
-package com.madrid.presentation.component.movieActorBackround
+package com.madrid.presentation.component.movieActorBackground
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

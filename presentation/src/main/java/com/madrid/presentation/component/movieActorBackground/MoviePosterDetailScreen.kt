@@ -1,4 +1,4 @@
-package com.madrid.presentation.component.movieActorBackround
+package com.madrid.presentation.component.movieActorBackground
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun MoviePosterDetailScreen(
-    ImageUrl: String,
+    imageUrl: String,
     modifier: Modifier = Modifier,
     isActor: Boolean = false
 ) {
@@ -34,7 +34,7 @@ fun MoviePosterDetailScreen(
                 .height(372.dp)
                 .align(Alignment.TopCenter)
         ) {
-            BlurredBackgroundImage(ImageUrl)
+            BlurredBackgroundImage(imageUrl)
             Box(
                 Modifier
                     .matchParentSize()
@@ -49,33 +49,33 @@ fun MoviePosterDetailScreen(
                         .background(Color.Black.copy(alpha = 0.7f))
                 ) {
                     ActorOverlay(
-                        actorImageUrl = ImageUrl,
+                        actorImageUrl = imageUrl,
                         borderColor = Color.White
                     )
                 }
             } else {
-            Box(
-                modifier = Modifier
-                    .size(width = 200.dp, height = 260.dp)
-                    .align(Alignment.Center)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(Color.Black.copy(alpha = 0.7f))
-            ) {
-                PosterCard(
-                    posterImageUrl = ImageUrl,
-                    modifier = Modifier.fillMaxSize()
-                )
+                Box(
+                    modifier = Modifier
+                        .size(width = 200.dp, height = 260.dp)
+                        .align(Alignment.Center)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(Color.Black.copy(alpha = 0.7f))
+                ) {
+                    PosterCard(
+                        posterImageUrl = imageUrl,
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
             }
         }
     }
-}
 }
 
 @Preview(showBackground = true)
 @Composable
 fun MoviePosterDetailScreenPreview() {
     MoviePosterDetailScreen(
-        ImageUrl = "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg"
+        imageUrl = "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg"
     )
 }
 

@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.component.TopAppBar
 import com.madrid.presentation.R
+import com.madrid.presentation.component.ReviewTopBar
 import com.madrid.presentation.component.movioCards.MovioArtistsCard
 import com.madrid.presentation.viewModel.detailsViewModel.MovieDetailsUiState
 import com.madrid.presentation.viewModel.detailsViewModel.MovieDetailsViewModel
@@ -54,6 +55,12 @@ fun TopCastDetailsContent(
             span = { GridItemSpan(maxLineSpan) }
         ) {
             TopAppBar(stringResource(R.string.top_cast), secondIcon = null, thirdIcon = null)
+            ReviewTopBar(
+                onBackClick = {  },
+                onShareClick = {},
+                onFavoriteClick = {}
+
+            )
         }
         items(
             count = artist.size,

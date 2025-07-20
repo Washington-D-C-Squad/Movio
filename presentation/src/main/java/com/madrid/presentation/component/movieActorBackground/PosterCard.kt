@@ -1,4 +1,4 @@
-package com.madrid.presentation.component.movieActorBackround
+package com.madrid.presentation.component.movieActorBackground
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

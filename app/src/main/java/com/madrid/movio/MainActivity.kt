@@ -17,7 +17,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.madrid.designsystem.AppTheme
 import com.madrid.presentation.component.CustomBottomBar
-import com.madrid.presentation.component.movioCards.MovioSeasonCard
 import com.madrid.presentation.component.navBarDestinations
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.navigation.MovioNavGraph

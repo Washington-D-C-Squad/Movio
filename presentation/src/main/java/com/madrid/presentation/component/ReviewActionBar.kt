@@ -25,6 +25,7 @@ import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
+
 @Composable
 fun ReviewTopBar(
     onBackClick: () -> Unit,
@@ -83,6 +84,7 @@ fun ReviewTopBar(
         }
     }
 }
+
 @Composable
 private fun IconButton(
     iconRes: Int,
@@ -103,13 +105,16 @@ private fun IconButton(
         tint = tint
     )
 }
+
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ReviewActionBarPreview() {
-    ReviewTopBar(
-        onBackClick = {  },
-        onShareClick = {},
-        onFavoriteClick = {}
+    AppTheme {
+        ReviewTopBar(
+            onBackClick = { },
+            onShareClick = {},
+            onFavoriteClick = {}
 
-    )
+        )
+    }
 }

@@ -182,7 +182,7 @@ fun ContentSearchScreen(
         modifier = modifier
             .fillMaxSize()
             .statusBarsPadding(),
-        contentPadding = PaddingValues( horizontal = 16.dp, vertical = 16.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
@@ -202,7 +202,7 @@ fun ContentSearchScreen(
                     .fillMaxWidth()
                     .clickable { onSearchBarClick() }
                     .padding(top = AppTheme.spacing.medium),
-                onClickEndIcon = { onSearchQueryChange("")}
+                onClickEndIcon = { onSearchQueryChange("") }
             )
         }
 
@@ -263,7 +263,5 @@ fun ContentSearchScreen(
                 onClearAll = { onClearAll() },
             )
         }
-
-
     }
 }
