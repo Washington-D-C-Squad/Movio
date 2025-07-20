@@ -14,10 +14,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.madrid.designSystem.R
+import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.Theme
-import com.madrid.designsystem.R
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
+import com.madrid.presentation.component.MovioIcon
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewCard
 import com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState
 

@@ -27,7 +27,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
-import com.madrid.presentation.composables.movioCards.MovioVerticalCard
+import com.madrid.presentation.component.movioCards.MovioVerticalCard
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.searchScreen.SeeAllForYou.SeeAllForYouViewModel

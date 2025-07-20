@@ -18,13 +18,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.madrid.designSystem.R
+import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.designSystem.theme.Theme
-import com.madrid.designsystem.R
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
+
+
 
 @Composable
 fun ReviewTopBar(
@@ -104,6 +107,11 @@ private fun IconButton(
             ),
         tint = tint
     )
+}
+
+@Composable
+fun MovioIcon(painter: Painter, contentDescription: String?, modifier: Modifier, tint: Color) {
+    TODO("Not yet implemented")
 }
 
 @Preview(showBackground = true, showSystemUi = true)

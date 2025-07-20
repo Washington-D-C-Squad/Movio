@@ -1,4 +1,4 @@
-package com.madrid.designsystem.component
+package com.madrid.designSystem.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.theme.Theme
-import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.MovioTheme
 
 @Composable

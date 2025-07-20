@@ -3,6 +3,7 @@ package com.madrid.presentation.screens.searchScreen.features.recentSearchLayout
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridScope
@@ -14,8 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import com.madrid.designSystem.component.CustomTextTitel
 import com.madrid.designSystem.R
-import com.madrid.presentation.composables.movioCards.MovioVerticalCard
-import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState.MovieUiState
+import com.madrid.presentation.component.movioCards.MovioVerticalCard
 import com.madrid.presentation.viewModel.searchViewModel.SearchScreenState
 
 fun LazyGridScope.forYouAndExploreScreen(
@@ -54,7 +54,7 @@ fun LazyGridScope.forYouAndExploreScreen(
                         rate = movie.rating,
                         width = 124.dp,
                         height = 177.dp,
-                        paddingValue = AppTheme.spacing.small,
+                        paddingValue = 8.dp,
                         onClick = { onMovieClick(movie) }
                     )
                 }

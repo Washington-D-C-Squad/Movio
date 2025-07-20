@@ -22,14 +22,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.R
-import com.madrid.designsystem.component.MovioBottomSheet
-import com.madrid.designsystem.component.MovioButton
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
+import com.madrid.designSystem.R
+import com.madrid.designSystem.component.MovioBottomSheet
+import com.madrid.designSystem.component.MovioButton
+import com.madrid.designSystem.component.MovioText
 import com.madrid.presentation.component.movioCards.BasicImageCard
 import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.designSystem.theme.Theme
+import com.madrid.presentation.component.MovioIcon
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

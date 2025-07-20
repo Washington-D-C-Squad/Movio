@@ -14,11 +14,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.madrid.designSystem.R
+import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.Theme
-import com.madrid.designsystem.R.drawable
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
 import com.madrid.presentation.R.string
+import com.madrid.presentation.component.MovioIcon
 
 
 @Composable
@@ -58,7 +58,7 @@ fun RateIcon(
 @Composable
 private fun RateIconPreview() {
     RateIcon(
-        icon = painterResource(drawable.bold_star),
+        icon = painterResource(id = R.drawable.bold_star),
         rate = "5.2",
     )
 }

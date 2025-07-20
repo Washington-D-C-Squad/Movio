@@ -23,6 +23,7 @@ import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
 import androidx.compose.foundation.text.BasicTextField
 import com.madrid.designSystem.R
+import com.madrid.designSystem.theme.MovioTheme
 
 @Composable
 fun SearchHeader(

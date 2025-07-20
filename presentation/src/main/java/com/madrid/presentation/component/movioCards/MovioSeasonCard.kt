@@ -15,8 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.component.MovioText
+import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
+import com.madrid.designSystem.theme.Theme
+
 
 @Composable
 fun MovioSeasonCard(
@@ -39,10 +41,10 @@ fun MovioSeasonCard(
         BasicImageCard(
             imageUrl = movieImage,
             modifier = Modifier
-                .clip(RoundedCornerShape(AppTheme.radius.small))
+                .clip(RoundedCornerShape(8.dp))
                 .width(76.dp)
                 .height(100.dp),
-            radius = AppTheme.radius.small
+            radius = 8.dp
         )
         Column(
             modifier = modifier
@@ -52,8 +54,8 @@ fun MovioSeasonCard(
             Row {
                 MovioText(
                     text = "Season $currentSeason",
-                    color = AppTheme.colors.surfaceColor.onSurface,
-                    textStyle = AppTheme.textStyle.title.medium14,
+                    color = Theme.color.surfaces.onSurface,
+                    textStyle = Theme.textStyle.title.mediumMedium14,
                     maxLines = 1,
                     modifier = Modifier.weight(1f),
                 )
@@ -64,15 +66,15 @@ fun MovioSeasonCard(
             MovioText(
                 modifier = Modifier.padding(top = 8.dp),
                 text = "$yearOfPublish | $totalNumberOfEpisodes Episodes",
-                color = AppTheme.colors.surfaceColor.onSurfaceVariant,
-                textStyle = AppTheme.textStyle.title.medium14,
+                color = Theme.color.surfaces.onSurfaceVariant,
+                textStyle = Theme.textStyle.title.mediumMedium14,
                 maxLines = 1,
             )
             MovioText(
                 modifier = Modifier.padding(top = 10.dp),
                 text = "Season $currentSeason $movieTitle $timeOfPublish.",
-                color = AppTheme.colors.surfaceColor.onSurfaceContainer,
-                textStyle = AppTheme.textStyle.title.medium14,
+                color = Theme.color.surfaces.onSurfaceContainer,
+                textStyle = Theme.textStyle.title.mediumMedium14,
                 maxLines = 3,
             )
         }
@@ -81,8 +83,8 @@ fun MovioSeasonCard(
 
 @Preview(showBackground = true)
 @Composable
-private fun seasonCardPreview() {
-    AppTheme {
+private fun SeasonCardPreview() {
+    MovioTheme {
         MovioSeasonCard(
             movieTitle = "Spider-Man: Homecoming",
             movieImage = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
