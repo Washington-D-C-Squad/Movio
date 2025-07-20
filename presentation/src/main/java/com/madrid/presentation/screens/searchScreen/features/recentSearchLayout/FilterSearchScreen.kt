@@ -174,7 +174,6 @@ fun LazyGridScope.filterSearchScreen(
                         MovioArtistsCard(
                             artistsName = artist[index]!!.name,
                             imageUrl = artist[index]!!.imageUrl,
-                            width = 40.dp,
                             onClick = { }
                         )
                     }

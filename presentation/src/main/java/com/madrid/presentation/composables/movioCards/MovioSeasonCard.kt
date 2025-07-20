@@ -1,6 +1,5 @@
 package com.madrid.presentation.composables.movioCards
 
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.component.MovioText
@@ -30,150 +28,72 @@ fun MovioSeasonCard(
     movieRate: String,
     totalNumberOfEpisodes: String,
     movieImage: String,
-    yearOfPublish:String,
-    timeOfPublish:String,
-    currentSeason:String,
-    height: Dp,
-    width: Dp,
+    yearOfPublish: String,
+    timeOfPublish: String,
+    currentSeason: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    ) {
+) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp)
-            .clip(RoundedCornerShape(AppTheme.radius.small))
-            .clickable { onClick() }
-        ,
+            .clickable { onClick() },
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.Top
     ) {
         BasicImageCard(
             imageUrl = movieImage,
-            modifier = Modifier.fillMaxWidth().height(height),
+            modifier = Modifier
+                .clip(RoundedCornerShape(AppTheme.radius.small))
+                .width(76.dp)
+                .height(100.dp),
             radius = AppTheme.radius.small
         )
         Column(
             modifier = modifier
-                .height(height)
-                .padding(vertical = 4.dp),
-            verticalArrangement = Arrangement.SpaceEvenly
+                .padding(horizontal = 8.dp, vertical = 4.dp)
+                .align(Alignment.CenterVertically),
         ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+            Row {
                 MovioText(
-                    text = stringResource(
-                        R.string.season,
-                        currentSeason
-                    ),
+                    text = "Season $currentSeason",
                     color = AppTheme.colors.surfaceColor.onSurface,
                     textStyle = AppTheme.textStyle.title.medium14,
                     maxLines = 1,
                     modifier = Modifier.weight(1f),
-                    )
-                RateIcon(rate = movieRate, tint = AppTheme.colors.systemColors.warning)
-            }
-            Column  {
-                YearAndTotalEpisodes(
-                    year=yearOfPublish,
-                    totalEpisodes = totalNumberOfEpisodes
                 )
-                MovieDetails(
-                    movieTitle = movieTitle,
-                    currentSeason = currentSeason,
-                    yearOfPublish = yearOfPublish,
-                    timeOfPublish=timeOfPublish
+                RateIcon(
+                    rate = movieRate,
                 )
             }
-        }
-    }
-}
-
-
-@Composable
-private fun YearAndTotalEpisodes(
-    year: String,
-    totalEpisodes: String,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        MovioText(
-            text = year,
-            textStyle = AppTheme.textStyle.label.smallRegular12,
-            color = AppTheme.colors.surfaceColor.onSurfaceContainer
-        )
-        Box(
-            modifier = Modifier
-                .width(1.dp)
-                .height(12.dp)
-                .background(AppTheme.colors.surfaceColor.onSurfaceContainer)
-        )
-        MovioText(
-            text = stringResource(
-                R.string.episodes,
-                totalEpisodes
-            ),
-            textStyle = AppTheme.textStyle.label.smallRegular12,
-            color = AppTheme.colors.surfaceColor.onSurfaceContainer
-        )
-    }
-}
-
-@Composable
-private fun MovieDetails(
-    movieTitle: String,
-    currentSeason: String,
-    yearOfPublish: String,
-    timeOfPublish: String,
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier.padding(end = AppTheme.spacing.small),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.spacing.extraSmall)
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
             MovioText(
-                text = stringResource(R.string.season, currentSeason),
-                textStyle = AppTheme.textStyle.label.smallRegular12,
-                color = AppTheme.colors.surfaceColor.onSurfaceContainer
+                modifier = Modifier.padding(top = 8.dp),
+                text = "$yearOfPublish | $totalNumberOfEpisodes Episodes",
+                color = AppTheme.colors.surfaceColor.onSurfaceVariant,
+                textStyle = AppTheme.textStyle.title.medium14,
+                maxLines = 1,
             )
             MovioText(
-                text = stringResource(R.string.of, movieTitle),
-                textStyle = AppTheme.textStyle.label.smallRegular12,
+                modifier = Modifier.padding(top = 10.dp),
+                text = "Season $currentSeason $movieTitle $timeOfPublish.",
                 color = AppTheme.colors.surfaceColor.onSurfaceContainer,
-                maxLines = 1
+                textStyle = AppTheme.textStyle.title.medium14,
+                maxLines = 3,
             )
         }
-        MovioText(
-            text = "$timeOfPublish $yearOfPublish",
-            textStyle = AppTheme.textStyle.label.smallRegular12,
-            color = AppTheme.colors.surfaceColor.onSurfaceContainer
-        )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun seasonCardPreview() {
-    AppTheme{
+    AppTheme {
         MovioSeasonCard(
             movieTitle = "Spider-Man: Homecoming",
             movieImage = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
-            movieRate =" 3.0",
-            width = 100.dp,
-            height = 74.dp,
+            movieRate = " 3.0",
             totalNumberOfEpisodes = "1",
             onClick = {},
-            yearOfPublish ="2004",
+            yearOfPublish = "2004",
             currentSeason = "7",
             timeOfPublish = "october 4 , 2002"
         )

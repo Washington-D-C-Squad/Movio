@@ -1,5 +1,8 @@
 package com.madrid.presentation.navigation
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,7 +17,13 @@ import com.madrid.presentation.screens.searchScreen.SearchScreen
 fun MovioNavHost(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Destinations.HomeScreen
+        startDestination = Destinations.HomeScreen,
+        enterTransition = {
+            fadeIn(tween(0))
+        },
+        exitTransition = {
+            fadeOut(tween(0))
+        }
     ) {
         composable<Destinations.SeeAllForYouScreen> {
             SeeAllForYouScreen()

@@ -1,6 +1,5 @@
 package com.madrid.presentation.composables.movioCards
 
-
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
@@ -28,9 +27,7 @@ fun BasicImageCard(
     ) {
         FilteredImage(
             imageUrl = imageUrl,
-            contentDescription = stringResource(
-                string.moive_image
-            ),
+            contentDescription = stringResource(string.moive_image),
             modifier = Modifier
                 .fillMaxSize()
                 .clip(RoundedCornerShape(radius)),
@@ -41,11 +38,11 @@ fun BasicImageCard(
 
 @Preview(showBackground = true)
 @Composable
-private fun prevcand() {
+private fun BasicImageCardPreview() {
     AppTheme {
-//        BasicImageCard(
-//            imageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
-//            height = 180.dp, width = 158.dp, AppTheme.radius.small
-//        )
+        BasicImageCard(
+            imageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
+            AppTheme.radius.small
+        )
     }
 }
