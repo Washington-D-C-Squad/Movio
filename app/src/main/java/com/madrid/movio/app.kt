@@ -57,7 +57,4 @@ val app = module {
     single { GetRecommendedMovieUseCase(get()) }
     single { MovieDetailsUseCase(get()) }
 
-    // detectImageContent
-    single { GetImageBitmap(get()) }
-    single { SensitiveContentDetection(get()) }
 }
