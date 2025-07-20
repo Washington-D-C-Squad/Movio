@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -25,20 +24,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.R
-import com.madrid.designsystem.component.MovioText
-import com.madrid.designsystem.component.TopAppBar
-import com.madrid.presentation.composables.movioCards.MovioVerticalCard
+import com.madrid.designSystem.theme.Theme
+import com.madrid.designSystem.R
+import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.component.TopAppBar
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SimilarMoviesScreen(
+    modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {},
     onMovieClick: (SearchScreenState.MovieUiState) -> Unit = {},
-    modifier: Modifier = Modifier,
     viewModel: SearchViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsState()
@@ -47,7 +45,7 @@ fun SimilarMoviesScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(AppTheme.colors.surfaceColor.surface)
+            .background(Theme.color.surfaces.surface)
             .statusBarsPadding()
     ) {
         Box {
@@ -94,8 +92,8 @@ fun SimilarMoviesScreen(
             ) {
                 MovioText(
                     text = stringResource(id = com.madrid.presentation.R.string.loading),
-                    color = AppTheme.colors.surfaceColor.onSurface,
-                    textStyle = AppTheme.textStyle.body.medium14
+                    color = Theme.color.surfaces.onSurface,
+                    textStyle = Theme.textStyle.body.mediumMedium14
                 )
             }
         }
@@ -105,8 +103,8 @@ fun SimilarMoviesScreen(
                 .padding(16.dp), contentAlignment = Alignment.Center) {
                 MovioText(
                     text = errorMsg,
-                    color = AppTheme.colors.surfaceColor.outline,
-                    textStyle = AppTheme.textStyle.body.medium14
+                    color = Theme.color.surfaces.outline,
+                    textStyle = Theme.textStyle.body.mediumMedium14
                 )
             }
         }

@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -20,8 +19,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.component.MovioText
+import com.madrid.designSystem.theme.Theme
+import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.detectImageContent.FilteredImage
 
 data class CastMember(
@@ -32,9 +32,9 @@ data class CastMember(
 
 @Composable
 fun TopCastSection(
+    modifier: Modifier = Modifier,
     castMembers: List<CastMember>,
     onSeeAllClick: () -> Unit = {},
-    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
@@ -47,14 +47,14 @@ fun TopCastSection(
         ) {
             MovioText(
                 text = "Top Cast",
-                color = AppTheme.colors.surfaceColor.onSurface,
-                textStyle = AppTheme.textStyle.headLine.medium18
+                color = Theme.color.surfaces.onSurface,
+                textStyle = Theme.textStyle.headline.mediumMedium18
             )
             
             MovioText(
                 text = "See all >",
-                color = AppTheme.colors.surfaceColor.onSurfaceVariant,
-                textStyle = AppTheme.textStyle.label.smallRegular14,
+                color = Theme.color.surfaces.onSurfaceVariant,
+                textStyle = Theme.textStyle.label.smallRegular14,
                 modifier = Modifier.clickable { onSeeAllClick() }
             )
         }
@@ -97,8 +97,8 @@ private fun CastMemberItem(
         
         MovioText(
             text = castMember.name,
-            color = AppTheme.colors.surfaceColor.onSurface,
-            textStyle = AppTheme.textStyle.label.smallRegular14
+            color = Theme.color.surfaces.onSurface,
+            textStyle = Theme.textStyle.label.smallRegular14
         )
     }
 }
@@ -106,7 +106,7 @@ private fun CastMemberItem(
 @Preview(showBackground = true)
 @Composable
 fun TopCastSectionPreview() {
-    AppTheme {
+    MovioTheme {
         TopCastSection(
             castMembers = listOf(
                 CastMember(

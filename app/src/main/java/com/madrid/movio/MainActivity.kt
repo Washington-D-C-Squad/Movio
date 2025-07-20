@@ -15,10 +15,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.madrid.designsystem.AppTheme
+import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.presentation.composables.CustomBottomBar
 import com.madrid.presentation.composables.navBarDestinations
-import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.navigation.MovioNavGraph
 
@@ -28,7 +27,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            AppTheme {
+            MovioTheme {
                 MainScreen()
             }
         }

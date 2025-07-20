@@ -21,10 +21,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.R
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
+import com.madrid.designSystem.theme.Theme
+import com.madrid.designSystem.R
+import com.madrid.designSystem.component.MovioIcon
+import com.madrid.designSystem.component.MovioText
 @Composable
 fun ReviewTopBar(
     onBackClick: () -> Unit,
@@ -36,36 +36,36 @@ fun ReviewTopBar(
 ) {
     var isFavorite by rememberSaveable { mutableStateOf(initiallyFavorite) }
     val favoriteColor by animateColorAsState(
-        targetValue = if (isFavorite) Color.Red else AppTheme.colors.surfaceColor.onSurface,
+        targetValue = if (isFavorite) Color.Red else Theme.color.surfaces.onSurface,
         label = "FavoriteColor"
     )
     Row(
         modifier = modifier
             .fillMaxWidth()
             .height(40.dp)
-            .padding(horizontal = AppTheme.spacing.medium),
+            .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         IconButton(
             iconRes = R.drawable.arrow_left,
             contentDescription = "Back",
-            tint = AppTheme.colors.surfaceColor.onSurface,
+            tint = Theme.color.surfaces.onSurface,
             onClick = onBackClick
         )
         centerText?.let {
             MovioText(
                 text = it,
-                textStyle = AppTheme.textStyle.label.medium14,
-                color = AppTheme.colors.surfaceColor.onSurface
+                textStyle = Theme.textStyle.label.mediumMedium14,
+                color = Theme.color.surfaces.onSurface
             )
         }
-        Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.medium)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
             onShareClick?.let {
                 IconButton(
                     iconRes = R.drawable.share_arrow,
                     contentDescription = "Share",
-                    tint = AppTheme.colors.surfaceColor.onSurface,
+                    tint = Theme.color.surfaces.onSurface,
                     onClick = it
                 )
             }

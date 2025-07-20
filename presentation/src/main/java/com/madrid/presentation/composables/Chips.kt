@@ -13,9 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
+import com.madrid.designSystem.theme.Theme
+import com.madrid.designSystem.component.MovioIcon
+import com.madrid.designSystem.component.MovioText
 
 
 @Composable
@@ -28,17 +28,17 @@ fun Chips(
     Box(
         modifier = modifier
             .background(
-                AppTheme.colors.surfaceColor.surfaceContainer,
-                shape = RoundedCornerShape(AppTheme.radius.xxLarge)
+                Theme.color.surfaces.surfaceContainer,
+                shape = RoundedCornerShape(32.dp)
             )   .border(
-                width = 1.dp, color = AppTheme.colors.surfaceColor.onSurface_2,
-                shape = RoundedCornerShape(AppTheme.radius.xxLarge)
+                width = 1.dp, color = Theme.color.surfaces.onSurfaceAt2,
+                shape = RoundedCornerShape(32.dp)
             )
             .padding(vertical = 8.dp, horizontal = 12.dp),
         contentAlignment = Alignment.Center
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.extraSmall),
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             MovioIcon(
@@ -47,8 +47,8 @@ fun Chips(
             )
             MovioText(
                 text,
-                color = AppTheme.colors.surfaceColor.onSurfaceContainer,
-                textStyle = AppTheme.textStyle.label.smallRegular14
+                color = Theme.color.surfaces.onSurfaceContainer,
+                textStyle = Theme.textStyle.label.smallRegular14
             )
         }
     }

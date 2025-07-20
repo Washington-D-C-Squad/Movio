@@ -18,10 +18,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.madrid.presentation.R.string
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.R.drawable
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
+import com.madrid.designSystem.theme.Theme
+import com.madrid.designSystem.R
+import com.madrid.designSystem.component.MovioIcon
+import com.madrid.designSystem.component.MovioText
 
 
 @Composable
@@ -29,15 +29,15 @@ fun RateIcon(
     rate: String,
     tint: Color,
     modifier: Modifier = Modifier,
-    icon: Painter = painterResource(drawable.bold_star),
+    icon: Painter = painterResource(R.drawable.bold_star),
 ) {
     Box(
         modifier = modifier
-            .height(AppTheme.spacing.medium)
-            .padding(end = AppTheme.spacing.small), contentAlignment = Alignment.Center
+            .height(16.dp)
+            .padding(end = 8.dp), contentAlignment = Alignment.Center
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             MovioIcon(
@@ -50,8 +50,8 @@ fun RateIcon(
             )
             MovioText(
                 text = rate,
-                color = AppTheme.colors.systemColors.onWarning,
-                textStyle = AppTheme.textStyle.label.smallRegular12,
+                color = Theme.color.system.onWarning,
+                textStyle = Theme.textStyle.label.smallRegular12,
                 maxLines = 1,
             )
         }
@@ -60,11 +60,11 @@ fun RateIcon(
 
 @Preview(showBackground = true)
 @Composable
-private fun RatreIconpreview() {
+private fun RateIconPreview() {
     RateIcon(
-        icon = painterResource(drawable.bold_star),
+        icon = painterResource(R.drawable.bold_star),
         rate = "5.0",
-        tint = AppTheme.colors.systemColors.warning,
+        tint = Theme.color.system.warning,
         modifier = Modifier
             .height(16.dp)
             .width(38.dp)

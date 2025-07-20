@@ -3,7 +3,7 @@ package com.madrid.presentation.screens
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.madrid.designsystem.AppTheme
+import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.presentation.composables.CastMember
 
 @Composable
@@ -67,7 +67,7 @@ fun MovieDetailsDemoScreen(
 @Preview(showBackground = true)
 @Composable
 fun MovieDetailsDemoScreenPreview() {
-    AppTheme {
+    MovioTheme {
         MovieDetailsDemoScreen()
     }
 } 

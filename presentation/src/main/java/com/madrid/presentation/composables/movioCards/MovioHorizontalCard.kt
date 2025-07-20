@@ -18,8 +18,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.component.MovioText
+import com.madrid.designSystem.theme.Theme
+import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
 
 @Composable
 fun MovioHorizontalCard(
@@ -35,31 +36,31 @@ fun MovioHorizontalCard(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = AppTheme.spacing.small)
-            .clip(RoundedCornerShape(AppTheme.radius.small))
+            .padding(horizontal = 8.dp)
+            .clip(RoundedCornerShape(8.dp))
             .clickable { onClick() },
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         BasicImageCard(
             imageUrl = movieImageUrl,
             modifier = Modifier.fillMaxWidth().height(height),
-            radius = AppTheme.radius.small
+            radius = 8.dp
         )
         Column(
             modifier = modifier
                 .height(height)
-                .padding(vertical = AppTheme.spacing.extraSmall),
+                .padding(vertical = 4.dp),
             verticalArrangement = Arrangement.SpaceAround
         ) {
             MovioText(
                 text = movieTitle,
-                color = AppTheme.colors.surfaceColor.onSurface,
-                textStyle = AppTheme.textStyle.title.medium14,
+                color = Theme.color.surfaces.onSurface,
+                textStyle = Theme.textStyle.title.mediumMedium14,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
-            RateIcon(rate = movieRate, tint = AppTheme.colors.systemColors.warning)
-            MovioCatergory(movieCategory, AppTheme.colors.surfaceColor.onSurface_3)
+            RateIcon(rate = movieRate, tint = Theme.color.system.warning)
+            MovioCatergory(movieCategory, Theme.color.surfaces.onSurfaceAt3)
         }
     }
 }
@@ -72,12 +73,12 @@ private fun MovioCatergory(
     Row(
         modifier = Modifier
             .background(backgroundColor, shape = RoundedCornerShape(60.dp))
-            .padding(vertical = AppTheme.spacing.extraSmall, horizontal = AppTheme.spacing.medium),
+            .padding(vertical = 4.dp, horizontal = 16.dp),
         horizontalArrangement = Arrangement.Center
     ) {
         MovioText(
-            text = moviCategory, color = AppTheme.colors.surfaceColor.onSurfaceVariant,
-            textStyle = AppTheme.textStyle.label.smallRegular12,
+            text = moviCategory, color = Theme.color.surfaces.onSurfaceVariant,
+            textStyle = Theme.textStyle.label.smallRegular12,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )
@@ -88,7 +89,7 @@ private fun MovioCatergory(
 @Preview(showBackground = true)
 @Composable
 private fun HorizontalCardPreview() {
-    AppTheme {
+    MovioTheme {
         MovioHorizontalCard(
             movieTitle = "Spider-Man: Homecoming",
             movieImageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",

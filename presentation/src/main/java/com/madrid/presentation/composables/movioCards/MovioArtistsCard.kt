@@ -14,8 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.component.MovioText
+import com.madrid.designSystem.theme.Theme
+import com.madrid.designSystem.component.MovioText
 
 @Composable
 fun MovioArtistsCard(
@@ -28,7 +28,7 @@ fun MovioArtistsCard(
     Box(
         modifier = modifier
             .width(width)
-            .clip(RoundedCornerShape(AppTheme.radius.small))
+            .clip(RoundedCornerShape(8.dp))
             .clickable { onClick() }
     ) {
         Column(
@@ -43,12 +43,12 @@ fun MovioArtistsCard(
             )
             MovioText(
                 text = artistsName,
-                color = AppTheme.colors.surfaceColor.onSurface,
-                textStyle = AppTheme.textStyle.body.medium14,
+                color = Theme.color.surfaces.onSurface,
+                textStyle = Theme.textStyle.body.mediumMedium14,
                 maxLines = 1,
                 modifier = Modifier.padding(
-                    vertical = AppTheme.spacing.extraSmall,
-                    horizontal = AppTheme.spacing.extraSmall
+                    vertical = 4.dp,
+                    horizontal = 4.dp
                 )
             )
         }

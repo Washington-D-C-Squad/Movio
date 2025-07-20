@@ -6,23 +6,21 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.LineHeightStyle
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.component.MovioText
+import com.madrid.designSystem.theme.Theme
+import com.madrid.designSystem.component.MovioText
 
 @Composable
 fun FakeHomeScreen() {
     Box(
         Modifier
             .fillMaxSize()
-            .background(AppTheme.colors.surfaceColor.surface),
+            .background(Theme.color.surfaces.surface),
         contentAlignment = Alignment.Center
     ) {
         MovioText(
             text = "Home Screen",
-            textStyle = AppTheme.textStyle.title.largeBold14,
-            color = AppTheme.colors.brandColors.primary,
+            textStyle = Theme.textStyle.title.largeBold14,
+            color = Theme.color.brand.primary,
         )
     }
 }
@@ -32,14 +30,14 @@ fun FakeSearchScreen() {
     Box(
         Modifier
             .fillMaxSize()
-            .background(AppTheme.colors.surfaceColor.surface),
+            .background(Theme.color.surfaces.surface),
         contentAlignment = Alignment.Center
 
     ) {
         MovioText(
             text = "Search Screen",
-            textStyle = AppTheme.textStyle.title.largeBold14,
-            color = AppTheme.colors.brandColors.primary,
+            textStyle = Theme.textStyle.title.largeBold14,
+            color = Theme.color.brand.primary,
         )
     }
 }
@@ -49,14 +47,14 @@ fun FakeMoreScreen() {
     Box(
         Modifier
             .fillMaxSize()
-            .background(AppTheme.colors.surfaceColor.surface),
+            .background(Theme.color.surfaces.surface),
         contentAlignment = Alignment.Center
 
     ) {
         MovioText(
             text = "More Screen",
-            textStyle = AppTheme.textStyle.title.largeBold14,
-            color = AppTheme.colors.brandColors.primary,
+            textStyle = Theme.textStyle.title.largeBold14,
+            color = Theme.color.brand.primary,
         )
     }
 }
@@ -66,14 +64,14 @@ fun FakeLibraryScreen() {
     Box(
         Modifier
             .fillMaxSize()
-            .background(AppTheme.colors.surfaceColor.surface),
+            .background(Theme.color.surfaces.surface),
         contentAlignment = Alignment.Center
 
     ) {
         MovioText(
             text = "Library Screen",
-            textStyle = AppTheme.textStyle.title.largeBold14,
-            color = AppTheme.colors.brandColors.primary,
+            textStyle = Theme.textStyle.title.largeBold14,
+            color = Theme.color.brand.primary,
         )
     }
 }

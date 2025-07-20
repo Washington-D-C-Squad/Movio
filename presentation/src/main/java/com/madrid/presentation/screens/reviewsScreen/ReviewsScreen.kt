@@ -14,10 +14,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.R
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
+import com.madrid.designSystem.theme.Theme
+import com.madrid.designSystem.R
+import com.madrid.designSystem.component.MovioIcon
+import com.madrid.designSystem.component.MovioText
 import com.madrid.presentation.screens.reviewsScreen.composables.ReviewCard
 
 @Composable
@@ -40,9 +40,9 @@ fun ReviewsScreenContent(
         modifier = Modifier
             .fillMaxSize()
             .background(
-                color = AppTheme.colors.surfaceColor.surface
+                color = Theme.color.surfaces.surface
             )
-            .padding(horizontal = AppTheme.spacing.medium)
+            .padding(horizontal = 16.dp)
     ) {
 
         Box(
@@ -53,17 +53,17 @@ fun ReviewsScreenContent(
             MovioIcon(
                 painter = painterResource(id = R.drawable.arrow_left),
                 contentDescription = "Back",
-                tint = AppTheme.colors.surfaceColor.onSurface,
+                tint = Theme.color.surfaces.onSurface,
                 modifier = Modifier
                     .padding(
-                        start = AppTheme.spacing.xLarge,
+                        start = 24.dp,
                     )
                     .align(Alignment.CenterStart)
             )
             MovioText(
                 text = "Reviews",
-                color = AppTheme.colors.surfaceColor.onSurface,
-                textStyle = AppTheme.textStyle.headLine.largeBold16,
+                color = Theme.color.surfaces.onSurface,
+                textStyle = Theme.textStyle.headline.largeBold16,
                 modifier = Modifier
                     .align(Alignment.Center)
                     .padding(vertical = 14.5.dp)
@@ -72,7 +72,7 @@ fun ReviewsScreenContent(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = AppTheme.spacing.medium),
+                .padding(top = 16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             itemsIndexed(reviewsScreenUiState.reviews) { index, item ->

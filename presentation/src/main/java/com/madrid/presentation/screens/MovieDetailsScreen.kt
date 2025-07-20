@@ -12,15 +12,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.MovieDetailsHeader
 import com.madrid.presentation.composables.BottomMediaActions
 import com.madrid.presentation.composables.CastMember
@@ -47,6 +42,7 @@ data class MovieDetailsData(
 
 @Composable
 fun MovieDetailsScreen(
+    modifier: Modifier = Modifier,
     viewModel: DetailsMovieViewModel = koinViewModel(),
     onBackClick: () -> Unit = {},
     onShareClick: () -> Unit = {},
@@ -55,14 +51,13 @@ fun MovieDetailsScreen(
     onPlayClick: () -> Unit = {},
     onAddToListClick: (Boolean) -> Unit = {},
     onSeeAllCastClick: () -> Unit = {},
-    modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.state.collectAsState()
 
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(AppTheme.colors.surfaceColor.onSurfaceVariant)
+            .background(Theme.color.surfaces.onSurfaceVariant)
     ) {
         // Blurred background image that covers the entire screen including top bar
         MoviePosterDetailScreen(
@@ -129,7 +124,7 @@ fun MovieDetailsScreen(
 //@Preview(showBackground = true)
 //@Composable
 //fun MovieDetailsScreenPreview() {
-//    AppTheme {
+//    Theme {
 //        MovieDetailsScreen(
 //            movieData = MovieDetailsData(
 //                id = "1",

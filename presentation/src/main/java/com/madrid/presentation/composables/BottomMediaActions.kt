@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
@@ -24,16 +23,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.R
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
+import com.madrid.designSystem.theme.Theme
+import com.madrid.designSystem.R
+import com.madrid.designSystem.component.MovioIcon
+import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
+
 @Composable
 fun BottomMediaActions(
+    modifier: Modifier = Modifier,
     onRateClick: ((Boolean) -> Unit)? = null,
     onPlayClick: (() -> Unit)? = null,
     onAddToListClick: ((Boolean) -> Unit)? = null,
-    modifier: Modifier = Modifier,
 ) {
     var isRated by remember { mutableStateOf(false) }
     var isSaved by remember { mutableStateOf(false) }
@@ -85,7 +86,7 @@ private fun MediaActionItem(
     onToggle: () -> Unit
 ) {
     val animatedColor by animateColorAsState(
-        targetValue = if (isActive) activeColor else AppTheme.colors.surfaceColor.onSurfaceContainer,
+        targetValue = if (isActive) activeColor else Theme.color.surfaces.onSurfaceContainer,
         label = "ActionIconColor"
     )
     val icon = if (isActive) activeIcon else inactiveIcon
@@ -104,8 +105,8 @@ private fun MediaActionItem(
         )
         MovioText(
             text = label,
-            textStyle = AppTheme.textStyle.label.smallRegular14,
-            color = AppTheme.colors.surfaceColor.onSurface
+            textStyle = Theme.textStyle.label.smallRegular14,
+            color = Theme.color.surfaces.onSurface
         )
     }
 }
@@ -138,7 +139,7 @@ private fun PlayButton(onClick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun BottomActionBarPreview() {
-    AppTheme {
+    MovioTheme{
         BottomMediaActions(
             onRateClick = {},
             onPlayClick = {},

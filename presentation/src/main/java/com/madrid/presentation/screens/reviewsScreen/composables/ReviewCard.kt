@@ -19,10 +19,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.R
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
+import com.madrid.designSystem.theme.Theme
+import com.madrid.designSystem.R
+import com.madrid.designSystem.component.MovioIcon
+import com.madrid.designSystem.component.MovioText
 
 @Composable
 fun ReviewCard(
@@ -36,13 +36,13 @@ fun ReviewCard(
         modifier = Modifier
             .fillMaxWidth()
             .background(
-                color = AppTheme.colors.surfaceColor.surfaceContainer,
-                shape = RoundedCornerShape(AppTheme.spacing.small)
+                color = Theme.color.surfaces.surfaceContainer,
+                shape = RoundedCornerShape(8.dp)
             )
             .border(
                 width = 1.dp,
-                shape = RoundedCornerShape(AppTheme.spacing.small),
-                color = AppTheme.colors.surfaceColor.onSurface_3
+                shape = RoundedCornerShape(8.dp),
+                color = Theme.color.surfaces.onSurfaceAt3
             )
             .padding(12.dp)
 
@@ -56,7 +56,7 @@ fun ReviewCard(
                     model = reviewerImageUrl,
                     contentDescription = "",
                     modifier = Modifier
-                        .padding(end = AppTheme.spacing.small)
+                        .padding(end = 8.dp)
                         .clip(CircleShape)
                         .size(32.dp)
 
@@ -66,14 +66,14 @@ fun ReviewCard(
                 ) {
                     MovioText(
                         text = reviewerName,
-                        color = AppTheme.colors.surfaceColor.onSurface,
-                        textStyle = AppTheme.textStyle.title.medium14,
-                        modifier = Modifier.padding(bottom = AppTheme.spacing.extraSmall)
+                        color = Theme.color.surfaces.onSurface,
+                        textStyle = Theme.textStyle.title.mediumMedium14,
+                        modifier = Modifier.padding(bottom = 4.dp)
                     )
                     MovioText(
                         text = date,
-                        color = AppTheme.colors.surfaceColor.onSurfaceContainer,
-                        textStyle = AppTheme.textStyle.body.smallRegular10,
+                        color = Theme.color.surfaces.onSurfaceContainer,
+                        textStyle = Theme.textStyle.body.smallRegular10,
                     )
                 }
                 Spacer(modifier = Modifier.weight(1f))
@@ -86,15 +86,15 @@ fun ReviewCard(
                         MovioIcon(
                             painter = painterResource(id = R.drawable.bold_star),
                             contentDescription = "",
-                            tint = AppTheme.colors.systemColors.warning,
+                            tint = Theme.color.system.warning,
                             modifier = Modifier
-                                .padding(end = AppTheme.spacing.extraSmall)
+                                .padding(end = 4.dp)
                                 .size(16.dp)
                         )
                         MovioText(
                             text = rating.toString(),
-                            color = AppTheme.colors.systemColors.onWarning,
-                            textStyle = AppTheme.textStyle.label.smallRegular12
+                            color = Theme.color.system.onWarning,
+                            textStyle = Theme.textStyle.label.smallRegular12
                         )
                     }
                 }
@@ -103,8 +103,8 @@ fun ReviewCard(
         }
         MovioText(
             text = content,
-            color = AppTheme.colors.surfaceColor.onSurfaceVariant,
-            textStyle = AppTheme.textStyle.label.smallRegular12,
+            color = Theme.color.surfaces.onSurfaceVariant,
+            textStyle = Theme.textStyle.label.smallRegular12,
             maxLines = 20,
             modifier = Modifier.padding(top = 12.dp)
         )

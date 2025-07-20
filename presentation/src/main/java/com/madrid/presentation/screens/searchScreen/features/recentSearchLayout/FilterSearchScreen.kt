@@ -1,6 +1,6 @@
 package com.madrid.presentation.screens.searchScreen.features.recentSearchLayout
 
-import HeaderSectionBar
+import com.madrid.designSystem.component.HeaderSectionBar
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -12,7 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import androidx.paging.compose.LazyPagingItems
-import com.madrid.designsystem.component.LoadingSearchCard
+import com.madrid.designSystem.component.LoadingSearchCard
 import com.madrid.presentation.R
 import com.madrid.presentation.composables.movioCards.MovioArtistsCard
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
