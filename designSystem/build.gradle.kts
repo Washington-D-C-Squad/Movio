@@ -47,6 +47,8 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     implementation(libs.androidx.ui.tooling.preview)
 
+    implementation(libs.androidx.ui.tooling.preview)
+
     //material3
     implementation(libs.material3)
     implementation(libs.androidx.material3.window.size.class1)

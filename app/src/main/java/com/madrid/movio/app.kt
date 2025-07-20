@@ -20,10 +20,10 @@ import com.madrid.domain.usecase.searchUseCase.MediaUseCase
 import com.madrid.domain.usecase.searchUseCase.PreferredMediaUseCase
 import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import com.madrid.domain.usecase.searchUseCase.TrendingMediaUseCase
-import com.madrid.presentation.screens.SeeAllForYou.SeeAllForYouViewModel
-import com.madrid.presentation.screens.detailsMovieScreen.DetailsMovieViewModel
-import com.madrid.presentation.screens.searchScreen.viewModel.MovieDetailsViewModel
-import com.madrid.presentation.screens.searchScreen.viewModel.SearchViewModel
+import com.madrid.presentation.screens.searchScreen.SeeAllForYou.SeeAllForYouViewModel
+import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
+import com.madrid.presentation.viewModel.detailsViewModel.MovieDetailsViewModel
+import com.madrid.presentation.viewModel.searchViewModel.SearchViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
