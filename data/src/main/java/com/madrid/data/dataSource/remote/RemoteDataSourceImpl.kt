@@ -19,7 +19,6 @@ import com.madrid.data.dataSource.remote.response.series.SimilarSeriesResponse
 import com.madrid.data.dataSource.remote.utils.Constants
 import com.madrid.data.repositories.remote.RemoteDataSource
 import io.ktor.client.statement.bodyAsText
-import io.ktor.http.encodedPath
 import kotlinx.serialization.json.Json
 
 class RemoteDataSourceImpl(
@@ -29,51 +28,48 @@ class RemoteDataSourceImpl(
 
     //Region Movies
     override suspend fun searchMoviesByQuery(name: String): SearchMovieResponse =
-        getSearchRequestByQuery<SearchMovieResponse>("/3/search/movie", name)
+        getSearchRequestByQuery<SearchMovieResponse>("search/movie", name)
 
-     suspend fun getTopRatedMovies(): SearchMovieResponse =
-        getRequestByPath<SearchMovieResponse>("/3/movie/top_rated")
+    suspend fun getTopRatedMovies(): SearchMovieResponse =
+        getRequestByPath<SearchMovieResponse>("movie/top_rated")
 
-     suspend fun getTopRatedSeries(): SearchSeriesResponse =
-        getRequestByPath<SearchSeriesResponse>("/3/tv/top_rated")
+    suspend fun getTopRatedSeries(): SearchSeriesResponse =
+        getRequestByPath<SearchSeriesResponse>("tv/top_rated")
 
 
     // Region Series
     override suspend fun searchSeriesByQuery(name: String): SearchSeriesResponse =
-        getSearchRequestByQuery<SearchSeriesResponse>("/3/search/tv", name)
+        getSearchRequestByQuery<SearchSeriesResponse>("search/tv", name)
 
     override suspend fun getSeriesTrailersById(seriesId: Int): TrailerResponse =
-        getRequestByPath<TrailerResponse>("/3/tv/$seriesId/videos")
+        getRequestByPath<TrailerResponse>("tv/$seriesId/videos")
 
 
     override suspend fun getSeriesCreditsById(seriesId: Int): SeriesCreditResponse =
-        getRequestByPath<SeriesCreditResponse>("/3/tv/$seriesId/credits")
+        getRequestByPath<SeriesCreditResponse>("tv/$seriesId/credits")
 
 
     override suspend fun getSeriesReviewsById(seriesId: Int): SeriesReviewResponse =
-        getRequestByPath<SeriesReviewResponse>("/3/tv/$seriesId/reviews")
+        getRequestByPath<SeriesReviewResponse>("tv/$seriesId/reviews")
 
 
     override suspend fun getSimilarSeriesById(seriesId: Int): SimilarSeriesResponse =
-        getRequestByPath<SimilarSeriesResponse>("/3/tv/$seriesId/similar")
+        getRequestByPath<SimilarSeriesResponse>("tv/$seriesId/similar")
 
     override suspend fun getEpisodesBySeasonId(
         seriesId: Int,
         seasonNumber: Int
     ): SeasonEpisodesResponse =
-        getRequestByPath<SeasonEpisodesResponse>("/3/tv/$seriesId/season/$seasonNumber")
+        getRequestByPath<SeasonEpisodesResponse>("tv/$seriesId/season/$seasonNumber")
     // End Region
 
     // Region Artist
     suspend fun searchArtistByQuery(name: String): SearchArtistResponse =
-        getSearchRequestByQuery<SearchArtistResponse>("/3/search/person", name)
+        getSearchRequestByQuery<SearchArtistResponse>("search/person", name)
 
     override suspend fun getArtistDetailsById(artistId: Int): ArtistDetailsResponse =
-        getRequestByPath<ArtistDetailsResponse>("/3/person/$artistId")
+        getRequestByPath<ArtistDetailsResponse>("person/$artistId")
     // End Region
-
-
-
 
 
     override suspend fun searchMoviesByQuery(
@@ -81,13 +77,13 @@ class RemoteDataSourceImpl(
         page: Int
     ): SearchMovieResponse {
 
-        val result = client.buildHttpClient {
-            encodedPath = "/3/search/movie"
-            parameters.append(Constants.QUERY, name)
-            parameters.append(Constants.PAGE, page.toString())
+        val result = client.get(
+            path = "search/movie"
+        ) {
+            parameters.append(QUERY, name)
+            parameters.append(PAGE, page.toString())
         }
         val movies = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
-        Log.d("in impl", "searchMoviesByQuery: $movies")
         return movies
     }
 
@@ -95,17 +91,22 @@ class RemoteDataSourceImpl(
         name: String,
         page: Int
     ): SearchSeriesResponse {
-        val result = client.buildHttpClient {
-            encodedPath = "/3/search/tv"
-            parameters.append(Constants.QUERY, name)
-            parameters.append(Constants.PAGE, page.toString())
+        val result = client.get(
+            path = "search/tv"
+        ) {
+            parameters.append(QUERY, name)
+            parameters.append(PAGE, page.toString())
         }
         val series = json.decodeFromString<SearchSeriesResponse>(result.bodyAsText())
         return series
     }
 
     private suspend inline fun <reified T> getRequestByPath(path: String): T {
-        val result = client.buildHttpClient { encodedPath = path }
+        val result = client.get(
+            path = path
+        ) {
+
+        }
         return json.decodeFromString<T>(result.bodyAsText())
     }
 
@@ -114,10 +115,11 @@ class RemoteDataSourceImpl(
         page: Int
     ): SearchArtistResponse {
         Log.d("KTOR", "searchArtistByQuery: $name")
-        val result = client.buildHttpClient {
-            encodedPath = "/3/search/person"
-            parameters.append(Constants.QUERY, name)
-            parameters.append(Constants.PAGE, page.toString())
+        val result = client.get(
+            path = "search/person"
+        ) {
+            parameters.append(QUERY, name)
+            parameters.append(PAGE, page.toString())
         }
         val artist = json.decodeFromString<SearchArtistResponse>(result.bodyAsText())
 
@@ -125,21 +127,35 @@ class RemoteDataSourceImpl(
     }
 
     private suspend inline fun <reified T> getSearchRequestByQuery(path: String, name: String): T {
-        val result = client.buildHttpClient {
-            encodedPath = path
-            parameters.append(Constants.QUERY, name)
+        val result = client.get(
+            path = path
+        ) {
+            parameters.append(QUERY, name)
         }
         return json.decodeFromString<T>(result.bodyAsText())
     }
+
     override suspend fun getTopRatedMovies(
         query: String,
         page: Int
     ): SearchMovieResponse {
 
-        val result = client.buildHttpClient {
-            encodedPath = "3/search/movie"
-            parameters.append(Constants.QUERY, query)
-            parameters.append(Constants.PAGE, page.toString())
+        val result = client.get(
+            path = "search/movie"
+        ) {
+            parameters.append(QUERY, query)
+            parameters.append(PAGE, page.toString())
+        }
+        val movie = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
+
+        return movie
+    }
+
+    override suspend fun getPopularMovie(page: Int): SearchMovieResponse {
+        val result = client.get(
+            path = "movie/popular"
+        ) {
+            parameters.append(PAGE, page.toString())
         }
         val movie = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
 
@@ -150,9 +166,10 @@ class RemoteDataSourceImpl(
         page: Int
     ): SearchMovieResponse {
 
-        val result = client.buildHttpClient {
-            encodedPath = "3/movie/top_rated"
-            parameters.append(Constants.PAGE, page.toString())
+        val result = client.get(
+            path = "movie/top_rated"
+        ) {
+            parameters.append(PAGE, page.toString())
         }
         val movie = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
 
@@ -163,61 +180,65 @@ class RemoteDataSourceImpl(
         query: String,
         page: Int
     ): SearchSeriesResponse {
-        val result = client.buildHttpClient {
-            encodedPath = "/3/search/tv"
-            parameters.append(Constants.QUERY, query)
-            parameters.append(Constants.PAGE, page.toString())
+        val result = client.get(
+            path = "search/tv"
+        ) {
+            parameters.append(QUERY, query)
+            parameters.append(PAGE, page.toString())
         }
         val series = json.decodeFromString<SearchSeriesResponse>(result.bodyAsText())
 
         return series
     }
 
-    override suspend fun getPopularMovie(page: Int): SearchMovieResponse {
-        val result = client.buildHttpClient {
-            encodedPath = "/3/movie/popular"
-            parameters.append(Constants.PAGE, page.toString())
-        }
-        val movie = json.decodeFromString<SearchMovieResponse>(result.bodyAsText())
-
-        return movie
-    }
-
-
 
     override suspend fun getMovieDetailsById(movieId: Int): MovieDetailsResponse {
-        val result = client.buildHttpClient {
-            encodedPath = "/3/movie/$movieId"
+        val result = client.get(
+            path = "movie/$movieId"
+        ) {
 
         }
-        Log.e("MY_TAG"," middile  ${result.bodyAsText()}")
 
         val movie = json.decodeFromString<MovieDetailsResponse>(result.bodyAsText())
-        Log.e("MY_TAG"," movie  ${result.bodyAsText()}")
 
         return movie
     }
 
     override suspend fun getMovieTrailersById(movieId: Int): TrailerResponse {
-        val result = client.buildHttpClient { encodedPath = "/3/movie/$movieId/videos" }
+        val result = client.get(
+            path = "movie/$movieId/videos"
+        ) {
+
+        }
         val trailer = json.decodeFromString<TrailerResponse>(result.bodyAsText())
         return trailer
     }
 
     override suspend fun getMovieCreditById(movieId: Int): MovieCreditsResponse {
-        val result = client.buildHttpClient { encodedPath = "/3/movie/$movieId/credits" }
+        val result = client.get(
+            path = "movie/$movieId/credits"
+        ) {
+
+        }
         val credits = json.decodeFromString<MovieCreditsResponse>(result.bodyAsText())
         return credits
     }
 
     override suspend fun getMovieReviewsById(movieId: Int): MovieReviewResponse {
-        val result = client.buildHttpClient { encodedPath = "/3/movie/$movieId/reviews" }
+        val result = client.get(
+            path = "movie/$movieId/reviews"
+        ) {
+
+        }
         val review = json.decodeFromString<MovieReviewResponse>(result.bodyAsText())
         return review
     }
 
     override suspend fun getSimilarMoviesById(movieId: Int): SimilarMoviesResponse {
-        val result = client.buildHttpClient { encodedPath = "/3/movie/$movieId/similar" }
+        val result = client.get(
+            path = "movie/$movieId/similar"
+        ) {
+        }
         val similarMovies = json.decodeFromString<SimilarMoviesResponse>(result.bodyAsText())
         return similarMovies
     }
