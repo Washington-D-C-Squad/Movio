@@ -14,10 +14,9 @@ import androidx.compose.ui.unit.times
 import androidx.paging.compose.LazyPagingItems
 import com.madrid.designsystem.component.LoadingSearchCard
 import com.madrid.presentation.R
-import com.madrid.presentation.composables.movioCards.MovioArtistsCard
+import com.madrid.presentation.component.movioCards.MovioArtistsCard
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
-import com.madrid.presentation.screens.searchScreen.SearchResultMessage
-import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
+import com.madrid.presentation.viewModel.searchViewModel.SearchScreenState
 
 fun LazyGridScope.filterSearchScreen(
     typeOfFilterSearch: String,

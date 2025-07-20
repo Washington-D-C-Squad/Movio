@@ -2,6 +2,7 @@ package com.example.designsystem.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -11,6 +12,8 @@ import androidx.compose.ui.graphics.painter.Painter
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.component.MovioIcon
 import com.madrid.designsystem.component.MovioText
+
+
 @Composable
 fun CustomTextTitel(
     primaryText: String,
@@ -22,7 +25,7 @@ fun CustomTextTitel(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding( vertical = AppTheme.spacing.small),
+            .padding(vertical = AppTheme.spacing.small),
         verticalAlignment = Alignment.CenterVertically
     ) { MovioText(
             text = primaryText,
@@ -30,6 +33,7 @@ fun CustomTextTitel(
             textStyle = AppTheme.textStyle.title.medium16,
             modifier = Modifier.weight(1f)
         )
+        Spacer(Modifier.weight(1f))
         if (secondaryText != null || endIcon != null) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
