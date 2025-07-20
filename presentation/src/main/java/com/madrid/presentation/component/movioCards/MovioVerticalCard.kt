@@ -1,4 +1,4 @@
-package com.madrid.presentation.component.movioCards
+package com.madrid.presentation.composables.movioCards
 
 
 import androidx.compose.foundation.clickable
@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -24,6 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.component.MovioText
+import com.madrid.presentation.component.movioCards.BasicImageCard
+import com.madrid.presentation.component.movioCards.RateIcon
 
 @Composable
 fun MovioVerticalCard(
@@ -34,24 +35,23 @@ fun MovioVerticalCard(
     height: Dp,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    paddingvalue: Dp = 8.dp,
+    paddingValue: Dp = 8.dp,
     ) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .clip(RoundedCornerShape(AppTheme.radius.small))
             .clickable { onClick() }
     ) {
-        Box(contentAlignment = Alignment.TopCenter) {
+        Box(contentAlignment = Alignment.TopCenter, modifier = Modifier.align(Alignment.CenterHorizontally)) {
             Row(
                 modifier = Modifier
                     .zIndex(1f)
                     .width(width)
-                    .padding(paddingvalue),
+                    .padding(top = paddingValue , end = paddingValue),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.End
             ) {
-                RateIcon(rate = rate.take(3))
+                RateIcon(rate = (rate.take(3).toFloat()/2).toString().take(3))
             }
             BasicImageCard(
                 imageUrl = movieImage,
@@ -69,7 +69,6 @@ fun MovioVerticalCard(
             textStyle = AppTheme.textStyle.title.medium14,
             color = AppTheme.colors.surfaceColor.onSurface,
             maxLines = 2,
-            textAlign = TextAlign.Start,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .width(width)
@@ -82,11 +81,11 @@ fun MovioVerticalCard(
 private fun VerticalCardPreview() {
     AppTheme {
         MovioVerticalCard(
-            description = "Spider-Man: Homecoming",
+            description = "Spider-Man",
             movieImage = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
             width = 200.dp,
             height = 150.dp,
-            paddingvalue = 8.dp,
+            paddingValue = 8.dp,
             onClick = {},
             rate = "4.0",
         )
