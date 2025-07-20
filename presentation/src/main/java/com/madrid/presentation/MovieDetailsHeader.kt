@@ -8,10 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.component.MovioText
+import com.madrid.design_system.AppTheme
+import com.madrid.design_system.component.MovioText
 import com.madrid.presentation.composables.Chips
 
 @Composable
@@ -49,17 +48,17 @@ fun MovieDetailsHeader(
             modifier = Modifier.padding(vertical = 4.dp)
         ) {
             Chips(
-                icon = painterResource(com.madrid.designsystem.R.drawable.bold_star),
+                icon = painterResource(com.madrid.design_system.R.drawable.bold_star),
                 iconTint = AppTheme.colors.systemColors.warning,
                 text = rate,
             )
             Chips(
-                icon = painterResource(com.madrid.designsystem.R.drawable.outline_clock_circle),
+                icon = painterResource(com.madrid.design_system.R.drawable.outline_clock_circle),
                 iconTint = AppTheme.colors.surfaceColor.onSurfaceVariant,
                 text = time,
             )
             Chips(
-                icon = painterResource(com.madrid.designsystem.R.drawable.outline_calendar),
+                icon = painterResource(com.madrid.design_system.R.drawable.outline_calendar),
                 iconTint = AppTheme.colors.surfaceColor.onSurfaceVariant,
                 text = date,
             )

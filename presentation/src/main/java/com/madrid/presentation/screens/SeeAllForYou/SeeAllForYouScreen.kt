@@ -24,9 +24,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
+import com.madrid.design_system.AppTheme
+import com.madrid.design_system.component.MovioIcon
+import com.madrid.design_system.component.MovioText
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
@@ -74,7 +74,7 @@ private fun SeeAllForYouScreenContent(
             ) {
                 MovioIcon(
                     modifier = Modifier.clickable { onClickBackIcon() },
-                    painter = painterResource(com.madrid.designsystem.R.drawable.arrow_left),
+                    painter = painterResource(com.madrid.design_system.R.drawable.arrow_left),
                     contentDescription = null,
                     tint = AppTheme.colors.surfaceColor.onSurface
                 )

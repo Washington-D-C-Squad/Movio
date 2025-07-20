@@ -10,8 +10,8 @@ import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.component.MovioText
+import com.madrid.design_system.AppTheme
+import com.madrid.design_system.component.MovioText
 import com.madrid.presentation.composables.RecentSearchItem
 
 

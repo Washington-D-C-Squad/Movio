@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import com.example.designsystem.component.CustomTextTitel
-import com.madrid.designsystem.R
+import com.madrid.design_system.R
 import com.madrid.presentation.composables.movioCards.MovioVerticalCard
 import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState.MovieUiState
 

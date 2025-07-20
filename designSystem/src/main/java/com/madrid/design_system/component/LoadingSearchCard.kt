@@ -1,4 +1,4 @@
-package com.madrid.designsystem.component
+package com.madrid.design_system.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
+import com.madrid.design_system.AppTheme
 
 @Composable
 fun LoadingSearchCard(modifier: Modifier = Modifier) {

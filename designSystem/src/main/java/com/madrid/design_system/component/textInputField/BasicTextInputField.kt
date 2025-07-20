@@ -1,4 +1,4 @@
-package com.madrid.designsystem.component.textInputField
+package com.madrid.design_system.component.textInputField
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -25,9 +25,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
+import com.madrid.design_system.AppTheme
 
 @Composable
 fun BasicTextInputField(

@@ -26,8 +26,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.component.MovioText
+import com.madrid.design_system.AppTheme
+import com.madrid.design_system.component.MovioText
 
 @Composable
 fun HeaderSectionBar(

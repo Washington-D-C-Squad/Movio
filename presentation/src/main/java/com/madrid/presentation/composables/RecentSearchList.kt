@@ -23,11 +23,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.R as DesignSystemR
-import com.madrid.designsystem.component.MovioText
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioButton
+import com.madrid.design_system.AppTheme
+import com.madrid.design_system.R as DesignSystemR
+import com.madrid.design_system.component.MovioText
+import com.madrid.design_system.component.MovioIcon
+import com.madrid.design_system.component.MovioButton
 import com.madrid.presentation.R
 
 @Composable

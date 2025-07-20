@@ -3,7 +3,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.madrid.designsystem.R
+import com.madrid.design_system.R
 
 
 val inter = FontFamily(

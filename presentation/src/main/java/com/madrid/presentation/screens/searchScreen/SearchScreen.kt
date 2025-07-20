@@ -29,10 +29,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.R
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.textInputField.BasicTextInputField
+import com.madrid.design_system.AppTheme
+import com.madrid.design_system.R
+import com.madrid.design_system.component.MovioIcon
+import com.madrid.design_system.component.textInputField.BasicTextInputField
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.RecentSearchLayout

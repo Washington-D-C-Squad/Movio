@@ -20,11 +20,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.R
+import com.madrid.design_system.R
 import com.madrid.presentation.R.string
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
+import com.madrid.design_system.AppTheme
+import com.madrid.design_system.component.MovioIcon
+import com.madrid.design_system.component.MovioText
 
 @Composable
 fun MovioEpisodesCard(

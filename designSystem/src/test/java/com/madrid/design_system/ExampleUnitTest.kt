@@ -1,4 +1,4 @@
-package com.madrid.designsystem
+package com.madrid.design_system
 
 import org.junit.Test
 

@@ -19,23 +19,20 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.R
-import com.madrid.designsystem.component.MovioBottomSheet
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
-import kotlinx.coroutines.delay
+import com.madrid.design_system.AppTheme
+import com.madrid.design_system.R
+import com.madrid.design_system.component.MovioBottomSheet
+import com.madrid.design_system.component.MovioIcon
+import com.madrid.design_system.component.MovioText
 
 @Composable
 fun MovieListsBottomSheet(

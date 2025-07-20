@@ -28,9 +28,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.component.MovioIcon
-import com.madrid.designsystem.component.MovioText
+import com.madrid.design_system.AppTheme
+import com.madrid.design_system.component.MovioIcon
+import com.madrid.design_system.component.MovioText
 
 
 @Composable
@@ -72,7 +72,7 @@ fun <T> CustomDropdown(
                     textStyle = AppTheme.textStyle.label.smallRegular14
                 )
                 MovioIcon(
-                    painter = painterResource(com.madrid.designsystem.R.drawable.icon_arrow_down),
+                    painter = painterResource(com.madrid.design_system.R.drawable.icon_arrow_down),
                     contentDescription = "icon arrow down icon",
                     tint = AppTheme.colors.surfaceColor.onSurfaceVariant
                 )

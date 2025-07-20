@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.madrid.designsystem"
+    namespace = "com.madrid.design_system"
     compileSdk = 35
 
     defaultConfig {

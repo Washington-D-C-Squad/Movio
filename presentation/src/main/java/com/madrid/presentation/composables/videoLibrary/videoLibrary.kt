@@ -24,9 +24,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.R
-import com.madrid.designsystem.component.MovioIcon
+import com.madrid.design_system.AppTheme
+import com.madrid.design_system.R
+import com.madrid.design_system.component.MovioIcon
 
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
