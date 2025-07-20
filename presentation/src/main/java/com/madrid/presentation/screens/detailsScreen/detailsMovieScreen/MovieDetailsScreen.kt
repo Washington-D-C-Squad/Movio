@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -16,7 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.madrid.designsystem.AppTheme
-import com.madrid.presentation.header.MovieDetailsHeader
+import com.madrid.presentation.component.header.MovieDetailsHeader
 import com.madrid.presentation.component.BottomMediaActions
 import com.madrid.presentation.component.CastMember
 import com.madrid.designsystem.component.TextWithReadMore
@@ -60,14 +61,14 @@ fun MovieDetailsScreen(
             .fillMaxSize()
             .background(AppTheme.colors.surfaceColor.onSurfaceVariant)
     ) {
-        // Blurred background image that covers the entire screen including top bar
         MoviePosterDetailScreen(
             ImageUrl = uiState.topImageUrl,
             modifier = Modifier.fillMaxSize()
         )
 
-        // Fixed top navigation header that overlays on the blurred background
-        TopAppBar(null)
+        Box(modifier= Modifier.statusBarsPadding()){
+            TopAppBar(null)
+        }
         Column(
             modifier = Modifier
                 .fillMaxSize()
