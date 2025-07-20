@@ -84,7 +84,3 @@ abstract class BaseViewModel<S>(initialState: S) : ViewModel() {
         }
     }
 }
-
-interface RecentSearchUseCase {
-    suspend fun clearAllRecentSearches()
-}

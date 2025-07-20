@@ -41,7 +41,6 @@ class SearchViewModel(
     init {
 
         loadRecentSearches()
-
         loadInitialData()
     }
 
@@ -200,6 +199,7 @@ class SearchViewModel(
     fun Media.toMovieUiStateList(): List<SearchScreenState.MovieUiState> {
 
         val moviesUiState: MutableList<SearchScreenState.MovieUiState> = mutableListOf()
+
         movies.forEach { movie ->
             moviesUiState.add(
                 SearchScreenState.MovieUiState(
@@ -219,7 +219,6 @@ class SearchViewModel(
         tryToExecute(
             function = { mediaUseCase.getMovieByQuery(query) },
             onSuccess = { result ->
-                Log.e("MY_TAG", "$result this is here ")
                 updateState {
                     it.copy(
                         searchUiState = it.searchUiState.copy(
@@ -250,7 +249,6 @@ class SearchViewModel(
 
 
     fun searchFilteredMovies(query: String) {
-        Log.d("hay", "in search filtered movies fn $query")
         val result = Pager(
             config = PagingConfig(
                 pageSize = 20,
@@ -285,7 +283,6 @@ class SearchViewModel(
 
 
     fun searchSeries(query: String) {
-        Log.d("enter search", "nooooooooooooooooooooobbbbbbb: $query")
         val result = Pager(
             config = PagingConfig(
                 pageSize = 20,
@@ -298,7 +295,6 @@ class SearchViewModel(
             .cachedIn(viewModelScope)
             .map { pagingData ->
                 pagingData.map { series ->
-                    Log.d("enter search", "searchSeries: ${series}")
                     SearchScreenState.SeriesUiState(
                         id = series.id.toString(),
                         title = series.title,
@@ -309,7 +305,6 @@ class SearchViewModel(
             }
 
         updateState { current ->
-//            Log.d("series", "searchSeries: ${current.filteredScreenUiState.series}")
             current.copy(
                 filteredScreenUiState = current.filteredScreenUiState.copy(
                     series = result,
@@ -322,7 +317,6 @@ class SearchViewModel(
 
 
     fun topResult(query: String) {
-        Log.d("hay", "in top results fn $query")
 
         val result: Flow<PagingData<SearchScreenState.MovieUiState>> = Pager(
             config = PagingConfig(
@@ -358,7 +352,6 @@ class SearchViewModel(
         }
     }
 
-
     fun artists(query: String) {
         val result = Pager(
             config = PagingConfig(
@@ -390,39 +383,6 @@ class SearchViewModel(
                     isLoading = false
                 )
             )
-        }
-    }
-
-
-//    fun getData(query: String) {
-//        Pager(
-//            config = PagingConfig(pageSize = 20),
-//            pagingSourceFactory = {
-//                SearchMoviePagingSource(
-//                    query = query,
-//                    mediaUseCase = mediaUseCase
-//                )
-//            }
-//        ).flow.cachedIn(viewModelScope).map { pagingItem ->
-//            pagingItem.map {
-//                it.let { item ->
-//                    SearchScreenState.MovieUiState(
-//                        title = item.title,
-//                        id = it.id.toString(),
-//                        imageUrl = it.imageUrl,
-//                        rating = it.rate.toString(),
-//                    )
-//                }
-//            }
-//        }.also { result ->
-//            updateState { it.copy(searchUiState = it.searchUiState.copy(searchResults = result)) }
-//        }
-//    }
-
-    companion object {
-        @JvmStatic
-        fun clearRecentSearchesStatic() {
-
         }
     }
 }
