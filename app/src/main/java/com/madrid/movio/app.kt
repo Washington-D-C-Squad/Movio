@@ -7,8 +7,6 @@ import com.madrid.data.repositories.RecommendedRepositoryImp
 import com.madrid.data.repositories.SearchRepositoryImpl
 import com.madrid.data.repositories.local.LocalDataSource
 import com.madrid.data.repositories.local.LocalDataSourceImpl
-import com.madrid.detectImageContent.GetImageBitmap
-import com.madrid.detectImageContent.SensitiveContentDetection
 import com.madrid.domain.repository.MovieDetailsRepository
 import com.madrid.domain.repository.RecommendedRepository
 import com.madrid.domain.repository.SearchRepository
