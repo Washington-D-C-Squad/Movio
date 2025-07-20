@@ -5,7 +5,6 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -41,7 +40,7 @@ fun FilterbBar(
             modifier = modifier,
             horizontalArrangement = Arrangement.spacedBy(AppTheme.spacing.small),
             contentPadding = PaddingValues(horizontal = AppTheme.spacing.medium),
-            ) {
+        ) {
             items(items) { item ->
                 FilterChip(
                     text = item,
@@ -64,6 +63,7 @@ fun FilterbBar(
         }
     }
 }
+
 @Composable
 fun FilterChip(
     text: String,
@@ -105,7 +105,7 @@ fun FilterChip(
             ) {
                 Box(
                     modifier = Modifier
-                            .padding(top = AppTheme.spacing.extraSmall)
+                        .padding(top = AppTheme.spacing.extraSmall)
                         .height(1.dp)
                         .clip(RoundedCornerShape(16.dp))
                         .width(textWidthDp)
@@ -114,7 +114,9 @@ fun FilterChip(
             }
         }
     }
-}@Composable
+}
+
+@Composable
 fun underlineGlowBrush(): Brush {
     val glowColor = AppTheme.colors.brandColors.onPrimaryContainer
 

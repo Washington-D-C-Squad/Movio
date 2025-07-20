@@ -1,14 +1,12 @@
 package com.madrid.presentation.screens.searchScreen.features.recentSearchLayout
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridScope
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -18,9 +16,9 @@ import androidx.paging.compose.LazyPagingItems
 import com.example.designsystem.component.CustomTextTitel
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.R
-import com.madrid.presentation.composables.movioCards.MovioVerticalCard
-import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState
-import com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState.MovieUiState
+import com.madrid.presentation.component.movioCards.MovioVerticalCard
+import com.madrid.presentation.viewModel.searchViewModel.SearchScreenState
+import com.madrid.presentation.viewModel.searchViewModel.SearchScreenState.MovieUiState
 
 fun LazyGridScope.forYouAndExploreScreen(
     showSearchResults: Boolean,

@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.madrid.designsystem.AppTheme
 import com.madrid.designsystem.component.MovioText
-import com.madrid.presentation.composables.RecentSearchItem
+import com.madrid.presentation.component.RecentSearchItem
 
 
 fun LazyGridScope.recentSearchScreen(
