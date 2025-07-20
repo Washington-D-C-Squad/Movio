@@ -1,14 +1,15 @@
 package com.madrid.presentation.navigation
 
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.madrid.presentation.screens.detailsScreen.detailsMovieScreen.MovieDetailsScreen
-import com.madrid.presentation.screens.searchScreen.SeeAllForYou.SeeAllForYouScreen
 import com.madrid.presentation.screens.searchScreen.SearchScreen
+import com.madrid.presentation.screens.searchScreen.SeeAllForYou.SeeAllForYouScreen
 
 @Composable
 fun MovioNavHost(navController: NavHostController) {
