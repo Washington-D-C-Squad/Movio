@@ -1,20 +1,28 @@
 package com.madrid.data.dataSource.remote.utils
 
-//suspend inline fun <reified T > responseWrapper (
-//    client: HttpClient,
-//    response : HttpClient.()->HttpResponse,
-//):T {
-//    try {
-//        return client.response().body()
-//    } catch (e: ClientRequestException) {
-//        when (e) {
-//            403 -> throw Resources.NotFoundException()
-//            404 -> throw PermisionDeniedException()
-//        else -> throw UnknownError()
-//        }
-//    }
-//    catch (e: RedirectResponseException) {}
-//    catch (e: ServerResponseException) {}
-//    catch (e:IOException){}
-//    catch (e: Exception) {}
-//}
+import com.madrid.domain.exceptions.InvalidRequestException
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.plugins.ClientRequestException
+import io.ktor.client.plugins.ServerResponseException
+import io.ktor.client.statement.HttpResponse
+import io.ktor.utils.io.errors.IOException
+import com.madrid.domain.exceptions.UnauthorizedException
+
+suspend inline fun <reified T> responseWrapper(
+    client: HttpClient,
+    response: HttpClient.() -> HttpResponse,
+): T {
+    try {
+        return client.response().body()
+    } catch (e: ClientRequestException) {
+        when (e.response.status.value) {
+            400 -> throw InvalidRequestException(message = "Invalid Request Method: ${e.message}")
+            403 -> throw UnauthorizedException()
+            408 -> throw com.madrid.domain.exceptions.TimeoutException(
+                message = "Timeout Error: ${e.message}"
+            )
+            else -> throw UnknownError()
+        }
+    }
+}
