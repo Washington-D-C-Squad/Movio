@@ -44,6 +44,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    debugImplementation(libs.ui.tooling)
     implementation(libs.androidx.ui.tooling.preview)
 
     //material3
