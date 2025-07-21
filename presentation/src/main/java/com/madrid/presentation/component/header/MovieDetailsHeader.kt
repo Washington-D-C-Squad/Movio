@@ -83,7 +83,7 @@ fun Chips(icon: Painter, iconTint: Color, text: String) {
         modifier = Modifier
             .background(
                 color = Theme.color.surfaces.surfaceContainer,
-                shape = RoundedCornerShape(16.dp)
+                shape = RoundedCornerShape(24.dp)
             )
             .padding(horizontal = 8.dp, vertical = 4.dp)
     ) {
@@ -95,8 +95,8 @@ fun Chips(icon: Painter, iconTint: Color, text: String) {
         )
         MovioText(
             text = text,
-            color = Theme.color.surfaces.onSurfaceVariant,
-            textStyle = Theme.textStyle.label.smallRegular14
+            color = Theme.color.surfaces.onSurfaceContainer,
+            textStyle = Theme.textStyle.label.smallRegular12
         )
     }
 }
