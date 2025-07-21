@@ -21,6 +21,10 @@ import com.madrid.presentation.component.CastMember
 import com.madrid.presentation.component.TopCastSection
 import com.madrid.presentation.component.header.MovieDetailsHeader
 import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
+import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewCard
+import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
+import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewsTopbar
+import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMoviesScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,7 +118,22 @@ fun MovieDetailsScreenPreview() {
             )
 
             Spacer(modifier = Modifier.height(32.dp))
-            
+            ReviewCard(
+                reviewerName = "Awkwafina",
+                reviewerImageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
+                rating = 4.5f,
+                date = "June 14, 2025",
+                content = "This isn't a film, it's a live action video game with a predictable plot and loads of technologically choreographed CGI to substitute for anything vaguely akin to emotion."
+            )
+            Spacer(modifier = Modifier.height(32.dp))
+            SimilarMoviesScreen(
+                onMovieClick = { movie ->
+                    // Handle movie selection
+                },
+                onBackClick = {
+                    // Handle back navigation
+                }
+            )
         }
     }
 }
