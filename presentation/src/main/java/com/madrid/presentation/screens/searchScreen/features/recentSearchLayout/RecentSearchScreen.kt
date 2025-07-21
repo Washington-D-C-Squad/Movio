@@ -9,9 +9,11 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.Theme
+import com.madrid.presentation.R
 import com.madrid.presentation.component.RecentSearchItem
 
 
@@ -26,19 +28,19 @@ fun LazyGridScope.recentSearchScreen(
         span = { GridItemSpan(maxLineSpan) }
     ) {
         Row(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(20.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             MovioText(
-                text = "recent search ", // stringResource(id = DesignSystemR.string.recent_search),
+                text = stringResource(R.string.recent_search),
                 textStyle = Theme.textStyle.headline.mediumMedium18,
                 color = Theme.color.surfaces.onSurface
             )
             MovioText(
-                text = "clear all ", // stringResource(id = DesignSystemR.string.clear_all),
+                text = stringResource(R.string.clear_all),
                 textStyle = Theme.textStyle.body.mediumMedium14,
                 color = Theme.color.surfaces.onSurfaceVariant,
                 modifier = Modifier.clickable { onClearAll() }
