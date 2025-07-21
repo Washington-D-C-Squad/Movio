@@ -38,7 +38,7 @@ class LocalDataSourceImpl(
 
 
     override suspend fun searchMovieByQueryFromDB(query: String): List<MovieEntity> {
-        return movieDao.getMovieByTitle("%$query%")
+        return movieDao.getMovieByTitle(query)
 
     }
 

@@ -10,18 +10,20 @@ import com.madrid.data.dataSource.local.dao.MovieDao
 import com.madrid.data.dataSource.local.dao.RecentSearchDao
 import com.madrid.data.dataSource.local.dao.SeriesDao
 import com.madrid.data.dataSource.local.entity.ArtistEntity
-import com.madrid.data.dataSource.local.entity.MovieCategoryEntity
+import com.madrid.data.dataSource.local.entity.CategoryEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
 import com.madrid.data.dataSource.local.entity.RecentSearchEntity
+import com.madrid.data.dataSource.local.entity.relationship.MovieCategoryCrossRef
 
 @Database(
     entities = [
         MovieEntity::class,
         SeriesEntity::class,
-        MovieCategoryEntity::class,
+        CategoryEntity::class,
         ArtistEntity::class,
-        RecentSearchEntity::class
+        RecentSearchEntity::class,
+        MovieCategoryCrossRef::class
     ],
     version = 1
 )

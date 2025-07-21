@@ -7,7 +7,7 @@ import kotlinx.datetime.LocalDate
 
 fun Movie.toMovieEntity(): MovieEntity {
     return MovieEntity(
-        id = this.id,
+        movieId = this.id,
         title = this.title,
         imageUrl = this.imageUrl,
         rate = this.rate,
@@ -19,7 +19,7 @@ fun Movie.toMovieEntity(): MovieEntity {
 
 fun MovieEntity.toMovie(): Movie {
     return Movie(
-        id = this.id,
+        id = this.movieId,
         title = this.title,
         imageUrl = this.imageUrl,
         rate = this.rate,
