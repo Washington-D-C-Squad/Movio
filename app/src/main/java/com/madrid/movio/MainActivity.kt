@@ -24,7 +24,7 @@ import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailS
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewCard
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewsTopbar
-import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMoviesScreen
+import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMoviesSection
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -126,13 +126,10 @@ fun MovieDetailsScreenPreview() {
                 content = "This isn't a film, it's a live action video game with a predictable plot and loads of technologically choreographed CGI to substitute for anything vaguely akin to emotion."
             )
             Spacer(modifier = Modifier.height(32.dp))
-            SimilarMoviesScreen(
+            SimilarMoviesSection(
                 onMovieClick = { movie ->
                     // Handle movie selection
                 },
-                onBackClick = {
-                    // Handle back navigation
-                }
             )
         }
     }

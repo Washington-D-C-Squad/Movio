@@ -13,9 +13,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,9 +36,9 @@ data class SimilarMovie(
 )
 
 @Composable
-fun SimilarMoviesScreen(
+fun SimilarMoviesSection(
     modifier: Modifier = Modifier,
-    onBackClick: () -> Unit = {},
+    onSeeAllClick: () -> Unit = {},
     onMovieClick: (SimilarMovie) -> Unit = {}
 ) {
     val fakeMovies = listOf(
@@ -60,48 +59,37 @@ fun SimilarMoviesScreen(
             title = "Grave of the Fireflies",
             imageUrl = "https://image.tmdb.org/t/p/w500/qG3RYlIVpTYclR9TYIsy8p7m7AT.jpg",
             rating = 4.7
-        ),
-        // Add more fake movies as needed
+        )
     )
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Theme.color.surfaces.surfaceContainer)
-    ) {
-        // Header with back button
-        Box(
+    Column(modifier = modifier) {
+        // Header
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp)
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                MovioText(
-                    text = "Similar Movies",
-                    color = Theme.color.surfaces.onSurface,
-                    textStyle = Theme.textStyle.headline.mediumMedium18
-                )
-
-                MovioText(
-                    text = "See all",
-                    color = Theme.color.surfaces.onSurfaceVariant,
-                    textStyle = Theme.textStyle.label.smallRegular14,
-                    modifier = Modifier.clickable { }
-                )
-            }
+            MovioText(
+                text = "Similar Movies",
+                color = Theme.color.surfaces.onSurface,
+                textStyle = Theme.textStyle.headline.mediumMedium18
+            )
+            
+            MovioText(
+                text = "See all",
+                color = Theme.color.surfaces.onSurfaceVariant,
+                textStyle = Theme.textStyle.label.smallRegular14,
+                modifier = Modifier.clickable(onClick = onSeeAllClick)
+            )
         }
 
-        // Grid of movies
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(3),
-            contentPadding = PaddingValues(16.dp),
+        // Horizontal list of movies
+        LazyRow(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.fillMaxSize()
+            contentPadding = PaddingValues(horizontal = 16.dp),
+            modifier = Modifier.fillMaxWidth()
         ) {
             items(fakeMovies) { movie ->
                 MovieCard(
@@ -128,20 +116,20 @@ private fun MovieCard(
             modifier = Modifier
                 .height(160.dp)
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(12.dp))
+                .clip(RoundedCornerShape(8.dp))
         ) {
             FilteredImage(
                 imageUrl = movie.imageUrl,
                 contentDescription = movie.title,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxWidth()
             )
-
+            
             // Rating badge
             Box(
                 modifier = Modifier
                     .padding(8.dp)
-                    .clip(RoundedCornerShape(8.dp))
+                    .clip(RoundedCornerShape(4.dp))
                     .background(Theme.color.surfaces.surfaceContainer.copy(alpha = 0.7f))
                     .padding(horizontal = 8.dp, vertical = 4.dp)
                     .align(Alignment.TopStart)
@@ -163,9 +151,9 @@ private fun MovieCard(
                 }
             }
         }
-
+        
         Spacer(modifier = Modifier.height(8.dp))
-
+        
         MovioText(
             text = movie.title,
             color = Theme.color.surfaces.onSurface,
@@ -178,8 +166,12 @@ private fun MovieCard(
 
 @Preview(showBackground = true)
 @Composable
-private fun SimilarMoviesScreenPreview() {
+private fun SimilarMoviesSectionPreview() {
     MovioTheme {
-        SimilarMoviesScreen()
+        Box(
+            modifier = Modifier.background(Theme.color.surfaces.surfaceContainer)
+        ) {
+            SimilarMoviesSection()
+        }
     }
 } 
