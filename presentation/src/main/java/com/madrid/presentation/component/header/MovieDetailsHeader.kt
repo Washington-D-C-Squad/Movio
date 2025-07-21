@@ -88,7 +88,7 @@ fun Chips(icon: Painter, iconTint: Color, text: String) {
     ) {
         Image(
             painter = icon,
-            contentDescription = null, // Consider passing a11y description if needed
+            contentDescription = null,
             modifier = Modifier.padding(end = 4.dp).size(16.dp),
             colorFilter = ColorFilter.tint(iconTint)
         )

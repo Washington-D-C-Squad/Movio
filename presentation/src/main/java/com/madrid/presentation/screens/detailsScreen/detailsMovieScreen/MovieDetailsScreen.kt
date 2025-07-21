@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.component.TopAppBar
 import com.madrid.designSystem.theme.Theme
+import com.madrid.designSystem.component.TextWithReadMore
 import com.madrid.presentation.component.BottomMediaActions
 import com.madrid.presentation.component.CastMember
 import com.madrid.presentation.component.TopCastSection
@@ -82,7 +83,8 @@ fun MovieDetailsScreen(
 
             TextWithReadMore(
                 description = uiState.description,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                maxLines = 3
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -105,9 +107,4 @@ fun MovieDetailsScreen(
             )
         }
     }
-}
-
-@Composable
-fun TextWithReadMore(description: String, modifier: Modifier) {
-    TODO("Not yet implemented")
 }
