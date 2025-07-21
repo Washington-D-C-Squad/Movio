@@ -42,31 +42,11 @@ data class SimilarMovie(
 
 @Composable
 fun SimilarMoviesSection(
+    movies: List<SimilarMovie>,
     modifier: Modifier = Modifier,
     onSeeAllClick: () -> Unit = {},
     onMovieClick: (SimilarMovie) -> Unit = {}
 ) {
-    val fakeMovies = listOf(
-        SimilarMovie(
-            id = 1,
-            title = "Spider-Man: Into the Spider-Verse",
-            imageUrl = "https://image.tmdb.org/t/p/w500/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
-            rating = 4.8
-        ),
-        SimilarMovie(
-            id = 2,
-            title = "The Dark Knight",
-            imageUrl = "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
-            rating = 5.0
-        ),
-        SimilarMovie(
-            id = 3,
-            title = "Grave of the Fireflies",
-            imageUrl = "https://image.tmdb.org/t/p/w500/qG3RYlIVpTYclR9TYIsy8p7m7AT.jpg",
-            rating = 4.7
-        )
-    )
-
     Column(modifier = modifier) {
         Row(
             modifier = Modifier
@@ -94,7 +74,7 @@ fun SimilarMoviesSection(
             contentPadding = PaddingValues(horizontal = 16.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
-            items(fakeMovies) { movie ->
+            items(movies) { movie ->
                 MovieCard(
                     movie = movie,
                     onClick = { onMovieClick(movie) }
@@ -170,11 +150,31 @@ private fun MovieCard(
 @Preview(showBackground = true)
 @Composable
 private fun SimilarMoviesSectionPreview() {
+    val fakeMovies = listOf(
+        SimilarMovie(
+            id = 1,
+            title = "Spider-Man: Into the Spider-Verse",
+            imageUrl = "https://image.tmdb.org/t/p/w500/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
+            rating = 4.8
+        ),
+        SimilarMovie(
+            id = 2,
+            title = "The Dark Knight",
+            imageUrl = "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+            rating = 5.0
+        ),
+        SimilarMovie(
+            id = 3,
+            title = "Grave of the Fireflies",
+            imageUrl = "https://image.tmdb.org/t/p/w500/qG3RYlIVpTYclR9TYIsy8p7m7AT.jpg",
+            rating = 4.7
+        )
+    )
     MovioTheme {
         Box(
             modifier = Modifier.background(Theme.color.surfaces.surfaceContainer)
         ) {
-            SimilarMoviesSection()
+            SimilarMoviesSection(movies = fakeMovies)
         }
     }
 } 
