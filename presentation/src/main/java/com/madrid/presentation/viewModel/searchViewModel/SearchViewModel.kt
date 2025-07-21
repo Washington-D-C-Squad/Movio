@@ -6,9 +6,6 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.madrid.domain.entity.Artist
-import com.madrid.domain.entity.Movie
-import com.madrid.domain.entity.Series
 import com.madrid.domain.usecase.GetExploreMoreMovieUseCase
 import com.madrid.domain.usecase.GetRecommendedMovieUseCase
 import com.madrid.domain.usecase.searchUseCase.ArtistUseCase
@@ -85,8 +82,7 @@ class SearchViewModel(
             onSuccess = { result ->
                 updateState {
                     it.copy(
-                        searchUiState = it.copy(recentSearchUiState = result.toString())
-                    )
+                     recentSearchUiState = result )
                 }
             },
             onError = {},
@@ -106,7 +102,6 @@ class SearchViewModel(
                 )
             }
         }
-
         val result = Pager(
             config = pagingConfig,
             pagingSourceFactory = {
@@ -160,7 +155,7 @@ class SearchViewModel(
                 pagingData.map { series -> series.toSeriesUiState() }
             }
 
-        (:: onUpdateSeriesSearch)(result)
+        (::onUpdateSeriesSearch)(result)
     }
 
     fun topResult(query: String) {
@@ -214,7 +209,7 @@ class SearchViewModel(
         }
     }
 
-    private fun onUpdateSeriesSearch(result: Flow<PagingData<SearchScreenState.SeriesUiState>>){
+    private fun onUpdateSeriesSearch(result: Flow<PagingData<SearchScreenState.SeriesUiState>>) {
         updateState { current ->
             current.copy(
                 filteredScreenUiState = current.filteredScreenUiState.copy(
