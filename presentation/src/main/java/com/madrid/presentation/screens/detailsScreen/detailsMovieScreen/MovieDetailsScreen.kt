@@ -17,27 +17,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.component.TopAppBar
 import com.madrid.designSystem.theme.Theme
+import com.madrid.designSystem.component.TextWithReadMore
 import com.madrid.presentation.component.BottomMediaActions
 import com.madrid.presentation.component.CastMember
 import com.madrid.presentation.component.TopCastSection
 import com.madrid.presentation.component.header.MovieDetailsHeader
 import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
+import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
 import org.koin.androidx.compose.koinViewModel
-
-data class MovieDetailsData(
-    val id: String,
-    val title: String,
-    val originalTitle: String,
-    val posterUrl: String,
-    val backdropUrl: String,
-    val genres: List<String>,
-    val rating: String,
-    val duration: String,
-    val releaseDate: String,
-    val description: String,
-    val castMembers: List<CastMember>
-)
 
 @Composable
 fun MovieDetailsScreen(
@@ -50,22 +38,25 @@ fun MovieDetailsScreen(
     onPlayClick: () -> Unit = {},
     onAddToListClick: (Boolean) -> Unit = {},
     onSeeAllCastClick: () -> Unit = {},
+    onSeeAllReviewsClick: () -> Unit = {},
+    onSeeAllSimilarMoviesClick: () -> Unit = {}
 ) {
     val uiState by viewModel.state.collectAsState()
 
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Theme.color.surfaces.onSurfaceVariant)
+            .background(Theme.color.surfaces.surfaceContainer)
     ) {
         MoviePosterDetailScreen(
             imageUrl = uiState.topImageUrl,
             modifier = Modifier.fillMaxSize()
         )
 
-        Box(modifier= Modifier.statusBarsPadding()){
+        Box(modifier = Modifier.statusBarsPadding()) {
             TopAppBar(null)
         }
+        
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -92,7 +83,8 @@ fun MovieDetailsScreen(
 
             TextWithReadMore(
                 description = uiState.description,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                maxLines = 3
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -108,54 +100,11 @@ fun MovieDetailsScreen(
             )
 
             Spacer(modifier = Modifier.height(32.dp))
+
+            ReviewScreen(
+                onSeeAllReviews = onSeeAllReviewsClick,
+                onSeeAllSimilarMovies = onSeeAllSimilarMoviesClick
+            )
         }
     }
 }
-
-@Composable
-fun TextWithReadMore(description: String, modifier: Modifier) {
-    TODO("Not yet implemented")
-}
-
-//@Preview(showBackground = true)
-//@Composable
-//fun MovieDetailsScreenPreview() {
-//    MovioTheme {
-//        MovieDetailsScreen(
-//            movieData = MovieDetailsData(
-//                id = "1",
-//                title = "Ballerina",
-//                originalTitle = "BALLERINA",
-//                posterUrl = "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg",
-//                backdropUrl = "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg",
-//                genres = listOf("Action", "Thriller", "Crime"),
-//                rating = "4.5",
-//                duration = "2h 5min",
-//                releaseDate = "06/06/2025",
-//                description = "Taking place during the events of John Wick: Chapter 3 – Parabellum, Eve Macarro begins her training in the assassin traditions of the Ruska Roma. Derek Kolstad :Characters , Len Wiseman:Director , Shay Hatten",
-//                castMembers = listOf(
-//                    CastMember(
-//                        id = "1",
-//                        name = "Ana de Armas",
-//                        imageUrl = "https://image.tmdb.org/t/p/w500/3vxvsmYLTf4jnr163SUlBIWX8qx.jpg"
-//                    ),
-//                    CastMember(
-//                        id = "2",
-//                        name = "Keanu Reeves",
-//                        imageUrl = "https://image.tmdb.org/t/p/w500/4D0PpNI0km5B9Gk7SZOo6hJxJ9P.jpg"
-//                    ),
-//                    CastMember(
-//                        id = "3",
-//                        name = "Ian McShane",
-//                        imageUrl = "https://image.tmdb.org/t/p/w500/9H7oVx4b6Z0j3EjLZN9mzcqcJjU.jpg"
-//                    ),
-//                    CastMember(
-//                        id = "4",
-//                        name = "Lance Reddick",
-//                        imageUrl = "https://image.tmdb.org/t/p/w500/8i6ZDkX1s6tB3iJ9uPxQqR6ZqJ9P.jpg"
-//                    )
-//                )
-//            )
-//        )
-//    }
-//}
