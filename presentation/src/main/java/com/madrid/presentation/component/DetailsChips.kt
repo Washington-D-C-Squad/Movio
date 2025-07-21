@@ -12,10 +12,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
+import com.madrid.presentation.R
 
 
 @Composable
@@ -30,7 +33,8 @@ fun DetailsChips(
             .background(
                 Theme.color.surfaces.surfaceContainer,
                 shape = RoundedCornerShape(32.dp)
-            )   .border(
+            )
+            .border(
                 width = 1.dp, color = Theme.color.surfaces.onSurfaceAt2,
                 shape = RoundedCornerShape(32.dp)
             )
@@ -52,4 +56,15 @@ fun DetailsChips(
             )
         }
     }
+}
+
+
+@Preview
+@Composable
+fun DetailsChipsPreview(modifier: Modifier = Modifier) {
+    DetailsChips(
+        icon = painterResource(R.drawable.icon_home),
+        iconTint = Theme.color.surfaces.onSurfaceVariant,
+        text = "drama",
+    )
 }

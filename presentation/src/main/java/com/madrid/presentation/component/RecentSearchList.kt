@@ -60,12 +60,12 @@ fun RecentSearchList(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 MovioText(
-                    text = "recent search " , // stringResource(id = DesignSystemR.string.recent_search),
+                    text = stringResource(R.string.recent_search) ,
                     textStyle = Theme.textStyle.headline.mediumMedium18,
                     color = Theme.color.surfaces.onSurface
                 )
                 MovioText(
-                    text = "clear all ", // stringResource(id = DesignSystemR.string.clear_all),
+                    text = stringResource(R.string.clear_all),
                     textStyle = Theme.textStyle.body.mediumMedium14,
                     color = Theme.color.surfaces.onSurfaceVariant,
                     modifier = Modifier.clickable { onClearAll() }
@@ -103,13 +103,11 @@ fun RecentSearchItem(
 
         MovioIcon(
             painter = painterResource(id = DesignSystemR.drawable.outline_clock_circle),
-            contentDescription = "description " , //stringResource(id = DesignSystemR.string.clock_content_description),
+            contentDescription = "description " ,
             tint = Theme.color.surfaces.onSurfaceVariant,
             modifier = Modifier.size(16.dp)
         )
-
         Spacer(modifier = Modifier.width(16.dp))
-
         MovioText(
             text = searchText,
             textStyle = Theme.textStyle.body.mediumMedium14,
@@ -123,39 +121,11 @@ fun RecentSearchItem(
             color = Theme.color.surfaces.surface
         ) {
             MovioIcon(
-                painter = painterResource(id = DesignSystemR.drawable.trash),
-                contentDescription = "delete content description" , //stringResource(id = DesignSystemR.string.delete_content_description),
+                painter = painterResource(id = DesignSystemR.drawable.outline_add),
+                contentDescription = "delete content description" ,
                 tint = Theme.color.surfaces.onSurfaceVariant,
                 modifier = Modifier.size(16.dp)
             )
         }
-    }
-}
-
-@Composable
-fun RecentSearchHeader(
-    modifier: Modifier = Modifier,
-    onClearAll: () -> Unit = {}
-) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(19.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        MovioText(
-            text = stringResource(id = R.string.recent_search),
-            textStyle = Theme.textStyle.title.mediumMedium16,
-            color = Theme.color.surfaces.onSurface
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        MovioText(
-            text = stringResource(id = R.string.clear_all),
-            textStyle = Theme.textStyle.label.smallRegular14,
-            color = Theme.color.surfaces.onSurfaceVariant,
-            modifier = Modifier.Companion
-                .clip(RoundedCornerShape(16.dp))
-                .clickable { onClearAll() }
-        )
     }
 }

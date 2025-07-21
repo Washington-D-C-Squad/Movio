@@ -200,7 +200,7 @@ fun ContentSearchScreen(
                     onSearchQueryChange(it)
                     showRecentSearch = 1
                 },
-                hintText = stringResource(com.madrid.presentation.R.string.search),
+                hintText = stringResource(com.madrid.presentation.R.string.searchdot),
                 startIconPainter = painterResource(R.drawable.search_normal),
                 endIconPainter = painterResource(R.drawable.outline_add),
                 modifier = Modifier

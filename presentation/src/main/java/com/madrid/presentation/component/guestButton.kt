@@ -21,8 +21,6 @@ fun GuestButton(
     text: String = stringResource(R.string.continue_as_a_guest),
     onClick: () -> Unit,
 ) {
-
-
     MovioButton(
         modifier = modifier
             .padding(horizontal = 16.dp)
