@@ -28,6 +28,7 @@ fun ReviewCard(
     Column(
         modifier = Modifier
             .width(258.dp)
+            .height(137.dp)
             .background(
                 color = Theme.color.surfaces.surfaceContainer,
                 shape = RoundedCornerShape(12.dp)

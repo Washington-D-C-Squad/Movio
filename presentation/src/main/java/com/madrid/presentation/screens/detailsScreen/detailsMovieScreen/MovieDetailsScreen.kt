@@ -22,6 +22,7 @@ import com.madrid.presentation.component.CastMember
 import com.madrid.presentation.component.TopCastSection
 import com.madrid.presentation.component.header.MovieDetailsHeader
 import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
+import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -36,22 +37,25 @@ fun MovieDetailsScreen(
     onPlayClick: () -> Unit = {},
     onAddToListClick: (Boolean) -> Unit = {},
     onSeeAllCastClick: () -> Unit = {},
+    onSeeAllReviewsClick: () -> Unit = {},
+    onSeeAllSimilarMoviesClick: () -> Unit = {}
 ) {
     val uiState by viewModel.state.collectAsState()
 
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Theme.color.surfaces.onSurfaceVariant)
+            .background(Theme.color.surfaces.surfaceContainer)
     ) {
         MoviePosterDetailScreen(
             imageUrl = uiState.topImageUrl,
             modifier = Modifier.fillMaxSize()
         )
 
-        Box(modifier= Modifier.statusBarsPadding()){
+        Box(modifier = Modifier.statusBarsPadding()) {
             TopAppBar(null)
         }
+        
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -94,6 +98,11 @@ fun MovieDetailsScreen(
             )
 
             Spacer(modifier = Modifier.height(32.dp))
+
+            ReviewScreen(
+                onSeeAllReviews = onSeeAllReviewsClick,
+                onSeeAllSimilarMovies = onSeeAllSimilarMoviesClick
+            )
         }
     }
 }
