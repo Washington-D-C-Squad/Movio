@@ -16,6 +16,7 @@ import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.R
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
+import com.madrid.detectImageContent.FilteredImage
 
 @Composable
 fun ReviewCard(
@@ -44,8 +45,8 @@ fun ReviewCard(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            AsyncImage(
-                model = reviewerImageUrl,
+            FilteredImage(
+                imageUrl = reviewerImageUrl,
                 contentDescription = null,
                 modifier = Modifier
                     .clip(CircleShape)

@@ -68,7 +68,6 @@ fun SimilarMoviesSection(
     )
 
     Column(modifier = modifier) {
-        // Header
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -90,7 +89,6 @@ fun SimilarMoviesSection(
             )
         }
 
-        // Horizontal list of movies
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             contentPadding = PaddingValues(horizontal = 16.dp),
@@ -130,7 +128,6 @@ private fun MovieCard(
                 modifier = Modifier.fillMaxWidth()
             )
             
-            // Rating badge
             Box(
                 modifier = Modifier
                     .padding(8.dp)
