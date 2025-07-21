@@ -94,17 +94,3 @@ fun MovieDetailsNavigationHeader(
         }
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun MovieDetailsNavigationHeaderPreview() {
-    MovioTheme {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.Black)
-        ) {
-            MovieDetailsNavigationHeader()
-        }
-    }
-} 

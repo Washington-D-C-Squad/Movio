@@ -1,13 +1,18 @@
 package com.madrid.presentation.component.header
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -72,7 +77,27 @@ fun MovieDetailsHeader(
 
 @Composable
 fun Chips(icon: Painter, iconTint: Color, text: String) {
-    TODO("Not yet implemented")
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .background(
+                color = Theme.color.surfaces.surfaceContainer,
+                shape = RoundedCornerShape(16.dp)
+            )
+            .padding(horizontal = 8.dp, vertical = 4.dp)
+    ) {
+        Image(
+            painter = icon,
+            contentDescription = null, // Consider passing a11y description if needed
+            modifier = Modifier.padding(end = 4.dp).size(16.dp),
+            colorFilter = ColorFilter.tint(iconTint)
+        )
+        MovioText(
+            text = text,
+            color = Theme.color.surfaces.onSurfaceVariant,
+            textStyle = Theme.textStyle.label.smallRegular14
+        )
+    }
 }
 
 @Preview(showBackground = true)
