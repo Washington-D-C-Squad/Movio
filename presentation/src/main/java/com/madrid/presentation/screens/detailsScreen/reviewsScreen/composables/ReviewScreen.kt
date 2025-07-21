@@ -24,21 +24,18 @@ fun ReviewScreen(
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
-        // Reviews Section Header
         SectionHeader(
             title = "Reviews",
             onSeeAllClick = onSeeAllReviews
         )
         Spacer(modifier = Modifier.height(16.dp))
-        // Reviews list
         Row(
             modifier = Modifier
                 .horizontalScroll(rememberScrollState())
                 .padding(start = 16.dp, end = 16.dp)
-                .height(137.dp), // Figma: 137dp height
-            horizontalArrangement = Arrangement.spacedBy(16.dp) // Figma: 16dp gap
+                .height(137.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // First review
             ReviewCard(
                 reviewerName = "Awkwafina",
                 reviewerImageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
@@ -46,7 +43,6 @@ fun ReviewScreen(
                 date = "June 14, 2025",
                 content = "This isn't a film, it's a live action video game with a predictable plot and loads of energetically choreographed CGI to substitute for anything vaguely akin to emotion."
             )
-            // Second review
             ReviewCard(
                 reviewerName = "Cindy",
                 reviewerImageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
@@ -55,14 +51,6 @@ fun ReviewScreen(
                 content = "Halle Bailey performance is a passion, it shines in her voice, in her..."
             )
         }
-        Spacer(modifier = Modifier.height(32.dp))
-        // Similar Movies Section
-        SectionHeader(
-            title = "Similar Movies",
-            onSeeAllClick = onSeeAllSimilarMovies
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        SimilarMoviesSection()
     }
 }
 
