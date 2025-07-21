@@ -1,40 +1,40 @@
 package com.madrid.data.dataSource.remote.response.movie
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class MovieCreditsResponse(
-    @SerialName("id")
+    @SerializedName("id")
     val id: Int?,
-    @SerialName("cast")
+    @SerializedName("cast")
     val castNetwork: List<CastNetwork>?,
 )
 
 @Serializable
 data class CastNetwork(
-    @SerialName("adult")
+    @SerializedName("adult")
     val adult: Boolean?,
-    @SerialName("gender")
+    @SerializedName("gender")
     val gender: Int?,
-    @SerialName("id")
+    @SerializedName("id")
     val id: Int?,
-    @SerialName("known_for_department")
+    @SerializedName("known_for_department")
     val knownForDepartment: String?,
-    @SerialName("name")
+    @SerializedName("name")
     val name: String?,
-    @SerialName("original_name")
+    @SerializedName("original_name")
     val originalName: String?,
-    @SerialName("popularity")
+    @SerializedName("popularity")
     val popularity: Double?,
-    @SerialName("profile_path")
+    @SerializedName("profile_path")
     val profilePath: String?,
-    @SerialName("cast_id")
+    @SerializedName("cast_id")
     val castId: Int?,
-    @SerialName("character")
+    @SerializedName("character")
     val character: String?,
-    @SerialName("credit_id")
+    @SerializedName("credit_id")
     val creditId: String?,
-    @SerialName("order")
+    @SerializedName("order")
     val order: Int?
 )
