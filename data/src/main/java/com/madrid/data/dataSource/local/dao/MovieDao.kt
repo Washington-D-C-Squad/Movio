@@ -5,8 +5,10 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import com.madrid.data.dataSource.local.entity.MovieEntity
+import com.madrid.data.dataSource.local.entity.relationship.MovieWithCategories
 
 @Dao
 interface MovieDao {
@@ -20,7 +22,7 @@ interface MovieDao {
     @Update
     suspend fun updateMovie(movie: MovieEntity)
 
-    @Query("SELECT * FROM MOVIE_TABLE WHERE id = :id")
+    @Query("SELECT * FROM MOVIE_TABLE WHERE movieId = :id")
     fun getMovieById(id: Int): MovieEntity?
 
     @Query("SELECT * FROM MOVIE_TABLE WHERE title LIKE :title LIMIT 20")
@@ -34,4 +36,8 @@ interface MovieDao {
 
     @Query("DELETE FROM MOVIE_TABLE")
     suspend fun deleteAllMovies()
+
+    @Transaction
+    @Query("SELECT * FROM MOVIE_TABLE WHERE movieId = :id")
+    fun getPlaylistsWithSongs(id : Int): List<MovieWithCategories>
 }
