@@ -59,14 +59,8 @@ dependencies {
     implementation(project(":domain"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.okhttp)
-    implementation(libs.ktor.client.content.negotiation)
-    implementation(libs.ktor.client.cio)
-    implementation(libs.ktor.client.logging)
-    implementation(libs.ktor.client.logging.jvm)
+
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.kotlinx.datetime)
     
     // Room Database - Version 2.7.2

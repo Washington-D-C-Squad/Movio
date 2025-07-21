@@ -5,10 +5,6 @@ import com.madrid.data.dataSource.remote.MovieApi
 import com.madrid.data.dataSource.remote.MovieInterceptor
 import com.madrid.data.repositories.remote.RemoteDataSource
 import com.madrid.data.dataSource.remote.RemoteDataSourceImpl
-import io.ktor.client.HttpClientConfig
-import io.ktor.client.engine.HttpClientEngine
-import io.ktor.client.engine.cio.CIO
-import io.ktor.client.engine.cio.CIOEngineConfig
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -40,6 +36,4 @@ val roomModule = module {
     }
     single<RemoteDataSource> { RemoteDataSourceImpl(get()) }
     single { Json { ignoreUnknownKeys = true } }
-    single<HttpClientEngine> { CIO.create() }
-    single<HttpClientConfig<CIOEngineConfig>> { HttpClientConfig() }
 }
