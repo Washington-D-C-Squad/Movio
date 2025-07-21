@@ -2,10 +2,9 @@ package com.madrid.data.dataSource.local.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Upsert
 import com.madrid.data.dataSource.local.entity.CategoryEntity
 import com.madrid.data.dataSource.local.entity.relationship.CategoryWithMovies
 
@@ -13,7 +12,7 @@ import com.madrid.data.dataSource.local.entity.relationship.CategoryWithMovies
 @Dao
 interface CategoryDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Upsert
     suspend fun insertCategory(category: CategoryEntity)
 
     @Delete

@@ -2,14 +2,14 @@ package com.madrid.data.dataSource.local.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
-import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Upsert
 import com.madrid.data.dataSource.local.entity.ArtistEntity
 
 @Dao
 interface ArtistDao {
 
-    @Insert
+    @Upsert
     suspend fun insertArtist(artist: ArtistEntity)
 
     @Delete

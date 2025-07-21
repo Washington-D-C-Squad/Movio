@@ -2,15 +2,14 @@ package com.madrid.data.dataSource.local.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Upsert
 import com.madrid.data.dataSource.local.entity.SeriesEntity
 
 @Dao
 interface SeriesDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Upsert
     suspend fun insertSeries(series: SeriesEntity)
 
     @Delete
