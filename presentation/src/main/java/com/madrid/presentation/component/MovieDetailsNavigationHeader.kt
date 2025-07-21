@@ -6,10 +6,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,9 +19,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.madrid.designSystem.R
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.theme.MovioTheme
-import com.madrid.designsystem.R
 
 @Composable
 fun MovieDetailsNavigationHeader(
@@ -45,10 +43,6 @@ fun MovieDetailsNavigationHeader(
             Box(
                 modifier = Modifier
                     .size(40.dp)
-                    .background(
-                        color = Color.Black.copy(alpha = 0.3f),
-                        shape = CircleShape
-                    )
                     .clickable { onBackClick() },
                 contentAlignment = Alignment.Center
             ) {
@@ -65,15 +59,11 @@ fun MovieDetailsNavigationHeader(
             Box(
                 modifier = Modifier
                     .size(40.dp)
-                    .background(
-                        color = Color.Black.copy(alpha = 0.3f),
-                        shape = CircleShape
-                    )
                     .clickable { onShareClick() },
                 contentAlignment = Alignment.Center
             ) {
                 MovioIcon(
-                    painter = painterResource(R.drawable.outline_share),
+                    painter = painterResource(R.drawable.share_arrow),
                     contentDescription = "Share",
                     tint = Color.White,
                     modifier = Modifier.size(24.dp)
@@ -85,11 +75,7 @@ fun MovieDetailsNavigationHeader(
             Box(
                 modifier = Modifier
                     .size(40.dp)
-                    .background(
-                        color = Color.Black.copy(alpha = 0.3f),
-                        shape = CircleShape
-                    )
-                    .clickable { 
+                    .clickable {
                         isLiked = !isLiked
                         onHeartClick()
                     },
