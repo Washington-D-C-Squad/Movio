@@ -100,7 +100,6 @@ fun SearchScreen(
         onClickSeeAll = {
             navController.navigate(Destinations.SeeAllForYouScreen)
         },
-        viewModel = viewModel
     )
     uiState.searchUiState.errorMessage?.let { errorMsg ->
         LaunchedEffect(errorMsg) {
@@ -149,7 +148,6 @@ fun ContentSearchScreen(
     onClearAll: () -> Unit,
     isLoading: Boolean = false,
     onClickSeeAll: () -> Unit,
-    viewModel:SearchViewModel
 ) {
     val showSearchResults = searchQuery.isNotBlank()
     var typeOfFilterSearch by remember { mutableStateOf("topRated") }
@@ -199,7 +197,7 @@ fun ContentSearchScreen(
                     .fillMaxWidth()
                     .clickable { onSearchBarClick() }
                     .padding(top = 16.dp),
-                onClickEndIcon = { onSearchQueryChange("")}
+                onClickEndIcon = { onSearchQueryChange("") }
             )
         }
 
