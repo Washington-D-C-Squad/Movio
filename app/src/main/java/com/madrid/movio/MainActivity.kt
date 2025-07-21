@@ -58,7 +58,7 @@ fun MovieDetailsScreenPreview() {
         modifier = Modifier
             .verticalScroll(rememberScrollState())
             .fillMaxSize()
-            .background(Theme.color.surfaces.onSurfaceVariant)
+            .background(Theme.color.surfaces.surfaceContainer)
     ) {
         MoviePosterDetailScreen(
             imageUrl = "https://image.tmdb.org/t/p/original/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg",
@@ -114,6 +114,7 @@ fun MovieDetailsScreenPreview() {
             )
 
             Spacer(modifier = Modifier.height(32.dp))
+            
         }
     }
 }
