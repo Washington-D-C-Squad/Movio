@@ -20,6 +20,7 @@ import com.madrid.presentation.screens.searchScreen.paging.SearchArtistPagingSou
 import com.madrid.presentation.screens.searchScreen.paging.SearchMoviePagingSource
 import com.madrid.presentation.screens.searchScreen.paging.SearchSeriesPagingSource
 import com.madrid.presentation.viewModel.base.BaseViewModel
+import com.madrid.presentation.viewModel.effect.SearchScreenEffect
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -31,41 +32,34 @@ class SearchViewModel(
     private val artistUseCase: ArtistUseCase,
     private val movieUseCase: MovieUseCase,
     private val seriesUseCase: SeriesUseCase,
-
     private val preferredMediaUseCase: PreferredMediaUseCase,
     private val getRecommendedMovieUseCase: GetRecommendedMovieUseCase,
     private val getExploreMoreMovieUseCase: GetExploreMoreMovieUseCase,
-    override val recentSearchUseCase: RecentSearchUseCase,
+    private val recentSearchUseCase: RecentSearchUseCase,
     private val trendingMediaUseCase: TrendingMediaUseCase,
-) : BaseViewModel<SearchScreenState>(
+) : BaseViewModel<SearchScreenState, SearchScreenEffect>(
     SearchScreenState()
 ) {
-    init {
 
+    init {
         loadRecentSearches()
         loadInitialData()
     }
 
-
     private fun loadRecentSearches() {
-
-        viewModelScope.launch {
-            tryToExecute(
-                function = { recentSearchUseCase.getRecentSearches() },
-                onSuccess = { result ->
-                    updateState {
-                        it.copy(
-                            recentSearchUiState = result
-                        )
-                    }
-                },
-                onError = { },
-                scope = viewModelScope,
-                dispatcher = Dispatchers.IO
-            )
-
-        }
-
+        tryToExecute(
+            function = { recentSearchUseCase.getRecentSearches() },
+            onSuccess = { result ->
+                updateState {
+                    it.copy(
+                        recentSearchUiState = result
+                    )
+                }
+            },
+            onError = { },
+            scope = viewModelScope,
+            dispatcher = Dispatchers.IO
+        )
     }
 
     fun addRecentSearch(recentSearch: String) {
@@ -222,14 +216,13 @@ class SearchViewModel(
         )
     }
 
-    override fun onSearchSubmit() {
-        val query = searchQuery.value.trim()
-        if (query.isNotBlank()) {
-            addToRecentSearches(query)
-            _searchQuery.value = ""
-        }
-    }
-
+//    override fun onSearchSubmit() {
+//        val query = searchQuery.value.trim()
+//        if (query.isNotBlank()) {
+//            addToRecentSearches(query)
+//            _searchQuery.value = ""
+//        }
+//    }
 
     fun searchFilteredMovies(query: String) {
         val result = Pager(
@@ -263,7 +256,6 @@ class SearchViewModel(
             )
         }
     }
-
 
     fun searchSeries(query: String) {
         val result = Pager(
@@ -358,7 +350,6 @@ class SearchViewModel(
                     )
                 }
             }
-
         updateState { current ->
             current.copy(
                 filteredScreenUiState = current.filteredScreenUiState.copy(
@@ -368,8 +359,4 @@ class SearchViewModel(
             )
         }
     }
-    
 }
-
-
-

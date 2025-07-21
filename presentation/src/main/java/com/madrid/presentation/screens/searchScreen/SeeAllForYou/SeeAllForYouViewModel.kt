@@ -10,16 +10,14 @@ import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import com.madrid.presentation.screens.searchScreen.paging.ForYouPagingSource
 import com.madrid.presentation.viewModel.searchViewModel.SearchScreenState
 import com.madrid.presentation.viewModel.base.BaseViewModel
+import com.madrid.presentation.viewModel.effect.SearchScreenEffect
 import kotlinx.coroutines.flow.map
 
-class SeeAllForYouViewModel (
-    private val recentSearchUseCasee: RecentSearchUseCase,
-    private val getRecommendedMovieUseCase : GetRecommendedMovieUseCase
-): BaseViewModel<SeeAllForYouUIState>(
+class SeeAllForYouViewModel(
+    private val getRecommendedMovieUseCase: GetRecommendedMovieUseCase
+) : BaseViewModel<SeeAllForYouUIState, SearchScreenEffect>(
     SeeAllForYouUIState()
-){
-    override val recentSearchUseCase: RecentSearchUseCase
-        get() = recentSearchUseCasee
+) {
 
     init {
         loadInitialData()
@@ -57,7 +55,7 @@ class SeeAllForYouViewModel (
         updateState { current ->
             current.copy(
                 isLoading = false,
-                forYouMovies = result ,
+                forYouMovies = result,
             )
         }
 
