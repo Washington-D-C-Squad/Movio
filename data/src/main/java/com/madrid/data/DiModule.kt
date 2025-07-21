@@ -40,7 +40,6 @@ val roomModule = module {
     }
     single<RemoteDataSource> { RemoteDataSourceImpl(get()) }
     single { Json { ignoreUnknownKeys = true } }
-    single { CustomHttpClient() }
     single<HttpClientEngine> { CIO.create() }
     single<HttpClientConfig<CIOEngineConfig>> { HttpClientConfig() }
 }
