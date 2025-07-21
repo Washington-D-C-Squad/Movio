@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -27,6 +28,10 @@ import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.designSystem.theme.Theme
 import com.madrid.detectImageContent.FilteredImage
+import androidx.compose.ui.res.stringResource
+import com.madrid.presentation.R
+import androidx.compose.ui.res.painterResource
+import com.madrid.designSystem.component.MovioIcon
 
 data class SimilarMovie(
     val id: Int,
@@ -78,7 +83,7 @@ fun SimilarMoviesSection(
             )
             
             MovioText(
-                text = "See all",
+                text = stringResource(id = R.string.see_all),
                 color = Theme.color.surfaces.onSurfaceVariant,
                 textStyle = Theme.textStyle.label.smallRegular14,
                 modifier = Modifier.clickable(onClick = onSeeAllClick)
@@ -138,10 +143,11 @@ private fun MovieCard(
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    MovioText(
-                        text = "★",
-                        color = Theme.color.system.warning,
-                        textStyle = Theme.textStyle.label.smallRegular12
+                    MovioIcon(
+                        painter = painterResource(id = com.madrid.designSystem.R.drawable.bold_star),
+                        contentDescription = null,
+                        modifier = Modifier.size(12.dp),
+                        tint = Theme.color.system.warning
                     )
                     MovioText(
                         text = movie.rating.toString(),

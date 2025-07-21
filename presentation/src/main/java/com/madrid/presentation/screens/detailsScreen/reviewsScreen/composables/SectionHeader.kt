@@ -12,11 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.R
 import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.designSystem.theme.Theme
 import androidx.compose.foundation.Image
+import androidx.compose.ui.res.stringResource
+import com.madrid.designSystem.R
 
 @Composable
 fun SectionHeader(
@@ -43,13 +44,13 @@ fun SectionHeader(
             verticalAlignment = Alignment.CenterVertically
         ) {
             MovioText(
-                text = "See all",
+                text = stringResource(id = com.madrid.presentation.R.string.see_all),
                 color = Theme.color.surfaces.onSurfaceVariant,
                 textStyle = Theme.textStyle.label.smallRegular14
             )
             Image(
                 painter = painterResource(id = R.drawable.outline_alt_arrow_left),
-                contentDescription = "See all",
+                contentDescription = stringResource(id = com.madrid.presentation.R.string.see_all),
                 modifier = Modifier.size(16.dp)
             )
         }

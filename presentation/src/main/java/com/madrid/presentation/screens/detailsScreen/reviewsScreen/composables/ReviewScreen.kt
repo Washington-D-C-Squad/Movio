@@ -15,6 +15,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMoviesSection
+import androidx.compose.ui.res.stringResource
+import com.madrid.presentation.R
 
 @Composable
 fun ReviewScreen(
@@ -25,7 +27,7 @@ fun ReviewScreen(
         modifier = Modifier.fillMaxWidth()
     ) {
         SectionHeader(
-            title = "Reviews",
+            title = stringResource(id = R.string.reviews),
             onSeeAllClick = onSeeAllReviews
         )
         Spacer(modifier = Modifier.height(16.dp))
