@@ -25,11 +25,10 @@ class SearchRepositoryImpl(
 
     override suspend fun getMovieByQuery(query: String, page: Int): List<Movie> {
         val result = localSource.searchMovieByQueryFromDB(query)
-        return if (result.isEmpty()) {
+        return if (result.size < 7) {
             val movie = remoteDataSource.searchMoviesByQuery(
                 name = query,
                 page = page
-
             ).movieResults?.map {
                 it.toMovie()
             }
@@ -42,12 +41,11 @@ class SearchRepositoryImpl(
                 it.toMovie()
             }
         }
-
     }
 
     override suspend fun getSeriesByQuery(query: String, page: Int): List<Series> {
         val result = localSource.searchSeriesByQueryFromDB(query)
-        if (result.isEmpty()) {
+        if (result.size < 7) {
             val remoteData = remoteDataSource.searchSeriesByQuery(
                 name = query,
                 page = page
@@ -63,7 +61,7 @@ class SearchRepositoryImpl(
 
     override suspend fun getArtistByQuery(query: String, page: Int): List<Artist> {
         val result = localSource.searchArtistByQueryFromDB(query)
-        if (result.isEmpty()) {
+        if (result.size < 7) {
             val remoteData = remoteDataSource.searchArtistByQuery(
                 name = query,
                 page = page
@@ -72,7 +70,6 @@ class SearchRepositoryImpl(
             }
             remoteData?.map {
                 localSource.insertArtist(it.toArtistEntity())
-
             }
         }
         return localSource.searchArtistByQueryFromDB(query).map {
