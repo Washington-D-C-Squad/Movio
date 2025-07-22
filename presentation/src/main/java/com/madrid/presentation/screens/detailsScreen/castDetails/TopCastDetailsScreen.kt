@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.TopAppBar
 import com.madrid.designSystem.theme.MovioTheme
@@ -28,19 +29,27 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun TopCastDetailsScreen(
     movieId: String,
+    navController: NavHostController,
     viewModel: MovieDetailsViewModel = koinViewModel(),
 ) {
     val uiState by viewModel.state.collectAsState()
-    TopCastDetailsContent(artist = uiState.cast)
+
 
     LaunchedEffect(Unit) {
         viewModel.loadCast(movieId)
     }
+
+    TopCastDetailsContent(
+        artist = uiState.cast,
+        navController = navController
+    )
+
 }
 
 @Composable
 fun TopCastDetailsContent(
-    artist: List<MovieDetailsUiState.CastUiState>
+    artist: List<MovieDetailsUiState.CastUiState>,
+    navController: NavHostController
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 101.dp),
@@ -56,24 +65,18 @@ fun TopCastDetailsContent(
             span = { GridItemSpan(maxLineSpan) }
         ) {
             TopAppBar(stringResource(R.string.top_cast), secondIcon = null, thirdIcon = null)
+
         }
-        items(
-            count = artist.size,
-        ) { index ->
+        items(artist.size) { castMember ->
             MovioArtistsCard(
-                artistsName = artist[index].name,
-                imageUrl = artist[index].imageUrl,
-                onClick = { }
+                artistsName = artist[castMember].actorName,
+                imageUrl = artist[castMember].actorImageUrl,
+                onClick = {
+                    navController.navigate("actor_details/${artist[castMember].id}")
+                }
             )
         }
-    }
-}
 
-
-@Preview
-@Composable
-private fun TopCastDetailsScreenPreview(modifier: Modifier = Modifier) {
-    MovioTheme {
-        TopCastDetailsScreen("1")
     }
+
 }
