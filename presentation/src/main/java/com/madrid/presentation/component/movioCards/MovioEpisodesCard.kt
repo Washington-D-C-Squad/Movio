@@ -1,5 +1,6 @@
 package com.madrid.presentation.component.movioCards
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -62,7 +63,7 @@ fun MovioEpisodesCard(
             )
         }
         FrameEpisodeCard(
-            modifier = modifier
+            modifier = Modifier
                 .weight(1f),
             movieTitle = movieTitle,
             movieRate = movieRate,
@@ -79,7 +80,7 @@ private fun FrameEpisodeCard(
     currentMovieEpisode: String,
     movieTime: String,
     modifier: Modifier = Modifier,
-){
+) {
     Column(
         modifier = modifier
             .padding(top = 15.dp, bottom = 15.dp, start = 8.dp, end = 8.dp),
@@ -121,17 +122,28 @@ private fun FrameEpisodeCard(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun EpisodesCardPreview() {
     MovioTheme {
         MovioEpisodesCard(
-            movieTitle = "Spider-Man: Homecoming",
-            movieImageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
-            movieRate = "3.0",
+            modifier = Modifier.padding(top = 50.dp),
+            movieTitle = "Unimatrix Zero",
+            movieRate = "9",
             currentMovieEpisode = "Episode 01",
-            movieTime = "44 m",
-            onClick = {}
+            movieTime = "44m",
+            movieImageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
+            onClick = { },
         )
     }
 }
+
+//MovioEpisodesCard(
+//modifier = Modifier.padding(top = 20.dp),
+//movieTitle = "Unimatrix Zero",
+//movieRate = "9",
+//currentMovieEpisode = "Episode 01",
+//movieTime = "44m",
+//movieImageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
+//onClick = { },
+//)
