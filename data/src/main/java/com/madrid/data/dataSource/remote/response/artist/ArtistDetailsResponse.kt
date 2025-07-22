@@ -1,36 +1,36 @@
 package com.madrid.data.dataSource.remote.response.artist
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class ArtistDetailsResponse(
-    @SerialName("adult")
+    @SerializedName("adult")
     val adult: Boolean? = null,
-    @SerialName("also_known_as")
+    @SerializedName("also_known_as")
     val nickName: List<String>? = null,
-    @SerialName("biography")
+    @SerializedName("biography")
     val biography: String? = null,
-    @SerialName("birthday")
+    @SerializedName("birthday")
     val birthDay: String? = null,
-    @SerialName("deathday")
+    @SerializedName("deathday")
     val deathDay: String? = null,
-    @SerialName("gender")
+    @SerializedName("gender")
     val gender: Int? = null,
-    @SerialName("homepage")
+    @SerializedName("homepage")
     val homePage: String? = null,
-    @SerialName("id")
+    @SerializedName("id")
     val id: Int? = null,
-    @SerialName("imdb_id")
+    @SerializedName("imdb_id")
     val imdbId: String? = null,
-    @SerialName("known_for_department")
+    @SerializedName("known_for_department")
     val role: String? = null,
-    @SerialName("name")
+    @SerializedName("name")
     val name: String? = null,
-    @SerialName("place_of_birth")
+    @SerializedName("place_of_birth")
     val placeOfBirth: String? = null,
-    @SerialName("popularity")
+    @SerializedName("popularity")
     val popularity: Double? = null,
-    @SerialName("profile_path")
+    @SerializedName("profile_path")
     val profilePath: String? = null
 )

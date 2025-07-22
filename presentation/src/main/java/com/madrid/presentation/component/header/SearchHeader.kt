@@ -22,6 +22,7 @@ import com.madrid.designSystem.component.MovioButton
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.ui.res.stringResource
 import com.madrid.designSystem.R
 import com.madrid.designSystem.theme.MovioTheme
 
@@ -37,7 +38,7 @@ fun SearchHeader(
             .padding(horizontal = 20.dp, vertical = 16.dp)
     ) {
         MovioText(
-            text = "Search",
+            text = stringResource(com.madrid.presentation.R.string.search),
             textStyle = Theme.textStyle.headline.largeBold18,
             color = Theme.color.surfaces.onSurface,
             modifier = Modifier.padding(bottom = 8.dp)
@@ -48,13 +49,13 @@ fun SearchHeader(
                 .fillMaxWidth()
                 .background(
                     Theme.color.surfaces.surfaceVariant,
-                    RoundedCornerShape(24.dp)
+                    RoundedCornerShape(8.dp)
                 )
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
             MovioIcon(
                 painter = painterResource(id = R.drawable.outline_clock_circle),
-                contentDescription ="search content description",// stringResource(id = DesignSystemR.string.search_content_description),
+                contentDescription = stringResource(com.madrid.presentation.R.string.search_content_description),
                 tint = Theme.color.surfaces.onSurfaceVariant,
                 modifier = Modifier.size(20.dp)
             )
@@ -74,8 +75,8 @@ fun SearchHeader(
                 decorationBox = { innerTextField ->
                     if (searchQuery.isEmpty()) {
                         MovioText(
-                            text = "Search",
-                            textStyle = Theme.textStyle.body.mediumMedium14,
+                            text = stringResource(com.madrid.presentation.R.string.search),
+                            textStyle = Theme.textStyle.label.smallRegular14 ,
                             color = Theme.color.surfaces.onSurfaceVariant
                         )
                     }
@@ -88,8 +89,8 @@ fun SearchHeader(
                 color = Theme.color.surfaces.surfaceVariant
             ) {
                 MovioIcon(
-                    painter = painterResource(id = R.drawable.trash),
-                    contentDescription = "clear content description ",//stringResource(id = DesignSystemR.string.clear_content_description),
+                    painter = painterResource(id = R.drawable.outline_add),
+                    contentDescription = "clear content description ",
                     tint = Theme.color.surfaces.onSurfaceVariant,
                     modifier = Modifier.size(20.dp)
                 )
@@ -100,7 +101,7 @@ fun SearchHeader(
 
 
 @Composable
-private fun SearchHeaderPreview(modifier: Modifier = Modifier) {
+private fun SearchHeaderPreview() {
     MovioTheme {
         SearchHeader(
             searchQuery = "",

@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,9 +16,18 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.madrid.designSystem.component.MovioButton
+import com.madrid.designSystem.component.MovioIcon
+import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
+import com.madrid.designSystem.theme.Theme
+import com.madrid.presentation.R
+import com.madrid.designSystem.R as DesignSystemR
 import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.R
@@ -84,30 +92,10 @@ fun RecentSearchList(
 
 
 
+@Preview(showBackground = true)
 @Composable
-fun RecentSearchHeader(
-    modifier: Modifier = Modifier,
-    onClearAll: () -> Unit = {}
-) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(19.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        MovioText(
-            text = stringResource(id = R.string.recent_search),
-            textStyle = Theme.textStyle.title.mediumMedium16,
-            color = Theme.color.surfaces.onSurface
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        MovioText(
-            text = stringResource(id = R.string.clear_all),
-            textStyle = Theme.textStyle.label.smallRegular14,
-            color = Theme.color.surfaces.onSurfaceVariant,
-            modifier = Modifier
-                .clip(RoundedCornerShape(16.dp))
-                .clickable { onClearAll() }
-        )
+private fun RecentSearchListPreview() {
+    MovioTheme {
+        RecentSearchList()
     }
 }

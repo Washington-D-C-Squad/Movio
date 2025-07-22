@@ -39,16 +39,12 @@ fun MovioNavHost(navController: NavHostController) {
             SearchScreen()
         }
         composable<Destinations.HomeScreen> {
-            FakeHomeScreen()
+            FakeHomeScreen(
+
+            )
         }
         composable<Destinations.MovieDetailsScreen> { backStackEntry ->
-//            val movieId = backStackEntry.arguments?.getString("movieId") ?: "1"
-//            // Using demo screen for testing
-//            com.madrid.presentation.screens.MovieDetailsDemoScreen(
-//                modifier = Modifier.fillMaxSize()
-//            )
             MovieDetailsScreen()
-//            DetailsScreen()
         }
         composable<Destinations.SeriesDetailsScreen> {
             //call SeriesDetailsScreen()
