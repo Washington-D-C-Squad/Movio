@@ -1,5 +1,6 @@
 package com.madrid.presentation.screens.searchScreen.features.recentSearchLayout
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -27,6 +28,7 @@ fun LazyGridScope.forYouAndExploreScreen(
     onExploreClick: ( LazyPagingItems<SearchScreenState.MovieUiState>) -> Unit = {},
     onClickSeeAll :()->Unit
 ) {
+    Log.d("booob", " in EpisodesScreen: for youu AAAA")
     if (!showSearchResults && !isLoading) {
         item(
             span = { GridItemSpan(maxLineSpan) }
@@ -47,6 +49,7 @@ fun LazyGridScope.forYouAndExploreScreen(
                 modifier = Modifier
                     .height(234.dp),
             ) {
+                Log.d("booob", " in EpisodesScreen: for mediaaa")
                 items(forYouMovies.shuffled()) { movie ->
                     MovioVerticalCard(
                         description = movie.title,

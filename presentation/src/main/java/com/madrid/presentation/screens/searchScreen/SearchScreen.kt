@@ -96,7 +96,9 @@ fun SearchScreen(
 //            viewModel.searchMovies(query)
         },
         onMovieClick = { movie ->
+            Log.d("booob", " in EpisodesScreen: for youuy")
             navController.navigate(Destinations.MovieDetailsScreen(movie.id.toInt()))
+            Log.d("booob", " in EpisodesScreen: for youu after")
             // Navigate to the required Screen --> navController.navigate(Destinations.MovieDetailsScreen)
         },
         isLoading = uiState.searchUiState.isLoading,
@@ -157,6 +159,7 @@ fun ContentSearchScreen(
     onClickSeeAll: () -> Unit,
 ) {
 
+    val navController = LocalNavController.current
 
     val showSearchResults = searchQuery.isNotBlank()
     var typeOfFilterSearch by remember { mutableStateOf("topRated") }
@@ -207,7 +210,7 @@ fun ContentSearchScreen(
                     .fillMaxWidth()
                     .clickable { onSearchBarClick() }
                     .padding(top = 16.dp),
-                onClickEndIcon = { onSearchQueryChange("")}
+                onClickEndIcon = { onSearchQueryChange("") }
             )
         }
 
@@ -256,6 +259,11 @@ fun ContentSearchScreen(
                             onClickArtist()
                         }
                     }
+                },
+                onSeriesClick = { seriesId ->
+                    Log.d("booobk", " not in EpisodesScreen: ")
+                    navController.navigate(Destinations.EpisodesScreen(seriesId))
+                    Log.d("booobk", " not in EpisodesScreen: there ")
                 }
             )
         }

@@ -27,6 +27,7 @@ fun LazyGridScope.filterSearchScreen(
     movies: LazyPagingItems<SearchScreenState.MovieUiState>,
     series: LazyPagingItems<SearchScreenState.SeriesUiState>,
     artist: LazyPagingItems<SearchScreenState.ArtistUiState>,
+    onSeriesClick: (Int) -> Unit ={}
 ) {
     item(
         span = { GridItemSpan(maxLineSpan) }
@@ -142,7 +143,7 @@ fun LazyGridScope.filterSearchScreen(
                             rate = series[index]!!.rating,
                             width = 100.dp,
                             height = 178.dp,
-                            onClick = { }
+                            onClick = { onSeriesClick(series[index]!!.id.toInt()) }
                         )
                     }
                 }

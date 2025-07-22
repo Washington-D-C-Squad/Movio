@@ -1,5 +1,6 @@
 package com.madrid.presentation.screens.detailsScreen.detailsMovieScreen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -52,7 +53,7 @@ fun MovieDetailsScreen(
     onSeeAllCastClick: () -> Unit = {},
 ) {
     val uiState by viewModel.state.collectAsState()
-
+    Log.d("booob", "MovieDetailsScreen: hereeeeeeeeee")
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -74,6 +75,8 @@ fun MovieDetailsScreen(
         ) {
             Spacer(modifier = Modifier.height(340.dp))
 
+            Log.d("booob", "MovieDetailsScreen: theerbeeee ")
+
             MovieDetailsHeader(
                 movieName = uiState.movieName,
                 movieCategory = uiState.genreMovie,
@@ -82,6 +85,7 @@ fun MovieDetailsScreen(
                 rate = uiState.rate.take(3),
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
             )
+            Log.d("booob", "MovieDetailsScreen: kkkkk ")
 
             BottomMediaActions(
                 onRateClick = onRateClick,
@@ -89,7 +93,7 @@ fun MovieDetailsScreen(
                 onAddToListClick = onAddToListClick,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
             )
-
+            Log.d("booob", "MovieDetailsScreen: theeree ")
             TextWithReadMore(
                 description = uiState.description,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
@@ -114,7 +118,7 @@ fun MovieDetailsScreen(
 
 @Composable
 fun TextWithReadMore(description: String, modifier: Modifier) {
-    TODO("Not yet implemented")
+    Log.d("booob", "TextWithReadMore: ")
 }
 
 //@Preview(showBackground = true)
