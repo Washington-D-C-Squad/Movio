@@ -1,5 +1,6 @@
 package com.madrid.presentation.viewModel.detailsViewModel
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
 import com.madrid.domain.usecase.mediaDeatailsUseCase.SeriesDetailsUseCase
@@ -9,10 +10,12 @@ import com.madrid.presentation.viewModel.base.BaseViewModel
 class SeriesDetailsViewModel(
     private val savedStateHandle: SavedStateHandle,
     private val seriesDetailsUseCase: SeriesDetailsUseCase
-) : BaseViewModel<SeriesDetailsUiState>(SeriesDetailsUiState()) {
+) : BaseViewModel<SeriesDetailsUiState, Nothing>(SeriesDetailsUiState()) {
+//    private val args = savedStateHandle.toRoute<Destinations.SeriesDetailsScreen>()
     private val args = savedStateHandle.toRoute<Destinations.SeriesDetailsScreen>()
 
     init {
+        Log.d("loool", ": ")
         loadData()
         loadCastData()
     }

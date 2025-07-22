@@ -8,9 +8,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.MovioText
+import org.koin.compose.koinInject
 
 @Composable
-fun FakeHomeScreen() {
+fun FakeHomeScreen(name: String = koinInject()) {
     Box(
         Modifier
             .fillMaxSize()
@@ -18,7 +19,7 @@ fun FakeHomeScreen() {
         contentAlignment = Alignment.Center
     ) {
         MovioText(
-            text = "Home Screen",
+            text = name,
             textStyle = Theme.textStyle.title.largeBold14,
             color = Theme.color.brand.primary,
         )

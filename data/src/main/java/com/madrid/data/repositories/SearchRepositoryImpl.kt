@@ -24,25 +24,34 @@ class SearchRepositoryImpl(
 
 
     override suspend fun getMovieByQuery(query: String, page: Int): List<Movie> {
-        val result = localSource.searchMovieByQueryFromDB(query)
-        return if (result.isEmpty()) {
-            val movie = remoteDataSource.searchMoviesByQuery(
-                name = query,
-                page = page
+//        val result = localSource.searchMovieByQueryFromDB(query)
+//        return if (result.isEmpty()) {
+//            val movie = remoteDataSource.searchMoviesByQuery(
+//                name = query,
+//                page = page
+//
+//            ).movieResults?.map {
+//                it.toMovie()
+//            }
+//
+//            movie?.map {
+//                localSource.insertMovie(it.toMovieEntity())
+//            }
+//            localSource.searchMovieByQueryFromDB(query).map { it.toMovie() }
+//        } else {
+//            result.map {
+//                it.toMovie()
+//            }
+//        }
+//
+        val res = remoteDataSource.getTopRatedMovies(
+            query = query,
+            page = page
+        ).movieResults?.map {
+            it.toMovie()
+        } ?: listOf()
 
-            ).movieResults?.map {
-                it.toMovie()
-            }
-
-            movie?.map {
-                localSource.insertMovie(it.toMovieEntity())
-            }
-            localSource.searchMovieByQueryFromDB(query).map { it.toMovie() }
-        } else {
-            result.map {
-                it.toMovie()
-            }
-        }
+        return res
 
     }
 
