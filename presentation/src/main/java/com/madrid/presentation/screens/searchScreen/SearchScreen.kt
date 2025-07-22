@@ -88,39 +88,39 @@ fun SearchScreen(
 
             forYouMovies = uiState.searchUiState.forYouMovies,
             exploreMoreMovies = uiState.searchUiState.exploreMoreMovies.collectAsLazyPagingItems(),
-            searchResults = uiState.searchUiState.searchResults.collectAsLazyPagingItems(),
             searchQuery = searchQuery,
             onSearchQueryChange = { query ->
                 searchQuery = query
 //            viewModel.searchMovies(query)
-        },
-        onMovieClick = { movie ->
-            navController.navigate(Destinations.MovieDetailsScreen(movie.id.toInt()))
-        },
-        isLoading = uiState.searchUiState.isLoading,
-        searchHistory = uiState.recentSearchUiState,
-        onSearchItemClick = { searchQuery = it },
-        onRemoveItem = { viewModel.removeRecentSearch(it) },
-        onClearAll = { viewModel.clearAll() },
-        onClickSeeAll = {
-            navController.navigate(Destinations.SeeAllForYouScreen)
-        }
-    )
-    uiState.searchUiState.errorMessage?.let { errorMsg ->
-        LaunchedEffect(errorMsg) {
+            },
+            onMovieClick = { movie ->
+                navController.navigate(Destinations.MovieDetailsScreen(movie.id.toInt()))
+            },
+            isLoading = uiState.searchUiState.isLoading,
+            searchHistory = uiState.recentSearchUiState,
+            onSearchItemClick = { searchQuery = it },
+            onRemoveItem = { viewModel.removeRecentSearch(it) },
+            onClearAll = { viewModel.clearAll() },
+            onClickSeeAll = {
+                navController.navigate(Destinations.SeeAllForYouScreen)
+            }
+        )
+        uiState.searchUiState.errorMessage?.let { errorMsg ->
+            LaunchedEffect(errorMsg) {
 
+            }
         }
-    }
-    if (uiState.searchUiState.isLoading) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            MovioIcon(
-                painter = painterResource(R.drawable.loading),
-                contentDescription = "Loading",
-                tint = Theme.color.brand.primary
-            )
+        if (uiState.searchUiState.isLoading) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                MovioIcon(
+                    painter = painterResource(R.drawable.loading),
+                    contentDescription = "Loading",
+                    tint = Theme.color.brand.primary
+                )
+            }
         }
     }
 }
@@ -230,14 +230,17 @@ fun ContentSearchScreen(
                             typeOfFilterSearch = "topRated"
                             onClickTopRated()
                         }
+
                         1 -> {
                             typeOfFilterSearch = "movies"
                             onClickMovies()
                         }
+
                         2 -> {
                             typeOfFilterSearch = "series"
                             onClickSeries()
                         }
+
                         else -> {
                             typeOfFilterSearch = "artists"
                             onClickArtist()
