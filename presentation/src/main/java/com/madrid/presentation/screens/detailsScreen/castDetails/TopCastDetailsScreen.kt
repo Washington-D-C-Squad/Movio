@@ -14,11 +14,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.TopAppBar
+import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.presentation.R
-import com.madrid.presentation.component.ReviewTopBar
 import com.madrid.presentation.component.movioCards.MovioArtistsCard
 import com.madrid.presentation.viewModel.detailsViewModel.MovieDetailsUiState
 import com.madrid.presentation.viewModel.detailsViewModel.MovieDetailsViewModel
@@ -26,7 +27,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun TopCastDetailsScreen(
-    movieId:String,
+    movieId: String,
     viewModel: MovieDetailsViewModel = koinViewModel(),
 ) {
     val uiState by viewModel.state.collectAsState()
@@ -55,12 +56,6 @@ fun TopCastDetailsContent(
             span = { GridItemSpan(maxLineSpan) }
         ) {
             TopAppBar(stringResource(R.string.top_cast), secondIcon = null, thirdIcon = null)
-            ReviewTopBar(
-                onBackClick = {  },
-                onShareClick = {},
-                onFavoriteClick = {}
-
-            )
         }
         items(
             count = artist.size,
@@ -71,5 +66,14 @@ fun TopCastDetailsContent(
                 onClick = { }
             )
         }
+    }
+}
+
+
+@Preview
+@Composable
+private fun TopCastDetailsScreenPreview(modifier: Modifier = Modifier) {
+    MovioTheme {
+        TopCastDetailsScreen("1")
     }
 }

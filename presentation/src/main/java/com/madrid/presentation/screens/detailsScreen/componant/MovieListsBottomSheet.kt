@@ -91,11 +91,12 @@ fun MovieListsBottomSheet(
                         textStyle = Theme.textStyle.label.smallRegular14,
                         color = Theme.color.surfaces.onSurface
                     )
-
                 }
-                HorizontalDivider(
-                    thickness = 1.dp,
-                    color = Theme.color.surfaces.onSurfaceAt3
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(1.dp)
+                        .background(Theme.color.surfaces.onSurfaceAt3)
                 )
                 LazyColumn {
                     items(collections) { collectionName ->
