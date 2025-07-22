@@ -22,21 +22,21 @@ interface MovieDao {
     suspend fun updateMovie(movie: MovieEntity)
 
     @Query("SELECT * FROM MOVIE_TABLE WHERE movieId = :id")
-    fun getMovieById(id: Int): MovieEntity?
+    suspend fun getMovieById(id: Int): MovieEntity?
 
     @Query("SELECT * FROM MOVIE_TABLE WHERE title LIKE :title LIMIT 20")
-    fun getMovieByTitle(title: String): List<MovieEntity>
+    suspend fun getMovieByTitle(title: String): List<MovieEntity>
 
     @Query("SELECT * FROM MOVIE_TABLE ORDER BY rate DESC")
-    fun getTopRatedMovies(): List<MovieEntity>
+    suspend fun getTopRatedMovies(): List<MovieEntity>
 
     @Query("SELECT * FROM MOVIE_TABLE")
-    fun getAllMovies(): List<MovieEntity>
+    suspend fun getAllMovies(): List<MovieEntity>
 
     @Query("DELETE FROM MOVIE_TABLE")
     suspend fun deleteAllMovies()
 
     @Transaction
     @Query("SELECT * FROM MOVIE_TABLE WHERE movieId = :id")
-    fun getPlaylistsWithSongs(id : Int): List<MovieWithCategories>
+    suspend fun getPlaylistsWithSongs(id : Int): List<MovieWithCategories>
 }

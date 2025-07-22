@@ -16,16 +16,16 @@ interface SeriesDao {
     suspend fun deleteSeries(series: SeriesEntity)
 
     @Query("SELECT * FROM SERIES_TABLE WHERE id = :id")
-    fun getSeriesById(id: Int): SeriesEntity?
+    suspend fun getSeriesById(id: Int): SeriesEntity?
 
     @Query("SELECT * FROM SERIES_TABLE WHERE title LIKE :title LIMIT 20")
-    fun getSeriesByTitle(title: String): List<SeriesEntity>
+    suspend fun getSeriesByTitle(title: String): List<SeriesEntity>
 
     @Query("SELECT * FROM SERIES_TABLE ORDER BY rate DESC")
-    fun getTopRatedSeries(): List<SeriesEntity>
+    suspend fun getTopRatedSeries(): List<SeriesEntity>
 
     @Query("SELECT * FROM SERIES_TABLE")
-    fun getAllSeries(): List<SeriesEntity>
+    suspend fun getAllSeries(): List<SeriesEntity>
 
     @Query("DELETE FROM SERIES_TABLE")
     suspend fun deleteAllSeries()

@@ -11,7 +11,7 @@ interface RecentSearchDao {
      suspend fun addRecentSearch(query: RecentSearchEntity)
 
      @Query("SELECT * FROM RECENT_TABLE ORDER BY timestamp DESC")
-     fun getRecentSearches(): List<RecentSearchEntity>
+     suspend fun getRecentSearches(): List<RecentSearchEntity>
 
      @Query("DELETE FROM RECENT_TABLE WHERE searchQuery = :query")
      suspend fun removeRecentSearch(query: String)

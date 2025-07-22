@@ -19,23 +19,23 @@ interface CategoryDao {
     suspend fun deleteCategory(category: CategoryEntity)
 
     @Query("SELECT * FROM CATEGORY_TABLE WHERE id = :id")
-    fun getCategoryById(id: Int): CategoryEntity?
+    suspend fun getCategoryById(id: Int): CategoryEntity?
 
     @Query("SELECT * FROM CATEGORY_TABLE WHERE categoryTitle = :title")
-    fun getCategoryByTitle(title: String): List<CategoryEntity>
+    suspend fun getCategoryByTitle(title: String): List<CategoryEntity>
 
     @Query("SELECT * FROM CATEGORY_TABLE")
-    fun getAllCategories(): List<CategoryEntity>
+    suspend fun getAllCategories(): List<CategoryEntity>
 
     // descending order by searchCount
     @Query("SELECT * FROM CATEGORY_TABLE ORDER BY searchCount DESC")
-    fun getAllCategoriesBySearchCount(): List<CategoryEntity>
+    suspend fun getAllCategoriesBySearchCount(): List<CategoryEntity>
 
     @Query("DELETE FROM CATEGORY_TABLE")
     suspend fun deleteAllCategories()
 
     @Transaction
     @Query("SELECT * FROM CATEGORY_TABLE WHERE categoryTitle = :title")
-    fun getPlaylistsWithSongs(title: String): List<CategoryWithMovies>
+    suspend fun getPlaylistsWithSongs(title: String): List<CategoryWithMovies>
 
 }
