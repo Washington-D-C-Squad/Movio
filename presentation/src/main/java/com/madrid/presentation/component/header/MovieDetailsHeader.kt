@@ -72,7 +72,7 @@ fun MovieDetailsHeader(
 
 @Composable
 fun Chips(icon: Painter, iconTint: Color, text: String) {
-    TODO("Not yet implemented")
+
 }
 
 @Preview(showBackground = true)
