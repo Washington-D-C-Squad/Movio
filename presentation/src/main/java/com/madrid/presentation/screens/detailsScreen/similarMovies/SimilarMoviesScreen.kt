@@ -51,7 +51,6 @@ fun SimilarMoviesScreen(
         Box {
             TopAppBar(
                 text = stringResource(id = com.madrid.presentation.R.string.selected_similar_movie),
-                firstIcon = R.drawable.arrow_left
             )
             Box(
                 modifier = Modifier

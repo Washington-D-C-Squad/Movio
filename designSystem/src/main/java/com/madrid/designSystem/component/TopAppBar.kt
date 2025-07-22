@@ -15,6 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,10 +28,13 @@ import com.madrid.designSystem.theme.Theme
 fun TopAppBar(
     text: String?,
     modifier: Modifier = Modifier,
-    firstIcon: Int? = R.drawable.arrow_left,
-    secondIcon: Int? = R.drawable.share_arrow,
-    thirdIcon: Int? = R.drawable.outline_heart,
-    initiallyFavorite: Boolean = false
+    firstIcon: Painter? = painterResource(R.drawable.arrow_left),
+    secondIcon: Painter? = painterResource(R.drawable.share_arrow),
+    thirdIcon: Painter? = painterResource(R.drawable.outline_heart),
+    initiallyFavorite: Boolean = false,
+    onShareClick: () -> Unit = {},
+    onBackClick: () -> Unit = {},
+    onFavoriteClick: () -> Unit = {}
 ) {
     var isFavorite by rememberSaveable { mutableStateOf(initiallyFavorite) }
 
@@ -49,9 +53,10 @@ fun TopAppBar(
     ) {
         firstIcon?.let { iconRes ->
             MovioIcon(
-                painter = painterResource(id = iconRes),
+                painter =  iconRes,
                 contentDescription = "arrow_left",
-                tint = Theme.color.surfaces.onSurface
+                tint = Theme.color.surfaces.onSurface,
+                modifier = Modifier.clickable { onBackClick() }
             )
         }
 
@@ -76,9 +81,10 @@ fun TopAppBar(
         ) {
             secondIcon?.let { iconRes ->
                 MovioIcon(
-                    painter = painterResource(id = iconRes),
+                    painter = iconRes,
                     contentDescription = "share_arrow",
-                    tint = Theme.color.surfaces.onSurface
+                    tint = Theme.color.surfaces.onSurface,
+                    modifier = Modifier.clickable { onShareClick() }
                 )
             }
             thirdIcon?.let {
@@ -88,6 +94,7 @@ fun TopAppBar(
                     tint = favoriteColor,
                     modifier = Modifier.clickable {
                         isFavorite = !isFavorite
+                        onFavoriteClick()
                     }
                 )
             }
