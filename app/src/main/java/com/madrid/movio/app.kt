@@ -27,6 +27,7 @@ import com.madrid.presentation.viewModel.detailsViewModel.MovieDetailsViewModel
 import com.madrid.presentation.viewModel.searchViewModel.SearchViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
 val app = module {
@@ -44,40 +45,12 @@ val app = module {
     single <MovieDetailsRepository>{ MovieDetailsRepositoryImpl(get(),get()) }
 
 
-
-
     // presentation
-    viewModel {
-        SearchViewModel(
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get()
-        )
-    }
-    viewModel {
-        DetailsMovieViewModel(
-            get(),
-            get(),
-            get()
-        )
-    }
-    viewModel {
-        SeeAllForYouViewModel(
-            get(),
-            get(),
-        )
-    }
-    viewModel {
-        MovieDetailsViewModel(
-            get(),
-            get(),
-        )
-    }
+    viewModelOf(::SearchViewModel)
+    viewModelOf(::DetailsMovieViewModel)
+    viewModelOf(::SeeAllForYouViewModel)
+    viewModelOf(::MovieDetailsViewModel)
+
 
     //domain
     single { ArtistUseCase(get()) }
