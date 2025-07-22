@@ -19,9 +19,7 @@ fun  RefreshScreenHolder(
 ){
     val pullRefreshState = rememberPullRefreshState(
         refreshing = refreshState,
-        onRefresh = {
-            onRefresh()
-        }
+        onRefresh = onRefresh
     )
     Box(
         Modifier

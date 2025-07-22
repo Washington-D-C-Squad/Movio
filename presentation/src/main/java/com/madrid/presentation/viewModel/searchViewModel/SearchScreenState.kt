@@ -16,6 +16,7 @@ data class SearchScreenState(
         val exploreMoreMovies:Flow<PagingData<MovieUiState>> = flow {},
         val searchResults: Flow<PagingData<MovieUiState>> = flow {},
         val isLoading: Boolean = false,
+        val refreshState: Boolean = false,
         val errorMessage: String? = null
     )
 

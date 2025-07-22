@@ -368,7 +368,68 @@ class SearchViewModel(
             )
         }
     }
-    
+
+    fun onRefresh(
+
+    ) {
+        updateState { current ->
+            current.copy(
+                searchUiState = current.searchUiState.copy(
+                    refreshState = true
+                )
+            )
+        }
+
+        viewModelScope.launch {
+            val result = getRecommendedMovieUseCase(page = 1)
+            updateState {
+                it.copy(
+                    searchUiState = it.searchUiState.copy(
+                        forYouMovies = result.map { movie ->
+                            SearchScreenState.MovieUiState(
+                                title = movie.title,
+                                id = movie.id.toString(),
+                                imageUrl = movie.imageUrl,
+                                rating = movie.rate.toString(),
+                            )
+                        },
+                        refreshState = false,
+                    )
+                )
+            }
+        }
+
+        val result = Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false,
+                prefetchDistance = 5
+            ),
+            pagingSourceFactory = {
+                ExplorePagingSource(getExploreMoreMovieUseCase)
+            }
+        ).flow
+            .cachedIn(viewModelScope)
+            .map { pagingData ->
+                pagingData.map { movie ->
+                    SearchScreenState.MovieUiState(
+                        id = movie.id.toString(),
+                        title = movie.title,
+                        imageUrl = movie.imageUrl,
+                        rating = movie.rate.toString()
+                    )
+                }
+            }
+
+        updateState { current ->
+            current.copy(
+                searchUiState = current.searchUiState.copy(
+                    exploreMoreMovies = result,
+                    refreshState = false
+                ),
+            )
+        }
+    }
 }
 
 
