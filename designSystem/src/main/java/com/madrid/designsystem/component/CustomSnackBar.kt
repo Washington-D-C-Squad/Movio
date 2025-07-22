@@ -1,4 +1,4 @@
-package com.madrid.designsystem.component
+package com.madrid.designSystem.component
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
+import com.madrid.designSystem.theme.Theme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -47,9 +47,9 @@ fun CustomSnackbarHost(
         snackbar = { snackbarData ->
             Snackbar(
                 modifier = Modifier.padding(vertical = 14.dp, horizontal = 16.dp),
-                containerColor = AppTheme.colors.surfaceColor.surfaceContainer,
-                contentColor = AppTheme.colors.surfaceColor.onSurface,
-                shape = RoundedCornerShape(AppTheme.radius.small),
+                containerColor = Theme.color.surfaces.surfaceContainer,
+                contentColor = Theme.color.surfaces.onSurface,
+                shape = RoundedCornerShape(8.dp),
                 action = {
                     snackbarData.visuals.actionLabel?.let { label ->
                         TextButton(
@@ -60,8 +60,8 @@ fun CustomSnackbarHost(
                         ) {
                             MovioText(
                                 text = label,
-                                textStyle = AppTheme.textStyle.label.medium14,
-                                color = AppTheme.colors.brandColors.primary
+                                textStyle = Theme.textStyle.label.mediumMedium14,
+                                color = Theme.color.brand.primary
                             )
                         }
                     }
@@ -73,11 +73,11 @@ fun CustomSnackbarHost(
                         contentDescription = "",
                         tint = Color.Unspecified
                     )
-                    Spacer(modifier = Modifier.padding(horizontal = AppTheme.spacing.small))
+                    Spacer(modifier = Modifier.padding(horizontal = 8.dp))
                     MovioText(
                         text = snackbarData.visuals.message,
                         color = LocalContentColor.current,
-                        textStyle = AppTheme.textStyle.label.smallRegular14
+                        textStyle = Theme.textStyle.label.smallRegular14
                     )
                 }
 
