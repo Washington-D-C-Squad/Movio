@@ -1,49 +1,49 @@
 package com.madrid.data.dataSource.remote.response.series
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 
 @Serializable
 data class SeriesReviewResponse(
-    @SerialName("id")
+    @SerializedName("id")
     val id: Int?,
-    @SerialName("page")
+    @SerializedName("page")
     val page: Int?,
-    @SerialName("results")
+    @SerializedName("results")
     val results: List<SeriesReviewResult>?,
-    @SerialName("total_pages")
+    @SerializedName("total_pages")
     val totalPages: Int?,
-    @SerialName("total_results")
+    @SerializedName("total_results")
     val totalResults: Int?,
 )
 
 @Serializable
 data class SeriesReviewResult(
-    @SerialName("author")
+    @SerializedName("author")
     val author: String?,
-    @SerialName("author_details")
+    @SerializedName("author_details")
     val authorDetails: AuthorDetails?,
-    @SerialName("content")
+    @SerializedName("content")
     val content: String?,
-    @SerialName("created_at")
+    @SerializedName("created_at")
     val createdAt: String?,
-    @SerialName("id")
+    @SerializedName("id")
     val id: String?,
-    @SerialName("updated_at")
+    @SerializedName("updated_at")
     val updatedAt: String?,
-    @SerialName("url")
+    @SerializedName("url")
     val url: String?,
 )
 
 @Serializable
 data class AuthorDetails(
-    @SerialName("name")
+    @SerializedName("name")
     val name: String?,
-    @SerialName("username")
+    @SerializedName("username")
     val username: String?,
-    @SerialName("avatar_path")
+    @SerializedName("avatar_path")
     val avatarPath: String?,
-    @SerialName("rating")
+    @SerializedName("rating")
     val rating: Double?,
 )

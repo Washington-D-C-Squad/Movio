@@ -41,14 +41,16 @@ fun MovioNavHost(navController: NavHostController) {
             SearchScreen()
         }
         composable<Destinations.HomeScreen> {
-            FakeHomeScreen()
-        }
-        composable<Destinations.MovieDetailsScreen> {
-            MovieDetailsScreen()
+            FakeHomeScreen(
+
+            )
         }
         composable<Destinations.EpisodesScreen> {
-            Log.d("booob", " in EpisodesScreen: nav host ")
             EpisodesScreen()
+        }
+
+        composable<Destinations.MovieDetailsScreen> {
+            MovieDetailsScreen()
         }
         composable<Destinations.SeriesDetailsScreen> {
             //call SeriesDetailsScreen()

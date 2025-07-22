@@ -1,15 +1,12 @@
 package com.madrid.presentation.screens.searchScreen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -37,15 +34,16 @@ import com.madrid.designSystem.component.textInputField.BasicTextInputField
 import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
+import com.madrid.presentation.screens.refreshScreenHolder.RefreshScreenHolder
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.RecentSearchLayout
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.filterSearchScreen
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.forYouAndExploreScreen
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.recentSearchScreen
 import com.madrid.presentation.viewModel.searchViewModel.SearchScreenState
 import com.madrid.presentation.viewModel.searchViewModel.SearchViewModel
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
 import org.koin.androidx.compose.koinViewModel
-import kotlinx.coroutines.FlowPreview
 
 
 @Composable
@@ -53,78 +51,76 @@ fun SearchScreen(
     modifier: Modifier = Modifier,
     viewModel: SearchViewModel = koinViewModel()
 ) {
-
     val uiState by viewModel.state.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
-
     val navController = LocalNavController.current
-
-
     var isRecentSearchActive by remember { mutableStateOf(false) }
+
     if (isRecentSearchActive) {
         RecentSearchLayout()
     }
 
-    ContentSearchScreen(
-        addRecentSearch = {
-            viewModel.addRecentSearch(it)
-        },
-        modifier = modifier,
-        topRated = uiState.filteredScreenUiState.topResult.collectAsLazyPagingItems(),
-        movies = uiState.filteredScreenUiState.movie.collectAsLazyPagingItems(),
-        series = uiState.filteredScreenUiState.series.collectAsLazyPagingItems(),
-        artist = uiState.filteredScreenUiState.artist.collectAsLazyPagingItems(),
-        onClickTopRated = {
-            viewModel.topResult(searchQuery)
-        },
-        onClickMovies = {
-            viewModel.searchFilteredMovies(searchQuery)
-        },
-        onClickSeries = {
-            viewModel.searchSeries(searchQuery)
-        },
-        onClickArtist = {
-            viewModel.artists(searchQuery)
-        },
+    RefreshScreenHolder(
+        refreshState = uiState.searchUiState.refreshState,
+        onRefresh = viewModel::onRefresh
+    ) {
+        ContentSearchScreen(
+            addRecentSearch = {
+                viewModel.addRecentSearch(it)
+            },
+            modifier = modifier,
+            topRated = uiState.filteredScreenUiState.topResult.collectAsLazyPagingItems(),
+            movies = uiState.filteredScreenUiState.movie.collectAsLazyPagingItems(),
+            series = uiState.filteredScreenUiState.series.collectAsLazyPagingItems(),
+            artist = uiState.filteredScreenUiState.artist.collectAsLazyPagingItems(),
+            onClickTopRated = {
+                viewModel.topResult(searchQuery)
+            },
+            onClickMovies = {
+                viewModel.searchFilteredMovies(searchQuery)
+            },
+            onClickSeries = {
+                viewModel.searchSeries(searchQuery)
+            },
+            onClickArtist = {
+                viewModel.artists(searchQuery)
+            },
 
-        forYouMovies = uiState.searchUiState.forYouMovies,
-        exploreMoreMovies = uiState.searchUiState.exploreMoreMovies.collectAsLazyPagingItems(),
-        searchResults = uiState.searchUiState.searchResults.collectAsLazyPagingItems(),
-        searchQuery = searchQuery,
-        onSearchQueryChange = { query ->
-            searchQuery = query
+            forYouMovies = uiState.searchUiState.forYouMovies,
+            exploreMoreMovies = uiState.searchUiState.exploreMoreMovies.collectAsLazyPagingItems(),
+            searchQuery = searchQuery,
+            onSearchQueryChange = { query ->
+                searchQuery = query
 //            viewModel.searchMovies(query)
-        },
-        onMovieClick = { movie ->
-            Log.d("booob", " in EpisodesScreen: for youuy")
-            navController.navigate(Destinations.MovieDetailsScreen(movie.id.toInt()))
-            Log.d("booob", " in EpisodesScreen: for youu after")
-            // Navigate to the required Screen --> navController.navigate(Destinations.MovieDetailsScreen)
-        },
-        isLoading = uiState.searchUiState.isLoading,
-        searchHistory = uiState.recentSearchUiState,
-        onSearchItemClick = { searchQuery = it },
-        onRemoveItem = { viewModel.removeRecentSearch(it) },
-        onClearAll = { viewModel.clearAll() },
-        onClickSeeAll = {
-            navController.navigate(Destinations.SeeAllForYouScreen)
-        }
-    )
-    uiState.searchUiState.errorMessage?.let { errorMsg ->
-        LaunchedEffect(errorMsg) {
+            },
+            onMovieClick = { movie ->
+                navController.navigate(Destinations.MovieDetailsScreen(movie.id.toInt()))
+            },
+            isLoading = uiState.searchUiState.isLoading,
+            searchHistory = uiState.recentSearchUiState,
+            onSearchItemClick = { searchQuery = it },
+            onRemoveItem = { viewModel.removeRecentSearch(it) },
+            onClearAll = { viewModel.clearAll() },
+            onClickSeeAll = {
+                navController.navigate(Destinations.SeeAllForYouScreen)
+            }
+        )
+        uiState.searchUiState.errorMessage?.let { errorMsg ->
+            LaunchedEffect(errorMsg) {
 
+            }
         }
-    }
-    if (uiState.searchUiState.isLoading) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            MovioIcon(
-                painter = painterResource(R.drawable.loading),
-                contentDescription = "Loading",
-                tint = Theme.color.brand.primary
-            )
+        if (uiState.searchUiState.isLoading) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                MovioIcon(
+                    painter = painterResource(R.drawable.loading),
+                    contentDescription = "Loading",
+                    tint = Theme.color.brand.primary
+                )
+            }
         }
     }
 }
@@ -134,7 +130,6 @@ fun SearchScreen(
 @Composable
 fun ContentSearchScreen(
     addRecentSearch: (String) -> Unit,
-    //Flow<PagingData<MovieUiState>>
     topRated: LazyPagingItems<SearchScreenState.MovieUiState>,
     movies: LazyPagingItems<SearchScreenState.MovieUiState>,
     series: LazyPagingItems<SearchScreenState.SeriesUiState>,
@@ -146,7 +141,6 @@ fun ContentSearchScreen(
     modifier: Modifier = Modifier,
     forYouMovies: List<SearchScreenState.MovieUiState> = emptyList(),
     exploreMoreMovies: LazyPagingItems<SearchScreenState.MovieUiState>,
-    searchResults: LazyPagingItems<SearchScreenState.MovieUiState>,
     searchQuery: String = "",
     onSearchQueryChange: (String) -> Unit,
     onSearchBarClick: () -> Unit = {},
@@ -158,15 +152,12 @@ fun ContentSearchScreen(
     isLoading: Boolean = false,
     onClickSeeAll: () -> Unit,
 ) {
-
-    val navController = LocalNavController.current
-
     val showSearchResults = searchQuery.isNotBlank()
     var typeOfFilterSearch by remember { mutableStateOf("topRated") }
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     var showRecentSearch by remember { mutableIntStateOf(0) }
+
     LaunchedEffect(searchQuery) {
-        Log.d("in launch", "in launch")
         snapshotFlow { searchQuery }
             .debounce(1000)
             .collect { query ->
@@ -183,7 +174,6 @@ fun ContentSearchScreen(
                 }
             }
     }
-
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = modifier
@@ -203,7 +193,7 @@ fun ContentSearchScreen(
                     onSearchQueryChange(it)
                     showRecentSearch = 1
                 },
-                hintText = stringResource(com.madrid.presentation.R.string.search),
+                hintText = stringResource(com.madrid.presentation.R.string.searchdot),
                 startIconPainter = painterResource(R.drawable.search_normal),
                 endIconPainter = painterResource(R.drawable.outline_add),
                 modifier = Modifier
@@ -225,14 +215,13 @@ fun ContentSearchScreen(
             )
         }
         if (searchQuery.isNotEmpty() && showRecentSearch != 1) {
-            filterSearchScreen(
 
+            filterSearchScreen(
                 typeOfFilterSearch = typeOfFilterSearch,
                 topRated = topRated,
                 movies = movies,
                 series = series,
                 artist = artist,
-
                 selectedTabIndex = selectedTabIndex,
                 onChangeSelectedTabIndex = { selectedTabIndex = it },
                 onChangeTypeFilterSearch = {
@@ -245,13 +234,11 @@ fun ContentSearchScreen(
                         1 -> {
                             typeOfFilterSearch = "movies"
                             onClickMovies()
-
                         }
 
                         2 -> {
                             typeOfFilterSearch = "series"
                             onClickSeries()
-
                         }
 
                         else -> {
@@ -259,15 +246,9 @@ fun ContentSearchScreen(
                             onClickArtist()
                         }
                     }
-                },
-                onSeriesClick = { seriesId ->
-                    Log.d("booobk", " not in EpisodesScreen: ")
-                    navController.navigate(Destinations.EpisodesScreen(seriesId))
-                    Log.d("booobk", " not in EpisodesScreen: there ")
                 }
             )
         }
-
         if (showRecentSearch == 1) {
             recentSearchScreen(
                 searchHistory = searchHistory,

@@ -11,7 +11,7 @@
     <string name="of">من %1$s</string>
     <string name="video_library_video_number">فيديو</string>">
     <string name="home">الصفحة الرئيسية</string>
-    <string name="search">البحث</string>
+    <string name="searchdot">البحث ...</string>
     <string name="library">المكتبة</string>
     <string name="more">المزيد</string>
     <string name="top_result">افضل النتائج</string>
@@ -29,6 +29,11 @@
     <string name="Play">تشغيل </string>
     <string name="for_u">من أجلك</string>
     <string name="see_all">رؤية الكل</string>
+    <string name="reviews">المراجعات</string>
     <string name="explore_more">البحث عن المزيد</string>
     <string name="loading">جاري التحميل...</string>
+    <string name="search">بحث</string>
+    <string name="search_content_description">البحث عن وصف المحتويات</string>
+
+
 </resources>

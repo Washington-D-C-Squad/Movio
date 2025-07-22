@@ -1,49 +1,49 @@
 package com.madrid.data.dataSource.remote.response.series
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 
 @Serializable
 data class SimilarSeriesResponse(
-    @SerialName("page")
+    @SerializedName("page")
     val page: Int?,
-    @SerialName("results")
+    @SerializedName("results")
     val results: List<SimilarSeriesNetwork>?,
-    @SerialName("total_pages")
+    @SerializedName("total_pages")
     val totalPages: Int?,
-    @SerialName("total_results")
+    @SerializedName("total_results")
     val totalResults: Int?,
 )
 
 @Serializable
 data class SimilarSeriesNetwork(
-    @SerialName("adult")
+    @SerializedName("adult")
     val adult: Boolean?,
-    @SerialName("backdrop_path")
+    @SerializedName("backdrop_path")
     val backdropPath: String?,
-    @SerialName("genre_ids")
+    @SerializedName("genre_ids")
     val genreIds: List<Int>?,
-    @SerialName("id")
+    @SerializedName("id")
     val id: Int?,
-    @SerialName("origin_country")
+    @SerializedName("origin_country")
     val originCountry: List<String>?,
-    @SerialName("original_language")
+    @SerializedName("original_language")
     val originalLanguage: String?,
-    @SerialName("original_name")
+    @SerializedName("original_name")
     val originalName: String?,
-    @SerialName("overview")
+    @SerializedName("overview")
     val overview: String?,
-    @SerialName("popularity")
+    @SerializedName("popularity")
     val popularity: Double?,
-    @SerialName("poster_path")
+    @SerializedName("poster_path")
     val posterPath: String?,
-    @SerialName("first_air_date")
+    @SerializedName("first_air_date")
     val releaseDate: String?,
-    @SerialName("name")
+    @SerializedName("name")
     val name: String?,
-    @SerialName("vote_average")
+    @SerializedName("vote_average")
     val voteAverage: Double?,
-    @SerialName("vote_count")
+    @SerializedName("vote_count")
     val voteCount: Int?,
 )

@@ -6,21 +6,21 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.madrid.domain.entity.Movie
 import com.madrid.domain.usecase.GetExploreMoreMovieUseCase
 import com.madrid.domain.usecase.GetRecommendedMovieUseCase
 import com.madrid.domain.usecase.searchUseCase.ArtistUseCase
 import com.madrid.domain.usecase.searchUseCase.MovieUseCase
-import com.madrid.domain.usecase.searchUseCase.PreferredMediaUseCase
 import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import com.madrid.domain.usecase.searchUseCase.SeriesUseCase
-import com.madrid.domain.usecase.searchUseCase.TrendingMediaUseCase
 import com.madrid.presentation.screens.searchScreen.paging.ExplorePagingSource
 import com.madrid.presentation.screens.searchScreen.paging.SearchArtistPagingSource
 import com.madrid.presentation.screens.searchScreen.paging.SearchMoviePagingSource
 import com.madrid.presentation.screens.searchScreen.paging.SearchSeriesPagingSource
 import com.madrid.presentation.viewModel.base.BaseViewModel
-import kotlinx.coroutines.Dispatchers
+import com.madrid.presentation.viewModel.effect.SearchScreenEffect
+import com.madrid.presentation.viewModel.uiStateMapper.toArtistUiState
+import com.madrid.presentation.viewModel.uiStateMapper.toMovieUiState
+import com.madrid.presentation.viewModel.uiStateMapper.toSeriesUiState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -31,41 +31,24 @@ class SearchViewModel(
     private val artistUseCase: ArtistUseCase,
     private val movieUseCase: MovieUseCase,
     private val seriesUseCase: SeriesUseCase,
-
-    private val preferredMediaUseCase: PreferredMediaUseCase,
     private val getRecommendedMovieUseCase: GetRecommendedMovieUseCase,
     private val getExploreMoreMovieUseCase: GetExploreMoreMovieUseCase,
-    override val recentSearchUseCase: RecentSearchUseCase,
-    private val trendingMediaUseCase: TrendingMediaUseCase,
-) : BaseViewModel<SearchScreenState>(
+    private val recentSearchUseCase: RecentSearchUseCase,
+) : BaseViewModel<SearchScreenState, SearchScreenEffect>(
     SearchScreenState()
 ) {
-    init {
 
+    init {
         loadRecentSearches()
         loadInitialData()
     }
 
-
     private fun loadRecentSearches() {
-
-        viewModelScope.launch {
-            tryToExecute(
-                function = { recentSearchUseCase.getRecentSearches() },
-                onSuccess = { result ->
-                    updateState {
-                        it.copy(
-                            recentSearchUiState = result
-                        )
-                    }
-                },
-                onError = { },
-                scope = viewModelScope,
-                dispatcher = Dispatchers.IO
-            )
-
-        }
-
+        tryToExecute(
+            function = { recentSearchUseCase.getRecentSearches() },
+            onSuccess = ::onUpdateRecentSuccess,
+            onError = { },
+        )
     }
 
     fun addRecentSearch(recentSearch: String) {
@@ -90,43 +73,156 @@ class SearchViewModel(
         )
     }
 
-
-    fun addToRecentSearches(query: String) {
-        tryToExecute(
-            function = {
-                recentSearchUseCase.addRecentSearch(query)
-
-            },
-            onSuccess = {
-
-            },
-            onError = {
-
-            },
-            scope = viewModelScope,
-            dispatcher = Dispatchers.IO
-        )
-    }
-
     fun removeRecentSearch(searchItem: String) {
         tryToExecute(
             function = {
                 recentSearchUseCase.removeRecentSearch(searchItem)
-
+                recentSearchUseCase.getRecentSearches()
             },
-            onSuccess = {
-
+            onSuccess = { result ->
+                updateState {
+                    it.copy(
+                     recentSearchUiState = result )
+                }
             },
-            onError = {
-
-            },
-            scope = viewModelScope,
-            dispatcher = Dispatchers.IO
+            onError = {},
         )
     }
 
-    fun loadInitialData() {
+    private fun loadInitialData() {
+        ::onLoadInitialData
+        viewModelScope.launch {
+            val result = getRecommendedMovieUseCase(page = 1)
+            updateState {
+                it.copy(
+                    searchUiState = it.searchUiState.copy(
+                        forYouMovies = result.map { movie -> movie.toMovieUiState() },
+                        isLoading = false
+                    )
+                )
+            }
+        }
 
+        val result = Pager(
+            config = pagingConfig,
+            pagingSourceFactory = {
+                ExplorePagingSource(getExploreMoreMovieUseCase)
+            }
+        ).flow
+            .cachedIn(viewModelScope)
+            .map { pagingData ->
+                pagingData.map { it.toMovieUiState() }
+            }
+        updateState { current ->
+            current.copy(
+                searchUiState = current.searchUiState.copy(
+                    exploreMoreMovies = result,
+                    isLoading = false
+                ),
+            )
+        }
+    }
+
+    fun searchFilteredMovies(query: String) {
+        val result = Pager(
+            config = pagingConfig, pagingSourceFactory = {
+                SearchMoviePagingSource(query, movieUseCase)
+            }
+        ).flow
+            .cachedIn(viewModelScope)
+            .map { pagingData ->
+                pagingData.map { it.toMovieUiState() }
+            }
+
+        updateState { current ->
+            current.copy(
+                filteredScreenUiState = current.filteredScreenUiState.copy(
+                    movie = result,
+                    isLoading = false
+                ),
+                searchUiState = current.searchUiState.copy(isLoading = false)
+            )
+        }
+    }
+
+    fun searchSeries(query: String) {
+        val result = Pager(
+            config = pagingConfig, pagingSourceFactory = {
+                SearchSeriesPagingSource(query, seriesUseCase)
+            }
+        ).flow
+            .cachedIn(viewModelScope)
+            .map { pagingData ->
+                pagingData.map { series -> series.toSeriesUiState() }
+            }
+
+        (::onUpdateSeriesSearch)(result)
+    }
+
+    fun topResult(query: String) {
+        val result: Flow<PagingData<SearchScreenState.MovieUiState>> = Pager(
+            config = pagingConfig, pagingSourceFactory = {
+                SearchMoviePagingSource(
+                    query = query,
+                    movieUseCase = movieUseCase
+                )
+            }
+        ).flow
+            .cachedIn(viewModelScope)
+            .map { pagingData ->
+                pagingData.map { it.toMovieUiState() }
+            }
+        (::onUpdateSearchMovie)(result)
+    }
+
+    fun artists(query: String) {
+        val result = Pager(
+            config = pagingConfig, pagingSourceFactory = {
+                SearchArtistPagingSource(query, artistUseCase)
+            }
+        ).flow
+            .cachedIn(viewModelScope)
+            .map { pagingData ->
+                pagingData.map { artist ->
+                    artist.toArtistUiState()
+                }
+            }
+        (::onUpdateArtistSearch)(result)
+    }
+
+
+    private fun onUpdateRecentSuccess(result: List<String>) {
+        updateState {
+            it.copy(
+                recentSearchUiState = result
+            )
+        }
+    }
+
+    private fun onUpdateSearchMovie(result: Flow<PagingData<SearchScreenState.MovieUiState>>) {
+        updateState { current ->
+            current.copy(
+                filteredScreenUiState = current.filteredScreenUiState.copy(
+                    topResult = result,
+                    isLoading = false
+                )
+            )
+        }
+    }
+
+    private fun onUpdateSeriesSearch(result: Flow<PagingData<SearchScreenState.SeriesUiState>>) {
+        updateState { current ->
+            current.copy(
+                filteredScreenUiState = current.filteredScreenUiState.copy(
+                    series = result,
+                    isLoading = false
+                ),
+                searchUiState = current.searchUiState.copy(isLoading = false)
+            )
+        }
+    }
+
+    private fun onLoadInitialData() {
         updateState {
             it.copy(
                 searchUiState = it.searchUiState.copy(
@@ -135,20 +231,47 @@ class SearchViewModel(
                 )
             )
         }
+    }
+
+    private fun onUpdateArtistSearch(result: Flow<PagingData<SearchScreenState.ArtistUiState>>) {
+        updateState { current ->
+            current.copy(
+                filteredScreenUiState = current.filteredScreenUiState.copy(
+                    artist = result,
+                    isLoading = false
+                )
+            )
+        }
+    }
+
+    private companion object {
+        val pagingConfig = PagingConfig(
+            pageSize = 20,
+            enablePlaceholders = false,
+            prefetchDistance = 5
+        )
+    }
+
+    fun onRefresh(
+
+    ) {
+        updateState { current ->
+            current.copy(
+                searchUiState = current.searchUiState.copy(
+                    refreshState = true
+                )
+            )
+        }
+
         viewModelScope.launch {
-            val result = getRecommendedMovieUseCase(page = 1)
+            val result = getRecommendedMovieUseCase(page = 1).map { movie ->
+                movie.toMovieUiState()
+            }.shuffled()
             updateState {
                 it.copy(
                     searchUiState = it.searchUiState.copy(
-                        forYouMovies = result.map { movie ->
-                            SearchScreenState.MovieUiState(
-                                title = movie.title,
-                                id = movie.id.toString(),
-                                imageUrl = movie.imageUrl,
-                                rating = movie.rate.toString(),
-                            )
-                        },
-                        isLoading = false
+                        forYouMovies = result,
+                        refreshState = false,
                     )
                 )
             }
@@ -176,200 +299,5 @@ class SearchViewModel(
                 }
             }
 
-        updateState { current ->
-            current.copy(
-                searchUiState = current.searchUiState.copy(
-                    exploreMoreMovies = result,
-                    isLoading = false
-                ),
-            )
-        }
-
     }
-
-    fun Movie.toMovieUiState(): SearchScreenState.MovieUiState {
-        return SearchScreenState.MovieUiState(
-            id = this.id.toString(),
-            title = this.title,
-            imageUrl = this.imageUrl,
-            rating = this.rate.toString(),
-            category = this.genre.toString()
-        )
-    }
-
-
-    fun searchMovies(query: String) {
-        tryToExecute(
-            function = { movieUseCase.invoke(query) },
-            onSuccess = { result ->
-                updateState {
-                    it.copy(
-                        searchUiState = it.searchUiState.copy(
-//                            searchResults = result.map { movie ->
-//                                SearchScreenState.MovieUiState(
-//                                    title = movie.title,
-//                                    id = movie.id.toString(),
-//                                    imageUrl = movie.imageUrl,
-//                                    rating = movie.rate.toString(),
-//                                )
-//                            },
-                            isLoading = false
-                        )
-                    )
-                }
-            },
-            onError = {}
-        )
-    }
-
-    override fun onSearchSubmit() {
-        val query = searchQuery.value.trim()
-        if (query.isNotBlank()) {
-            addToRecentSearches(query)
-            _searchQuery.value = ""
-        }
-    }
-
-
-    fun searchFilteredMovies(query: String) {
-        val result = Pager(
-            config = PagingConfig(
-                pageSize = 20,
-                enablePlaceholders = false,
-                prefetchDistance = 5
-            ), pagingSourceFactory = {
-                SearchMoviePagingSource(query, movieUseCase)
-            }
-        ).flow
-            .cachedIn(viewModelScope)
-            .map { pagingData ->
-                pagingData.map { movie ->
-                    SearchScreenState.MovieUiState(
-                        id = movie.id.toString(),
-                        title = movie.title,
-                        imageUrl = movie.imageUrl,
-                        rating = movie.rate.toString()
-                    )
-                }
-            }
-
-        updateState { current ->
-            current.copy(
-                filteredScreenUiState = current.filteredScreenUiState.copy(
-                    movie = result,
-                    isLoading = false
-                ),
-                searchUiState = current.searchUiState.copy(isLoading = false)
-            )
-        }
-    }
-
-
-    fun searchSeries(query: String) {
-        val result = Pager(
-            config = PagingConfig(
-                pageSize = 20,
-                enablePlaceholders = false,
-                prefetchDistance = 5
-            ), pagingSourceFactory = {
-                SearchSeriesPagingSource(query, seriesUseCase)
-            }
-        ).flow
-            .cachedIn(viewModelScope)
-            .map { pagingData ->
-                pagingData.map { series ->
-                    SearchScreenState.SeriesUiState(
-                        id = series.id.toString(),
-                        title = series.title,
-                        imageUrl = series.imageUrl,
-                        rating = series.rate.toString(),
-                    )
-                }
-            }
-
-        updateState { current ->
-            current.copy(
-                filteredScreenUiState = current.filteredScreenUiState.copy(
-                    series = result,
-                    isLoading = false
-                ),
-                searchUiState = current.searchUiState.copy(isLoading = false)
-            )
-        }
-    }
-
-
-    fun topResult(query: String) {
-
-        val result: Flow<PagingData<SearchScreenState.MovieUiState>> = Pager(
-            config = PagingConfig(
-                pageSize = 20,
-                enablePlaceholders = false,
-                prefetchDistance = 5
-            ), pagingSourceFactory = {
-                SearchMoviePagingSource(
-                    query = query,
-                    movieUseCase = movieUseCase
-                )
-            }
-        ).flow
-            .cachedIn(viewModelScope)
-            .map { pagingData ->
-                pagingData.map { item ->
-                    SearchScreenState.MovieUiState(
-                        id = item.id.toString(),
-                        title = item.title,
-                        imageUrl = item.imageUrl,
-                        rating = item.rate.toString()
-                    )
-                }
-            }
-
-        updateState { current ->
-            current.copy(
-                filteredScreenUiState = current.filteredScreenUiState.copy(
-                    topResult = result,
-                    isLoading = false
-                )
-            )
-        }
-    }
-
-    fun artists(query: String) {
-        val result = Pager(
-            config = PagingConfig(
-                pageSize = 20,
-                enablePlaceholders = false,
-                prefetchDistance = 5
-            ), pagingSourceFactory = {
-                SearchArtistPagingSource(query, artistUseCase)
-            }
-        ).flow
-            .cachedIn(viewModelScope)
-            .map { pagingData ->
-                pagingData.map { artist ->
-                    SearchScreenState.ArtistUiState(
-                        id = artist.id.toString(),
-                        name = artist.name,
-                        imageUrl = artist.imageUrl,
-                        role = artist.role ?: "",
-                        country = artist.country,
-                        description = artist.description
-                    )
-                }
-            }
-
-        updateState { current ->
-            current.copy(
-                filteredScreenUiState = current.filteredScreenUiState.copy(
-                    artist = result,
-                    isLoading = false
-                )
-            )
-        }
-    }
-    
 }
-
-
-

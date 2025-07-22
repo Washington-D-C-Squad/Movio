@@ -2,29 +2,28 @@ package com.madrid.presentation.viewModel.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<S>(initialState: S) : ViewModel() {
+abstract class BaseViewModel<S, E>(initialState: S) : ViewModel() {
 
     private val _state = MutableStateFlow(initialState)
     val state = _state.asStateFlow()
 
-    internal val _searchQuery = MutableStateFlow("")
-    val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
-    protected open val recentSearchUseCase: RecentSearchUseCase? = null
+    private val _effects = MutableSharedFlow<E>()
+    val effects = _effects.asSharedFlow()
 
     protected fun <T> tryToExecute(
         function: suspend () -> T,
@@ -55,8 +54,11 @@ abstract class BaseViewModel<S>(initialState: S) : ViewModel() {
         _state.update(updater)
     }
 
-    protected val currentState: S
-        get() = _state.value
+    protected fun emitNewEffect(effect: E) {
+        viewModelScope.launch(Dispatchers.Main) {
+            _effects.emit(effect)
+        }
+    }
 
     private fun runWithErrorHandling(
         onError: (Throwable) -> Unit,
@@ -72,14 +74,4 @@ abstract class BaseViewModel<S>(initialState: S) : ViewModel() {
         }
     }
 
-    fun onSearchQueryChange(newQuery: String) {
-        _searchQuery.value = newQuery
-    }
-
-    open fun onSearchSubmit() {
-        val query = _searchQuery.value.trim()
-        if (query.isNotBlank()) {
-            _searchQuery.value = ""
-        }
-    }
 }
