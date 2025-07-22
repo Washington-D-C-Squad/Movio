@@ -6,6 +6,7 @@ import com.madrid.data.dataSource.local.dao.MovieDao
 import com.madrid.data.dataSource.local.dao.RecentSearchDao
 import com.madrid.data.dataSource.local.dao.SeriesDao
 import com.madrid.data.dataSource.local.entity.ArtistEntity
+import com.madrid.data.dataSource.local.entity.CategoryEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
@@ -36,10 +37,12 @@ class LocalDataSourceImpl(
         artistDao.insertArtist(artist = artist)
     }
 
+    override suspend fun insertCategory(category: CategoryEntity) {
+        categoryDao.insertCategory(category)
+    }
 
     override suspend fun searchMovieByQueryFromDB(query: String): List<MovieEntity> {
         return movieDao.getMovieByTitle("%$query%")
-
     }
 
     override suspend fun searchSeriesByQueryFromDB(query: String): List<SeriesEntity> {
@@ -71,6 +74,10 @@ class LocalDataSourceImpl(
 
     override suspend fun clearAllRecentSearches() {
         recentSearchDao.clearAllRecentSearches()
+    }
+
+    override suspend fun addSearchedCategoryCount(categoryTitle: String) {
+        categoryDao.increaseCategorySearchCount(categoryTitle)
     }
 
 }

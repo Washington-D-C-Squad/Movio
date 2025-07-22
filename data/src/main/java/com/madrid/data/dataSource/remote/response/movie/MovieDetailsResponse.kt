@@ -14,7 +14,7 @@ data class MovieDetailsResponse(
     @SerialName("budget")
     val budget: Int?,
     @SerialName("genres")
-    val movieGenres: List<MovieGenre>?,
+    val movieGenres: List<MovieGenre>,
     @SerialName("homepage")
     val homepage: String?,
     @SerialName("id")
