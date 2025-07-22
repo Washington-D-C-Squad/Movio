@@ -25,6 +25,7 @@ class SearchRepositoryImpl(
 
     override suspend fun getMovieByQuery(query: String, page: Int): List<Movie> {
         val result = localSource.searchMovieByQueryFromDB(query)
+        Log.d("in impl", "getMovieByQuery: $result")
         return if (result.isEmpty()) {
             val movie = remoteDataSource.searchMoviesByQuery(
                 name = query,
@@ -33,7 +34,7 @@ class SearchRepositoryImpl(
             ).movieResults?.map {
                 it.toMovie()
             }
-
+            Log.d("in impl", "getMovieByQuery Remote: $movie")
             movie?.map {
                 localSource.insertMovie(it.toMovieEntity())
             }
