@@ -82,15 +82,12 @@ fun SearchScreen(
         },
         forYouMovies = uiState.searchUiState.forYouMovies,
         exploreMoreMovies = uiState.searchUiState.exploreMoreMovies.collectAsLazyPagingItems(),
-        searchResults = uiState.searchUiState.searchResults.collectAsLazyPagingItems(),
         searchQuery = searchQuery,
         onSearchQueryChange = { query ->
             searchQuery = query
-//            viewModel.searchMovies(query)
         },
         onMovieClick = { movie ->
             navController.navigate(Destinations.MovieDetailsScreen(movie.id.toInt()))
-            // Navigate to the required Screen --> navController.navigate(Destinations.MovieDetailsScreen)
         },
         isLoading = uiState.searchUiState.isLoading,
         searchHistory = uiState.recentSearchUiState,
@@ -125,7 +122,6 @@ fun SearchScreen(
 @Composable
 fun ContentSearchScreen(
     addRecentSearch: (String) -> Unit,
-    //Flow<PagingData<MovieUiState>>
     topRated: LazyPagingItems<SearchScreenState.MovieUiState>,
     movies: LazyPagingItems<SearchScreenState.MovieUiState>,
     series: LazyPagingItems<SearchScreenState.SeriesUiState>,
@@ -137,7 +133,6 @@ fun ContentSearchScreen(
     modifier: Modifier = Modifier,
     forYouMovies: List<SearchScreenState.MovieUiState> = emptyList(),
     exploreMoreMovies: LazyPagingItems<SearchScreenState.MovieUiState>,
-    searchResults: LazyPagingItems<SearchScreenState.MovieUiState>,
     searchQuery: String = "",
     onSearchQueryChange: (String) -> Unit,
     onSearchBarClick: () -> Unit = {},
