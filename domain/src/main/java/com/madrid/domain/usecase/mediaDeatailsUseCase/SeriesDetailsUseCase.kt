@@ -26,8 +26,8 @@ class SeriesDetailsUseCase(private val seriesDetailsRepository: SeriesDetailsRep
     suspend fun getSimilarSeriesById(seriesId: Int): List<SimilarSeries> =
         seriesDetailsRepository.getSimilarSeriesById(seriesId)
 
-    suspend fun getEpisodesBySeasonId(seasonId: Int, seasonNumber: Int): List<Episode> =
-        seriesDetailsRepository.getEpisodesBySeasonId(seasonId, seasonNumber)
+    suspend fun getEpisodesBySeriesId(seriesId: Int, seasonNumber: Int): List<Episode> =
+        seriesDetailsRepository.getEpisodesBySeriesId(seriesId, seasonNumber)
 
 
     suspend fun submitSeriesRating(rating: Float) = seriesDetailsRepository.submitSeriesRating(rating)

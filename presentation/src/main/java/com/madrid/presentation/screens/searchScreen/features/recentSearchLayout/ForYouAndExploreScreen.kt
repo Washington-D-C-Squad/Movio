@@ -98,8 +98,8 @@ fun LazyGridScope.forYouAndExploreScreen(
                                 description = movie.title,
                                 movieImage = movie.imageUrl,
                                 rate = movie.rating,
-                                width = 124.dp,
-                                height = 177.dp,
+                                width = 158.dp,
+                                height = 180.dp,
                                 paddingValue = 8.dp,
                                 onClick = { onMovieClick(movie) }
                             )
@@ -158,8 +158,8 @@ fun LazyGridScope.forYouAndExploreScreen(
                         description = exploreMoreMovies[index]!!.title,
                         movieImage = exploreMoreMovies[index]!!.imageUrl,
                         rate = exploreMoreMovies[index]!!.rating,
-                        width = 1000.dp,
-                        height = 222.dp,
+                        width = 158.dp,
+                        height = 180.dp,
                         onClick = {
                             onMovieClick(exploreMoreMovies[index]!!)
                         }

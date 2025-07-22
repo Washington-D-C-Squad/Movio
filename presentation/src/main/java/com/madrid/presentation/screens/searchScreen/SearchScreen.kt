@@ -60,6 +60,9 @@ fun SearchScreen(
         onRefresh = viewModel::onRefresh
     ) {
         ContentSearchScreen(
+            onSeriesClick = { seriesId ->
+                navController.navigate(Destinations.EpisodesScreen(seriesId = seriesId))
+            },
             addRecentSearch = {
                 viewModel.addRecentSearch(it)
             },
@@ -86,7 +89,7 @@ fun SearchScreen(
             searchQuery = searchQuery,
             onSearchQueryChange = { query ->
                 searchQuery = query
-//            viewModel.searchMovies(query)
+
             },
             onMovieClick = { movie ->
                 navController.navigate(Destinations.MovieDetailsScreen(movie.id.toInt()))
@@ -146,6 +149,7 @@ fun ContentSearchScreen(
     onClearAll: () -> Unit,
     isLoading: Boolean = false,
     onClickSeeAll: () -> Unit,
+    onSeriesClick: (Int) -> Unit = {},
 ) {
     val showSearchResults = searchQuery.isNotBlank()
     var typeOfFilterSearch by remember { mutableStateOf("topRated") }
@@ -241,6 +245,9 @@ fun ContentSearchScreen(
                             onClickArtist()
                         }
                     }
+                },
+                onSeriesClick = { seriesId ->
+                    onSeriesClick(seriesId)
                 }
             )
         }

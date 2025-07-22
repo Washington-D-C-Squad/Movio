@@ -33,6 +33,7 @@ fun LazyGridScope.filterSearchScreen(
     movies: LazyPagingItems<SearchScreenState.MovieUiState>,
     series: LazyPagingItems<SearchScreenState.SeriesUiState>,
     artist: LazyPagingItems<SearchScreenState.ArtistUiState>,
+    onSeriesClick: (Int) -> Unit = {}
 ) {
     item(
         span = { GridItemSpan(maxLineSpan) }
@@ -118,7 +119,7 @@ fun LazyGridScope.filterSearchScreen(
                                     movieImage = topRated[index]!!.imageUrl,
                                     rate = topRated[index]!!.rating,
                                     width = 101.dp,
-                                    height = 178.dp,
+                                    height = 136.dp,
                                     onClick = { }
                                 )
                             }
@@ -192,8 +193,8 @@ fun LazyGridScope.filterSearchScreen(
                                     description = movies[index]!!.title,
                                     movieImage = movies[index]!!.imageUrl,
                                     rate = movies[index]!!.rating,
-                                    width = 100.dp,
-                                    height = 178.dp,
+                                    width = 101.dp,
+                                    height = 136.dp,
                                     onClick = { }
                                 )
                             }
@@ -267,9 +268,9 @@ fun LazyGridScope.filterSearchScreen(
                                     description = series[index]!!.title,
                                     movieImage = series[index]!!.imageUrl,
                                     rate = series[index]!!.rating,
-                                    width = 100.dp,
-                                    height = 178.dp,
-                                    onClick = { }
+                                    width = 101.dp,
+                                    height = 136.dp,
+                                    onClick = { onSeriesClick(series[index]!!.id.toInt()) }
                                 )
                             }
                         }

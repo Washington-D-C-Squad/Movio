@@ -41,8 +41,8 @@ fun CustomTextTitel(
                     MovioText(
                         text = it,
                         color = Theme.color.surfaces.onSurfaceVariant,
-                        textStyle = Theme.textStyle.title.mediumMedium14,
-                        modifier = Modifier.padding(end = 8.dp)
+                        textStyle = Theme.textStyle.label.smallRegular14,
+                        modifier = Modifier.padding(end = 4.dp)
                     )
                 }
                 endIcon?.let {
@@ -50,7 +50,7 @@ fun CustomTextTitel(
                         painter = it,
                         contentDescription = "See all",
                         tint = Theme.color.surfaces.onSurfaceVariant,
-                        modifier = Modifier
+                        //modifier = Modifier.padding(end = 16.dp)
                     )
                 }
             }
