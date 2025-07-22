@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
@@ -26,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.MovioTheme
@@ -33,6 +36,39 @@ import com.madrid.designSystem.theme.Theme
 import com.madrid.detectImageContent.FilteredImage
 import com.madrid.domain.entity.SimilarMovie
 import com.madrid.presentation.R
+
+@Composable
+private fun MovieCardPlaceholder() {
+    Column(
+        modifier = Modifier.width(124.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .height(160.dp)
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .background(Theme.color.surfaces.surfaceContainer)
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .size(24.dp)
+                    .align(Alignment.Center),
+                color = Theme.color.brand.primary,
+                strokeWidth = 2.dp
+            )
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Box(
+            modifier = Modifier
+                .height(32.dp)
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(4.dp))
+                .background(Theme.color.surfaces.surfaceContainer)
+        )
+    }
+}
 
 @Composable
 fun SimilarMoviesSection(
@@ -72,17 +108,7 @@ fun SimilarMoviesSection(
 
         when {
             uiState.isLoading -> {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(200.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator(
-                        color = Theme.color.brand.primary,
-                        modifier = Modifier.size(40.dp)
-                    )
-                }
+                LoadingSection()
             }
 
             uiState.errorMessage != null -> {
@@ -92,9 +118,75 @@ fun SimilarMoviesSection(
                 )
             }
 
-            else -> {
-                EmptySection()
+            uiState.movies.isEmpty() -> {
+                EmptyStateSection()
             }
+
+            else -> {
+                MoviesListSection(
+                    movies = uiState.movies,
+                    onMovieClick = onMovieClick
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun LoadingSection() {
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        modifier = Modifier.padding(horizontal = 4.dp)
+    ) {
+        items(5) { // Show 5 placeholder cards
+            MovieCardPlaceholder()
+        }
+    }
+}
+
+@Composable
+private fun EmptyStateSection() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            MovioText(
+                text = "No similar movies found",
+                color = Theme.color.surfaces.onSurfaceVariant,
+                textStyle = Theme.textStyle.body.mediumMedium14
+            )
+            MovioText(
+                text = "Check back later for recommendations",
+                color = Theme.color.surfaces.onSurfaceVariant,
+                textStyle = Theme.textStyle.label.smallRegular12
+            )
+        }
+    }
+}
+
+@Composable
+private fun MoviesListSection(
+    movies: List<SimilarMovie>,
+    onMovieClick: (SimilarMovie) -> Unit
+) {
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        modifier = Modifier.padding(horizontal = 4.dp)
+    ) {
+        items(
+            items = movies,
+            key = { it.id }
+        ) { movie ->
+            MovieCard(
+                movie = movie,
+                onClick = { onMovieClick(movie) }
+            )
         }
     }
 }
@@ -120,28 +212,17 @@ private fun ErrorSection(
                 textStyle = Theme.textStyle.body.mediumMedium14
             )
             MovioText(
+                text = errorMessage,
+                color = Theme.color.surfaces.onSurfaceVariant,
+                textStyle = Theme.textStyle.label.smallRegular12
+            )
+            MovioText(
                 text = "Retry",
                 color = Theme.color.brand.primary,
                 textStyle = Theme.textStyle.label.smallRegular14,
                 modifier = Modifier.clickable(onClick = onRetry)
             )
         }
-    }
-}
-
-@Composable
-private fun EmptySection() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(100.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        MovioText(
-            text = "No similar movies found",
-            color = Theme.color.surfaces.onSurfaceVariant,
-            textStyle = Theme.textStyle.body.mediumMedium14
-        )
     }
 }
 
@@ -169,29 +250,32 @@ private fun MovieCard(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Box(
-                modifier = Modifier
-                    .padding(8.dp)
-                    .clip(RoundedCornerShape(4.dp))
-                    .background(Theme.color.surfaces.surfaceContainer.copy(alpha = 0.7f))
-                    .padding(horizontal = 8.dp, vertical = 4.dp)
-                    .align(Alignment.TopStart)
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(4.dp),
-                    verticalAlignment = Alignment.CenterVertically
+            // Rating badge
+            if (movie.rate > 0) {
+                Box(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .clip(RoundedCornerShape(4.dp))
+                        .background(Theme.color.surfaces.surfaceContainer.copy(alpha = 0.7f))
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                        .align(Alignment.TopStart)
                 ) {
-                    MovioIcon(
-                        painter = painterResource(id = com.madrid.designSystem.R.drawable.bold_star),
-                        contentDescription = null,
-                        modifier = Modifier.size(12.dp),
-                        tint = Theme.color.system.warning
-                    )
-                    MovioText(
-                        text = movie.rate.toString(),
-                        color = Theme.color.surfaces.onSurface,
-                        textStyle = Theme.textStyle.label.smallRegular12
-                    )
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        MovioIcon(
+                            painter = painterResource(id = com.madrid.designSystem.R.drawable.bold_star),
+                            contentDescription = null,
+                            modifier = Modifier.size(12.dp),
+                            tint = Theme.color.system.warning
+                        )
+                        MovioText(
+                            text = String.format("%.1f", movie.rate),
+                            color = Theme.color.surfaces.onSurface,
+                            textStyle = Theme.textStyle.label.smallRegular12
+                        )
+                    }
                 }
             }
         }

@@ -52,12 +52,10 @@ class SimilarMoviesViewModel(
     }
 }
 
-// Repository Interface
 interface SimilarMoviesRepository {
     suspend fun getSimilarMovies(movieId: Int): List<SimilarMovie>
 }
 
-// Repository Implementation
 class SimilarMoviesRepositoryImpl(
     private val apiService: MoviesApiService
 ) : SimilarMoviesRepository {
@@ -87,15 +85,10 @@ data class ApiSimilarMovie(
     val voteAverage: Double
 )
 
-// API Service Implementation (example with basic HTTP client)
 class MoviesApiServiceImpl : MoviesApiService {
 
-    // You can replace this with Retrofit, Ktor, or any other HTTP client
     override suspend fun getSimilarMovies(movieId: Int): List<ApiSimilarMovie> {
-        // Example implementation - replace with your actual API call
         return try {
-            // Make API call here
-            // For example, using OkHttp or Retrofit
             fetchFromApi(movieId)
         } catch (e: Exception) {
             throw Exception("Failed to fetch similar movies: ${e.message}")
@@ -103,13 +96,10 @@ class MoviesApiServiceImpl : MoviesApiService {
     }
 
     private suspend fun fetchFromApi(movieId: Int): List<ApiSimilarMovie> {
-        // Placeholder implementation
-        // Replace this with your actual API call
         return emptyList()
     }
 }
 
-// Factory for creating ViewModel without Hilt
 class SimilarMoviesViewModelFactory(
     private val repository: SimilarMoviesRepository
 ) : androidx.lifecycle.ViewModelProvider.Factory {
@@ -123,7 +113,6 @@ class SimilarMoviesViewModelFactory(
     }
 }
 
-// Extension function to create ViewModel in Composable
 @Composable
 fun createSimilarMoviesViewModel(): SimilarMoviesViewModel {
     val apiService = remember { MoviesApiServiceImpl() }

@@ -106,7 +106,6 @@ fun MovieDetailsScreen(
                     onMovieClick = { movie: SimilarMovie ->
                     }
                 )
-
         }
     }
 }
