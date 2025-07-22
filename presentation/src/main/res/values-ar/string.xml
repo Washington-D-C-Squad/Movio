@@ -31,4 +31,7 @@
     <string name="see_all">رؤية الكل</string>
     <string name="explore_more">البحث عن المزيد</string>
     <string name="loading">جاري التحميل...</string>
+    <string name="empty_recent_search_title">عن ماذا تبحث اليوم؟</string>
+    <string name="empty_recent_search_body">ابدأ بالكتابة في شريط البحث للعثور على ما تحتاجه.</string>
+
 </resources>
