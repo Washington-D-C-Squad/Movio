@@ -1,5 +1,6 @@
 package com.madrid.designSystem.color
 
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 val darkThemeColors = MovioColors(
@@ -36,4 +37,12 @@ val darkThemeColors = MovioColors(
         dropShadow = Color(0x0FFFFFFF),
         defaultImageBackground = Color(0xFF252E3C)
     ),
+    gradients = Gradients(
+        iconGradient = Brush.linearGradient(
+            colors = listOf(
+                Color(0xFF724CF8),
+                Color(0xFFB7A4FB)
+            )
+        )
+    )
 )
