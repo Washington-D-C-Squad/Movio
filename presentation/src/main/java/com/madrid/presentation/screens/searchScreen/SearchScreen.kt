@@ -36,6 +36,7 @@ import com.madrid.designSystem.R
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.textInputField.BasicTextInputField
 import com.madrid.designSystem.theme.Theme
+import com.madrid.presentation.component.EmptyRececntSearch
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.RecentSearchLayout
@@ -263,7 +264,7 @@ fun ContentSearchScreen(
             )
         }
 
-        if (showRecentSearch == 1) {
+        if (showRecentSearch == 1 && searchHistory.isNotEmpty()) {
             recentSearchScreen(
                 searchHistory = searchHistory,
                 searchQuery = searchQuery,
@@ -272,6 +273,9 @@ fun ContentSearchScreen(
                 onClearAll = { onClearAll() },
                 highlightCharactersInText = highlightrecentSearch,
             )
+        }
+        if (showRecentSearch == 1 && searchHistory.isEmpty()) {
+            EmptyRececntSearch()
         }
     }
 }

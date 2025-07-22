@@ -118,7 +118,7 @@ class SearchViewModel(
 
             },
             onSuccess = {
-
+                loadRecentSearches()
             },
             onError = {
 
