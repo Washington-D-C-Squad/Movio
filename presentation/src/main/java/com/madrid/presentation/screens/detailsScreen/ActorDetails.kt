@@ -7,127 +7,104 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.madrid.designsystem.AppTheme
-import com.madrid.designsystem.component.MovioText
-import com.madrid.designsystem.component.TopAppBar
+import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.Theme
+import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
+import com.madrid.presentation.component.movioCards.MovioVerticalCard
 import com.madrid.presentation.composables.ActorDetailsHeader
-import com.madrid.presentation.composables.movieActorBackround.MoviePosterDetailScreen
-import com.madrid.presentation.composables.movioCards.MovioVerticalCard
-import com.madrid.presentation.screens.searchScreen.SearchResultMessage
-import com.madrid.presentation.screens.searchScreen.SearchScreenState
-import com.madrid.presentation.screens.searchScreen.viewModel.SearchViewModel
+import com.madrid.presentation.viewModel.detailsViewModel.MovieDetailsUiState
+import com.madrid.presentation.viewModel.detailsViewModel.MovieDetailsViewModel
 import org.koin.androidx.compose.koinViewModel
 
+
 @Composable
-fun ActorDetailsC(viewModel: SearchViewModel= koinViewModel()) {
+fun ActorDetails(actorId: String, viewModel: MovieDetailsViewModel = koinViewModel()) {
 
     val uiState by viewModel.state.collectAsState()
-    ActorDetailsContent(
-        actorImageUrl = "",
-        descrptoin = "fcysuyiu cnwoiaicn kjvnaniasjfllkncxjvniwajINCJncwonAODJVBo'BNC0 onicnzbfvuwabojnspk nuv[0wha]nnc ",
-        actorName = "tom ",
-        actorRole = "actor",
-        dateOfBirth = "2000/2/2",
-        Location = "location",
-        movies = uiState.filteredScreenUiState.movie,
-        viewModel = viewModel
-    )
+    LaunchedEffect(Unit) {
+        viewModel.loadActorDetails(actorId)
+    }
+    uiState.selectedActor?.let { actor ->
+        ActorDetailsContent(actor)
+    }
 }
+
 @Composable
 fun ActorDetailsContent(
-    actorImageUrl: String,
-    descrptoin: String,
-    actorName:String,
-    actorRole:String,
-    dateOfBirth:String,
-    Location:String,
-    movies: List<com.madrid.presentation.screens.searchScreen.viewModel.SearchScreenState.MovieUiState>,
-    viewModel:SearchViewModel
+    actor: MovieDetailsUiState.CastUiState
 ) {
-    LazyColumn (
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppTheme.colors.surfaceColor.surface),
+            .background(Theme.color.surfaces.surface),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        item(
-        ) {
-            Box(
-                contentAlignment = Alignment.Center,
-            ) {
-                TopAppBar(
-                    text = null,
-                    secondIcon = null,
-                    thirdIcon = null,
-                    modifier = Modifier
-                        .align(Alignment.TopCenter)
-                        .statusBarsPadding()
-                )
+        item {
+            Box(contentAlignment = Alignment.Center) {
                 MoviePosterDetailScreen(
-                    ImageUrl = actorImageUrl,
+                    imageUrl = actor.actorImageUrl,
                     isActor = true
                 )
             }
         }
-        item() {
+
+        item {
             ActorDetailsHeader(
-                actorName = actorName,
-                actorRole = actorRole,
-                dateOfBirth = dateOfBirth,
-                Location = Location,
+                actorName = actor.actorName,
+                actorRole = actor.actorRole,
+                dateOfBirth = actor.dateOfBirth,
+                Location = actor.location,
             )
         }
-        item() {
+
+        item {
             MovioText(
-                text = descrptoin,
-                color = AppTheme.colors.surfaceColor.onSurface,
-                textStyle = AppTheme.textStyle.label.smallRegular14,
+                text = actor.description,
+                color = Theme.color.surfaces.onSurface,
+                textStyle = Theme.textStyle.label.smallRegular14,
                 maxLines = 5,
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .padding(bottom = 16.dp)
             )
         }
-        item() {
+
+        item {
             MovioText(
                 text = "Known For",
-                color = AppTheme.colors.surfaceColor.onSurface,
-                textStyle = AppTheme.textStyle.title.medium16,
-                modifier = Modifier.padding(horizontal = 16.dp )
+                color = Theme.color.surfaces.onSurface,
+                textStyle = Theme.textStyle.title.mediumMedium14,
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
-        item(
-        ) {
+
+        item {
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier
-                    .padding(
-                        bottom = AppTheme.spacing.xLarge
-                    )
+                    .padding(bottom = 16.dp)
                     .height(333.dp),
             ) {
-                items(
-                    count = movies.size,
-
-                    ) { index ->
+                items(actor.knownFor.size) { index ->
+                    val movie = actor.knownFor[index]
                     MovioVerticalCard(
-                        description = movies[index].title,
-                        movieImage =  movies[index].imageUrl,
-                        rate =  movies[index].rating,
+                        description = movie.title,
+                        movieImage = movie.imageUrl,
+                        rate = movie.rating,
                         width = 100.dp,
                         height = 178.dp,
-                        onClick = { /* onMovieClick(movie.title) */ },
-                        modifier = Modifier .navigationBarsPadding()
+                        onClick = { /* Handle movie click */ },
+                        modifier = Modifier
+                            .navigationBarsPadding()
                             .padding(vertical = 12.dp)
                     )
                 }
@@ -135,3 +112,4 @@ fun ActorDetailsContent(
         }
     }
 }
+
