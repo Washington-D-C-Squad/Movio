@@ -3,6 +3,7 @@ package com.madrid.data.dataSource.remote
 import android.util.Log
 import com.madrid.data.BuildConfig.API_KEY
 import com.madrid.data.dataSource.remote.utils.Constants.KEY
+import com.madrid.data.dataSource.remote.utils.responseWrapper
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -23,9 +24,10 @@ class MovieInterceptor(
             .build()
 
         Log.e("MY_TAG", newRequest.url.toString())
-        val response = chain.proceed(newRequest)
 
-        return response
+        val response : Response = chain.proceed(newRequest)
+
+        return responseWrapper(response)
     }
 
 }
