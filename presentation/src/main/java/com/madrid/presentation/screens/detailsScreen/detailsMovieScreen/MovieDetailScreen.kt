@@ -16,7 +16,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.component.TopAppBar
 import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.component.BottomMediaActions
@@ -52,7 +51,9 @@ fun MovieDetailsScreen(
             modifier = Modifier.fillMaxSize()
         )
         Box(modifier = Modifier.statusBarsPadding()) {
-            TopAppBar(null)
+            TopAppBar(
+                null
+            )
         }
         Column(
             modifier = Modifier
@@ -102,16 +103,15 @@ fun MovieDetailsScreen(
             SimilarMoviesSection(
                 onSeeAllClick = {},
                 onMovieClick = { movie ->
-                    // Handle movie click here
-                    // You can access movie.id, movie.title, etc.
+
                 },
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                 movies = uiState.similarMovies.map { movie ->
                     SimilarMovie(
-                        id = movie.id,  // Make sure this is Int as expected by SimilarMovie
-                        title = movie.name,  // Using 'name' from source as 'title' in SimilarMovie
-                        imageUrl = movie.imageUrl,  // Make sure this matches the property name
-                        rating = movie.rate // Convert rate to Double
+                        id = movie.id,
+                        title = movie.name,
+                        imageUrl = movie.imageUrl,
+                        rating = movie.rate
                     )
                 }
             )
