@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.presentation.R
 
 
@@ -32,11 +33,11 @@ fun DetailsChips(
         modifier = modifier
             .background(
                 Theme.color.surfaces.surfaceContainer,
-                shape = RoundedCornerShape(32.dp)
+                shape = RoundedCornerShape(24.dp)
             )
             .border(
                 width = 1.dp, color = Theme.color.surfaces.onSurfaceAt2,
-                shape = RoundedCornerShape(32.dp)
+                shape = RoundedCornerShape(24.dp)
             )
             .padding(vertical = 8.dp, horizontal = 12.dp),
         contentAlignment = Alignment.Center
@@ -52,7 +53,7 @@ fun DetailsChips(
             MovioText(
                 text,
                 color = Theme.color.surfaces.onSurfaceContainer,
-                textStyle = Theme.textStyle.label.smallRegular14
+                textStyle = Theme.textStyle.label.smallRegular12
             )
         }
     }
@@ -62,9 +63,11 @@ fun DetailsChips(
 @Preview
 @Composable
 fun DetailsChipsPreview(modifier: Modifier = Modifier) {
-    DetailsChips(
-        icon = painterResource(R.drawable.icon_home),
-        iconTint = Theme.color.surfaces.onSurfaceVariant,
-        text = "drama",
-    )
+    MovioTheme {
+        DetailsChips(
+            icon = painterResource(R.drawable.icon_home),
+            iconTint = Theme.color.surfaces.onSurfaceVariant,
+            text = "drama",
+        )
+    }
 }

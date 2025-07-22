@@ -49,7 +49,7 @@ fun SearchHeader(
                 .fillMaxWidth()
                 .background(
                     Theme.color.surfaces.surfaceVariant,
-                    RoundedCornerShape(24.dp)
+                    RoundedCornerShape(8.dp)
                 )
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
@@ -76,7 +76,7 @@ fun SearchHeader(
                     if (searchQuery.isEmpty()) {
                         MovioText(
                             text = stringResource(com.madrid.presentation.R.string.search),
-                            textStyle = Theme.textStyle.body.mediumMedium14,
+                            textStyle = Theme.textStyle.label.smallRegular14 ,
                             color = Theme.color.surfaces.onSurfaceVariant
                         )
                     }
@@ -101,7 +101,7 @@ fun SearchHeader(
 
 
 @Composable
-private fun SearchHeaderPreview(modifier: Modifier = Modifier) {
+private fun SearchHeaderPreview() {
     MovioTheme {
         SearchHeader(
             searchQuery = "",

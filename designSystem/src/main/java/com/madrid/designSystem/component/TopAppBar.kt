@@ -16,9 +16,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.madrid.designSystem.R
+import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.designSystem.theme.Theme
 
 @Composable
@@ -90,5 +92,14 @@ fun TopAppBar(
                 )
             }
         }
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+private fun TopAppBarReview(modifier: Modifier = Modifier) {
+    MovioTheme {
+        TopAppBar(null)
     }
 }
