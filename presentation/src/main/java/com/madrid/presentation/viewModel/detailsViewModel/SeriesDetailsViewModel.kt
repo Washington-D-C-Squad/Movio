@@ -1,24 +1,16 @@
 package com.madrid.presentation.viewModel.detailsViewModel
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
-import com.madrid.domain.entity.Cast
-import com.madrid.domain.entity.Season
 import com.madrid.domain.usecase.mediaDeatailsUseCase.SeriesDetailsUseCase
-import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.viewModel.base.BaseViewModel
-import kotlinx.coroutines.launch
-import org.koin.android.annotation.KoinViewModel
 
-@KoinViewModel
 class SeriesDetailsViewModel(
-    override val recentSearchUseCase: RecentSearchUseCase,
     private val savedStateHandle: SavedStateHandle,
     private val seriesDetailsUseCase: SeriesDetailsUseCase
 ) : BaseViewModel<SeriesDetailsUiState>(SeriesDetailsUiState()) {
-    val args = savedStateHandle.toRoute<Destinations.SeriesDetailsScreen>()
+    private val args = savedStateHandle.toRoute<Destinations.SeriesDetailsScreen>()
 
     init {
         loadData()
@@ -34,14 +26,32 @@ class SeriesDetailsViewModel(
                         topImageUrl = series.imageUrl,
                         seriesName = series.title,
                         rate = series.rate.toString(),
-                        numberOfSeasons = series.seasons.size,
+                        numberOfSeasons = series.seasons.size - 1,
                         productionDate = series.yearOfRelease,
                         description = series.description,
-                        currentSeasonUiStates = series.seasons.map { season -> season.mapToUiState() }
+                        currentSeasonsUiStates = series.seasons.map { season -> season.mapToUiState() },
+                        selectedSeasonUiState = series.seasons.first().mapToUiState()
                     )
                 }
             },
             onError = {},
+        )
+        loadSeasonEpisodes()
+    }
+
+    fun updateSelectedSeason(seasonNumber: Int) = loadSeasonEpisodes(seasonNumber)
+
+    private fun loadSeasonEpisodes(seasonNumber: Int = 1) {
+        tryToExecute(
+            function = { seriesDetailsUseCase.getEpisodesBySeriesId(args.seriesId, seasonNumber) },
+            onSuccess = { episodes ->
+                updateState {
+                    it.copy(selectedSeasonUiState = it.selectedSeasonUiState.copy(episodesUiStates = episodes.map { episode ->
+                        episode.toUiState()
+                    }, numberOfEpisodes = episodes.size))
+                }
+            },
+            onError = { },
         )
     }
 
@@ -53,31 +63,10 @@ class SeriesDetailsViewModel(
                     it.copy(topCast = Artists.map { artist ->
                         artist.mapToUiState()
                     })
-
                 }
             },
-            onError = {  },
+            onError = { },
         )
     }
-}
-
-
-fun Season.mapToUiState(): SeasonUiState {
-    return SeasonUiState(
-        id = this.seasonNumber, imageUrl = this.imageUrl,
-        seasonNumber = this.seasonNumber,
-        productionDate = this.yearOfRelease,
-        numberOfEpisodes = this.episodes.size,
-        rate = this.rate.toString(),
-        description = this.description
-    )
-}
-
-fun Cast.mapToUiState(): Artist {
-    return Artist(
-        id = this.id,
-        imageUrl = this.imageUrl,
-        name = this.name
-    )
 }
 
