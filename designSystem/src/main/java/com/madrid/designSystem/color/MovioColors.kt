@@ -1,12 +1,14 @@
 package com.madrid.designSystem.color
 
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 data class MovioColors(
     val brand: Brand,
     val surfaces: Surfaces,
     val system: System,
+    val gradients: Gradients
 )
 
 data class Surfaces(
@@ -47,4 +49,7 @@ data class System(
     val defaultImageBackground: Color
 )
 
+data class Gradients(
+    val iconGradient: Brush
+)
 internal val LocalMovioColor = staticCompositionLocalOf { lightThemeColors }
