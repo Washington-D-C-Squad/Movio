@@ -96,7 +96,6 @@ fun SearchScreen(
         },
         onMovieClick = { movie ->
             navController.navigate(Destinations.MovieDetailsScreen(movie.id.toInt()))
-            // Navigate to the required Screen --> navController.navigate(Destinations.MovieDetailsScreen)
         },
         isLoading = uiState.searchUiState.isLoading,
         searchHistory = uiState.recentSearchUiState,
@@ -110,22 +109,20 @@ fun SearchScreen(
     uiState.searchUiState.errorMessage?.let { errorMsg ->
         LaunchedEffect(errorMsg) {
 
-            }
-        }
-        if (uiState.searchUiState.isLoading) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                MovioIcon(
-                    painter = painterResource(R.drawable.loading),
-                    contentDescription = "Loading",
-                    tint = Theme.color.brand.primary
-                )
-            }
         }
     }
-
+    if (uiState.searchUiState.isLoading) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            MovioIcon(
+                painter = painterResource(R.drawable.loading),
+                contentDescription = "Loading",
+                tint = Theme.color.brand.primary
+            )
+        }
+    }
 }
 
 
@@ -133,7 +130,6 @@ fun SearchScreen(
 @Composable
 fun ContentSearchScreen(
     addRecentSearch: (String) -> Unit,
-    //Flow<PagingData<MovieUiState>>
     topRated: LazyPagingItems<SearchScreenState.MovieUiState>,
     movies: LazyPagingItems<SearchScreenState.MovieUiState>,
     series: LazyPagingItems<SearchScreenState.SeriesUiState>,
@@ -145,7 +141,6 @@ fun ContentSearchScreen(
     modifier: Modifier = Modifier,
     forYouMovies: List<SearchScreenState.MovieUiState> = emptyList(),
     exploreMoreMovies: LazyPagingItems<SearchScreenState.MovieUiState>,
-    searchResults: LazyPagingItems<SearchScreenState.MovieUiState>,
     searchQuery: String = "",
     onSearchQueryChange: (String) -> Unit,
     onSearchBarClick: () -> Unit = {},
@@ -161,6 +156,7 @@ fun ContentSearchScreen(
     var typeOfFilterSearch by remember { mutableStateOf("topRated") }
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     var showRecentSearch by remember { mutableIntStateOf(0) }
+
     LaunchedEffect(searchQuery) {
         snapshotFlow { searchQuery }
             .debounce(1000)
@@ -178,8 +174,6 @@ fun ContentSearchScreen(
                 }
             }
     }
-
-
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = modifier
@@ -199,7 +193,7 @@ fun ContentSearchScreen(
                     onSearchQueryChange(it)
                     showRecentSearch = 1
                 },
-                hintText = stringResource(com.madrid.presentation.R.string.search),
+                hintText = stringResource(com.madrid.presentation.R.string.searchdot),
                 startIconPainter = painterResource(R.drawable.search_normal),
                 endIconPainter = painterResource(R.drawable.outline_add),
                 modifier = Modifier
@@ -221,14 +215,13 @@ fun ContentSearchScreen(
             )
         }
         if (searchQuery.isNotEmpty() && showRecentSearch != 1) {
-            filterSearchScreen(
 
+            filterSearchScreen(
                 typeOfFilterSearch = typeOfFilterSearch,
                 topRated = topRated,
                 movies = movies,
                 series = series,
                 artist = artist,
-
                 selectedTabIndex = selectedTabIndex,
                 onChangeSelectedTabIndex = { selectedTabIndex = it },
                 onChangeTypeFilterSearch = {
@@ -237,19 +230,14 @@ fun ContentSearchScreen(
                             typeOfFilterSearch = "topRated"
                             onClickTopRated()
                         }
-
                         1 -> {
                             typeOfFilterSearch = "movies"
                             onClickMovies()
-
                         }
-
                         2 -> {
                             typeOfFilterSearch = "series"
                             onClickSeries()
-
                         }
-
                         else -> {
                             typeOfFilterSearch = "artists"
                             onClickArtist()

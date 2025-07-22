@@ -114,7 +114,7 @@ fun MovieDetailsScreen(
 
 @Composable
 fun TextWithReadMore(description: String, modifier: Modifier) {
-    TODO("Not yet implemented")
+
 }
 
 //@Preview(showBackground = true)

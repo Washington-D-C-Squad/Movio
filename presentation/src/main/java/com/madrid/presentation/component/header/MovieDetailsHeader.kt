@@ -7,14 +7,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.designSystem.theme.Theme
+import com.madrid.presentation.component.DetailsChips
 
 @Composable
 fun MovieDetailsHeader(
@@ -51,17 +50,17 @@ fun MovieDetailsHeader(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.padding(vertical = 4.dp)
         ) {
-            Chips(
+            DetailsChips(
                 icon = painterResource(com.madrid.designSystem.R.drawable.bold_star),
                 iconTint = Theme.color.system.warning,
                 text = rate,
             )
-            Chips(
+            DetailsChips(
                 icon = painterResource(com.madrid.designSystem.R.drawable.outline_clock_circle),
                 iconTint = Theme.color.surfaces.onSurfaceVariant,
                 text = time,
             )
-            Chips(
+            DetailsChips(
                 icon = painterResource(com.madrid.designSystem.R.drawable.outline_calendar),
                 iconTint = Theme.color.surfaces.onSurfaceVariant,
                 text = date,
@@ -70,10 +69,6 @@ fun MovieDetailsHeader(
     }
 }
 
-@Composable
-fun Chips(icon: Painter, iconTint: Color, text: String) {
-    TODO("Not yet implemented")
-}
 
 @Preview(showBackground = true)
 @Composable
