@@ -44,9 +44,9 @@ class SearchRepositoryImpl(
 //            }
 //        }
 //
-        val res = remoteDataSource.getTopRatedMovies(
-            query = query,
-            page = page
+        val res = remoteDataSource.searchMoviesByQuery(
+            name = query,
+             page = page
         ).movieResults?.map {
             it.toMovie()
         } ?: listOf()
