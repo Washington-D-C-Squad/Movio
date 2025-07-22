@@ -20,13 +20,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.MovioTheme
+import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.R
 import com.madrid.presentation.navigation.Destinations
-
 
 @Preview(showBackground = true)
 @Composable
@@ -42,8 +41,6 @@ fun CustomBottomBarPreview() {
         )
     }
 }
-
-
 data class NavBarItem(
     val destination: Destinations,
     val label: String,
@@ -51,8 +48,6 @@ data class NavBarItem(
     @DrawableRes val selectedIcon: Int,
     @DrawableRes val unSelectedIcon: Int,
 )
-
-
 val navBarDestinations = listOf(
     NavBarItem(
         destination = Destinations.HomeScreen,
@@ -80,8 +75,6 @@ val navBarDestinations = listOf(
         unSelectedIcon = R.drawable.icon_more
     )
 )
-
-
 @Composable
 fun CustomBottomBar(
     currentDestination: Destinations,
@@ -117,8 +110,6 @@ fun CustomBottomBar(
         }
     }
 }
-
-
 @Composable
 private fun CustomNavBarItem(
     isSelected: Boolean,
@@ -129,6 +120,11 @@ private fun CustomNavBarItem(
     unselectedTextStyle: TextStyle,
     labelColor: Color,
 ) {
+    val iconBrush = if (isSelected) {
+        Theme.color.gradients.iconGradient
+    } else {
+        null
+    }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -145,6 +141,7 @@ private fun CustomNavBarItem(
             painter = painterResource(id = iconRes),
             contentDescription = item.contentDescription,
             modifier = Modifier.size(24.dp),
+            brush = iconBrush,
             tint =Theme.color.surfaces.onSurfaceVariant,
         )
         MovioText(
