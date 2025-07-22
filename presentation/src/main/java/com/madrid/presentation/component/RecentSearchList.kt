@@ -20,15 +20,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.madrid.designSystem.theme.Theme
-import com.madrid.designSystem.R as DesignSystemR
-import com.madrid.designSystem.component.MovioText
-import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioButton
+import com.madrid.designSystem.component.MovioIcon
+import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.R
+import com.madrid.designSystem.R as DesignSystemR
 
 @Composable
 fun RecentSearchList(
@@ -60,12 +61,12 @@ fun RecentSearchList(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 MovioText(
-                    text = "recent search " , // stringResource(id = DesignSystemR.string.recent_search),
+                    text = stringResource(id = R.string.recent_search),
                     textStyle = Theme.textStyle.headline.mediumMedium18,
                     color = Theme.color.surfaces.onSurface
                 )
                 MovioText(
-                    text = "clear all ", // stringResource(id = DesignSystemR.string.clear_all),
+                    text = stringResource(id = R.string.clear_all),
                     textStyle = Theme.textStyle.body.mediumMedium14,
                     color = Theme.color.surfaces.onSurfaceVariant,
                     modifier = Modifier.clickable { onClearAll() }
@@ -97,36 +98,35 @@ fun RecentSearchItem(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onItemClick() }
-            .padding(horizontal = 20.dp, vertical = 16.dp),
+            .padding(vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
         MovioIcon(
             painter = painterResource(id = DesignSystemR.drawable.outline_clock_circle),
-            contentDescription = "description " , //stringResource(id = DesignSystemR.string.clock_content_description),
+            contentDescription = stringResource(id = R.string.clock_content_description),
             tint = Theme.color.surfaces.onSurfaceVariant,
-            modifier = Modifier.size(16.dp)
+            modifier = Modifier.size(24.dp)
         )
 
-        Spacer(modifier = Modifier.width(16.dp))
+        Spacer(modifier = Modifier.width(8.dp))
 
         MovioText(
             text = searchText,
             textStyle = Theme.textStyle.body.mediumMedium14,
-            color = Theme.color.surfaces.onSurface,
+            color = Theme.color.surfaces.onSurfaceVariant,
             modifier = Modifier.weight(1f)
         )
 
         MovioButton(
             onClick = onRemoveClick,
-            modifier = Modifier.size(20.dp),
-            color = Theme.color.surfaces.surface
+            color = Color.Transparent
         ) {
             MovioIcon(
-                painter = painterResource(id = DesignSystemR.drawable.trash),
-                contentDescription = "delete content description" , //stringResource(id = DesignSystemR.string.delete_content_description),
+                painter = painterResource(id = DesignSystemR.drawable.outline_add),
+                contentDescription = stringResource(id = R.string.delete_content_description),
                 tint = Theme.color.surfaces.onSurfaceVariant,
-                modifier = Modifier.size(16.dp)
+                modifier = Modifier.size(24.dp)
             )
         }
     }
