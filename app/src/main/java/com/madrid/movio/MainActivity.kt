@@ -20,6 +20,7 @@ import com.madrid.presentation.component.CustomBottomBar
 import com.madrid.presentation.component.navBarDestinations
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.navigation.MovioNavGraph
+import com.madrid.presentation.screens.detailsScreen.seriesDetails.EpisodesScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -28,7 +29,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MovioTheme {
-                MainScreen()
+                EpisodesScreen()
             }
         }
     }
