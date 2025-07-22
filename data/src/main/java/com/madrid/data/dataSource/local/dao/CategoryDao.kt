@@ -21,7 +21,6 @@ interface CategoryDao {
     @Update
     suspend fun updateCategory(category: CategoryEntity)
 
-    @Update
     @Query(
         """
         UPDATE CATEGORY_TABLE SET searchCount = searchCount + 1 

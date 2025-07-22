@@ -1,5 +1,6 @@
 package com.madrid.data.repositories
 
+import com.madrid.data.dataSource.local.entity.relationship.MovieCategoryCrossRef
 import com.madrid.data.dataSource.remote.mapper.toCredits
 import com.madrid.data.dataSource.remote.mapper.toMovie
 import com.madrid.data.dataSource.remote.mapper.toReviewResult
@@ -26,11 +27,15 @@ class MovieDetailsRepositoryImpl(
         movieResponse.movieGenres.map { genre ->
             val categoryEntity = genre.toCategoryEntity()
             localDataSource.insertCategory(categoryEntity)
-            localDataSource.
+            localDataSource.insertMovieCategory(
+                MovieCategoryCrossRef(
+                    movieId = movieId,
+                    categoryTitle = categoryEntity.categoryTitle
+                )
+            )
             localDataSource.addSearchedCategoryCount(categoryEntity.categoryTitle)
         }
-        val result = movieResponse.toMovie()
-        return result
+        return movieResponse.toMovie()
     }
 
     override suspend fun getMovieTrailersById(movieId: Int): Trailer {

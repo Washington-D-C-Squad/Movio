@@ -10,6 +10,7 @@ import com.madrid.data.dataSource.local.entity.CategoryEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
+import com.madrid.data.dataSource.local.entity.relationship.MovieCategoryCrossRef
 import com.madrid.data.repositories.local.LocalDataSource
 
 class LocalDataSourceImpl(
@@ -74,6 +75,10 @@ class LocalDataSourceImpl(
 
     override suspend fun clearAllRecentSearches() {
         recentSearchDao.clearAllRecentSearches()
+    }
+
+    override suspend fun insertMovieCategory(movieCategoryEntity: MovieCategoryCrossRef) {
+        movieDao.insertMovieCategoryCrossRef(movieCategoryEntity)
     }
 
     override suspend fun addSearchedCategoryCount(categoryTitle: String) {
