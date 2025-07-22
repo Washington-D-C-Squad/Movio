@@ -1,5 +1,9 @@
 package com.madrid.presentation.navigation
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,8 +32,7 @@ fun MovioNavGraph(navController: NavHostController) {
 
     val currentDestination = navBarDestinations.find { destinationItem ->
         destinationItem.destination::class.qualifiedName == currentRoute
-    } ?: navBarDestinations.first()
-
+    }
 
     Column(
         Modifier
@@ -48,13 +51,25 @@ fun MovioNavGraph(navController: NavHostController) {
             MovioNavHost(navController)
         }
 
-        CustomBottomBar(
-            currentDestination = currentDestination.destination,
-            navItems = navBarDestinations,
-            onNavDestinationClicked = { destination ->
-                navController.navigate(destination)
-            },
-            modifier = Modifier.navigationBarsPadding()
-        )
+        AnimatedVisibility(
+            visible = currentDestination != null,
+            enter = slideInVertically(
+                animationSpec = tween(0),
+                initialOffsetY = { it}
+            ),
+            exit = slideOutVertically(
+                animationSpec = tween(0),
+                targetOffsetY = {it}
+            )
+        ) {
+            CustomBottomBar(
+                currentDestination = currentDestination?.destination ?: Destinations.HomeScreen,
+                navItems = navBarDestinations,
+                onNavDestinationClicked = { destination ->
+                    navController.navigate(destination)
+                },
+                modifier = Modifier.navigationBarsPadding()
+            )
+        }
     }
 }

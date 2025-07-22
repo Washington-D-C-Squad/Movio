@@ -5,37 +5,37 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.madrid.domain.usecase.mediaDeatailsUseCase.MovieDetailsUseCase
-import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.viewModel.base.BaseViewModel
+import com.madrid.presentation.viewModel.effect.effect
 import kotlinx.coroutines.Dispatchers
 import org.koin.android.annotation.KoinViewModel
 
 
 @KoinViewModel
 class DetailsMovieViewModel(
-    override val recentSearchUseCase: RecentSearchUseCase,
     private val movieDetailsUseCase: MovieDetailsUseCase,
     private val saveStateHandle: SavedStateHandle
-) : BaseViewModel<DetailsMovieUiState>(
+) : BaseViewModel<DetailsMovieUiState, effect>(
     DetailsMovieUiState()
-){
+) {
 
     //MovieDetailsScreen
     val args = saveStateHandle.toRoute<Destinations.MovieDetailsScreen>()
+
     init {
         Log.e("MY_TAG", "args: ${args.movieId}")
         loadData()
     }
 
 
-    private fun loadData() {
+    internal fun loadData() {
         tryToExecute(
             function = {
                 movieDetailsUseCase.getMovieDetailsById(args.movieId)
             },
 
-            onSuccess = {movie->
+            onSuccess = { movie ->
                 updateState {
                     it.copy(
                         topImageUrl = movie.imageUrl,

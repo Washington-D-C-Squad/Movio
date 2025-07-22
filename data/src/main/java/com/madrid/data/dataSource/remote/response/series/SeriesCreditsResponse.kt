@@ -1,39 +1,39 @@
 package com.madrid.data.dataSource.remote.response.series
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 
 @Serializable
 data class SeriesCreditResponse(
-    @SerialName("id")
+    @SerializedName("id")
     val id: Int?,
-    @SerialName("cast")
+    @SerializedName("cast")
     val seriesCastNetwork: List<SeriesCastNetwork>?,
 )
 
 @Serializable
 data class SeriesCastNetwork(
-    @SerialName("adult")
+    @SerializedName("adult")
     val adult: Boolean?,
-    @SerialName("gender")
+    @SerializedName("gender")
     val gender: Int?,
-    @SerialName("id")
+    @SerializedName("id")
     val id: Int?,
-    @SerialName("known_for_department")
+    @SerializedName("known_for_department")
     val knownForDepartment: String?,
-    @SerialName("name")
+    @SerializedName("name")
     val name: String?,
-    @SerialName("original_name")
+    @SerializedName("original_name")
     val originalName: String?,
-    @SerialName("popularity")
+    @SerializedName("popularity")
     val popularity: Double?,
-    @SerialName("profile_path")
+    @SerializedName("profile_path")
     val profilePath: String?,
-    @SerialName("credit_id")
+    @SerializedName("credit_id")
     val creditId: Int?,
-    @SerialName("department")
+    @SerializedName("department")
     val department: String?,
-    @SerialName("job")
+    @SerializedName("job")
     val job: String?
 )

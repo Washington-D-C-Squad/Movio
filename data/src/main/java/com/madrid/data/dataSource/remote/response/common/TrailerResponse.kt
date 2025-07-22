@@ -1,6 +1,6 @@
 package com.madrid.data.dataSource.remote.response.common
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -11,8 +11,8 @@ data class TrailerResponse(
 
 @Serializable
 data class TrailerResult(
-    @SerialName("key")
+    @SerializedName("key")
     val key: String,
-    @SerialName("id")
+    @SerializedName("id")
     val id: String
 )
