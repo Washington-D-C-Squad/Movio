@@ -37,35 +37,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-
-    val currentRoute = navBackStackEntry?.destination?.route
-
-    val currentDestination = navBarDestinations.find { destinationItem ->
-        destinationItem.destination::class.qualifiedName == currentRoute
-    } ?: navBarDestinations.first()
-
     CompositionLocalProvider(LocalNavController provides navController) {
-        Column(Modifier.fillMaxSize()) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .weight(1f),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                MovioNavGraph(navController)
-            }
-
-            CustomBottomBar(
-                currentDestination = currentDestination.destination,
-                navItems = navBarDestinations,
-                onNavDestinationClicked = { destination ->
-                    navController.navigate(destination)
-                },
-                modifier = Modifier.navigationBarsPadding()
-            )
-        }
+        MovioNavGraph(navController)
     }
 }
 
