@@ -245,7 +245,16 @@ class RemoteDataSourceImpl(
     }
 
     override suspend fun getSeriesDetailsById(seriesId: Int): SeriesDetailsResponse {
-        TODO("Not yet implemented")
+        Log.d("booob", "getSeriesDetailsById: 00000000000000000000000")
+        val result = client.get(
+            path = "tv/$seriesId"
+        ) {
+
+        }
+        Log.d("booob", "getSeriesDetailsById: 11111111111111111111111")
+        val series = json.decodeFromString<SeriesDetailsResponse>(result.bodyAsText())
+        Log.d("booob", "getSeriesDetailsById: ${result.bodyAsText()}")
+        return series
     }
 
     override suspend fun getArtistById(artistId: Int): ArtistDetailsResponse {
