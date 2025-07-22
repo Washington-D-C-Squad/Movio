@@ -47,7 +47,7 @@ fun GuestButton(
 
 @Preview
 @Composable
-fun GustButtonPreview() {
+private fun GustButtonPreview() {
     MovioTheme {
         GuestButton { }
     }

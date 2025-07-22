@@ -62,7 +62,7 @@ fun DetailsChips(
 
 @Preview
 @Composable
-fun DetailsChipsPreview(modifier: Modifier = Modifier) {
+private fun  MovieDetailsHeaderPreview(modifier: Modifier = Modifier) {
     MovioTheme {
         DetailsChips(
             icon = painterResource(R.drawable.icon_home),
