@@ -1,5 +1,6 @@
 package com.madrid.data.dataSource.remote
 
+import android.util.Log
 import com.madrid.data.dataSource.remote.response.artist.ArtistDetailsResponse
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
 import com.madrid.data.dataSource.remote.response.common.TrailerResponse
@@ -18,6 +19,7 @@ import com.madrid.data.repositories.remote.RemoteDataSource
 
 class RemoteDataSourceImpl(
     private val api: MovieApi
+
 ) : RemoteDataSource {
     // Movies
     override suspend fun searchMoviesByQuery(name: String, page: Int): SearchMovieResponse {
@@ -31,6 +33,14 @@ class RemoteDataSourceImpl(
     override suspend fun getPopularMovie(page: Int): SearchMovieResponse {
         return api.getPopularMovie(page)
     }
+
+
+    override suspend fun getTopRatedSeries(query: String, page: Int): SearchSeriesResponse {
+        val x=  api.searchSeriesByQuery(query,page)
+        Log.d("loool", "getTopRatedSeries: $x")
+        return x
+    }
+
 
     override suspend fun getMovieDetailsById(movieId: Int): MovieDetailsResponse {
         return api.getMovieDetailsById(movieId)
@@ -73,7 +83,10 @@ class RemoteDataSourceImpl(
         return api.getSimilarSeriesById(seriesId)
     }
 
-    override suspend fun getEpisodesBySeasonId(seriesId: Int, seasonNumber: Int): SeasonEpisodesResponse {
+    override suspend fun getEpisodesBySeasonId(
+        seriesId: Int,
+        seasonNumber: Int
+    ): SeasonEpisodesResponse {
         return api.getEpisodesBySeasonId(seriesId, seasonNumber)
     }
 
@@ -88,23 +101,20 @@ class RemoteDataSourceImpl(
 
 
     override suspend fun searchMoviesByQuery(name: String): SearchMovieResponse {
-        return api.searchMoviesByQuery(name , 1)
+        return api.searchMoviesByQuery(name, 1)
     }
 
     override suspend fun searchSeriesByQuery(name: String): SearchSeriesResponse {
-        return api.searchSeriesByQuery(name , 1)
+        return api.searchSeriesByQuery(name, 1)
     }
 
     override suspend fun getTopRatedMovies(query: String, page: Int): SearchMovieResponse {
         return api.getTopRatedMovies(page)
     }
 
-    override suspend fun getSeriesDetailsById(seriesId: Int): SeriesDetailsResponse {
-        throw NotImplementedError("Not implemented in MovieApi interface yet.")
-    }
 
-    override suspend fun getTopRatedSeries(query: String, page: Int): SearchSeriesResponse {
-        return api.getTopRatedSeries(page)
+    override suspend fun getSeriesDetailsById(seriesId: Int): SeriesDetailsResponse {
+        return api.getSeriesDetailsById(seriesId)
     }
 
     override suspend fun getArtistById(artistId: Int): ArtistDetailsResponse {

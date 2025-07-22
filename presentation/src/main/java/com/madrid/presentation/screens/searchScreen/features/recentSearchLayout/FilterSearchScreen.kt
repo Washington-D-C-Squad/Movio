@@ -1,6 +1,5 @@
 package com.madrid.presentation.screens.searchScreen.features.recentSearchLayout
 
-import com.madrid.designSystem.component.HeaderSectionBar
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -12,6 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import androidx.paging.compose.LazyPagingItems
+import com.madrid.designSystem.component.HeaderSectionBar
 import com.madrid.designSystem.component.LoadingSearchCard
 import com.madrid.presentation.R
 import com.madrid.presentation.component.movioCards.MovioArtistsCard
@@ -27,6 +27,7 @@ fun LazyGridScope.filterSearchScreen(
     movies: LazyPagingItems<SearchScreenState.MovieUiState>,
     series: LazyPagingItems<SearchScreenState.SeriesUiState>,
     artist: LazyPagingItems<SearchScreenState.ArtistUiState>,
+    onSeriesClick: (Int) -> Unit = {}
 ) {
     item(
         span = { GridItemSpan(maxLineSpan) }
@@ -142,7 +143,7 @@ fun LazyGridScope.filterSearchScreen(
                             rate = series[index]!!.rating,
                             width = 101.dp,
                             height = 136.dp,
-                            onClick = { }
+                            onClick = { onSeriesClick(series[index]!!.id.toInt()) }
                         )
                     }
                 }

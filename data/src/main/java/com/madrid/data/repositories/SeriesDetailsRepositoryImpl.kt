@@ -43,9 +43,9 @@ class SeriesDetailsRepositoryImpl(
             ?: emptyList()
     }
 
-    override suspend fun getEpisodesBySeasonId(seasonId: Int, seasonNumber: Int): List<Episode> {
+    override suspend fun getEpisodesBySeriesId(seriesId: Int, seasonNumber: Int): List<Episode> {
         return remoteDataSource.getEpisodesBySeasonId(
-            seriesId = seasonId,
+            seriesId = seriesId,
             seasonNumber = seasonNumber
         ).episodeNetworks?.map { it.toEpisode() } ?: emptyList()
     }
