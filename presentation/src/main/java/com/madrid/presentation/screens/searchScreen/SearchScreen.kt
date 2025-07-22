@@ -34,6 +34,7 @@ import com.madrid.designSystem.component.textInputField.BasicTextInputField
 import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
+import com.madrid.presentation.screens.refreshScreenHolder.RefreshScreenHolder
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.RecentSearchLayout
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.filterSearchScreen
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.forYouAndExploreScreen
@@ -58,60 +59,68 @@ fun SearchScreen(
     if (isRecentSearchActive) {
         RecentSearchLayout()
     }
-    ContentSearchScreen(
-        addRecentSearch = {
-            viewModel.addRecentSearch(it)
-        },
-        modifier = modifier,
-        topRated = uiState.filteredScreenUiState.topResult.collectAsLazyPagingItems(),
-        movies = uiState.filteredScreenUiState.movie.collectAsLazyPagingItems(),
-        series = uiState.filteredScreenUiState.series.collectAsLazyPagingItems(),
-        artist = uiState.filteredScreenUiState.artist.collectAsLazyPagingItems(),
-        onClickTopRated = {
-            viewModel.topResult(searchQuery)
-        },
-        onClickMovies = {
-            viewModel.searchFilteredMovies(searchQuery)
-        },
-        onClickSeries = {
-            viewModel.searchSeries(searchQuery)
-        },
-        onClickArtist = {
-            viewModel.artists(searchQuery)
-        },
-        forYouMovies = uiState.searchUiState.forYouMovies,
-        exploreMoreMovies = uiState.searchUiState.exploreMoreMovies.collectAsLazyPagingItems(),
-        searchQuery = searchQuery,
-        onSearchQueryChange = { query ->
-            searchQuery = query
-        },
-        onMovieClick = { movie ->
-            navController.navigate(Destinations.MovieDetailsScreen(movie.id.toInt()))
-        },
-        isLoading = uiState.searchUiState.isLoading,
-        searchHistory = uiState.recentSearchUiState,
-        onSearchItemClick = { searchQuery = it },
-        onRemoveItem = { viewModel.removeRecentSearch(it) },
-        onClearAll = { viewModel.clearAll() },
-        onClickSeeAll = {
-            navController.navigate(Destinations.SeeAllForYouScreen)
-        },
-    )
-    uiState.searchUiState.errorMessage?.let { errorMsg ->
-        LaunchedEffect(errorMsg) {
 
+    RefreshScreenHolder(
+        refreshState = uiState.searchUiState.refreshState,
+        onRefresh = viewModel::onRefresh
+    ) {
+        ContentSearchScreen(
+            addRecentSearch = {
+                viewModel.addRecentSearch(it)
+            },
+            modifier = modifier,
+            topRated = uiState.filteredScreenUiState.topResult.collectAsLazyPagingItems(),
+            movies = uiState.filteredScreenUiState.movie.collectAsLazyPagingItems(),
+            series = uiState.filteredScreenUiState.series.collectAsLazyPagingItems(),
+            artist = uiState.filteredScreenUiState.artist.collectAsLazyPagingItems(),
+            onClickTopRated = {
+                viewModel.topResult(searchQuery)
+            },
+            onClickMovies = {
+                viewModel.searchFilteredMovies(searchQuery)
+            },
+            onClickSeries = {
+                viewModel.searchSeries(searchQuery)
+            },
+            onClickArtist = {
+                viewModel.artists(searchQuery)
+            },
+
+            forYouMovies = uiState.searchUiState.forYouMovies,
+            exploreMoreMovies = uiState.searchUiState.exploreMoreMovies.collectAsLazyPagingItems(),
+            searchQuery = searchQuery,
+            onSearchQueryChange = { query ->
+                searchQuery = query
+//            viewModel.searchMovies(query)
+            },
+            onMovieClick = { movie ->
+                navController.navigate(Destinations.MovieDetailsScreen(movie.id.toInt()))
+            },
+            isLoading = uiState.searchUiState.isLoading,
+            searchHistory = uiState.recentSearchUiState,
+            onSearchItemClick = { searchQuery = it },
+            onRemoveItem = { viewModel.removeRecentSearch(it) },
+            onClearAll = { viewModel.clearAll() },
+            onClickSeeAll = {
+                navController.navigate(Destinations.SeeAllForYouScreen)
+            }
+        )
+        uiState.searchUiState.errorMessage?.let { errorMsg ->
+            LaunchedEffect(errorMsg) {
+
+            }
         }
-    }
-    if (uiState.searchUiState.isLoading) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            MovioIcon(
-                painter = painterResource(R.drawable.loading),
-                contentDescription = "Loading",
-                tint = Theme.color.brand.primary
-            )
+        if (uiState.searchUiState.isLoading) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                MovioIcon(
+                    painter = painterResource(R.drawable.loading),
+                    contentDescription = "Loading",
+                    tint = Theme.color.brand.primary
+                )
+            }
         }
     }
 }
@@ -221,14 +230,17 @@ fun ContentSearchScreen(
                             typeOfFilterSearch = "topRated"
                             onClickTopRated()
                         }
+
                         1 -> {
                             typeOfFilterSearch = "movies"
                             onClickMovies()
                         }
+
                         2 -> {
                             typeOfFilterSearch = "series"
                             onClickSeries()
                         }
+
                         else -> {
                             typeOfFilterSearch = "artists"
                             onClickArtist()

@@ -102,6 +102,7 @@ class SearchViewModel(
                 )
             }
         }
+
         val result = Pager(
             config = pagingConfig,
             pagingSourceFactory = {
@@ -249,5 +250,54 @@ class SearchViewModel(
             enablePlaceholders = false,
             prefetchDistance = 5
         )
+    }
+
+    fun onRefresh(
+
+    ) {
+        updateState { current ->
+            current.copy(
+                searchUiState = current.searchUiState.copy(
+                    refreshState = true
+                )
+            )
+        }
+
+        viewModelScope.launch {
+            val result = getRecommendedMovieUseCase(page = 1).map { movie ->
+                movie.toMovieUiState()
+            }.shuffled()
+            updateState {
+                it.copy(
+                    searchUiState = it.searchUiState.copy(
+                        forYouMovies = result,
+                        refreshState = false,
+                    )
+                )
+            }
+        }
+
+        val result = Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false,
+                prefetchDistance = 5
+            ),
+            pagingSourceFactory = {
+                ExplorePagingSource(getExploreMoreMovieUseCase)
+            }
+        ).flow
+            .cachedIn(viewModelScope)
+            .map { pagingData ->
+                pagingData.map { movie ->
+                    SearchScreenState.MovieUiState(
+                        id = movie.id.toString(),
+                        title = movie.title,
+                        imageUrl = movie.imageUrl,
+                        rating = movie.rate.toString()
+                    )
+                }
+            }
+
     }
 }
