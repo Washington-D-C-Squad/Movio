@@ -138,4 +138,10 @@ dependencies {
     api(libs.koin.annotations)
     implementation(libs.koin.android)
     implementation(libs.slf4j.simple)
+
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+    implementation(libs.kotlinx.serialization.json)
+
 }

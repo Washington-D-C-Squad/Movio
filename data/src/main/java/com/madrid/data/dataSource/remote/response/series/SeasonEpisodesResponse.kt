@@ -1,111 +1,111 @@
 package com.madrid.data.dataSource.remote.response.series
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 
 @Serializable
 data class SeasonEpisodesResponse(
-    @SerialName("id")
+    @SerializedName("id")
     val id: Int?,
-    @SerialName("air_date")
+    @SerializedName("air_date")
     val releaseDate: String?,
-    @SerialName("episodes")
+    @SerializedName("episodes")
     val episodeNetworks: List<EpisodeNetwork>?,
-    @SerialName("name")
+    @SerializedName("name")
     val title: String?,
-    @SerialName("overview")
+    @SerializedName("overview")
     val overview: String?,
-    @SerialName("poster_path")
+    @SerializedName("poster_path")
     val posterPath: String?,
-    @SerialName("season_number")
+    @SerializedName("season_number")
     val seasonNumber: Int?,
-    @SerialName("vote_average")
+    @SerializedName("vote_average")
     val voteAverage: Double?,
 )
 
 @Serializable
 data class EpisodeNetwork(
-    @SerialName("air_date")
+    @SerializedName("air_date")
     val airDate: String?,
-    @SerialName("episode_number")
+    @SerializedName("episode_number")
     val episodeNumber: Int?,
-    @SerialName("episode_type")
+    @SerializedName("episode_type")
     val episodeType: String?,
-    @SerialName("id")
+    @SerializedName("id")
     val id: Int?,
-    @SerialName("name")
+    @SerializedName("name")
     val name: String?,
-    @SerialName("overview")
+    @SerializedName("overview")
     val overview: String?,
-    @SerialName("production_code")
+    @SerializedName("production_code")
     val productionCode: String?,
-    @SerialName("runtime")
+    @SerializedName("runtime")
     val runtime: Int?,
-    @SerialName("season_number")
+    @SerializedName("season_number")
     val seasonNumber: Int?,
-    @SerialName("show_id")
+    @SerializedName("show_id")
     val showId: Int?,
-    @SerialName("still_path")
+    @SerializedName("still_path")
     val stillPath: String?,
-    @SerialName("vote_average")
+    @SerializedName("vote_average")
     val voteAverage: Double?,
-    @SerialName("vote_count")
+    @SerializedName("vote_count")
     val voteCount: Int?,
-    @SerialName("crew")
+    @SerializedName("crew")
     val crew: List<Crew>?,
-    @SerialName("guest_stars")
+    @SerializedName("guest_stars")
     val guestStars: List<GuestStar>?,
 )
 
 @Serializable
 data class Crew(
-    @SerialName("department")
+    @SerializedName("department")
     val department: String?,
-    @SerialName("job")
+    @SerializedName("job")
     val job: String?,
-    @SerialName("credit_id")
+    @SerializedName("credit_id")
     val creditId: String?,
-    @SerialName("adult")
+    @SerializedName("adult")
     val adult: Boolean?,
-    @SerialName("gender")
+    @SerializedName("gender")
     val gender: Int?,
-    @SerialName("id")
+    @SerializedName("id")
     val id: Int?,
-    @SerialName("known_for_department")
+    @SerializedName("known_for_department")
     val knownForDepartment: String?,
-    @SerialName("name")
+    @SerializedName("name")
     val name: String?,
-    @SerialName("original_name")
+    @SerializedName("original_name")
     val originalName: String?,
-    @SerialName("popularity")
+    @SerializedName("popularity")
     val popularity: Double?,
-    @SerialName("profile_path")
+    @SerializedName("profile_path")
     val profilePath: String?,
 )
 
 @Serializable
 data class GuestStar(
-    @SerialName("character")
+    @SerializedName("character")
     val character: String?,
-    @SerialName("credit_id")
+    @SerializedName("credit_id")
     val creditId: String?,
-    @SerialName("order")
+    @SerializedName("order")
     val order: Int?,
-    @SerialName("adult")
+    @SerializedName("adult")
     val adult: Boolean?,
-    @SerialName("gender")
+    @SerializedName("gender")
     val gender: Int?,
-    @SerialName("id")
+    @SerializedName("id")
     val id: Int?,
-    @SerialName("known_for_department")
+    @SerializedName("known_for_department")
     val knownForDepartment: String?,
-    @SerialName("name")
+    @SerializedName("name")
     val name: String?,
-    @SerialName("original_name")
+    @SerializedName("original_name")
     val originalName: String?,
-    @SerialName("popularity")
+    @SerializedName("popularity")
     val popularity: Double?,
-    @SerialName("profile_path")
+    @SerializedName("profile_path")
     val profilePath: String?,
 )
