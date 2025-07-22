@@ -110,7 +110,7 @@ fun RecentSearchItem(
         Spacer(modifier = Modifier.width(16.dp))
         MovioText(
             text = searchText,
-            textStyle = Theme.textStyle.body.mediumMedium14,
+            textStyle = Theme.textStyle.label.smallRegular14,
             color = Theme.color.surfaces.onSurface,
             modifier = Modifier.weight(1f)
         )
