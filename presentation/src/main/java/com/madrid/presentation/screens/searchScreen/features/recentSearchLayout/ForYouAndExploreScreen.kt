@@ -32,7 +32,6 @@ fun LazyGridScope.forYouAndExploreScreen(
             span = { GridItemSpan(maxLineSpan) }
         ) {
             CustomTextTitel(
-                modifier = Modifier.padding(horizontal = 16.dp),
                 primaryText = stringResource(com.madrid.presentation.R.string.for_u),
                 secondaryText = stringResource(com.madrid.presentation.R.string.see_all),
                 endIcon = painterResource(R.drawable.outline_alt_arrow_left),
@@ -45,7 +44,7 @@ fun LazyGridScope.forYouAndExploreScreen(
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier
-                    .height(234.dp),
+                    .height(200.dp),
             ) {
                 items(forYouMovies) { movie ->
                     MovioVerticalCard(
@@ -53,7 +52,7 @@ fun LazyGridScope.forYouAndExploreScreen(
                         movieImage = movie.imageUrl,
                         rate = movie.rating,
                         width = 124.dp,
-                        height = 177.dp,
+                        height = 160.dp,
                         paddingValue = 8.dp,
                         onClick = { onMovieClick(movie) }
                     )
@@ -77,8 +76,8 @@ fun LazyGridScope.forYouAndExploreScreen(
                 description = exploreMoreMovies[index]!!.title,
                 movieImage = exploreMoreMovies[index]!!.imageUrl,
                 rate = exploreMoreMovies[index]!!.rating,
-                width = 1000.dp,
-                height = 222.dp,
+                width = 158.dp,
+                height = 180.dp,
                 onClick = {
                     onMovieClick(exploreMoreMovies[index]!!)
                 }
