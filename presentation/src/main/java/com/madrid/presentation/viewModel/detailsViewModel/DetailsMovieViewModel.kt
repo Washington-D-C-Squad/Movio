@@ -29,7 +29,7 @@ class DetailsMovieViewModel(
     }
 
 
-    private fun loadData() {
+    internal fun loadData() {
         tryToExecute(
             function = {
                 movieDetailsUseCase.getMovieDetailsById(args.movieId)
