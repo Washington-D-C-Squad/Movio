@@ -299,13 +299,5 @@ class SearchViewModel(
                 }
             }
 
-        updateState { current ->
-            current.copy(
-                searchUiState = current.searchUiState.copy(
-                    exploreMoreMovies = result,
-                    refreshState = false
-                ),
-            )
-        }
     }
 }
