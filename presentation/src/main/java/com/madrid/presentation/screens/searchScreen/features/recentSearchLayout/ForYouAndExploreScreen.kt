@@ -47,7 +47,7 @@ fun LazyGridScope.forYouAndExploreScreen(
                 modifier = Modifier
                     .height(234.dp),
             ) {
-                items(forYouMovies.shuffled()) { movie ->
+                items(forYouMovies) { movie ->
                     MovioVerticalCard(
                         description = movie.title,
                         movieImage = movie.imageUrl,

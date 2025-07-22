@@ -381,18 +381,13 @@ class SearchViewModel(
         }
 
         viewModelScope.launch {
-            val result = getRecommendedMovieUseCase(page = 1)
+            val result = getRecommendedMovieUseCase(page = 1).map { movie ->
+                movie.toMovieUiState()
+            }.shuffled()
             updateState {
                 it.copy(
                     searchUiState = it.searchUiState.copy(
-                        forYouMovies = result.map { movie ->
-                            SearchScreenState.MovieUiState(
-                                title = movie.title,
-                                id = movie.id.toString(),
-                                imageUrl = movie.imageUrl,
-                                rating = movie.rate.toString(),
-                            )
-                        },
+                        forYouMovies = result,
                         refreshState = false,
                     )
                 )
