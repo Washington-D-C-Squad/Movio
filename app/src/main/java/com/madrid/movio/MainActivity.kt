@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MovioTheme {
-                EpisodesScreen()
+                MainScreen()
             }
         }
     }

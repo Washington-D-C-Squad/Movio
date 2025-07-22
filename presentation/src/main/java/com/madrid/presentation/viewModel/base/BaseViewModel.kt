@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -25,7 +24,7 @@ abstract class BaseViewModel<S>(initialState: S) : ViewModel() {
 
     internal val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
-    protected abstract val recentSearchUseCase: RecentSearchUseCase
+    protected open val recentSearchUseCase: RecentSearchUseCase? = null
 
     protected fun <T> tryToExecute(
         function: suspend () -> T,

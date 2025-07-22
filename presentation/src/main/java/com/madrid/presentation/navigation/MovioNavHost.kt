@@ -1,5 +1,6 @@
 package com.madrid.presentation.navigation
 
+import android.util.Log
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -9,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.madrid.presentation.screens.SeeAllForYou.SeeAllForYouScreen
 import com.madrid.presentation.screens.detailsScreen.detailsMovieScreen.MovieDetailsScreen
+import com.madrid.presentation.screens.detailsScreen.seriesDetails.EpisodesScreen
 import com.madrid.presentation.screens.searchScreen.SearchScreen
 
 @Composable
@@ -41,14 +43,12 @@ fun MovioNavHost(navController: NavHostController) {
         composable<Destinations.HomeScreen> {
             FakeHomeScreen()
         }
-        composable<Destinations.MovieDetailsScreen> { backStackEntry ->
-//            val movieId = backStackEntry.arguments?.getString("movieId") ?: "1"
-//            // Using demo screen for testing
-//            com.madrid.presentation.screens.MovieDetailsDemoScreen(
-//                modifier = Modifier.fillMaxSize()
-//            )
+        composable<Destinations.MovieDetailsScreen> {
             MovieDetailsScreen()
-//            DetailsScreen()
+        }
+        composable<Destinations.EpisodesScreen> {
+            Log.d("booob", " in EpisodesScreen: nav host ")
+            EpisodesScreen()
         }
         composable<Destinations.SeriesDetailsScreen> {
             //call SeriesDetailsScreen()
@@ -61,9 +61,6 @@ fun MovioNavHost(navController: NavHostController) {
         }
         composable<Destinations.SeasonsScreen> {
             //call SeasonsScreen()
-        }
-        composable<Destinations.EpisodesScreen> {
-            //call EpisodesScreen()
         }
         composable<Destinations.LibraryScreen> {
             FakeLibraryScreen()
