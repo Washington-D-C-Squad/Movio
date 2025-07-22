@@ -1,7 +1,6 @@
 package com.madrid.movio.di
 
 
-import com.madrid.data.roomModule
 import org.koin.dsl.module
 
 val AppModule = module {
@@ -9,6 +8,6 @@ val AppModule = module {
         dataModule,
         domainModule,
         presentationModule,
-        roomModule
+        remoteModule
     )
 }

@@ -1,19 +1,20 @@
-package com.madrid.data
+package com.madrid.movio.di
 
 import com.madrid.data.BuildConfig.BASE_URL
 import com.madrid.data.dataSource.remote.MovieApi
 import com.madrid.data.dataSource.remote.MovieInterceptor
 import com.madrid.data.repositories.remote.RemoteDataSource
 import com.madrid.data.dataSource.remote.RemoteDataSourceImpl
-import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlinx.serialization.json.Json
 
-val roomModule = module {
+
+val remoteModule = module {
 
     single<Interceptor> { MovieInterceptor() }
 
