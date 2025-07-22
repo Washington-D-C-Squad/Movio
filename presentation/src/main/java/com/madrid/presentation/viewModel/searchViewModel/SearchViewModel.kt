@@ -1,5 +1,8 @@
 package com.madrid.presentation.viewModel.searchViewModel
 
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -367,6 +370,33 @@ class SearchViewModel(
                 )
             )
         }
+    }
+
+    fun highlightCharactersInText(
+        fullText: String,
+        query: String,
+        matchColor: Color,
+        normalColor: Color,
+        textStyle: TextStyle
+    ): AnnotatedString {
+        val builder = AnnotatedString.Builder()
+
+        if (query.isBlank()) {
+            builder.pushStyle(textStyle.copy(color = normalColor).toSpanStyle())
+            builder.append(fullText)
+            return builder.toAnnotatedString()
+        }
+
+        fullText.forEach { char ->
+            val isMatch = query.contains(char, ignoreCase = true)
+            val color = if (isMatch) matchColor else normalColor
+
+            builder.pushStyle(textStyle.copy(color = color).toSpanStyle())
+            builder.append(char.toString())
+            builder.pop()
+        }
+
+        return builder.toAnnotatedString()
     }
     
 }

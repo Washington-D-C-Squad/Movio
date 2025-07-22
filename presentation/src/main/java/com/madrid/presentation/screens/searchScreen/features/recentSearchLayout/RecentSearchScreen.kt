@@ -8,7 +8,10 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.R
@@ -17,9 +20,11 @@ import com.madrid.presentation.component.RecentSearchItem
 
 fun LazyGridScope.recentSearchScreen(
     searchHistory: List<String>,
+    searchQuery: String,
     onSearchItemClick: (String) -> Unit,
     onRemoveItem: (String) -> Unit,
     onClearAll: () -> Unit,
+    highlightCharactersInText: (String, String, Color, Color, TextStyle) -> AnnotatedString,
     modifier: Modifier = Modifier
 ) {
     item(
@@ -50,8 +55,10 @@ fun LazyGridScope.recentSearchScreen(
     ) { searchItem ->
         RecentSearchItem(
             searchText = searchHistory[searchItem],
+            searchQuery = searchQuery,
             onItemClick = { onSearchItemClick(searchHistory[searchItem]) },
-            onRemoveClick = { onRemoveItem(searchHistory[searchItem]) }
+            onRemoveClick = { onRemoveItem(searchHistory[searchItem]) },
+            highlightCharactersInText = highlightCharactersInText,
         )
     }
 }

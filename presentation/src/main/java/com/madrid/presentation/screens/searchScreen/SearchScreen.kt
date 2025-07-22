@@ -6,10 +6,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -26,8 +24,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -43,9 +44,9 @@ import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.recentSearchScreen
 import com.madrid.presentation.viewModel.searchViewModel.SearchScreenState
 import com.madrid.presentation.viewModel.searchViewModel.SearchViewModel
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
 import org.koin.androidx.compose.koinViewModel
-import kotlinx.coroutines.FlowPreview
 
 
 @Composable
@@ -106,7 +107,8 @@ fun SearchScreen(
         onClearAll = { viewModel.clearAll() },
         onClickSeeAll = {
             navController.navigate(Destinations.SeeAllForYouScreen)
-        }
+        },
+        highlightrecentSearch = viewModel::highlightCharactersInText
     )
     uiState.searchUiState.errorMessage?.let { errorMsg ->
         LaunchedEffect(errorMsg) {
@@ -155,6 +157,7 @@ fun ContentSearchScreen(
     onClearAll: () -> Unit,
     isLoading: Boolean = false,
     onClickSeeAll: () -> Unit,
+    highlightrecentSearch: (String, String, Color, Color, TextStyle) -> AnnotatedString,
 ) {
 
 
@@ -263,9 +266,11 @@ fun ContentSearchScreen(
         if (showRecentSearch == 1) {
             recentSearchScreen(
                 searchHistory = searchHistory,
+                searchQuery = searchQuery,
                 onSearchItemClick = { onSearchItemClick(it) },
                 onRemoveItem = { onRemoveItem(it) },
                 onClearAll = { onClearAll() },
+                highlightCharactersInText = highlightrecentSearch,
             )
         }
     }
