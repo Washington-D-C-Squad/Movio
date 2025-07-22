@@ -17,7 +17,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.component.TextWithReadMore
 import com.madrid.designSystem.theme.Theme
+import com.madrid.presentation.component.header.ActorDetailsHeader
 import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
 import com.madrid.presentation.component.movioCards.MovioVerticalCard
 import com.madrid.presentation.viewModel.detailsViewModel.MovieDetailsUiState
@@ -61,19 +63,17 @@ fun ActorDetailsContent(
                 actorName = actor.actorName,
                 actorRole = actor.actorRole,
                 dateOfBirth = actor.dateOfBirth,
-                Location = actor.location,
+                location = actor.location,
             )
         }
 
         item {
-            MovioText(
-                text = actor.description,
-                color = Theme.color.surfaces.onSurface,
-                textStyle = Theme.textStyle.label.smallRegular14,
-                maxLines = 5,
+            TextWithReadMore(
+                description = actor.description,
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
-                    .padding(bottom = 16.dp)
+                    .padding(bottom = 16.dp),
+                maxLines = 5
             )
         }
 
