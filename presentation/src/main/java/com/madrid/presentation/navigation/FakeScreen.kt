@@ -11,7 +11,7 @@ import com.madrid.designSystem.component.MovioText
 import org.koin.compose.koinInject
 
 @Composable
-fun FakeHomeScreen(name: String = koinInject()) {
+fun FakeHomeScreen() {
     Box(
         Modifier
             .fillMaxSize()
@@ -19,7 +19,7 @@ fun FakeHomeScreen(name: String = koinInject()) {
         contentAlignment = Alignment.Center
     ) {
         MovioText(
-            text = name,
+            text = "Home",
             textStyle = Theme.textStyle.title.largeBold14,
             color = Theme.color.brand.primary,
         )

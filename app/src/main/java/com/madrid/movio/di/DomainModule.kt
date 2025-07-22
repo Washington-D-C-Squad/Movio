@@ -25,6 +25,4 @@ val domainModule = module {
     single { GetRecommendedMovieUseCase(get()) }
     single { MovieDetailsUseCase(get()) }
     single { SeriesDetailsUseCase(get()) }
-    single { "hello" }
-    single { "oooo" }
 }
