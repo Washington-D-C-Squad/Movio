@@ -20,10 +20,6 @@ data class SearchScreenState(
         val errorMessage: String? = null
     )
 
-    data class RecentSearchUiState(
-        val recentSearch: List<String> = emptyList()
-    )
-
     data class FilteredScreenUiState(
         val searchResultCount: String = "1",
         val isLoading: Boolean = false,

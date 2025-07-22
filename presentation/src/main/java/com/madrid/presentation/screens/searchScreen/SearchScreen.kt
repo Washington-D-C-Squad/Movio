@@ -1,15 +1,12 @@
 package com.madrid.presentation.screens.searchScreen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -44,9 +41,9 @@ import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.recentSearchScreen
 import com.madrid.presentation.viewModel.searchViewModel.SearchScreenState
 import com.madrid.presentation.viewModel.searchViewModel.SearchViewModel
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
 import org.koin.androidx.compose.koinViewModel
-import kotlinx.coroutines.FlowPreview
 
 
 @Composable
@@ -54,14 +51,11 @@ fun SearchScreen(
     modifier: Modifier = Modifier,
     viewModel: SearchViewModel = koinViewModel()
 ) {
-
     val uiState by viewModel.state.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
-
     val navController = LocalNavController.current
-
-
     var isRecentSearchActive by remember { mutableStateOf(false) }
+
     if (isRecentSearchActive) {
         RecentSearchLayout()
     }
@@ -99,22 +93,22 @@ fun SearchScreen(
             onSearchQueryChange = { query ->
                 searchQuery = query
 //            viewModel.searchMovies(query)
-            },
-            onMovieClick = { movie ->
-                navController.navigate(Destinations.MovieDetailsScreen(movie.id.toInt()))
-                // Navigate to the required Screen --> navController.navigate(Destinations.MovieDetailsScreen)
-            },
-            isLoading = uiState.searchUiState.isLoading,
-            searchHistory = uiState.recentSearchUiState,
-            onSearchItemClick = { searchQuery = it },
-            onRemoveItem = { viewModel.removeRecentSearch(it) },
-            onClearAll = { viewModel.clearAll() },
-            onClickSeeAll = {
-                navController.navigate(Destinations.SeeAllForYouScreen)
-            }
-        )
-        uiState.searchUiState.errorMessage?.let { errorMsg ->
-            LaunchedEffect(errorMsg) {
+        },
+        onMovieClick = { movie ->
+            navController.navigate(Destinations.MovieDetailsScreen(movie.id.toInt()))
+            // Navigate to the required Screen --> navController.navigate(Destinations.MovieDetailsScreen)
+        },
+        isLoading = uiState.searchUiState.isLoading,
+        searchHistory = uiState.recentSearchUiState,
+        onSearchItemClick = { searchQuery = it },
+        onRemoveItem = { viewModel.removeRecentSearch(it) },
+        onClearAll = { viewModel.clearAll() },
+        onClickSeeAll = {
+            navController.navigate(Destinations.SeeAllForYouScreen)
+        }
+    )
+    uiState.searchUiState.errorMessage?.let { errorMsg ->
+        LaunchedEffect(errorMsg) {
 
             }
         }
@@ -163,14 +157,11 @@ fun ContentSearchScreen(
     isLoading: Boolean = false,
     onClickSeeAll: () -> Unit,
 ) {
-
-
     val showSearchResults = searchQuery.isNotBlank()
     var typeOfFilterSearch by remember { mutableStateOf("topRated") }
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     var showRecentSearch by remember { mutableIntStateOf(0) }
     LaunchedEffect(searchQuery) {
-        Log.d("in launch", "in launch")
         snapshotFlow { searchQuery }
             .debounce(1000)
             .collect { query ->
@@ -215,7 +206,7 @@ fun ContentSearchScreen(
                     .fillMaxWidth()
                     .clickable { onSearchBarClick() }
                     .padding(top = 16.dp),
-                onClickEndIcon = { onSearchQueryChange("")}
+                onClickEndIcon = { onSearchQueryChange("") }
             )
         }
 
@@ -267,7 +258,6 @@ fun ContentSearchScreen(
                 }
             )
         }
-
         if (showRecentSearch == 1) {
             recentSearchScreen(
                 searchHistory = searchHistory,
