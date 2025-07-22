@@ -106,8 +106,8 @@ private fun SeeAllForYouScreenContent(
                 description = exploreMoreMovies[index]!!.title,
                 movieImage = exploreMoreMovies[index]!!.imageUrl,
                 rate = exploreMoreMovies[index]!!.rating,
-                width = 500.dp,
-                height = 178.dp,
+                width = 101.dp,
+                height = 136.dp,
                 onClick = { onMovieClick(exploreMoreMovies[index]!!.id.toInt())}
             )
         }
