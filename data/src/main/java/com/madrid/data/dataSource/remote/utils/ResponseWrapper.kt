@@ -3,39 +3,35 @@ package com.madrid.data.dataSource.remote.utils
 import com.madrid.domain.exceptions.InvalidRequestException
 import com.madrid.domain.exceptions.ServerErrorException
 import com.madrid.domain.exceptions.TimeoutException
-import io.ktor.client.HttpClient
-import io.ktor.client.call.body
-import io.ktor.client.plugins.ClientRequestException
-import io.ktor.client.statement.HttpResponse
+
 import com.madrid.domain.exceptions.UnauthorizedException
 import com.madrid.domain.exceptions.UnknownException
-import io.ktor.client.plugins.RedirectResponseException
-import io.ktor.client.plugins.ServerResponseException
-import io.ktor.utils.io.errors.IOException
+import okhttp3.Response
 
-suspend inline fun <reified T> responseWrapper(
-    client: HttpClient,
-    response: HttpClient.() -> HttpResponse,
-): T {
+inline fun responseWrapper(
+    response: Response,
+): Response {
+    val redirectRangeException = 300..399
+    val invalidRequestCodeException = 400
+    val unauthorizedRangeException = 401..403
+    val timeoutCodeException = 408
+    val serverErrorRangeException = 500..599
+
     try {
-        return client.response().body()
-    } catch (e: ClientRequestException) {
-        when (e.response.status.value) {
-            400 -> throw InvalidRequestException(message = "Invalid Request Method: ${e.message}")
-            403 -> throw UnauthorizedException()
-            408 -> throw TimeoutException(
+        return response
+    } catch (e: Exception) {
+        when (response.code) {
+            in redirectRangeException -> throw UnknownException(message = "Redirect Error: ${e.message}")
+            invalidRequestCodeException -> throw InvalidRequestException(message = "Invalid Request Method: ${e.message}")
+            in unauthorizedRangeException-> throw UnauthorizedException()
+            timeoutCodeException -> throw TimeoutException(
                 message = "Timeout Error: ${e.message}"
             )
+            in serverErrorRangeException ->{
+                throw ServerErrorException()
+            }
 
-            else -> throw UnknownException(e.message)
+            else -> throw UnknownException(e.message.toString())
         }
-    } catch (e: RedirectResponseException) {
-        throw UnknownException(message = "Redirect Error: ${e.message}")
-    } catch (e: ServerResponseException) {
-        throw ServerErrorException()
-    } catch (e: IOException) {
-        throw InvalidRequestException(message = "Invalid Request Method: ${e.message}")
-    } catch (e: Exception) {
-        throw UnknownException(message = "Unknown error occurred: ${e.message}")
     }
 }
