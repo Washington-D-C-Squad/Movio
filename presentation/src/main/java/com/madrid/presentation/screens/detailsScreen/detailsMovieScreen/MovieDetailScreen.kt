@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.component.TopAppBar
 import com.madrid.designSystem.theme.Theme
+import com.madrid.domain.entity.SimilarMovie
 import com.madrid.presentation.component.BottomMediaActions
 import com.madrid.presentation.component.CastMember
 import com.madrid.presentation.component.TopCastSection
@@ -25,7 +26,6 @@ import com.madrid.presentation.component.header.MovieDetailsHeader
 import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
 import com.madrid.presentation.screens.detailsScreen.componant.ExpandableDescription
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
-import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMovie
 import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMoviesSection
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -100,21 +100,13 @@ fun MovieDetailsScreen(
                 uiState = com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState()
             )
             Spacer(modifier = Modifier.height(32.dp))
-            SimilarMoviesSection(
-                onSeeAllClick = {},
-                onMovieClick = { movie ->
+                SimilarMoviesSection(
+                    movieId = 123,
+                    onSeeAllClick = {},
+                    onMovieClick = { movie: SimilarMovie ->
+                    }
+                )
 
-                },
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                movies = uiState.similarMovies.map { movie ->
-                    SimilarMovie(
-                        id = movie.id,
-                        title = movie.name,
-                        imageUrl = movie.imageUrl,
-                        rating = movie.rate
-                    )
-                }
-            )
         }
     }
 }
