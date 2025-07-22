@@ -12,7 +12,7 @@ data class SeriesDetailsUiState(
     val isAddedToList: Boolean = false,
     val description: String = "",
     val topCast: List<Artist> = emptyList(),
-    val currentSeasonUiStates: List<SeasonUiState> = emptyList(),
+    val currentSeasonsUiStates: List<SeasonUiState> = emptyList(),
     val reviews: List<Review> = emptyList(),
     val similarSeries: List<Series> = emptyList(),
     val selectedSeasonUiState: SeasonUiState = SeasonUiState(),
@@ -39,14 +39,13 @@ data class SeasonUiState(
     val numberOfEpisodes: Int = 0,
     val rate: String = "",
     val description: String = "",
-    val episodes: List<Episode> = listOf()
+    val episodesUiStates: List<EpisodeUiState> = listOf()
 )
 
-data class Episode(
+data class EpisodeUiState(
     val imageUrl: String = "",
     val episodeName: String = "",
     val episodeNumber: Int = 0,
     val episodeDuration: String = "",
     val rate: String = "",
-    val description: String = "",
 )
