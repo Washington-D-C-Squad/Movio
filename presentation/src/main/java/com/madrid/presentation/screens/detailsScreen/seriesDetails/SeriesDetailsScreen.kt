@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -72,11 +71,13 @@ fun SeriesDetailsScreen(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
             )
             BottomMediaActions(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
                 onRateClick = {},
                 onPlayClick = {},
-                onAddToListClick = {},
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
-            )
+                onAddToListClick = {}
+            ) {
+                navController.navigate(Destinations.ShareBottomSheetDestination)
+            }
             Spacer(modifier = Modifier.height(16.dp))
 
             ExpandableDescription(

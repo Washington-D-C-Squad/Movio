@@ -7,7 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.dialog
 import com.madrid.presentation.screens.SeeAllForYou.SeeAllForYouScreen
+import com.madrid.presentation.screens.detailsScreen.componant.RatingMovieBottomSheet
+import com.madrid.presentation.screens.detailsScreen.componant.SaveMovieBottomSheet
+import com.madrid.presentation.screens.detailsScreen.componant.ShareBottomSheet
 import com.madrid.presentation.screens.detailsScreen.detailsMovieScreen.MovieDetailsScreen
 import com.madrid.presentation.screens.detailsScreen.seriesDetails.EpisodesScreen
 import com.madrid.presentation.screens.detailsScreen.seriesDetails.SeasonsScreen
@@ -70,6 +74,35 @@ fun MovioNavHost(navController: NavHostController) {
         }
         composable<Destinations.MoreScreen> {
             FakeMoreScreen()
+        }
+        dialog<Destinations.RatingMovieBottomSheetDestination> { navBackStackEntry ->
+            val args = navBackStackEntry.arguments?.let {
+                Pair(
+                    it.getString("imageUrl") ?: "",
+                    it.getString("nameMovie") ?: ""
+                )
+            } ?: Pair("", "")
+
+            RatingMovieBottomSheet(
+                show = true,
+                onDismiss = { navController.popBackStack() },
+                imageUrl = args.first,
+                nameMovie = args.second
+            )
+        }
+
+        dialog<Destinations.SaveMovieBottomSheetDestination> {
+            SaveMovieBottomSheet(
+                show = true,
+                onDismiss = { navController.popBackStack() }
+            )
+        }
+
+        dialog<Destinations.ShareBottomSheetDestination> {
+            ShareBottomSheet(
+                show = true,
+                onDismiss = { navController.popBackStack() }
+            )
         }
 
     }

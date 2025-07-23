@@ -62,4 +62,16 @@ sealed interface Destinations {
 
     @Serializable
     data object MoreScreen : Destinations
+
+    @Serializable
+    data class RatingMovieBottomSheetDestination(
+        val imageUrl: String,
+        val nameMovie: String
+    ) : Destinations
+
+    @Serializable
+    data object SaveMovieBottomSheetDestination : Destinations
+
+    @Serializable
+    data object ShareBottomSheetDestination : Destinations
 }

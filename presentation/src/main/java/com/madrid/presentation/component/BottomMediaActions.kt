@@ -28,6 +28,7 @@ import com.madrid.designSystem.R
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.MovioTheme
+import com.madrid.presentation.navigation.Destinations
 
 @Composable
 fun BottomMediaActions(
@@ -35,6 +36,7 @@ fun BottomMediaActions(
     onRateClick: ((Boolean) -> Unit)? = null,
     onPlayClick: (() -> Unit)? = null,
     onAddToListClick: ((Boolean) -> Unit)? = null,
+    onShareClick: () -> Unit,
 ) {
     var isRated by remember { mutableStateOf(false) }
     var isSaved by remember { mutableStateOf(false) }
@@ -133,19 +135,6 @@ private fun PlayButton(onClick: () -> Unit) {
             contentDescription = "Play",
             modifier = Modifier.size(28.dp),
             tint = Color.White
-        )
-    }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun BottomActionBarPreview() {
-    MovioTheme{
-        BottomMediaActions(
-            onRateClick = {},
-            onPlayClick = {},
-            onAddToListClick = {}
         )
     }
 }

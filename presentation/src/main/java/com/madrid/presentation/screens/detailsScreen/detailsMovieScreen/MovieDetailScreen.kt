@@ -16,6 +16,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.navOptions
+import com.madrid.designSystem.R
 import com.madrid.designSystem.component.TopAppBar
 import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.component.BottomMediaActions
@@ -23,17 +25,20 @@ import com.madrid.presentation.component.CastMember
 import com.madrid.presentation.component.TopCastSection
 import com.madrid.presentation.component.header.MovieDetailsHeader
 import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
+import com.madrid.presentation.navigation.Destinations
+import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.detailsScreen.componant.ExpandableDescription
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
 import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMovie
 import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMoviesSection
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
 import org.koin.androidx.compose.koinViewModel
-
+@Suppress("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MovieDetailsScreen(
     viewModel: DetailsMovieViewModel = koinViewModel()
 ) {
+    val navController = LocalNavController.current
     val uiState by viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
@@ -52,7 +57,19 @@ fun MovieDetailsScreen(
         )
         Box(modifier = Modifier.statusBarsPadding()) {
             TopAppBar(
-                null
+                onFirstIconClick = { /* Other action */ },
+                onSecondIconClick = {
+                    navController.navigate(Destinations.ShareBottomSheetDestination)
+                },
+                onThirdIconClick = {
+                    navController.navigate(Destinations.RatingMovieBottomSheetDestination(
+                        imageUrl = uiState.topImageUrl,
+                        nameMovie = uiState.movieName
+                    ))},
+                text = uiState.movieName,
+                firstIcon = R.drawable.arrow_left,
+                secondIcon = R.drawable.share_arrow,
+                thirdIcon = R.drawable.outline_heart,
             )
         }
         Column(
@@ -70,9 +87,20 @@ fun MovieDetailsScreen(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
             )
             BottomMediaActions(
-                onRateClick = {},
+                onRateClick = {
+                    navController.navigate(Destinations.RatingMovieBottomSheetDestination(
+                        imageUrl = uiState.topImageUrl,
+                        nameMovie = uiState.movieName
+                    ))
+
+                },
                 onPlayClick = {},
-                onAddToListClick = {},
+                onAddToListClick = {
+                    navController.navigate(Destinations.SaveMovieBottomSheetDestination)
+                },
+                onShareClick = {
+                    navController.navigate(Destinations.ShareBottomSheetDestination)
+                },
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -91,12 +119,19 @@ fun MovieDetailsScreen(
                         imageUrl = cast.imageUrl
                     )
                 },
-                onSeeAllClick = {},
+                onSeeAllClick = {
+                    navController.navigate(Destinations.TopCastScreen(
+                        mediaId = 0,
+                        isMovie = true
+                    ))
+                },
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
             Spacer(modifier = Modifier.height(32.dp))
             ReviewScreen(
-                onSeeAllReviews = {},
+                onSeeAllReviews = {
+                    navController.navigate(Destinations.ReviewsScreen)
+                },
                 uiState = com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState()
             )
             Spacer(modifier = Modifier.height(32.dp))
