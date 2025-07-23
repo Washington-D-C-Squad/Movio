@@ -69,6 +69,9 @@ fun SearchScreen(
         onRefresh = viewModel::onRefresh
     ) {
         ContentSearchScreen(
+            onSeriesClick = { seriesId ->
+                navController.navigate(Destinations.EpisodesScreen(seriesId = seriesId))
+            },
             addRecentSearch = {
                 viewModel.addRecentSearch(it)
             },
@@ -207,7 +210,7 @@ fun ContentSearchScreen(
                     .fillMaxWidth()
                     .clickable { onSearchBarClick() }
                     .padding(top = 16.dp),
-                onClickEndIcon = { onSearchQueryChange("")}
+                onClickEndIcon = { onSearchQueryChange("") }
             )
         }
 
@@ -253,6 +256,9 @@ fun ContentSearchScreen(
                             onClickArtist()
                         }
                     }
+                },
+                onSeriesClick = { seriesId ->
+                    onSeriesClick(seriesId)
                 }
             )
         }
