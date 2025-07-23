@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -60,8 +61,10 @@ fun TopCastDetailsContent(
         item(
             span = { GridItemSpan(maxLineSpan) }
         ) {
-            TopAppBar(stringResource(R.string.top_cast), secondIcon = null, thirdIcon = null)
-
+            TopAppBar(
+                stringResource(R.string.top_cast),
+                secondIcon = null, thirdIcon = null,
+            )
         }
         items(artist.size) { castMember ->
             MovioArtistsCard(

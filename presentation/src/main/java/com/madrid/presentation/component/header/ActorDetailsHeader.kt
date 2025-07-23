@@ -1,6 +1,7 @@
 package com.madrid.presentation.component.header
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -9,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.component.DetailsChips
@@ -29,8 +31,8 @@ fun ActorDetailsHeader(
     ) {
         MovioText(
             actorName,
-            color = Theme.color.surfaces.surface,
-            textStyle = Theme.textStyle.title.mediumMedium14
+            color = Theme.color.surfaces.onSurface,
+            textStyle = Theme.textStyle.headline.mediumMedium18
         )
         MovioText(
             actorRole,

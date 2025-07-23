@@ -57,7 +57,8 @@ fun MovieDetailsScreen(
         )
         Box(modifier = Modifier.statusBarsPadding()) {
             TopAppBar(
-                null
+                text = null,
+                modifier = Modifier.padding(16.dp)
             )
         }
         Column(
