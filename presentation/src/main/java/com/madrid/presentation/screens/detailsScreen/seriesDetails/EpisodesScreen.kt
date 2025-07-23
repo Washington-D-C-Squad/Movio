@@ -90,7 +90,8 @@ fun EpisodesScreenContent(
                 MovioText(
                     text = "Episodes ${uiState.selectedSeasonUiState.numberOfEpisodes}",
                     textStyle = Theme.textStyle.headline.mediumMedium18,
-                    color = Theme.color.surfaces.onSurface
+                    color = Theme.color.surfaces.onSurface,
+                    modifier = Modifier.padding(vertical = 5.dp)
                 )
                 Spacer(Modifier.weight(1f))
                 var selectedItem by remember { mutableStateOf("Season ${uiState.selectedSeasonUiState.seasonNumber}") }
