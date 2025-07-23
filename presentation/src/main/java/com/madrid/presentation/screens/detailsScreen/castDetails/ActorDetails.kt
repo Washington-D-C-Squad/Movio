@@ -22,18 +22,17 @@ import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.component.header.ActorDetailsHeader
 import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
 import com.madrid.presentation.component.movioCards.MovioVerticalCard
+import com.madrid.presentation.viewModel.detailsViewModel.ActorDetailsViewModel
 import com.madrid.presentation.viewModel.detailsViewModel.MovieDetailsUiState
-import com.madrid.presentation.viewModel.detailsViewModel.MovieDetailsViewModel
+import com.madrid.presentation.viewModel.detailsViewModel.TopCastViewModel
 import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun ActorDetails(actorId: String, viewModel: MovieDetailsViewModel = koinViewModel()) {
-
+fun ActorDetails(viewModel: ActorDetailsViewModel = koinViewModel()
+) {
     val uiState by viewModel.state.collectAsState()
-    LaunchedEffect(Unit) {
-        viewModel.loadActorDetails(actorId)
-    }
+
     uiState.selectedActor?.let { actor ->
         ActorDetailsContent(actor)
     }
@@ -51,6 +50,14 @@ fun ActorDetailsContent(
     ) {
         item {
             Box(contentAlignment = Alignment.Center) {
+                com.madrid.designSystem.component.TopAppBar(
+                    null,
+                    secondIcon = null,
+                    thirdIcon = null,
+                    modifier = Modifier
+                        .padding(top = 6.dp)
+                        .align(Alignment.TopCenter)
+                )
                 MoviePosterDetailScreen(
                     imageUrl = actor.actorImageUrl,
                     isActor = true
