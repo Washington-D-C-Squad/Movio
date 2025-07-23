@@ -6,7 +6,6 @@ import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
 import com.madrid.data.dataSource.local.entity.relationship.MovieCategoryCrossRef
-import kotlinx.coroutines.flow.Flow
 
 interface LocalDataSource {
 
@@ -26,7 +25,8 @@ interface LocalDataSource {
     suspend fun removeRecentSearch(item: String)
     suspend fun clearAllRecentSearches()
 
-    suspend fun insertMovieCategory(movieCategoryEntity: MovieCategoryCrossRef)
+    suspend fun relateMovieToCategory(movieCategoryEntity: MovieCategoryCrossRef)
     suspend fun addSearchedCategoryCount(categoryTitle: String)
 
+    suspend fun getAllCategories(): List<CategoryEntity>
 }

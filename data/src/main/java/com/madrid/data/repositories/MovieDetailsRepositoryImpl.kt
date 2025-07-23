@@ -7,6 +7,7 @@ import com.madrid.data.dataSource.remote.mapper.toReviewResult
 import com.madrid.data.dataSource.remote.mapper.toSimilarMovie
 import com.madrid.data.dataSource.remote.mapper.toTrailer
 import com.madrid.data.dataSource.local.mappers.toCategoryEntity
+import com.madrid.data.dataSource.local.mappers.toMovieEntity
 import com.madrid.data.repositories.local.LocalDataSource
 import com.madrid.data.repositories.remote.RemoteDataSource
 import com.madrid.domain.entity.Cast
@@ -27,12 +28,6 @@ class MovieDetailsRepositoryImpl(
         movieResponse.movieGenres.map { genre ->
             val categoryEntity = genre.toCategoryEntity()
             localDataSource.insertCategory(categoryEntity)
-            localDataSource.insertMovieCategory(
-                MovieCategoryCrossRef(
-                    movieId = movieId,
-                    categoryTitle = categoryEntity.categoryTitle
-                )
-            )
             localDataSource.addSearchedCategoryCount(categoryEntity.categoryTitle)
         }
         return movieResponse.toMovie()

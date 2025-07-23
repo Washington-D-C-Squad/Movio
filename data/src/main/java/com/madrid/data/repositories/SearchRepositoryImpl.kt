@@ -1,8 +1,9 @@
 package com.madrid.data.repositories
 
-import android.util.Log
+import com.madrid.data.dataSource.local.entity.relationship.MovieCategoryCrossRef
 import com.madrid.data.dataSource.local.mappers.toArtist
 import com.madrid.data.dataSource.local.mappers.toArtistEntity
+import com.madrid.data.dataSource.local.mappers.toCategoryEntity
 import com.madrid.data.dataSource.local.mappers.toMovie
 import com.madrid.data.dataSource.local.mappers.toMovieEntity
 import com.madrid.data.dataSource.local.mappers.toSeries
@@ -26,14 +27,28 @@ class SearchRepositoryImpl(
     override suspend fun getMovieByQuery(query: String, page: Int): List<Movie> {
         val result = localSource.searchMovieByQueryFromDB(query)
         return if (result.size < 7) {
-            val movie = remoteDataSource.searchMoviesByQuery(
+            localSource.getAllCategories().ifEmpty {
+                remoteDataSource.getMovieGenres().genres?.map {
+                    localSource.insertCategory(it.toCategoryEntity())
+                }
+            }
+
+            val movies = remoteDataSource.searchMoviesByQuery(
                 name = query,
                 page = page
-            ).movieResults?.map {
-                it.toMovie()
+            ).movieResults?.map { movieResult ->
+                movieResult.genreIds?.map { genreId ->
+                    localSource.relateMovieToCategory(
+                        MovieCategoryCrossRef(
+                            movieId = movieResult.id ?: 0,
+                            categoryId = genreId
+                        )
+                    )
+                }
+                movieResult.toMovie()
             }
-            movie?.map {
-                localSource.insertMovie(it.toMovieEntity())
+            movies?.map { movie ->
+                localSource.insertMovie(movie.toMovieEntity())
             }
             localSource.searchMovieByQueryFromDB(query).map { it.toMovie() }
         } else {
