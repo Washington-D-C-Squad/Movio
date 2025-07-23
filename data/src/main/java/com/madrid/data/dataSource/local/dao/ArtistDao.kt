@@ -18,8 +18,8 @@ interface ArtistDao {
     @Query("SELECT * FROM ARTIST_TABLE WHERE id = :id")
     suspend fun getArtistById(id: Int): ArtistEntity?
 
-    @Query("SELECT * FROM ARTIST_TABLE WHERE name LIKE :name LIMIT 20")
-    suspend fun getArtistByName(name: String): List<ArtistEntity>
+    @Query("SELECT * FROM ARTIST_TABLE WHERE name LIKE :name LIMIT 20 OFFSET :offset")
+    suspend fun getArtistByName(name: String , offset: Int): List<ArtistEntity>
 
     @Query("SELECT * FROM ARTIST_TABLE")
     suspend fun getAllArtists(): List<ArtistEntity>

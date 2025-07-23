@@ -19,8 +19,8 @@ interface LocalDataSource {
     suspend fun getTopRatedMovies(): List<MovieEntity>
 
     suspend fun searchMovieByQueryFromDB(query: String, page: Int): List<MovieEntity>
-    suspend fun searchSeriesByQueryFromDB(query: String): List<SeriesEntity>
-    suspend fun searchArtistByQueryFromDB(query: String): List<ArtistEntity>
+    suspend fun searchSeriesByQueryFromDB(query: String, page: Int): List<SeriesEntity>
+    suspend fun searchArtistByQueryFromDB(query: String, page: Int): List<ArtistEntity>
 
     suspend fun getRecentSearches(): List<RecentSearchEntity>
     suspend fun addRecentSearch(item: String)
