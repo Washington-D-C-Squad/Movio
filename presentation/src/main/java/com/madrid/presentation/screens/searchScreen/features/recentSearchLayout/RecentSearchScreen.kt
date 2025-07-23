@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridScope
@@ -17,9 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.R
@@ -79,11 +76,15 @@ fun RecentSearchScreenPreview() {
         columns = GridCells.Fixed(2),
         modifier = Modifier.fillMaxSize()
     ) {
-        recentSearchScreen(
-            searchHistory = sampleHistory,
-            onSearchItemClick = { /* preview click */ },
-            onRemoveItem = { /* preview remove */ },
-            onClearAll = { /* preview clear */ }
-        )
+        /* put high light recent screen text fun that is in viewmodel */
+
+//        recentSearchScreen(
+//            searchHistory = sampleHistory,
+//            onSearchItemClick = { /* preview click */ },
+//            onRemoveItem = { /* preview remove */ },
+//            onClearAll = { /* preview clear */ },
+//            searchQuery = "",
+//            highlightCharactersInText =
+//        )
     }
 }
