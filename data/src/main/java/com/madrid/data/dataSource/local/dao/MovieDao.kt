@@ -9,7 +9,7 @@ import androidx.room.Transaction
 import androidx.room.Update
 import androidx.room.Upsert
 import com.madrid.data.dataSource.local.entity.MovieEntity
-import com.madrid.data.dataSource.local.entity.relationship.MovieCategoryCrossRef
+import com.madrid.data.dataSource.local.entity.relationship.MovieGenreCrossRef
 import com.madrid.data.dataSource.local.entity.relationship.MovieWithGenres
 
 @Dao
@@ -41,7 +41,7 @@ interface MovieDao {
 
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertMovieCategoryCrossRef(crossRef: MovieCategoryCrossRef)
+    suspend fun insertMovieCategoryCrossRef(crossRef: MovieGenreCrossRef)
 
     @Transaction
     @Query(
@@ -51,9 +51,9 @@ interface MovieDao {
     INNER JOIN MOVIE_GENRE_TABLE ON MovieCategoryCrossRef.genreId = MOVIE_GENRE_TABLE.genreId
     WHERE MOVIE_TABLE.title LIKE :title
     ORDER BY MOVIE_GENRE_TABLE.searchCount DESC
-    LIMIT 20 """
+    LIMIT 20 OFFSET :offset """
     )
-    suspend fun getAllMoviesSortedByCategorySearchCount(title : String): List<MovieWithGenres>
+    suspend fun getAllMoviesSortedByCategorySearchCount(title : String, offset: Int): List<MovieWithGenres>
 
     @Transaction
     @Query("SELECT * FROM MOVIE_TABLE WHERE movieId = :id")

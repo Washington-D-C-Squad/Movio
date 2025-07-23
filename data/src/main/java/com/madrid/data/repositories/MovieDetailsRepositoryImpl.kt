@@ -5,7 +5,7 @@ import com.madrid.data.dataSource.remote.mapper.toMovie
 import com.madrid.data.dataSource.remote.mapper.toReviewResult
 import com.madrid.data.dataSource.remote.mapper.toSimilarMovie
 import com.madrid.data.dataSource.remote.mapper.toTrailer
-import com.madrid.data.dataSource.local.mappers.toCategoryEntity
+import com.madrid.data.dataSource.local.mappers.toMovieGenreEntity
 import com.madrid.data.repositories.local.LocalDataSource
 import com.madrid.data.repositories.remote.RemoteDataSource
 import com.madrid.domain.entity.Cast
@@ -24,7 +24,7 @@ class MovieDetailsRepositoryImpl(
     override suspend fun getMovieDetailsById(movieId: Int): Movie {
         val movieResponse = remoteDataSource.getMovieDetailsById(movieId)
         movieResponse.movieGenres.map { genre ->
-            val categoryEntity = genre.toCategoryEntity()
+            val categoryEntity = genre.toMovieGenreEntity()
             localDataSource.addSearchedCategoryCount(categoryEntity.genreTitle)
         }
         return movieResponse.toMovie()

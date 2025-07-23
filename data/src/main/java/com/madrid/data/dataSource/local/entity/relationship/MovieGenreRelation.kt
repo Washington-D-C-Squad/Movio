@@ -8,7 +8,7 @@ import com.madrid.data.dataSource.local.entity.MovieGenreEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
 
 @Entity(tableName = "MovieCategoryCrossRef", primaryKeys = ["genreId", "movieId"])
-data class MovieCategoryCrossRef(
+data class MovieGenreCrossRef(
     val genreId: Int,
     val movieId: Int
 )
@@ -18,7 +18,7 @@ data class MovieWithGenres(
     @Relation(
         parentColumn = "movieId",
         entityColumn = "genreId",
-        associateBy = Junction(MovieCategoryCrossRef::class)
+        associateBy = Junction(MovieGenreCrossRef::class)
     )
     val genres: List<MovieGenreEntity>
 )
@@ -28,7 +28,7 @@ data class GenreWithMovies(
     @Relation(
         parentColumn = "genreId",
         entityColumn = "movieId",
-        associateBy = Junction(MovieCategoryCrossRef::class)
+        associateBy = Junction(MovieGenreCrossRef::class)
     )
     val movies: List<MovieEntity>
 )

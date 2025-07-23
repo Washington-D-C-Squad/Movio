@@ -12,10 +12,10 @@ import com.madrid.data.dataSource.local.entity.relationship.GenreWithMovies
 
 
 @Dao
-interface CategoryDao {
+interface MovieGenreDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertCategory(category: MovieGenreEntity)
+    suspend fun insertGenre(category: MovieGenreEntity)
 
     @Update
     suspend fun updateCategory(category: MovieGenreEntity)
