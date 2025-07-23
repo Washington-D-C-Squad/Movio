@@ -39,20 +39,19 @@ interface MovieDao {
     @Query("DELETE FROM MOVIE_TABLE")
     suspend fun deleteAllMovies()
 
-
+    // Genre
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertMovieCategoryCrossRef(crossRef: MovieGenreCrossRef)
 
     @Transaction
-    @Query(
-        """
+    @Query("""
     SELECT DISTINCT MOVIE_TABLE.* FROM MOVIE_TABLE
     INNER JOIN MovieCategoryCrossRef ON MOVIE_TABLE.movieId = MovieCategoryCrossRef.movieId
     INNER JOIN MOVIE_GENRE_TABLE ON MovieCategoryCrossRef.genreId = MOVIE_GENRE_TABLE.genreId
     WHERE MOVIE_TABLE.title LIKE :title
     ORDER BY MOVIE_GENRE_TABLE.searchCount DESC
-    LIMIT 20 OFFSET :offset """
-    )
+    LIMIT 20 OFFSET :offset 
+    """)
     suspend fun searchMovies(title : String, offset: Int): List<MovieWithGenres>
 
     @Transaction

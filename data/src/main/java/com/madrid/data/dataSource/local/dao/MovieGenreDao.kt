@@ -47,7 +47,4 @@ interface MovieGenreDao {
     @Query("DELETE FROM MOVIE_GENRE_TABLE")
     suspend fun deleteAllCategories()
 
-    @Transaction
-    @Query("SELECT * FROM MOVIE_GENRE_TABLE WHERE genreTitle = :title")
-    suspend fun getPlaylistsWithSongs(title: String): List<GenreWithMovies>
 }
