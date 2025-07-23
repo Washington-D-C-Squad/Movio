@@ -29,7 +29,8 @@ import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun ActorDetails(viewModel: ActorDetailsViewModel = koinViewModel()
+fun ActorDetails(
+    viewModel: ActorDetailsViewModel = koinViewModel()
 ) {
     val uiState by viewModel.state.collectAsState()
 

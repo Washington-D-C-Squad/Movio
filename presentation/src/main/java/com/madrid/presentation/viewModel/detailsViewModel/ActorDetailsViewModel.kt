@@ -28,14 +28,14 @@ class ActorDetailsViewModel(
                         actorName = it.name,
                         actorRole = it.role,
                         dateOfBirth = it.dateOfBirth,
-                        location = "location",
+                        location = it.country,
                         id = it.id.toString(),
                         description = it.description,
                         knownFor = it.artisKnownFor!!.map { known ->
                             MovieDetailsUiState.KnownMovieUiState(
                                 title = known.title,
                                 imageUrl = known.imageUrl,
-                                rating = "5.0",
+                                rating = known.voteAverage.toString(),
                             )
                         }
                     )
