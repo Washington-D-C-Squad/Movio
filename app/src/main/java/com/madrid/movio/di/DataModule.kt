@@ -24,9 +24,10 @@ val dataModule = module {
     single { get<MovioDatabase>().movieDao() }
     single { get<MovioDatabase>().seriesDao() }
     single { get<MovioDatabase>().artistDao() }
-    single { get<MovioDatabase>().categoryDao() }
+    single { get<MovioDatabase>().movieGenreDao() }
+    single { get<MovioDatabase>().seriesGenreDao() }
     single { get<MovioDatabase>().recentSearchDao() }
-    single<LocalDataSource> { LocalDataSourceImpl(get(), get(), get(), get(), get()) }
+    single<LocalDataSource> { LocalDataSourceImpl(get(), get(), get(), get(), get(),get()) }
     single<RecommendedRepository> { RecommendedRepositoryImp(get(), get()) }
     single<MovieDetailsRepository> { MovieDetailsRepositoryImpl(get(), get()) }
     single<SeriesDetailsRepository> { SeriesDetailsRepositoryImpl(get()) }

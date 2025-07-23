@@ -5,25 +5,30 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.madrid.data.dataSource.local.dao.ArtistDao
-import com.madrid.data.dataSource.local.dao.CategoryDao
+import com.madrid.data.dataSource.local.dao.MovieGenreDao
 import com.madrid.data.dataSource.local.dao.MovieDao
 import com.madrid.data.dataSource.local.dao.RecentSearchDao
 import com.madrid.data.dataSource.local.dao.SeriesDao
+import com.madrid.data.dataSource.local.dao.SeriesGenreDao
 import com.madrid.data.dataSource.local.entity.ArtistEntity
 import com.madrid.data.dataSource.local.entity.MovieGenreEntity
+import com.madrid.data.dataSource.local.entity.SeriesGenreEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
 import com.madrid.data.dataSource.local.entity.RecentSearchEntity
-import com.madrid.data.dataSource.local.entity.relationship.MovieCategoryCrossRef
+import com.madrid.data.dataSource.local.entity.relationship.MovieGenreCrossRef
+import com.madrid.data.dataSource.local.entity.relationship.SeriesGenreCrossRef
 
 @Database(
     entities = [
         MovieEntity::class,
         SeriesEntity::class,
         MovieGenreEntity::class,
+        SeriesGenreEntity::class,
         ArtistEntity::class,
         RecentSearchEntity::class,
-        MovieCategoryCrossRef::class
+        MovieGenreCrossRef::class,
+        SeriesGenreCrossRef::class
     ],
     version = 1
 )
@@ -31,7 +36,8 @@ abstract class MovioDatabase : RoomDatabase() {
 
     abstract fun movieDao(): MovieDao
     abstract fun seriesDao(): SeriesDao
-    abstract fun categoryDao(): CategoryDao
+    abstract fun movieGenreDao(): MovieGenreDao
+    abstract fun seriesGenreDao(): SeriesGenreDao
     abstract fun artistDao(): ArtistDao
     abstract fun recentSearchDao(): RecentSearchDao
 

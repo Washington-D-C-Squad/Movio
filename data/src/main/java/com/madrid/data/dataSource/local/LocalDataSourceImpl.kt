@@ -1,23 +1,26 @@
 package com.madrid.data.dataSource.local
 
 import com.madrid.data.dataSource.local.dao.ArtistDao
-import com.madrid.data.dataSource.local.dao.CategoryDao
+import com.madrid.data.dataSource.local.dao.MovieGenreDao
 import com.madrid.data.dataSource.local.dao.MovieDao
 import com.madrid.data.dataSource.local.dao.RecentSearchDao
 import com.madrid.data.dataSource.local.dao.SeriesDao
+import com.madrid.data.dataSource.local.dao.SeriesGenreDao
 import com.madrid.data.dataSource.local.entity.ArtistEntity
 import com.madrid.data.dataSource.local.entity.MovieGenreEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
-import com.madrid.data.dataSource.local.entity.relationship.MovieCategoryCrossRef
+import com.madrid.data.dataSource.local.entity.SeriesGenreEntity
+import com.madrid.data.dataSource.local.entity.relationship.MovieGenreCrossRef
 import com.madrid.data.repositories.local.LocalDataSource
 
 class LocalDataSourceImpl(
     private val movieDao: MovieDao,
     private val seriesDao: SeriesDao,
     private val artistDao: ArtistDao,
-    private val categoryDao: CategoryDao,
+    private val movieGenreDao: MovieGenreDao,
+    private val seriesGenreDao: SeriesGenreDao,
     private val recentSearchDao: RecentSearchDao
 ) : LocalDataSource {
 
@@ -38,12 +41,17 @@ class LocalDataSourceImpl(
         artistDao.insertArtist(artist = artist)
     }
 
-    override suspend fun insertCategory(category: MovieGenreEntity) {
-        categoryDao.insertCategory(category)
+    override suspend fun insertMovieGenre(genre: MovieGenreEntity) {
+        movieGenreDao.insertGenre(genre)
     }
 
-    override suspend fun searchMovieByQueryFromDB(query: String): List<MovieEntity> {
-        return movieDao.getAllMoviesSortedByCategorySearchCount("%$query%").map { it.movie }
+    override suspend fun insertSeriesGenre(genre: SeriesGenreEntity) {
+        seriesGenreDao.insertGenre(genre)
+    }
+
+    override suspend fun searchMovieByQueryFromDB(query: String, page: Int): List<MovieEntity> {
+        val offset = (page - 1) * 20
+        return movieDao.getAllMoviesSortedByCategorySearchCount("%$query%", offset).map { it.movie }
     }
 
     override suspend fun searchSeriesByQueryFromDB(query: String): List<SeriesEntity> {
@@ -77,15 +85,15 @@ class LocalDataSourceImpl(
         recentSearchDao.clearAllRecentSearches()
     }
 
-    override suspend fun relateMovieToCategory(movieCategoryEntity: MovieCategoryCrossRef) {
+    override suspend fun relateMovieToCategory(movieCategoryEntity: MovieGenreCrossRef) {
         movieDao.insertMovieCategoryCrossRef(movieCategoryEntity)
     }
 
     override suspend fun addSearchedCategoryCount(categoryTitle: String) {
-        categoryDao.increaseCategorySearchCount(categoryTitle)
+        movieGenreDao.increaseCategorySearchCount(categoryTitle)
     }
 
     override suspend fun getAllMovieGenres(): List<MovieGenreEntity> {
-        return categoryDao.getAllCategories()
+        return movieGenreDao.getAllCategories()
     }
 }
