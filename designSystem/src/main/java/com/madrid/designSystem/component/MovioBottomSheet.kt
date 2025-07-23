@@ -2,10 +2,11 @@ package com.madrid.designSystem.component
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import com.madrid.designSystem.theme.Theme
 import androidx.compose.ui.graphics.Color
+import com.madrid.designSystem.theme.Theme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -15,7 +16,11 @@ fun MovioBottomSheet(
     containerColor: Color = Theme.color.surfaces.surface,
     content: @Composable () -> Unit
 ) {
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val sheetState: SheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
+
+
 
     if (show) {
         ModalBottomSheet(

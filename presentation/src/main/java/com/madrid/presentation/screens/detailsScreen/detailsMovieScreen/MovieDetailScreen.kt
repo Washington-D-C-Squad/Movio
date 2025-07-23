@@ -37,7 +37,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MovieDetailsScreen(
-    navigateToSimilarMovies: (Int) -> Unit = {},
+    navigateToSimilarMovies: (Int) -> Unit = { _ -> },
     viewModel: DetailsMovieViewModel = koinViewModel()
 ) {
     val uiState by viewModel.state.collectAsState()
@@ -45,7 +45,8 @@ fun MovieDetailsScreen(
     var showSaveMovieBottomSheet by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        viewModel.loadData()
+
+    viewModel.loadData()
     }
 
     Box(
@@ -63,6 +64,7 @@ fun MovieDetailsScreen(
                 null
             )
         }
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -122,7 +124,7 @@ fun MovieDetailsScreen(
         RatingMovieBottomSheet(
             onDismiss = { showRatingBottomSheet = false },
             modifier = Modifier,
-            show = showRatingBottomSheet,
+            show = true,
             imageUrl = uiState.topImageUrl,
             nameMovie = uiState.movieName
         )
@@ -132,7 +134,7 @@ fun MovieDetailsScreen(
         SaveMovieBottomSheet(
             onDismiss = { showSaveMovieBottomSheet = false },
             modifier = Modifier,
-            show = showSaveMovieBottomSheet,
+            show = true,
         )
     }
 }

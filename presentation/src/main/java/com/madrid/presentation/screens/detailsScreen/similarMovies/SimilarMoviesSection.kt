@@ -72,9 +72,9 @@ private fun MovieCardPlaceholder() {
 @Composable
 fun SimilarMoviesSection(
     movieId: Int,
-    movieTitle: String, // Add movie title parameter
+    movieTitle: String,
     modifier: Modifier = Modifier,
-    onSeeAllClick: (Int, String) -> Unit = { _, _ -> }, // Update to accept both ID and title
+    onSeeAllClick: (Int, String) -> Unit = { _, _ -> },
     onMovieClick: (Int) -> Unit = {},
     viewModel: SimilarMoviesViewModel = createSimilarMoviesViewModel()
 ) {
