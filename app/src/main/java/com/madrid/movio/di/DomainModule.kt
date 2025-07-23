@@ -4,6 +4,7 @@ package com.madrid.movio.di
 import com.madrid.domain.usecase.GetExploreMoreMovieUseCase
 import com.madrid.domain.usecase.GetRecommendedMovieUseCase
 import com.madrid.domain.usecase.mediaDeatailsUseCase.MovieDetailsUseCase
+import com.madrid.domain.usecase.mediaDeatailsUseCase.SeriesDetailsUseCase
 import com.madrid.domain.usecase.searchUseCase.ArtistUseCase
 import com.madrid.domain.usecase.searchUseCase.MovieUseCase
 import com.madrid.domain.usecase.searchUseCase.PreferredMediaUseCase
@@ -23,4 +24,5 @@ val domainModule = module {
     single { GetExploreMoreMovieUseCase(get()) }
     single { GetRecommendedMovieUseCase(get()) }
     single { MovieDetailsUseCase(get()) }
+    single { SeriesDetailsUseCase(get()) }
 }
