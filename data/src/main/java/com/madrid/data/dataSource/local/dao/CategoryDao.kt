@@ -8,7 +8,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
 import com.madrid.data.dataSource.local.entity.MovieGenreEntity
-import com.madrid.data.dataSource.local.entity.relationship.CategoryWithMovies
+import com.madrid.data.dataSource.local.entity.relationship.GenreWithMovies
 
 
 @Dao
@@ -49,5 +49,5 @@ interface CategoryDao {
 
     @Transaction
     @Query("SELECT * FROM MOVIE_GENRE_TABLE WHERE genreTitle = :title")
-    suspend fun getPlaylistsWithSongs(title: String): List<CategoryWithMovies>
+    suspend fun getPlaylistsWithSongs(title: String): List<GenreWithMovies>
 }

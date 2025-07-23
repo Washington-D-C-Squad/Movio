@@ -10,7 +10,7 @@ import androidx.room.Update
 import androidx.room.Upsert
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.relationship.MovieCategoryCrossRef
-import com.madrid.data.dataSource.local.entity.relationship.MovieWithCategories
+import com.madrid.data.dataSource.local.entity.relationship.MovieWithGenres
 
 @Dao
 interface MovieDao {
@@ -53,9 +53,9 @@ interface MovieDao {
     ORDER BY MOVIE_GENRE_TABLE.searchCount DESC
     LIMIT 20 """
     )
-    suspend fun getAllMoviesSortedByCategorySearchCount(title : String): List<MovieWithCategories>
+    suspend fun getAllMoviesSortedByCategorySearchCount(title : String): List<MovieWithGenres>
 
     @Transaction
     @Query("SELECT * FROM MOVIE_TABLE WHERE movieId = :id")
-    suspend fun getPlaylistsWithSongs(id: Int): List<MovieWithCategories>
+    suspend fun getPlaylistsWithSongs(id: Int): List<MovieWithGenres>
 }

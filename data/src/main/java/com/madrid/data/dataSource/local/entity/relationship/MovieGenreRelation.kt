@@ -13,7 +13,7 @@ data class MovieCategoryCrossRef(
     val movieId: Int
 )
 
-data class MovieWithCategories(
+data class MovieWithGenres(
     @Embedded val movie: MovieEntity,
     @Relation(
         parentColumn = "movieId",
@@ -23,7 +23,7 @@ data class MovieWithCategories(
     val categories: List<MovieGenreEntity>
 )
 
-data class CategoryWithMovies(
+data class GenreWithMovies(
     @Embedded val categories: MovieGenreEntity,
     @Relation(
         parentColumn = "genreId",
