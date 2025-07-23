@@ -1,13 +1,15 @@
 package com.madrid.data.repositories
 
-import com.madrid.data.dataSource.local.entity.relationship.MovieCategoryCrossRef
+import com.madrid.data.dataSource.local.entity.relationship.MovieGenreCrossRef
+import com.madrid.data.dataSource.local.entity.relationship.SeriesGenreCrossRef
 import com.madrid.data.dataSource.local.mappers.toArtist
 import com.madrid.data.dataSource.local.mappers.toArtistEntity
-import com.madrid.data.dataSource.local.mappers.toCategoryEntity
+import com.madrid.data.dataSource.local.mappers.toMovieGenreEntity
 import com.madrid.data.dataSource.local.mappers.toMovie
 import com.madrid.data.dataSource.local.mappers.toMovieEntity
 import com.madrid.data.dataSource.local.mappers.toSeries
 import com.madrid.data.dataSource.local.mappers.toSeriesEntity
+import com.madrid.data.dataSource.local.mappers.toSeriesGenreEntity
 import com.madrid.data.dataSource.remote.mapper.toArtist
 import com.madrid.data.dataSource.remote.mapper.toMovie
 import com.madrid.data.dataSource.remote.mapper.toSeries
@@ -25,56 +27,61 @@ class SearchRepositoryImpl(
 
 
     override suspend fun getMovieByQuery(query: String, page: Int): List<Movie> {
-        val result = localSource.searchMovieByQueryFromDB(query)
-        return if (result.size < 7) {
-            localSource.getAllCategories().ifEmpty {
+        var result = localSource.searchMovieByQueryFromDB(query, page)
+        if (result.size < 7) {
+            localSource.getAllMovieGenres().ifEmpty {
                 remoteDataSource.getMovieGenres().genres?.map {
-                    localSource.insertCategory(it.toCategoryEntity())
+                    localSource.insertMovieGenre(it.toMovieGenreEntity())
                 }
             }
-            val movies = remoteDataSource.searchMoviesByQuery(
+            remoteDataSource.searchMoviesByQuery(
                 name = query,
                 page = page
             ).movieResults?.map { movieResult ->
                 movieResult.genreIds?.map { genreId ->
                     localSource.relateMovieToCategory(
-                        MovieCategoryCrossRef(
+                        MovieGenreCrossRef(
                             movieId = movieResult.id ?: 0,
-                            categoryId = genreId
+                            genreId = genreId
                         )
                     )
                 }
-                movieResult.toMovie()
+                localSource.insertMovie(movieResult.toMovieEntity())
             }
-            movies?.map { movie ->
-                localSource.insertMovie(movie.toMovieEntity())
-            }
-            localSource.searchMovieByQueryFromDB(query).map { it.toMovie() }
-        } else {
-            result.map {
-                it.toMovie()
-            }
+            result = localSource.searchMovieByQueryFromDB(query, page)
         }
+        return result.map { it.toMovie() }
     }
 
     override suspend fun getSeriesByQuery(query: String, page: Int): List<Series> {
-        val result = localSource.searchSeriesByQueryFromDB(query)
+        var result = localSource.searchSeriesByQueryFromDB(query, page)
         if (result.size < 7) {
-            val remoteData = remoteDataSource.searchSeriesByQuery(
+            localSource.getAllSeriesGenres().ifEmpty {
+                remoteDataSource.getSeriesGenres().genres?.map {
+                    localSource.insertSeriesGenre(it.toSeriesGenreEntity())
+                }
+            }
+            remoteDataSource.searchSeriesByQuery(
                 name = query,
                 page = page
-            ).seriesResults?.map {
-                it.toSeries()
+            ).seriesResults?.map { seriesResult ->
+                seriesResult.genreIds?.map { genreId ->
+                    localSource.relateSeriesToCategory(
+                        SeriesGenreCrossRef(
+                            seriesId = seriesResult.id ?: 0,
+                            genreId = genreId
+                        )
+                    )
+                }
+                localSource.insertSeries(seriesResult.toSeriesEntity())
             }
-            remoteData?.map {
-                localSource.insertSeries(it.toSeriesEntity())
-            }
+            result = localSource.searchSeriesByQueryFromDB(query, page)
         }
-        return localSource.searchSeriesByQueryFromDB(query).map { it.toSeries() }
+        return result.map { it.toSeries() }
     }
 
     override suspend fun getArtistByQuery(query: String, page: Int): List<Artist> {
-        val result = localSource.searchArtistByQueryFromDB(query)
+        val result = localSource.searchArtistByQueryFromDB(query, page)
         if (result.size < 7) {
             val remoteData = remoteDataSource.searchArtistByQuery(
                 name = query,
@@ -86,7 +93,7 @@ class SearchRepositoryImpl(
                 localSource.insertArtist(it.toArtistEntity())
             }
         }
-        return localSource.searchArtistByQueryFromDB(query).map {
+        return localSource.searchArtistByQueryFromDB(query, page).map {
             it.toArtist()
         }
     }

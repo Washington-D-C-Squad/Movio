@@ -13,6 +13,7 @@ import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
 import com.madrid.data.dataSource.local.entity.SeriesGenreEntity
 import com.madrid.data.dataSource.local.entity.relationship.MovieGenreCrossRef
+import com.madrid.data.dataSource.local.entity.relationship.SeriesGenreCrossRef
 import com.madrid.data.repositories.local.LocalDataSource
 
 class LocalDataSourceImpl(
@@ -56,7 +57,7 @@ class LocalDataSourceImpl(
 
     override suspend fun searchSeriesByQueryFromDB(query: String, page: Int): List<SeriesEntity> {
         val offset = (page - 1) * 20
-        return seriesDao.getSeriesByTitle("%$query%", offset)
+        return seriesDao.searchSeries("%$query%", offset).map { it.series }
     }
 
     override suspend fun searchArtistByQueryFromDB(query: String, page: Int): List<ArtistEntity> {
@@ -91,11 +92,22 @@ class LocalDataSourceImpl(
         movieDao.insertMovieCategoryCrossRef(movieCategoryEntity)
     }
 
-    override suspend fun addSearchedCategoryCount(categoryTitle: String) {
-        movieGenreDao.increaseCategorySearchCount(categoryTitle)
+    override suspend fun increaseMovieGenreSeenCount(genreTitle: String) {
+        movieGenreDao.increaseCategorySearchCount(genreTitle)
     }
 
     override suspend fun getAllMovieGenres(): List<MovieGenreEntity> {
         return movieGenreDao.getAllCategories()
+    }
+
+    override suspend fun relateSeriesToCategory(seriesGenreEntity: SeriesGenreCrossRef){
+        seriesDao.insertSeriesGenreCrossRef(seriesGenreEntity)
+    }
+    override suspend fun increaseSeriesGenreSeenCount(genreTitle: String){
+        seriesGenreDao.increaseGenreSearchCount(genreTitle)
+    }
+
+    override suspend fun getAllSeriesGenres(): List<SeriesGenreEntity> {
+        return seriesGenreDao.getAllGenres()
     }
 }

@@ -7,6 +7,7 @@ import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
 import com.madrid.data.dataSource.local.entity.SeriesGenreEntity
 import com.madrid.data.dataSource.local.entity.relationship.MovieGenreCrossRef
+import com.madrid.data.dataSource.local.entity.relationship.SeriesGenreCrossRef
 
 interface LocalDataSource {
 
@@ -28,7 +29,11 @@ interface LocalDataSource {
     suspend fun clearAllRecentSearches()
 
     suspend fun relateMovieToCategory(movieCategoryEntity: MovieGenreCrossRef)
-    suspend fun addSearchedCategoryCount(categoryTitle: String)
+    suspend fun increaseMovieGenreSeenCount(genreTitle: String)
+
+    suspend fun relateSeriesToCategory(seriesGenreEntity: SeriesGenreCrossRef)
+    suspend fun increaseSeriesGenreSeenCount(genreTitle: String)
 
     suspend fun getAllMovieGenres(): List<MovieGenreEntity>
+    suspend fun getAllSeriesGenres(): List<SeriesGenreEntity>
 }
