@@ -1,16 +1,22 @@
 package com.madrid.presentation.screens.searchScreen.features.recentSearchLayout
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
+import com.madrid.designSystem.component.EmptySearchLayout
 import com.madrid.designSystem.component.HeaderSectionBar
 import com.madrid.designSystem.component.LoadingSearchCard
 import com.madrid.presentation.R
@@ -63,20 +69,61 @@ fun LazyGridScope.filterSearchScreen(
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier.height(3 * 186.dp)
                 ) {
-                    if (topRated.itemCount == 0) {
-                        items(9) {
-                            LoadingSearchCard()
+                    when {
+                        topRated.itemCount == 0 && topRated.loadState.refresh is LoadState.Loading -> {
+                            items(9) {
+                                LoadingSearchCard()
+                            }
                         }
-                    }
-                    items(count = topRated.itemCount) { index ->
-                        MovioVerticalCard(
-                            description = topRated[index]!!.title,
-                            movieImage = topRated[index]!!.imageUrl,
-                            rate = topRated[index]!!.rating,
-                            width = 101.dp,
-                            height = 136.dp,
-                            onClick = { }
-                        )
+
+                        topRated.itemCount == 0 && topRated.loadState.refresh is LoadState.Error -> {
+                            item {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(top = 64.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    EmptySearchLayout(
+                                        title = "Internet is not available",
+                                        description = "Please make sure you are connected to the internet and try again.",
+                                        image = com.madrid.presentation.R.drawable.img_no_internet
+                                    )
+                                }
+                            }
+                        }
+
+                        topRated.itemCount == 0 &&
+                                topRated.loadState.refresh is LoadState.NotLoading &&
+                                topRated.loadState.refresh.endOfPaginationReached -> {
+                            item {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(top = 64.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    EmptySearchLayout(
+                                        title = "No results found",
+                                        description = "We couldn’t find anything matching your search. Try checking the spelling or explore something else!",
+                                        image = com.madrid.presentation.R.drawable.img_no_sesrch_found // Use a "no results" image
+                                    )
+                                }
+                            }
+                        }
+
+                        topRated.itemCount > 0 -> {
+                            items(count = topRated.itemCount) { index ->
+                                MovioVerticalCard(
+                                    description = topRated[index]!!.title,
+                                    movieImage = topRated[index]!!.imageUrl,
+                                    rate = topRated[index]!!.rating,
+                                    width = 101.dp,
+                                    height = 136.dp,
+                                    onClick = { }
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -97,20 +144,61 @@ fun LazyGridScope.filterSearchScreen(
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier.height(3 * 186.dp)
                 ) {
-                    if (movies.itemCount == 0) {
-                        items(9) {
-                            LoadingSearchCard()
+                    when {
+                        movies.itemCount == 0 && movies.loadState.refresh is LoadState.Loading -> {
+                            items(9) {
+                                LoadingSearchCard()
+                            }
                         }
-                    }
-                    items(count = movies.itemCount) { index ->
-                        MovioVerticalCard(
-                            description = movies[index]!!.title,
-                            movieImage = movies[index]!!.imageUrl,
-                            rate = movies[index]!!.rating,
-                            width = 101.dp,
-                            height = 136.dp,
-                            onClick = { }
-                        )
+
+                        movies.itemCount == 0 && movies.loadState.refresh is LoadState.Error -> {
+                            item {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(top = 64.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    EmptySearchLayout(
+                                        title = "Internet is not available",
+                                        description = "Please make sure you are connected to the internet and try again.",
+                                        image = com.madrid.presentation.R.drawable.img_no_internet
+                                    )
+                                }
+                            }
+                        }
+
+                        movies.itemCount == 0 &&
+                                movies.loadState.refresh is LoadState.NotLoading &&
+                                movies.loadState.refresh.endOfPaginationReached -> {
+                            item {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(top = 64.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    EmptySearchLayout(
+                                        title = "No results found",
+                                        description = "We couldn’t find anything matching your search. Try checking the spelling or explore something else!",
+                                        image = com.madrid.presentation.R.drawable.img_no_sesrch_found
+                                    )
+                                }
+                            }
+                        }
+
+                        movies.itemCount > 0 -> {
+                            items(count = movies.itemCount) { index ->
+                                MovioVerticalCard(
+                                    description = movies[index]!!.title,
+                                    movieImage = movies[index]!!.imageUrl,
+                                    rate = movies[index]!!.rating,
+                                    width = 101.dp,
+                                    height = 136.dp,
+                                    onClick = { }
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -131,20 +219,61 @@ fun LazyGridScope.filterSearchScreen(
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier.height(3 * 186.dp)
                 ) {
-                    if (series.itemCount == 0) {
-                        items(9) {
-                            LoadingSearchCard()
+                    when {
+                        series.itemCount == 0 && series.loadState.refresh is LoadState.Loading -> {
+                            items(9) {
+                                LoadingSearchCard()
+                            }
                         }
-                    }
-                    items(count = series.itemCount) { index ->
-                        MovioVerticalCard(
-                            description = series[index]!!.title,
-                            movieImage = series[index]!!.imageUrl,
-                            rate = series[index]!!.rating,
-                            width = 101.dp,
-                            height = 136.dp,
-                            onClick = { onSeriesClick(series[index]!!.id.toInt()) }
-                        )
+
+                        series.itemCount == 0 && series.loadState.refresh is LoadState.Error -> {
+                            item {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(top = 64.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    EmptySearchLayout(
+                                        title = "Internet is not available",
+                                        description = "Please make sure you are connected to the internet and try again.",
+                                        image = com.madrid.presentation.R.drawable.img_no_internet
+                                    )
+                                }
+                            }
+                        }
+
+                        series.itemCount == 0 &&
+                                series.loadState.refresh is LoadState.NotLoading &&
+                                series.loadState.refresh.endOfPaginationReached -> {
+                            item {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(top = 64.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    EmptySearchLayout(
+                                        title = "No results found",
+                                        description = "We couldn’t find anything matching your search. Try checking the spelling or explore something else!",
+                                        image = com.madrid.presentation.R.drawable.img_no_sesrch_found
+                                    )
+                                }
+                            }
+                        }
+
+                        series.itemCount > 0 -> {
+                            items(count = series.itemCount) { index ->
+                                MovioVerticalCard(
+                                    description = series[index]!!.title,
+                                    movieImage = series[index]!!.imageUrl,
+                                    rate = series[index]!!.rating,
+                                    width = 101.dp,
+                                    height = 136.dp,
+                                    onClick = { onSeriesClick(series[index]!!.id.toInt()) }
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -165,17 +294,42 @@ fun LazyGridScope.filterSearchScreen(
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier.height(3 * 186.dp)
                 ) {
-                    if (artist.itemCount == 0) {
-                        items(9) {
-                            LoadingSearchCard()
+                    // Artist
+                    when {
+                        artist.itemCount == 0 && artist.loadState.refresh is LoadState.Loading -> {
+                            items(9) {
+                                LoadingSearchCard()
+                            }
                         }
-                    }
-                    items(count = artist.itemCount) { index ->
-                        MovioArtistsCard(
-                            artistsName = artist[index]!!.name,
-                            imageUrl = artist[index]!!.imageUrl,
-                            onClick = { }
-                        )
+
+                        artist.itemCount == 0 && artist.loadState.refresh is LoadState.NotLoading -> {
+                            item(
+                                span = { GridItemSpan(maxLineSpan) }
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(top = 64.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    EmptySearchLayout(
+                                        title = "No results found",
+                                        description = "We couldn’t find anything matching your search. Try checking the spelling or explore something else!",
+                                        image = com.madrid.presentation.R.drawable.img_no_sesrch_found
+                                    )
+                                }
+                            }
+                        }
+
+                        artist.itemCount > 0 -> {
+                            items(count = artist.itemCount) { index ->
+                                MovioArtistsCard(
+                                    artistsName = artist[index]!!.name,
+                                    imageUrl = artist[index]!!.imageUrl,
+                                    onClick = { }
+                                )
+                            }
+                        }
                     }
                 }
             }
