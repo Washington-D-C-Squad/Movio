@@ -5,11 +5,8 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Transaction
 import androidx.room.Update
-import com.madrid.data.dataSource.local.entity.MovieGenreEntity
 import com.madrid.data.dataSource.local.entity.SeriesGenreEntity
-import com.madrid.data.dataSource.local.entity.relationship.GenreWithMovies
 
 
 @Dao
@@ -30,7 +27,7 @@ interface SeriesGenreDao {
     suspend fun increaseGenreSearchCount(genreTitle: String)
 
     @Delete
-    suspend fun deleteCategory(genre: MovieGenreEntity)
+    suspend fun deleteCategory(genre: SeriesGenreEntity)
 
     @Query("SELECT * FROM SERIES_GENRE_TABLE WHERE genreId = :id")
     suspend fun getGenreById(id: Int): SeriesGenreEntity?
@@ -43,7 +40,7 @@ interface SeriesGenreDao {
 
     // descending order by searchCount
     @Query("SELECT * FROM SERIES_GENRE_TABLE ORDER BY searchCount DESC")
-    suspend fun getAllGenresBySearchCount(): List<MovieGenreEntity>
+    suspend fun getAllGenresBySearchCount(): List<SeriesGenreEntity>
 
     @Query("DELETE FROM SERIES_GENRE_TABLE")
     suspend fun deleteAllGenres()
