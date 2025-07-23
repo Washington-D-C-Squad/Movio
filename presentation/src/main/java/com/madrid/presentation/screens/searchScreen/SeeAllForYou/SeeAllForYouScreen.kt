@@ -1,4 +1,4 @@
-package com.madrid.presentation.screens.SeeAllForYou
+package com.madrid.presentation.screens.searchScreen.SeeAllForYou
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -26,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.madrid.designSystem.R
 import com.madrid.designSystem.component.EmptySearchLayout
 import com.madrid.designSystem.component.LoadingSearchCard
 import com.madrid.designSystem.component.MovioIcon
@@ -34,7 +36,6 @@ import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.component.movioCards.MovioVerticalCard
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
-import com.madrid.presentation.screens.searchScreen.SeeAllForYou.SeeAllForYouViewModel
 import com.madrid.presentation.viewModel.searchViewModel.SearchScreenState
 import org.koin.androidx.compose.koinViewModel
 
@@ -81,7 +82,7 @@ private fun SeeAllForYouScreenContent(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         item(
-            span = { androidx.compose.foundation.lazy.grid.GridItemSpan(maxLineSpan) }
+            span = { GridItemSpan(maxLineSpan) }
         ) {
             Row(
                 modifier = Modifier
@@ -92,7 +93,7 @@ private fun SeeAllForYouScreenContent(
             ) {
                 MovioIcon(
                     modifier = Modifier.clickable { onClickBackIcon() },
-                    painter = painterResource(com.madrid.designSystem.R.drawable.arrow_left),
+                    painter = painterResource(R.drawable.arrow_left),
                     contentDescription = null,
                     tint = Theme.color.surfaces.onSurface
                 )
@@ -125,7 +126,7 @@ private fun SeeAllForYouScreenContent(
             }
 
             isError -> {
-                item(span = { androidx.compose.foundation.lazy.grid.GridItemSpan(maxLineSpan) }) {
+                item(span = { GridItemSpan(maxLineSpan) }) {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
@@ -142,7 +143,7 @@ private fun SeeAllForYouScreenContent(
             }
 
             isEmpty -> {
-                item(span = { androidx.compose.foundation.lazy.grid.GridItemSpan(maxLineSpan) }) {
+                item(span = { GridItemSpan(maxLineSpan) }) {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
@@ -167,8 +168,8 @@ private fun SeeAllForYouScreenContent(
                         description = exploreMoreMovies[index]!!.title,
                         movieImage = exploreMoreMovies[index]!!.imageUrl,
                         rate = exploreMoreMovies[index]!!.rating,
-                        width = 500.dp,
-                        height = 178.dp,
+                        width = 101.dp,
+                        height = 136.dp,
                         onClick = { onMovieClick(exploreMoreMovies[index]!!.id.toInt()) }
                     )
                 }
