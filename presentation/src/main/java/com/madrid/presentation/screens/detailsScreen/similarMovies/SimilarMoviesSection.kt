@@ -72,8 +72,9 @@ private fun MovieCardPlaceholder() {
 @Composable
 fun SimilarMoviesSection(
     movieId: Int,
+    movieTitle: String, // Add movie title parameter
     modifier: Modifier = Modifier,
-    onSeeAllClick: () -> Unit = {},
+    onSeeAllClick: (Int, String) -> Unit = { _, _ -> }, // Update to accept both ID and title
     onMovieClick: (Int) -> Unit = {},
     viewModel: SimilarMoviesViewModel = createSimilarMoviesViewModel()
 ) {
@@ -101,8 +102,9 @@ fun SimilarMoviesSection(
                 text = stringResource(id = R.string.see_all),
                 color = Theme.color.surfaces.onSurfaceVariant,
                 textStyle = Theme.textStyle.label.smallRegular14,
-                modifier = Modifier.clickable(onClick = onSeeAllClick)
-            )
+                modifier = Modifier.clickable(onClick = {
+                    onSeeAllClick(movieId, movieTitle)
+                }))
         }
 
         when {
@@ -110,21 +112,10 @@ fun SimilarMoviesSection(
                 LoadingSection()
             }
 
-            uiState.errorMessage != null -> {
-                ErrorSection(
-                    errorMessage = uiState.errorMessage!!,
-                    onRetry = { viewModel.retry(movieId) }
-                )
-            }
-
-            uiState.movies.isEmpty() -> {
-                EmptyStateSection()
-            }
-
-            else -> {
+            uiState.movies.isNotEmpty() -> {
                 MoviesListSection(
                     movies = uiState.movies,
-                    onMovieClick = { movie -> onMovieClick(movie.id) }
+                    onMovieClick = { movie -> onMovieClick(movie.id) },
                 )
             }
         }
@@ -137,34 +128,8 @@ private fun LoadingSection() {
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         modifier = Modifier.padding(horizontal = 4.dp)
     ) {
-        items(5) { // Show 5 placeholder cards
+        items(5) {
             MovieCardPlaceholder()
-        }
-    }
-}
-
-@Composable
-private fun EmptyStateSection() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(200.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            MovioText(
-                text = "No similar movies found",
-                color = Theme.color.surfaces.onSurfaceVariant,
-                textStyle = Theme.textStyle.body.mediumMedium14
-            )
-            MovioText(
-                text = "Check back later for recommendations",
-                color = Theme.color.surfaces.onSurfaceVariant,
-                textStyle = Theme.textStyle.label.smallRegular12
-            )
         }
     }
 }
@@ -189,42 +154,6 @@ private fun MoviesListSection(
         }
     }
 }
-
-@Composable
-private fun ErrorSection(
-    errorMessage: String,
-    onRetry: () -> Unit
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(200.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            MovioText(
-                text = "Failed to load similar movies",
-                color = Theme.color.system.error,
-                textStyle = Theme.textStyle.body.mediumMedium14
-            )
-            MovioText(
-                text = errorMessage,
-                color = Theme.color.surfaces.onSurfaceVariant,
-                textStyle = Theme.textStyle.label.smallRegular12
-            )
-            MovioText(
-                text = "Retry",
-                color = Theme.color.brand.primary,
-                textStyle = Theme.textStyle.label.smallRegular14,
-                modifier = Modifier.clickable(onClick = onRetry)
-            )
-        }
-    }
-}
-
 @Composable
 private fun MovieCard(
     movie: SimilarMovie,
@@ -249,7 +178,6 @@ private fun MovieCard(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            // Rating badge
             if (movie.rate > 0) {
                 Box(
                     modifier = Modifier
@@ -298,8 +226,11 @@ private fun SimilarMoviesSectionPreview() {
         Box(
             modifier = Modifier.background(Theme.color.surfaces.surfaceContainer)
         ) {
-            // For preview, we can pass a mock movieId
-            SimilarMoviesSection(movieId = 123)
+            SimilarMoviesSection(
+                movieId = 1,
+                movieTitle = "Movie Title",
+                modifier = Modifier.padding(16.dp)
+            )
         }
     }
 }

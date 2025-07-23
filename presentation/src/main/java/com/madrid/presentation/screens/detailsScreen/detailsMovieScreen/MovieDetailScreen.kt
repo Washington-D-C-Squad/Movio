@@ -14,21 +14,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.component.TopAppBar
 import com.madrid.designSystem.theme.Theme
-import com.madrid.domain.entity.SimilarMovie
 import com.madrid.presentation.component.BottomMediaActions
 import com.madrid.presentation.component.CastMember
 import com.madrid.presentation.component.TopCastSection
 import com.madrid.presentation.component.header.MovieDetailsHeader
 import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
 import com.madrid.presentation.screens.detailsScreen.componant.ExpandableDescription
+import com.madrid.presentation.screens.detailsScreen.componant.RatingMovieBottomSheet
+import com.madrid.presentation.screens.detailsScreen.componant.SaveMovieBottomSheet
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
 import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMoviesSection
-import com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
+import com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -37,6 +41,8 @@ fun MovieDetailsScreen(
     viewModel: DetailsMovieViewModel = koinViewModel()
 ) {
     val uiState by viewModel.state.collectAsState()
+    var showRatingBottomSheet by remember { mutableStateOf(false) }
+    var showSaveMovieBottomSheet by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         viewModel.loadData()
@@ -72,11 +78,9 @@ fun MovieDetailsScreen(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
             )
             BottomMediaActions(
-                onRateClick = {
-
-                },
+                onRateClick = { showRatingBottomSheet = true },
                 onPlayClick = {},
-                onAddToListClick = {},
+                onAddToListClick = { showSaveMovieBottomSheet = true },
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -110,5 +114,23 @@ fun MovieDetailsScreen(
                 onMovieClick = {}
             )
         }
+    }
+
+    if (showRatingBottomSheet) {
+        RatingMovieBottomSheet(
+            onDismiss = { showRatingBottomSheet = false },
+            modifier = Modifier,
+            show = showRatingBottomSheet,
+            imageUrl = uiState.topImageUrl,
+            nameMovie = uiState.movieName
+        )
+    }
+
+    if (showSaveMovieBottomSheet) {
+        SaveMovieBottomSheet(
+            onDismiss = { showSaveMovieBottomSheet = false },
+            modifier = Modifier,
+            show = showSaveMovieBottomSheet,
+        )
     }
 }
