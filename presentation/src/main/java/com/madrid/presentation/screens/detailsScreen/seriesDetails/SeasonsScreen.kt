@@ -40,9 +40,6 @@ fun SeasonsScreen(viewModel: SeriesDetailsViewModel = koinViewModel()) {
                 )
             )
         },
-        upDateSeasonState = {seasonNumber ->
-            viewModel.updateSelectedSeason(seasonNumber)
-        }
     )
 }
 
@@ -51,7 +48,6 @@ fun SeasonsScreenContent(
     uiState: SeriesDetailsUiState,
     onClickBack: () -> Unit = {},
     onClickSeason: (Int) -> Unit = {},
-    upDateSeasonState: (Int) -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -71,12 +67,11 @@ fun SeasonsScreenContent(
             contentPadding = PaddingValues(bottom = 40.dp)
         ) {
             itemsIndexed(seasons) { index, season ->
-                upDateSeasonState(season.seasonNumber)
                 MovioSeasonCard(
                     movieTitle = season.seasonNumber.toString(),
                     movieImage = season.imageUrl,
                     movieRate = season.rate,
-                    totalNumberOfEpisodes = uiState.selectedSeasonUiState.numberOfEpisodes.toString(),
+                    totalNumberOfEpisodes = season.numberOfEpisodes.toString(),
                     onClick = { onClickSeason(season.seasonNumber) },
                     yearOfPublish = season.productionDate,
                     currentSeason = (index + 1).toString(),
