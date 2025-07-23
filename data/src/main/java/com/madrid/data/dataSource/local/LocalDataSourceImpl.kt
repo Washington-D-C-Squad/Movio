@@ -43,7 +43,7 @@ class LocalDataSourceImpl(
     }
 
     override suspend fun searchMovieByQueryFromDB(query: String): List<MovieEntity> {
-        return movieDao.getMovieByTitle("%$query%")
+        return movieDao.getAllMoviesSortedByCategorySearchCount("%$query%").map { it.movie }
     }
 
     override suspend fun searchSeriesByQueryFromDB(query: String): List<SeriesEntity> {
@@ -77,7 +77,7 @@ class LocalDataSourceImpl(
         recentSearchDao.clearAllRecentSearches()
     }
 
-    override suspend fun insertMovieCategory(movieCategoryEntity: MovieCategoryCrossRef) {
+    override suspend fun relateMovieToCategory(movieCategoryEntity: MovieCategoryCrossRef) {
         movieDao.insertMovieCategoryCrossRef(movieCategoryEntity)
     }
 
@@ -85,4 +85,7 @@ class LocalDataSourceImpl(
         categoryDao.increaseCategorySearchCount(categoryTitle)
     }
 
+    override suspend fun getAllCategories(): List<CategoryEntity> {
+        return categoryDao.getAllCategories()
+    }
 }
