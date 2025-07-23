@@ -31,7 +31,8 @@ import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun MovieDetailsScreen(
+fun MovieDetailsScreen( //TODO add nav controller
+    navigateToSimilarMovies: (Int) -> Unit = {},
     viewModel: DetailsMovieViewModel = koinViewModel()
 ) {
     val uiState by viewModel.state.collectAsState()
@@ -70,7 +71,9 @@ fun MovieDetailsScreen(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
             )
             BottomMediaActions(
-                onRateClick = {},
+                onRateClick = {
+
+                },
                 onPlayClick = {},
                 onAddToListClick = {},
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
@@ -102,7 +105,9 @@ fun MovieDetailsScreen(
             Spacer(modifier = Modifier.height(32.dp))
                 SimilarMoviesSection(
                     movieId = 123,
-                    onSeeAllClick = {},
+                    onSeeAllClick = {
+                        navigateToSimilarMovies(123)
+                    },
                     onMovieClick = { movie: SimilarMovie ->
                     }
                 )

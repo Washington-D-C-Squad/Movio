@@ -28,7 +28,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.MovioTheme
