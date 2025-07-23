@@ -74,7 +74,7 @@ fun SimilarMoviesSection(
     movieId: Int,
     modifier: Modifier = Modifier,
     onSeeAllClick: () -> Unit = {},
-    onMovieClick: (SimilarMovie) -> Unit = {},
+    onMovieClick: (Int) -> Unit = {},
     viewModel: SimilarMoviesViewModel = createSimilarMoviesViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -124,7 +124,7 @@ fun SimilarMoviesSection(
             else -> {
                 MoviesListSection(
                     movies = uiState.movies,
-                    onMovieClick = onMovieClick
+                    onMovieClick = { movie -> onMovieClick(movie.id) }
                 )
             }
         }

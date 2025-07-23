@@ -14,6 +14,7 @@ import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
 class DetailsMovieViewModel(
+
     private val movieDetailsUseCase: MovieDetailsUseCase,
     private val saveStateHandle: SavedStateHandle
 ) : BaseViewModel<DetailsMovieUiState, effect>(

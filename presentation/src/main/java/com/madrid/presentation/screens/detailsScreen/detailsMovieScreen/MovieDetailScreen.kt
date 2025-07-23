@@ -27,11 +27,12 @@ import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailS
 import com.madrid.presentation.screens.detailsScreen.componant.ExpandableDescription
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
 import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMoviesSection
+import com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun MovieDetailsScreen( //TODO add nav controller
+fun MovieDetailsScreen(
     navigateToSimilarMovies: (Int) -> Unit = {},
     viewModel: DetailsMovieViewModel = koinViewModel()
 ) {
@@ -100,17 +101,14 @@ fun MovieDetailsScreen( //TODO add nav controller
             Spacer(modifier = Modifier.height(32.dp))
             ReviewScreen(
                 onSeeAllReviews = {},
-                uiState = com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState()
+                uiState = ReviewsScreenUiState()
             )
             Spacer(modifier = Modifier.height(32.dp))
-                SimilarMoviesSection(
-                    movieId = 123,
-                    onSeeAllClick = {
-                        navigateToSimilarMovies(123)
-                    },
-                    onMovieClick = { movie: SimilarMovie ->
-                    }
-                )
+            SimilarMoviesSection(
+                movieId = 1,
+                onSeeAllClick = { navigateToSimilarMovies(1) },
+                onMovieClick = {}
+            )
         }
     }
 }
