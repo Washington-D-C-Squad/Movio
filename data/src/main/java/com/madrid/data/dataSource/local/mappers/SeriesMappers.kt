@@ -7,7 +7,7 @@ import kotlinx.datetime.LocalDate
 
 fun Series.toSeriesEntity(): SeriesEntity {
     return SeriesEntity(
-        id = this.id,
+        seriesId = this.id,
         title = this.title,
         imageUrl = this.imageUrl,
         rate = this.rate,
@@ -18,7 +18,7 @@ fun Series.toSeriesEntity(): SeriesEntity {
 
 fun SeriesEntity.toSeries(): Series {
     return Series(
-        id = this.id,
+        id = this.seriesId,
         title = this.title,
         imageUrl = this.imageUrl,
         rate = this.rate,

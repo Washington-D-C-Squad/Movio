@@ -15,7 +15,7 @@ interface SeriesDao {
     @Delete
     suspend fun deleteSeries(series: SeriesEntity)
 
-    @Query("SELECT * FROM SERIES_TABLE WHERE id = :id")
+    @Query("SELECT * FROM SERIES_TABLE WHERE seriesId = :id")
     suspend fun getSeriesById(id: Int): SeriesEntity?
 
     @Query("SELECT * FROM SERIES_TABLE WHERE title LIKE :title LIMIT 20")
