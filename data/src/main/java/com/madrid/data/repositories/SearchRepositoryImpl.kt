@@ -32,7 +32,6 @@ class SearchRepositoryImpl(
                     localSource.insertCategory(it.toCategoryEntity())
                 }
             }
-
             val movies = remoteDataSource.searchMoviesByQuery(
                 name = query,
                 page = page

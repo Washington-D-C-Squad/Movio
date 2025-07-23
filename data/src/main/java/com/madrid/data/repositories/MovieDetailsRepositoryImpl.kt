@@ -27,7 +27,6 @@ class MovieDetailsRepositoryImpl(
         val movieResponse = remoteDataSource.getMovieDetailsById(movieId)
         movieResponse.movieGenres.map { genre ->
             val categoryEntity = genre.toCategoryEntity()
-            localDataSource.insertCategory(categoryEntity)
             localDataSource.addSearchedCategoryCount(categoryEntity.categoryTitle)
         }
         return movieResponse.toMovie()

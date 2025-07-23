@@ -40,7 +40,7 @@ interface MovieDao {
     suspend fun deleteAllMovies()
 
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertMovieCategoryCrossRef(crossRef: MovieCategoryCrossRef)
 
     @Transaction
