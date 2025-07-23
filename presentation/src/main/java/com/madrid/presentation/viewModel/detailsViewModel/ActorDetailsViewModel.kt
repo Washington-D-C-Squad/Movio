@@ -20,22 +20,27 @@ class ActorDetailsViewModel(
 
     private fun loadActorDetails() {
         tryToExecute(
-            function = { actorDetailsUseCase.getArtistDetailsById(args.artistId) },
-            onSuccess = { actor ->
+            function = {
+                val actor = actorDetailsUseCase.getArtistDetailsById(args.artistId)
+                val knownForList = actorDetailsUseCase.getArtistKnownForById(args.artistId)
+                Pair(actor, knownForList)
+            },
+            onSuccess = { (actor, knownForList) ->
                 val mappedActor = actor?.let {
                     MovieDetailsUiState.CastUiState(
-                        actorImageUrl = it.imageUrl,
-                        actorName = it.name,
-                        actorRole = it.role,
-                        dateOfBirth = it.dateOfBirth,
-                        location = it.country,
-                        id = it.id.toString(),
-                        description = it.description,
-                        knownFor = it.artisKnownFor!!.map { known ->
+                        actorImageUrl = actor.imageUrl,
+                        actorName = actor.name,
+                        actorRole = actor.role,
+                        dateOfBirth = actor.dateOfBirth,
+                        location = actor.country,
+                        id = actor.id.toString(),
+                        description = actor.description,
+                        knownFor = knownForList.map { known ->
                             MovieDetailsUiState.KnownMovieUiState(
                                 title = known.title,
                                 imageUrl = known.imageUrl,
                                 rating = known.voteAverage.toString(),
+                                mediaId = known.id,
                             )
                         }
                     )

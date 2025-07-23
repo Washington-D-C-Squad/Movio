@@ -17,10 +17,10 @@ data class MovieDetailsUiState(
         val knownFor: List<KnownMovieUiState> = emptyList(),
         val errorMessage: String? = null
     )
-
     data class KnownMovieUiState(
         val title: String,
         val imageUrl: String,
-        val rating: String
+        val rating: String,
+        val mediaId: Int,
     )
 }
