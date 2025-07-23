@@ -1,6 +1,7 @@
 package com.madrid.presentation.screens.detailsScreen.seriesDetails
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,11 +11,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.component.TopAppBar
 import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.component.BottomMediaActions
@@ -22,6 +25,8 @@ import com.madrid.presentation.component.CastMember
 import com.madrid.presentation.component.TopCastSection
 import com.madrid.presentation.component.header.MovieDetailsHeader
 import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
+import com.madrid.presentation.navigation.Destinations
+import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.detailsScreen.componant.ExpandableDescription
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
 import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarSeries
@@ -35,6 +40,7 @@ fun SeriesDetailsScreen(
     viewModel: SeriesDetailsViewModel = koinViewModel()
 ) {
     val uiState by viewModel.state.collectAsState()
+    val navController = LocalNavController.current
 
     Box(
         modifier = Modifier
@@ -96,6 +102,12 @@ fun SeriesDetailsScreen(
                 uiState = ReviewsScreenUiState()
             )
             Spacer(modifier = Modifier.height(32.dp))
+            MovioText(
+                text = "See all >",
+                color = Theme.color.surfaces.onSurfaceVariant,
+                textStyle = Theme.textStyle.label.smallRegular14,
+                modifier = Modifier.clickable { navController.navigate(Destinations.SeasonsScreen(uiState.seriesId,1)) }
+            )
             SimilarSeriesSection(
                 onSeeAllClick = {},
                 onSeriesClick = { series ->
