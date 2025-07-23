@@ -1,5 +1,6 @@
 package com.madrid.data.repositories
 
+import com.madrid.data.dataSource.local.entity.ArtistEntity
 import com.madrid.data.dataSource.local.entity.relationship.MovieGenreCrossRef
 import com.madrid.data.dataSource.local.entity.relationship.SeriesGenreCrossRef
 import com.madrid.data.dataSource.local.mappers.toArtist
@@ -13,6 +14,7 @@ import com.madrid.data.dataSource.local.mappers.toSeriesGenreEntity
 import com.madrid.data.dataSource.remote.mapper.toArtist
 import com.madrid.data.dataSource.remote.mapper.toMovie
 import com.madrid.data.dataSource.remote.mapper.toSeries
+import com.madrid.data.dataSource.remote.response.artist.ArtistsResult
 import com.madrid.data.repositories.local.LocalDataSource
 import com.madrid.data.repositories.remote.RemoteDataSource
 import com.madrid.domain.entity.Artist
@@ -83,13 +85,10 @@ class SearchRepositoryImpl(
     override suspend fun getArtistByQuery(query: String, page: Int): List<Artist> {
         val result = localSource.searchArtistByQueryFromDB(query, page)
         if (result.size < 7) {
-            val remoteData = remoteDataSource.searchArtistByQuery(
+            remoteDataSource.searchArtistByQuery(
                 name = query,
                 page = page
             ).artistResults?.map {
-                it.toArtist()
-            }
-            remoteData?.map {
                 localSource.insertArtist(it.toArtistEntity())
             }
         }
