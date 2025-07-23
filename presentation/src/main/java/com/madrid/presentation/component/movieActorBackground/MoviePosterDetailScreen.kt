@@ -26,7 +26,6 @@ fun MoviePosterDetailScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.Black)
     ) {
         Box(
             modifier = Modifier

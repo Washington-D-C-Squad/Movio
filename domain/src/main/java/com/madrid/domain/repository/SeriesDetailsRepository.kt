@@ -15,7 +15,7 @@ interface SeriesDetailsRepository {
     suspend fun getSeriesCreditsById(seriesId: Int): List<Cast>
     suspend fun getSeriesReviewsById(seriesId: Int): List<Review>
     suspend fun getSimilarSeriesById(seriesId: Int): List<SimilarSeries>
-    suspend fun getEpisodesBySeasonId(seasonId: Int, seasonNumber: Int): List<Episode>
+    suspend fun getEpisodesBySeriesId(seriesId: Int, seasonNumber: Int): List<Episode>
 
     suspend fun submitSeriesRating(rating: Float)
     suspend fun addSeriesToFavourites(seriesId: Int)

@@ -3,6 +3,7 @@ package com.madrid.presentation.screens.SeeAllForYou
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,11 +23,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.madrid.designSystem.theme.Theme
+import com.madrid.designSystem.component.EmptySearchLayout
+import com.madrid.designSystem.component.LoadingSearchCard
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
+import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.component.movioCards.MovioVerticalCard
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
@@ -59,6 +63,13 @@ private fun SeeAllForYouScreenContent(
     onExploreClick: (LazyPagingItems<SearchScreenState.MovieUiState>) -> Unit = {},
     onMovieClick: (Int) -> Unit = {}
 ) {
+
+    val isLoading = exploreMoreMovies.loadState.refresh is LoadState.Loading
+    val isError = exploreMoreMovies.loadState.refresh is LoadState.Error
+    val isEmpty =
+        exploreMoreMovies.itemCount == 0 && exploreMoreMovies.loadState.refresh is LoadState.NotLoading && exploreMoreMovies.loadState.refresh.endOfPaginationReached
+
+
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 100.dp),
         modifier = Modifier
@@ -90,7 +101,7 @@ private fun SeeAllForYouScreenContent(
                     text = "For you",
                     color = Theme.color.surfaces.onSurface,
                     textStyle = Theme.textStyle.headline.largeBold16,
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center
                 )
 
@@ -98,18 +109,70 @@ private fun SeeAllForYouScreenContent(
             Spacer(Modifier.height(16.dp))
 
         }
-        items(
-            count = exploreMoreMovies.itemCount,
-        ) { index ->
-            MovioVerticalCard(
-                modifier = Modifier.fillMaxWidth(fraction = 0.50f),
-                description = exploreMoreMovies[index]!!.title,
-                movieImage = exploreMoreMovies[index]!!.imageUrl,
-                rate = exploreMoreMovies[index]!!.rating,
-                width = 500.dp,
-                height = 178.dp,
-                onClick = { onMovieClick(exploreMoreMovies[index]!!.id.toInt())}
-            )
+
+        when {
+            isLoading -> {
+                items(9) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = 64.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        LoadingSearchCard()
+                    }
+                }
+            }
+
+            isError -> {
+                item(span = { androidx.compose.foundation.lazy.grid.GridItemSpan(maxLineSpan) }) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = 64.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        EmptySearchLayout(
+                            title = "Internet is not available",
+                            description = "Please make sure you are connected to the internet and try again.",
+                            image = com.madrid.presentation.R.drawable.img_no_internet
+                        )
+                    }
+                }
+            }
+
+            isEmpty -> {
+                item(span = { androidx.compose.foundation.lazy.grid.GridItemSpan(maxLineSpan) }) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = 64.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        EmptySearchLayout(
+                            title = "No results found",
+                            description = "We couldn’t find anything matching your search. Try checking the spelling or explore something else!",
+                            image = com.madrid.presentation.R.drawable.img_no_sesrch_found
+                        )
+                    }
+                }
+            }
+
+            else -> {
+                items(
+                    count = exploreMoreMovies.itemCount,
+                ) { index ->
+                    MovioVerticalCard(
+                        modifier = Modifier.fillMaxWidth(fraction = 0.50f),
+                        description = exploreMoreMovies[index]!!.title,
+                        movieImage = exploreMoreMovies[index]!!.imageUrl,
+                        rate = exploreMoreMovies[index]!!.rating,
+                        width = 500.dp,
+                        height = 178.dp,
+                        onClick = { onMovieClick(exploreMoreMovies[index]!!.id.toInt()) }
+                    )
+                }
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.madrid.data.dataSource.remote
 
+import android.util.Log
 import com.madrid.data.dataSource.remote.response.artist.ArtistDetailsResponse
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
 import com.madrid.data.dataSource.remote.response.common.TrailerResponse
@@ -12,6 +13,7 @@ import com.madrid.data.dataSource.remote.response.movie.SimilarMoviesResponse
 import com.madrid.data.dataSource.remote.response.series.SearchSeriesResponse
 import com.madrid.data.dataSource.remote.response.series.SeasonEpisodesResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesCreditResponse
+import com.madrid.data.dataSource.remote.response.series.SeriesDetailsResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesReviewResponse
 import com.madrid.data.dataSource.remote.response.series.SimilarSeriesResponse
 import retrofit2.http.GET
@@ -71,6 +73,11 @@ interface MovieApi {
         @Query("page") page: Int
     ): SearchSeriesResponse
 
+    @GET("tv/{series_id}")
+    suspend fun getSeriesDetailsById(
+        @Path("series_id") seriesId: Int
+    ): SeriesDetailsResponse
+
     @GET("tv/{series_id}/videos")
     suspend fun getSeriesTrailersById(
         @Path("series_id") seriesId: Int
@@ -117,3 +124,4 @@ interface MovieApi {
         @Path("artist_id") artistId: Int
     ): ArtistDetailsResponse
 }
+
