@@ -30,6 +30,7 @@ sealed interface Destinations {
     @Serializable
     data class SeriesDetailsScreen(
         val seriesId: Int,
+        val seasonNumber: Int
     ) : Destinations
 
     @Serializable
@@ -47,11 +48,13 @@ sealed interface Destinations {
     @Serializable
     data class SeasonsScreen(
         val seriesId: Int,
+        val seasonNumber: Int
     ) : Destinations
 
     @Serializable
     data class EpisodesScreen(
         val seriesId: Int,
+        val seasonNumber: Int
     ) : Destinations
 
     @Serializable

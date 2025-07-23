@@ -24,6 +24,8 @@ import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.component.CustomDropdown
 import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
 import com.madrid.presentation.component.movioCards.MovioEpisodesCard
+import com.madrid.presentation.navigation.Destinations
+import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.viewModel.detailsViewModel.EpisodeUiState
 import com.madrid.presentation.viewModel.detailsViewModel.SeriesDetailsUiState
 import com.madrid.presentation.viewModel.detailsViewModel.SeriesDetailsViewModel
@@ -32,11 +34,19 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun EpisodesScreen(viewModel: SeriesDetailsViewModel = koinViewModel()) {
     val uiState by viewModel.state.collectAsState()
-    EpisodesScreenContent(uiState , viewModel::updateSelectedSeason)
+    val navController = LocalNavController.current
+    EpisodesScreenContent(
+        uiState,
+        viewModel::updateSelectedSeason,
+        onClickBack = { navController.navigate(Destinations.SeasonsScreen(uiState.seriesId, 1)) })
 }
 
 @Composable
-fun EpisodesScreenContent(uiState: SeriesDetailsUiState,onSeasonSelection: (Int) -> Unit = {}) {
+fun EpisodesScreenContent(
+    uiState: SeriesDetailsUiState,
+    onSeasonSelection: (Int) -> Unit = {},
+    onClickBack: () -> Unit = {},
+) {
     val episodes: List<EpisodeUiState> = uiState.selectedSeasonUiState.episodesUiStates
     Column {
         Box() {
@@ -51,6 +61,7 @@ fun EpisodesScreenContent(uiState: SeriesDetailsUiState,onSeasonSelection: (Int)
                 secondIcon = null,
                 thirdIcon = null,
                 modifier = Modifier.padding(start = 16.dp, top = 36.dp),
+                onFirstIconClick = { onClickBack() }
             )
             LazyColumn(
                 modifier = Modifier
@@ -60,14 +71,14 @@ fun EpisodesScreenContent(uiState: SeriesDetailsUiState,onSeasonSelection: (Int)
             ) {
                 items(episodes) { episode ->
                     MovioEpisodesCard(
-                        modifier = Modifier.padding(vertical = 8.dp),
                         movieTitle = episode.episodeName,
-                        movieRate = (episode.rate.toFloat()/2).toString().take(3),
+                        movieRate = (episode.rate.toFloat() / 2).toString().take(3),
                         currentMovieEpisode = "Episode ${episode.episodeNumber}",
                         movieTime = "${episode.episodeDuration} m",
                         movieImageUrl = episode.imageUrl,
                         onClick = {
                         },
+                        modifier = Modifier.padding(bottom = 12.dp)
                     )
                 }
             }
@@ -79,13 +90,14 @@ fun EpisodesScreenContent(uiState: SeriesDetailsUiState,onSeasonSelection: (Int)
                 MovioText(
                     text = "Episodes ${uiState.selectedSeasonUiState.numberOfEpisodes}",
                     textStyle = Theme.textStyle.headline.mediumMedium18,
-                    color = Theme.color.surfaces.onSurface
+                    color = Theme.color.surfaces.onSurface,
+                    modifier = Modifier.padding(vertical = 5.dp)
                 )
                 Spacer(Modifier.weight(1f))
-                var selectedItem by remember { mutableStateOf("Season 1") }
+                var selectedItem by remember { mutableStateOf("Season ${uiState.selectedSeasonUiState.seasonNumber}") }
                 CustomDropdown(
                     items = getSeasonsNames(uiState.numberOfSeasons),
-                    selectedItem = selectedItem,
+                    selectedItem = "Season ${uiState.selectedSeasonUiState.seasonNumber}",
                     labelSelector = { it },
                     onItemSelected = {
                         selectedItem = it
