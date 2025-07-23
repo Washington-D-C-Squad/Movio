@@ -61,7 +61,12 @@ fun SearchScreen(
     ) {
         ContentSearchScreen(
             onSeriesClick = { seriesId ->
-                navController.navigate(Destinations.SeasonsScreen(seriesId = seriesId, seasonNumber = 1))
+                navController.navigate(
+                    Destinations.SeriesDetailsScreen(
+                        seriesId = seriesId,
+                        seasonNumber = 1
+                    )
+                )
             },
             addRecentSearch = {
                 viewModel.addRecentSearch(it)

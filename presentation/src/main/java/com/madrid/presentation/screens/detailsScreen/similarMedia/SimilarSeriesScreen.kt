@@ -1,4 +1,4 @@
-package com.madrid.presentation.screens.detailsScreen.similarMovies
+package com.madrid.presentation.screens.detailsScreen.similarMedia
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,30 +21,30 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.designSystem.theme.Theme
 import com.madrid.detectImageContent.FilteredImage
-import androidx.compose.ui.res.stringResource
 import com.madrid.presentation.R
-import androidx.compose.ui.res.painterResource
-import com.madrid.designSystem.component.MovioIcon
 
-data class SimilarMovie(
+data class SimilarSeries(
     val id: Int,
     val title: String,
     val imageUrl: String,
-    val rating: Double
+    val rating: Double,
 )
 
 @Composable
-fun SimilarMoviesSection(
-    movies: List<SimilarMovie>,
+fun SimilarSeriesSection(
+    similarSeries: List<SimilarSeries>,
     modifier: Modifier = Modifier,
     onSeeAllClick: () -> Unit = {},
-    onMovieClick: (SimilarMovie) -> Unit = {}
+    onSeriesClick: (SimilarSeries) -> Unit = {}
 ) {
     Column(modifier = modifier) {
         Row(
@@ -56,11 +55,11 @@ fun SimilarMoviesSection(
             verticalAlignment = Alignment.CenterVertically
         ) {
             MovioText(
-                text = "Similar Movies",
+                text = "Similar Series",
                 color = Theme.color.surfaces.onSurface,
                 textStyle = Theme.textStyle.headline.mediumMedium18
             )
-            
+
             MovioText(
                 text = stringResource(id = R.string.see_all),
                 color = Theme.color.surfaces.onSurfaceVariant,
@@ -74,10 +73,10 @@ fun SimilarMoviesSection(
             contentPadding = PaddingValues(horizontal = 16.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
-            items(movies) { movie ->
-                MovieCard(
-                    movie = movie,
-                    onClick = { onMovieClick(movie) }
+            items(similarSeries) { series ->
+                SeriesCard(
+                    series = series,
+                    onClick = { onSeriesClick(series) }
                 )
             }
         }
@@ -85,8 +84,8 @@ fun SimilarMoviesSection(
 }
 
 @Composable
-private fun MovieCard(
-    movie: SimilarMovie,
+private fun SeriesCard(
+    series: SimilarSeries,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -102,12 +101,12 @@ private fun MovieCard(
                 .clip(RoundedCornerShape(8.dp))
         ) {
             FilteredImage(
-                imageUrl = movie.imageUrl,
-                contentDescription = movie.title,
+                imageUrl = series.imageUrl,
+                contentDescription = series.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxWidth()
             )
-            
+
             Box(
                 modifier = Modifier
                     .padding(8.dp)
@@ -127,18 +126,18 @@ private fun MovieCard(
                         tint = Theme.color.system.warning
                     )
                     MovioText(
-                        text = movie.rating.toString(),
+                        text = series.rating.toString(),
                         color = Theme.color.surfaces.onSurface,
                         textStyle = Theme.textStyle.label.smallRegular12
                     )
                 }
             }
         }
-        
+
         Spacer(modifier = Modifier.height(8.dp))
-        
+
         MovioText(
-            text = movie.title,
+            text = series.title,
             color = Theme.color.surfaces.onSurface,
             textStyle = Theme.textStyle.label.smallRegular12,
             maxLines = 2,
@@ -151,19 +150,19 @@ private fun MovieCard(
 @Composable
 private fun SimilarMoviesSectionPreview() {
     val fakeMovies = listOf(
-        SimilarMovie(
+        SimilarSeries(
             id = 1,
             title = "Spider-Man: Into the Spider-Verse",
             imageUrl = "https://image.tmdb.org/t/p/w500/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
             rating = 4.8
         ),
-        SimilarMovie(
+        SimilarSeries(
             id = 2,
             title = "The Dark Knight",
             imageUrl = "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
             rating = 5.0
         ),
-        SimilarMovie(
+        SimilarSeries(
             id = 3,
             title = "Grave of the Fireflies",
             imageUrl = "https://image.tmdb.org/t/p/w500/qG3RYlIVpTYclR9TYIsy8p7m7AT.jpg",
@@ -174,7 +173,7 @@ private fun SimilarMoviesSectionPreview() {
         Box(
             modifier = Modifier.background(Theme.color.surfaces.surfaceContainer)
         ) {
-            SimilarMoviesSection(movies = fakeMovies)
+            SimilarSeriesSection(similarSeries = fakeMovies)
         }
     }
-} 
+}

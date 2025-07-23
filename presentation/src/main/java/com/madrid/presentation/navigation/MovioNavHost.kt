@@ -1,6 +1,5 @@
 package com.madrid.presentation.navigation
 
-import android.util.Log
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -12,6 +11,7 @@ import com.madrid.presentation.screens.SeeAllForYou.SeeAllForYouScreen
 import com.madrid.presentation.screens.detailsScreen.detailsMovieScreen.MovieDetailsScreen
 import com.madrid.presentation.screens.detailsScreen.seriesDetails.EpisodesScreen
 import com.madrid.presentation.screens.detailsScreen.seriesDetails.SeasonsScreen
+import com.madrid.presentation.screens.detailsScreen.seriesDetails.SeriesDetailsScreen
 import com.madrid.presentation.screens.searchScreen.SearchScreen
 
 @Composable
@@ -54,7 +54,7 @@ fun MovioNavHost(navController: NavHostController) {
             MovieDetailsScreen()
         }
         composable<Destinations.SeriesDetailsScreen> {
-            //call SeriesDetailsScreen()
+            SeriesDetailsScreen()
         }
         composable<Destinations.TopCastScreen> {
             //call TopCastScreen()
