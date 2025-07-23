@@ -7,9 +7,9 @@ import androidx.room.Relation
 import com.madrid.data.dataSource.local.entity.CategoryEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
 
-@Entity(tableName = "MovieCategoryCrossRef", primaryKeys = ["categoryTitle", "movieId"])
+@Entity(tableName = "MovieCategoryCrossRef", primaryKeys = ["categoryId", "movieId"])
 data class MovieCategoryCrossRef(
-    val categoryTitle: String,
+    val categoryId: Int,
     val movieId: Int
 )
 
@@ -17,7 +17,7 @@ data class MovieWithCategories(
     @Embedded val movie: MovieEntity,
     @Relation(
         parentColumn = "movieId",
-        entityColumn = "categoryTitle",
+        entityColumn = "categoryId",
         associateBy = Junction(MovieCategoryCrossRef::class)
     )
     val categories: List<CategoryEntity>
@@ -26,7 +26,7 @@ data class MovieWithCategories(
 data class CategoryWithMovies(
     @Embedded val categories: CategoryEntity,
     @Relation(
-        parentColumn = "categoryTitle",
+        parentColumn = "categoryId",
         entityColumn = "movieId",
         associateBy = Junction(MovieCategoryCrossRef::class)
     )

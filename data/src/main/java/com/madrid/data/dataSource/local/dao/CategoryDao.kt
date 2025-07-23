@@ -15,7 +15,7 @@ import com.madrid.data.dataSource.local.entity.relationship.CategoryWithMovies
 @Dao
 interface CategoryDao {
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertCategory(category: CategoryEntity)
 
     @Update
@@ -32,7 +32,7 @@ interface CategoryDao {
     @Delete
     suspend fun deleteCategory(category: CategoryEntity)
 
-    @Query("SELECT * FROM CATEGORY_TABLE WHERE id = :id")
+    @Query("SELECT * FROM CATEGORY_TABLE WHERE categoryId = :id")
     suspend fun getCategoryById(id: Int): CategoryEntity?
 
     @Query("SELECT * FROM CATEGORY_TABLE WHERE categoryTitle = :title")

@@ -2,6 +2,7 @@ package com.madrid.data.dataSource.remote.response.movie
 
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
+import com.madrid.data.dataSource.remote.response.genre.MovieGenre
 
 @Serializable
 data class MovieDetailsResponse(
@@ -69,14 +70,6 @@ data class BelongsToCollection(
     val posterPath: String?,
     @SerializedName("backdrop_path")
     val backdropPath: String?,
-)
-
-@Serializable
-data class MovieGenre(
-    @SerializedName("id")
-    val id: Int?,
-    @SerializedName("name")
-    val name: String?,
 )
 
 @Serializable

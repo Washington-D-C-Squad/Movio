@@ -3,6 +3,7 @@ package com.madrid.data.dataSource.remote
 import com.madrid.data.dataSource.remote.response.artist.ArtistDetailsResponse
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
 import com.madrid.data.dataSource.remote.response.common.TrailerResponse
+import com.madrid.data.dataSource.remote.response.genre.GenresResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieCreditsResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieDetailsResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieReviewResponse
@@ -50,6 +51,10 @@ class RemoteDataSourceImpl(
 
     override suspend fun getSimilarMoviesById(movieId: Int): SimilarMoviesResponse {
         return api.getSimilarMoviesById(movieId)
+    }
+
+    override suspend fun getMovieGenres(): GenresResponse {
+        return api.getMovieGenres()
     }
 
     // Series
