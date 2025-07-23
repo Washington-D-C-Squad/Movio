@@ -160,6 +160,7 @@ fun ContentSearchScreen(
     onClearAll: () -> Unit,
     isLoading: Boolean = false,
     onClickSeeAll: () -> Unit,
+    onSeriesClick: (Int) -> Unit = {},
     highlightrecentSearch: (String, String, Color, Color, TextStyle) -> AnnotatedString,
 ) {
     val showSearchResults = searchQuery.isNotBlank()
