@@ -52,14 +52,14 @@ fun <T> CustomDropdown(
                 .size(width = 95.dp , height = 32.dp)
                 .background(
                     color = Theme.color.surfaces.surfaceContainer,
-                    shape = RoundedCornerShape(24.dp)
+                    shape = RoundedCornerShape(32.dp)
                 )
                 .border(
                     width = 1.dp,
                     color = Theme.color.surfaces.onSurfaceAt2,
-                    shape = RoundedCornerShape(24.dp)
+                    shape = RoundedCornerShape(32.dp)
                 )
-                .clip(RoundedCornerShape(24.dp))
+                .clip(RoundedCornerShape(32.dp))
                 .clickable { expanded = true },
             contentAlignment = Alignment.Center
         ) {
