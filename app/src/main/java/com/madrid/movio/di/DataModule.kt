@@ -30,7 +30,7 @@ val dataModule = module {
     single<LocalDataSource> { LocalDataSourceImpl(get(), get(), get(), get(), get(),get()) }
     single<RecommendedRepository> { RecommendedRepositoryImp(get(), get()) }
     single<MovieDetailsRepository> { MovieDetailsRepositoryImpl(get(), get()) }
-    single<SeriesDetailsRepository> { SeriesDetailsRepositoryImpl(get()) }
+    single<SeriesDetailsRepository> { SeriesDetailsRepositoryImpl(get(),get()) }
     single { GetImageBitmap(get()) }
     single { SensitiveContentDetection(get()) }
 }
