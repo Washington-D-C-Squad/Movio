@@ -1,6 +1,7 @@
 package com.madrid.presentation.viewModel.detailsViewModel
 
 data class SeriesDetailsUiState(
+    val seriesId: Int = 0,
     val isFavourite: Boolean = false,
     val topImageUrl: String = "",
     val seriesName: String = "",
