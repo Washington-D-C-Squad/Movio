@@ -29,8 +29,7 @@ fun MovieEntity.toMovie(): Movie {
         movieDuration = this.movieDuration,
         description = this.description,
         genre = listOf(),
-
-        )
+    )
 }
 
 fun MovieDetailsResponse.toMovieEntity(): MovieEntity {
@@ -49,7 +48,7 @@ fun MovieResult.toMovieEntity(): MovieEntity {
     return MovieEntity(
         movieId = this.id ?: 0,
         title = this.title ?: "",
-        imageUrl = this.posterPath ?: "",
+        imageUrl = ("https://image.tmdb.org/t/p/original" + this.posterPath) ?: "",
         rate = this.voteAverage ?: 0.0,
         yearOfRelease = this.releaseDate ?: "",
         movieDuration = 0.toString(),

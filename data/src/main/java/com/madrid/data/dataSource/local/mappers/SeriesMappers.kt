@@ -34,7 +34,7 @@ fun SeriesResult.toSeriesEntity(): SeriesEntity {
     return SeriesEntity(
         seriesId = this.id ?: 0,
         title = this.title ?: "",
-        imageUrl = this.posterPath ?: "",
+        imageUrl = ("https://image.tmdb.org/t/p/original" + this.posterPath) ?: "",
         rate = this.voteAverage ?: 0.0,
         yearOfRelease = this.releaseDate ?: "",
         description = this.overview ?: ""
