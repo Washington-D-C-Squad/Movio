@@ -109,9 +109,11 @@ fun MovieDetailsScreen(
             )
             Spacer(modifier = Modifier.height(32.dp))
             SimilarMoviesSection(
-                movieId = 1,
-                onSeeAllClick = { navigateToSimilarMovies(1) },
-                onMovieClick = {}
+                movieId = uiState.movieId,
+                movieTitle = uiState.movieName,
+                onSeeAllClick = { movieId, movieTitle ->
+                    navigateToSimilarMovies(movieId)
+                },
             )
         }
     }
