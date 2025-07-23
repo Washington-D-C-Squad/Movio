@@ -10,8 +10,6 @@ import androidx.navigation.compose.rememberNavController
 import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.navigation.MovioNavGraph
-import com.madrid.presentation.screens.detailsScreen.seriesDetails.EpisodesScreen
-import com.madrid.presentation.screens.detailsScreen.seriesDetails.SeasonsScreen
 
 
 class MainActivity : ComponentActivity() {
