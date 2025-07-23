@@ -53,7 +53,7 @@ interface MovieDao {
     ORDER BY MOVIE_GENRE_TABLE.searchCount DESC
     LIMIT 20 OFFSET :offset """
     )
-    suspend fun getAllMoviesSortedByCategorySearchCount(title : String, offset: Int): List<MovieWithGenres>
+    suspend fun searchMovies(title : String, offset: Int): List<MovieWithGenres>
 
     @Transaction
     @Query("SELECT * FROM MOVIE_TABLE WHERE movieId = :id")

@@ -51,7 +51,7 @@ class LocalDataSourceImpl(
 
     override suspend fun searchMovieByQueryFromDB(query: String, page: Int): List<MovieEntity> {
         val offset = (page - 1) * 20
-        return movieDao.getAllMoviesSortedByCategorySearchCount("%$query%", offset).map { it.movie }
+        return movieDao.searchMovies("%$query%", offset).map { it.movie }
     }
 
     override suspend fun searchSeriesByQueryFromDB(query: String): List<SeriesEntity> {
