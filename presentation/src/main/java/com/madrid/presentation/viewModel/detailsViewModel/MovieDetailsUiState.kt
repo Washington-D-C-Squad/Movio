@@ -11,7 +11,7 @@ data class MovieDetailsUiState(
         val actorName: String = "",
         val actorRole: String = "",
         val dateOfBirth: String = "",
-        val location: String = "",
+        val location: String = "location",
         val id: String = "",
         val description: String = "",
         val knownFor: List<KnownMovieUiState> = emptyList(),
