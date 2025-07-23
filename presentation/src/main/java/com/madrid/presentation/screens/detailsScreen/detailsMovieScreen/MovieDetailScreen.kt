@@ -98,7 +98,7 @@ fun MovieDetailsScreen(
                     CastMember(
                         id = cast.id.toString(),
                         name = cast.name,
-                        imageUrl = cast.imageUrl
+                        imageUrl = "https://image.tmdb.org/t/p/w500${cast.profilePath}"
                     )
                 },
                 onSeeAllClick = {},
