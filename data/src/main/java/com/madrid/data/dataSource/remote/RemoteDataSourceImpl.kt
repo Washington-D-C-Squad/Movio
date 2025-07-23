@@ -3,6 +3,7 @@ package com.madrid.data.dataSource.remote
 import android.util.Log
 import com.madrid.data.dataSource.remote.mapper.toArtist
 import com.madrid.data.dataSource.remote.response.artist.ArtistDetailsResponse
+import com.madrid.data.dataSource.remote.response.artist.ArtistKnownForResponse
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
 import com.madrid.data.dataSource.remote.response.common.TrailerResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieCreditsResponse
@@ -98,6 +99,10 @@ class RemoteDataSourceImpl(
 
     override suspend fun getArtistDetailsById(artistId: Int): ArtistDetailsResponse {
         return api.getArtistDetailsById(artistId)
+    }
+
+    override suspend fun getArtistKnownForById(artistId: Int): ArtistKnownForResponse {
+        return api.getArtistKnownForById(artistId)
     }
 
 

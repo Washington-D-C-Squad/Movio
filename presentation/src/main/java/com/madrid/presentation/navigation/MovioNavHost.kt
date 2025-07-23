@@ -13,6 +13,7 @@ import com.madrid.presentation.screens.detailsScreen.castDetails.ActorDetails
 import com.madrid.presentation.screens.detailsScreen.castDetails.TopCastDetailsScreen
 import com.madrid.presentation.screens.detailsScreen.detailsMovieScreen.MovieDetailsScreen
 import com.madrid.presentation.screens.detailsScreen.seriesDetails.EpisodesScreen
+import com.madrid.presentation.screens.detailsScreen.seriesDetails.SeasonsScreen
 import com.madrid.presentation.screens.searchScreen.SearchScreen
 
 @Composable
@@ -64,7 +65,7 @@ fun MovioNavHost(navController: NavHostController) {
             //call ReviewsScreen()
         }
         composable<Destinations.SeasonsScreen> {
-            //call SeasonsScreen()
+            SeasonsScreen()
         }
         composable<Destinations.LibraryScreen> {
             FakeLibraryScreen()

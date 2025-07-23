@@ -1,7 +1,7 @@
 package com.madrid.data.dataSource.remote
 
-import android.util.Log
 import com.madrid.data.dataSource.remote.response.artist.ArtistDetailsResponse
+import com.madrid.data.dataSource.remote.response.artist.ArtistKnownForResponse
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
 import com.madrid.data.dataSource.remote.response.common.TrailerResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieCreditsResponse
@@ -118,5 +118,9 @@ interface MovieApi {
     suspend fun getArtistDetailsById(
         @Path("artist_id") artistId: Int
     ): ArtistDetailsResponse
-}
 
+    @GET("person/{person_id}/movie_credits")
+    suspend fun getArtistKnownForById(
+        @Path("person_id") artistId: Int
+    ): ArtistKnownForResponse
+}
