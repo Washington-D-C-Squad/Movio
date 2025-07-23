@@ -46,6 +46,7 @@ interface RemoteDataSource {
     suspend fun getSeriesReviewsById(seriesId: Int): SeriesReviewResponse
     suspend fun getSimilarSeriesById(seriesId: Int): SimilarSeriesResponse
     suspend fun getEpisodesBySeasonId(seriesId: Int, seasonNumber: Int): SeasonEpisodesResponse
+    suspend fun getSeriesGenres(): GenresResponse
     // End Region
 
     suspend fun getTopRatedMovies(

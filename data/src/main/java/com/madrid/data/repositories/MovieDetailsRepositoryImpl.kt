@@ -1,13 +1,11 @@
 package com.madrid.data.repositories
 
-import com.madrid.data.dataSource.local.entity.relationship.MovieCategoryCrossRef
 import com.madrid.data.dataSource.remote.mapper.toCredits
 import com.madrid.data.dataSource.remote.mapper.toMovie
 import com.madrid.data.dataSource.remote.mapper.toReviewResult
 import com.madrid.data.dataSource.remote.mapper.toSimilarMovie
 import com.madrid.data.dataSource.remote.mapper.toTrailer
 import com.madrid.data.dataSource.local.mappers.toCategoryEntity
-import com.madrid.data.dataSource.local.mappers.toMovieEntity
 import com.madrid.data.repositories.local.LocalDataSource
 import com.madrid.data.repositories.remote.RemoteDataSource
 import com.madrid.domain.entity.Cast
@@ -27,7 +25,7 @@ class MovieDetailsRepositoryImpl(
         val movieResponse = remoteDataSource.getMovieDetailsById(movieId)
         movieResponse.movieGenres.map { genre ->
             val categoryEntity = genre.toCategoryEntity()
-            localDataSource.addSearchedCategoryCount(categoryEntity.categoryTitle)
+            localDataSource.addSearchedCategoryCount(categoryEntity.genreTitle)
         }
         return movieResponse.toMovie()
     }

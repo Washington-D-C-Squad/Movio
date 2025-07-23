@@ -1,7 +1,7 @@
 package com.madrid.data.repositories.local
 
 import com.madrid.data.dataSource.local.entity.ArtistEntity
-import com.madrid.data.dataSource.local.entity.CategoryEntity
+import com.madrid.data.dataSource.local.entity.MovieGenreEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
@@ -12,7 +12,7 @@ interface LocalDataSource {
     suspend fun insertMovie(movie: MovieEntity)
     suspend fun insertSeries(series: SeriesEntity)
     suspend fun insertArtist (artist: ArtistEntity)
-    suspend fun insertCategory(category: CategoryEntity)
+    suspend fun insertCategory(category: MovieGenreEntity)
 
     suspend fun getTopRatedMovies(): List<MovieEntity>
 
@@ -28,5 +28,5 @@ interface LocalDataSource {
     suspend fun relateMovieToCategory(movieCategoryEntity: MovieCategoryCrossRef)
     suspend fun addSearchedCategoryCount(categoryTitle: String)
 
-    suspend fun getAllCategories(): List<CategoryEntity>
+    suspend fun getAllMovieGenres(): List<MovieGenreEntity>
 }

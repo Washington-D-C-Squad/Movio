@@ -44,12 +44,13 @@ interface MovieDao {
     suspend fun insertMovieCategoryCrossRef(crossRef: MovieCategoryCrossRef)
 
     @Transaction
-    @Query("""
+    @Query(
+        """
     SELECT DISTINCT MOVIE_TABLE.* FROM MOVIE_TABLE
     INNER JOIN MovieCategoryCrossRef ON MOVIE_TABLE.movieId = MovieCategoryCrossRef.movieId
-    INNER JOIN CATEGORY_TABLE ON MovieCategoryCrossRef.categoryId = CATEGORY_TABLE.categoryId
+    INNER JOIN MOVIE_GENRE_TABLE ON MovieCategoryCrossRef.genreId = MOVIE_GENRE_TABLE.genreId
     WHERE MOVIE_TABLE.title LIKE :title
-    ORDER BY CATEGORY_TABLE.searchCount DESC
+    ORDER BY MOVIE_GENRE_TABLE.searchCount DESC
     LIMIT 20 """
     )
     suspend fun getAllMoviesSortedByCategorySearchCount(title : String): List<MovieWithCategories>

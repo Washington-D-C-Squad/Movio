@@ -95,6 +95,10 @@ class RemoteDataSourceImpl(
         return api.getEpisodesBySeasonId(seriesId, seasonNumber)
     }
 
+    override suspend fun getSeriesGenres(): GenresResponse {
+        return api.getSeriesGenres()
+    }
+
     // Artist
     override suspend fun searchArtistByQuery(name: String, page: Int): SearchArtistResponse {
         return api.searchArtistByQuery(name, page)

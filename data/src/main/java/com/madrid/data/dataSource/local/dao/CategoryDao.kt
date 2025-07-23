@@ -7,8 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import androidx.room.Upsert
-import com.madrid.data.dataSource.local.entity.CategoryEntity
+import com.madrid.data.dataSource.local.entity.MovieGenreEntity
 import com.madrid.data.dataSource.local.entity.relationship.CategoryWithMovies
 
 
@@ -16,39 +15,39 @@ import com.madrid.data.dataSource.local.entity.relationship.CategoryWithMovies
 interface CategoryDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertCategory(category: CategoryEntity)
+    suspend fun insertCategory(category: MovieGenreEntity)
 
     @Update
-    suspend fun updateCategory(category: CategoryEntity)
+    suspend fun updateCategory(category: MovieGenreEntity)
 
     @Query(
         """
-        UPDATE CATEGORY_TABLE SET searchCount = searchCount + 1 
-            WHERE categoryTitle = :categoryTitle
+        UPDATE MOVIE_GENRE_TABLE SET searchCount = searchCount + 1 
+            WHERE genreTitle = :categoryTitle
      """
     )
     suspend fun increaseCategorySearchCount(categoryTitle: String)
 
     @Delete
-    suspend fun deleteCategory(category: CategoryEntity)
+    suspend fun deleteCategory(category: MovieGenreEntity)
 
-    @Query("SELECT * FROM CATEGORY_TABLE WHERE categoryId = :id")
-    suspend fun getCategoryById(id: Int): CategoryEntity?
+    @Query("SELECT * FROM MOVIE_GENRE_TABLE WHERE genreId = :id")
+    suspend fun getCategoryById(id: Int): MovieGenreEntity?
 
-    @Query("SELECT * FROM CATEGORY_TABLE WHERE categoryTitle = :title")
-    suspend fun getCategoryByTitle(title: String): CategoryEntity?
+    @Query("SELECT * FROM MOVIE_GENRE_TABLE WHERE genreTitle = :title")
+    suspend fun getCategoryByTitle(title: String): MovieGenreEntity?
 
-    @Query("SELECT * FROM CATEGORY_TABLE")
-    suspend fun getAllCategories(): List<CategoryEntity>
+    @Query("SELECT * FROM MOVIE_GENRE_TABLE")
+    suspend fun getAllCategories(): List<MovieGenreEntity>
 
     // descending order by searchCount
-    @Query("SELECT * FROM CATEGORY_TABLE ORDER BY searchCount DESC")
-    suspend fun getAllCategoriesBySearchCount(): List<CategoryEntity>
+    @Query("SELECT * FROM MOVIE_GENRE_TABLE ORDER BY searchCount DESC")
+    suspend fun getAllCategoriesBySearchCount(): List<MovieGenreEntity>
 
-    @Query("DELETE FROM CATEGORY_TABLE")
+    @Query("DELETE FROM MOVIE_GENRE_TABLE")
     suspend fun deleteAllCategories()
 
     @Transaction
-    @Query("SELECT * FROM CATEGORY_TABLE WHERE categoryTitle = :title")
+    @Query("SELECT * FROM MOVIE_GENRE_TABLE WHERE genreTitle = :title")
     suspend fun getPlaylistsWithSongs(title: String): List<CategoryWithMovies>
 }

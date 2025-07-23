@@ -10,7 +10,7 @@ import com.madrid.data.dataSource.local.dao.MovieDao
 import com.madrid.data.dataSource.local.dao.RecentSearchDao
 import com.madrid.data.dataSource.local.dao.SeriesDao
 import com.madrid.data.dataSource.local.entity.ArtistEntity
-import com.madrid.data.dataSource.local.entity.CategoryEntity
+import com.madrid.data.dataSource.local.entity.MovieGenreEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
 import com.madrid.data.dataSource.local.entity.RecentSearchEntity
@@ -20,7 +20,7 @@ import com.madrid.data.dataSource.local.entity.relationship.MovieCategoryCrossRe
     entities = [
         MovieEntity::class,
         SeriesEntity::class,
-        CategoryEntity::class,
+        MovieGenreEntity::class,
         ArtistEntity::class,
         RecentSearchEntity::class,
         MovieCategoryCrossRef::class

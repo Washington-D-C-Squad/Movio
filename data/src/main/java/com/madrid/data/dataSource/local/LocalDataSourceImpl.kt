@@ -6,7 +6,7 @@ import com.madrid.data.dataSource.local.dao.MovieDao
 import com.madrid.data.dataSource.local.dao.RecentSearchDao
 import com.madrid.data.dataSource.local.dao.SeriesDao
 import com.madrid.data.dataSource.local.entity.ArtistEntity
-import com.madrid.data.dataSource.local.entity.CategoryEntity
+import com.madrid.data.dataSource.local.entity.MovieGenreEntity
 import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
@@ -38,7 +38,7 @@ class LocalDataSourceImpl(
         artistDao.insertArtist(artist = artist)
     }
 
-    override suspend fun insertCategory(category: CategoryEntity) {
+    override suspend fun insertCategory(category: MovieGenreEntity) {
         categoryDao.insertCategory(category)
     }
 
@@ -85,7 +85,7 @@ class LocalDataSourceImpl(
         categoryDao.increaseCategorySearchCount(categoryTitle)
     }
 
-    override suspend fun getAllCategories(): List<CategoryEntity> {
+    override suspend fun getAllMovieGenres(): List<MovieGenreEntity> {
         return categoryDao.getAllCategories()
     }
 }
