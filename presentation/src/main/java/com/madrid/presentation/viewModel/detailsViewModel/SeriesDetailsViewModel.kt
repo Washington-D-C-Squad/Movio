@@ -11,7 +11,6 @@ class SeriesDetailsViewModel(
     private val savedStateHandle: SavedStateHandle,
     private val seriesDetailsUseCase: SeriesDetailsUseCase
 ) : BaseViewModel<SeriesDetailsUiState, Nothing>(SeriesDetailsUiState()) {
-//    private val args = savedStateHandle.toRoute<Destinations.SeriesDetailsScreen>()
     private val args = savedStateHandle.toRoute<Destinations.SeriesDetailsScreen>()
 
     init {
@@ -26,20 +25,21 @@ class SeriesDetailsViewModel(
             onSuccess = { series ->
                 updateState {
                     it.copy(
+                        seriesId = series.id,
                         topImageUrl = series.imageUrl,
                         seriesName = series.title,
                         rate = series.rate.toString(),
-                        numberOfSeasons = series.seasons.size - 1,
+                        numberOfSeasons = series.seasons.size ,
                         productionDate = series.yearOfRelease,
                         description = series.description,
                         currentSeasonsUiStates = series.seasons.map { season -> season.mapToUiState() },
-                        selectedSeasonUiState = series.seasons.first().mapToUiState()
+                        selectedSeasonUiState = series.seasons[args.seasonNumber -1].mapToUiState()
                     )
                 }
             },
             onError = {},
         )
-        loadSeasonEpisodes()
+        loadSeasonEpisodes(args.seasonNumber)
     }
 
     fun updateSelectedSeason(seasonNumber: Int) = loadSeasonEpisodes(seasonNumber)
@@ -51,7 +51,7 @@ class SeriesDetailsViewModel(
                 updateState {
                     it.copy(selectedSeasonUiState = it.selectedSeasonUiState.copy(episodesUiStates = episodes.map { episode ->
                         episode.toUiState()
-                    }, numberOfEpisodes = episodes.size))
+                    }, numberOfEpisodes = episodes.size , seasonNumber = seasonNumber))
                 }
             },
             onError = { },
