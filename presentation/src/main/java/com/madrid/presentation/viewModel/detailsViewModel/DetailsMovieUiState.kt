@@ -37,13 +37,3 @@ data class Review(
     val rate : Double  = 0.0 ,
     val reviewText : String  = ""
 )
-data class Season(
-    val imageUrl : String ="",
-    val countOfSeason : Int  = 0 ,
-
-    val publicSeasonData : String = "",
-    val countOfEpisode : Int = 0 ,
-
-    val description : String = "",
-
-)

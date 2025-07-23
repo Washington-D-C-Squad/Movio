@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.theme.Theme
 
@@ -113,5 +114,15 @@ fun underlineGlowBrush(): Brush {
             glowColor.copy(alpha = 0.5f),
             glowColor.copy(alpha = 0.1f)
         )
+    )
+}
+@Preview
+@Composable
+private fun HeaderSectionBarPreview(){
+    HeaderSectionBar(
+        tabs = listOf("Yasser","Ahmed","Messi","Mohamed"),
+        selectedTabIndex = 0,
+        onTabSelected = {},
+        modifier = Modifier
     )
 }
