@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -48,17 +49,17 @@ fun <T> CustomDropdown(
     Column(modifier.padding(vertical = 2.dp)) {
         Box(
             modifier = Modifier
-                .width(dropdownWidth)
+                .size(width = 95.dp , height = 32.dp)
                 .background(
                     color = Theme.color.surfaces.surfaceContainer,
-                    shape = RoundedCornerShape(32.dp)
+                    shape = RoundedCornerShape(24.dp)
                 )
                 .border(
                     width = 1.dp,
                     color = Theme.color.surfaces.onSurfaceAt2,
-                    shape = RoundedCornerShape(32.dp)
+                    shape = RoundedCornerShape(24.dp)
                 )
-                .clip(RoundedCornerShape(32.dp))
+                .clip(RoundedCornerShape(24.dp))
                 .clickable { expanded = true },
             contentAlignment = Alignment.Center
         ) {
@@ -70,7 +71,7 @@ fun <T> CustomDropdown(
                 MovioText(
                     text = selectedItem?.let { labelSelector(it) } ?: "",
                     color = Theme.color.surfaces.onSurfaceContainer,
-                    textStyle = Theme.textStyle.label.smallRegular14
+                    textStyle = Theme.textStyle.label.smallRegular12
                 )
                 MovioIcon(
                     painter = painterResource(com.madrid.designSystem.R.drawable.icon_arrow_down),
