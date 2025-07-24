@@ -9,16 +9,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.theme.Theme
-import com.madrid.designSystem.R
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
 import com.madrid.detectImageContent.FilteredImage
-
+import com.madrid.designSystem.R
 @Composable
-fun ReviewCard(
-    reviewUiState: com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewUiState
+internal fun ReviewCard(
+    reviewUiState: ReviewUiState
 ) {
     Column(
         modifier = Modifier
@@ -40,11 +40,13 @@ fun ReviewCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             FilteredImage(
-                imageUrl = reviewUiState.reviewerImageUrl,
-                contentDescription = null,
+                imageUrl = reviewUiState.userName,
+                contentDescription = "Reviewer image",
                 modifier = Modifier
-                    .clip(CircleShape)
-                    .size(32.dp)
+                    .size(40.dp)
+                    .clip(CircleShape),
+                alignment = Alignment.Center,
+                contentScale = androidx.compose.ui.layout.ContentScale.Crop
             )
             Spacer(modifier = Modifier.width(8.dp))
             Column(
@@ -52,12 +54,12 @@ fun ReviewCard(
                 verticalArrangement = Arrangement.Center
             ) {
                 MovioText(
-                    text = reviewUiState.reviewerName,
+                    text = reviewUiState.userName,
                     color = Theme.color.surfaces.onSurface,
                     textStyle = Theme.textStyle.title.mediumMedium14
                 )
                 MovioText(
-                    text = reviewUiState.date,
+                    text = reviewUiState.reviewDate,
                     color = Theme.color.surfaces.onSurfaceContainer,
                     textStyle = Theme.textStyle.body.smallRegular10
                 )
@@ -68,7 +70,7 @@ fun ReviewCard(
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 MovioIcon(
-                    painter = androidx.compose.ui.res.painterResource(id = R.drawable.bold_star),
+                    painter = painterResource(id = R.drawable.bold_star),
                     contentDescription = null,
                     tint = Theme.color.system.warning,
                     modifier = Modifier.size(16.dp)
@@ -82,7 +84,7 @@ fun ReviewCard(
         }
         Spacer(modifier = Modifier.height(12.dp))
         MovioText(
-            text = reviewUiState.content,
+            text = reviewUiState.reviewText,
             color = Theme.color.surfaces.onSurfaceVariant,
             textStyle = Theme.textStyle.label.smallRegular12,
             maxLines = 4,
