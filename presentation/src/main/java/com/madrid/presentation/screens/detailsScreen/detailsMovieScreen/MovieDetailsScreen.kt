@@ -117,7 +117,7 @@ fun TextWithReadMore(description: String, modifier: Modifier) {
     TODO("Not yet implemented")
 }
 
-//@Preview(showBackground = true)
+//@Preview(showBackground = true)  // dead code
 //@Composable
 //fun MovieDetailsScreenPreview() {
 //    MovioTheme {

@@ -21,6 +21,7 @@ fun MovioButton(
     modifier: Modifier = Modifier,
     color: Color = Theme.color.brand.primary,
     onClick: () -> Unit,
+    enabled: Boolean = true,
     content: @Composable RowScope.() -> Unit,
 ) {
     Box(
@@ -28,7 +29,10 @@ fun MovioButton(
         modifier = modifier
             .clip(RoundedCornerShape(32.dp))
             .background(color)
-            .clickable { onClick() },
+            .clickable(
+                enabled = enabled,
+                onClick = onClick
+            ),
         contentAlignment = Alignment.Center
     ) {
         Row(

@@ -12,6 +12,7 @@ import com.madrid.detectImageContent.SensitiveContentDetection
 import com.madrid.domain.repository.MovieDetailsRepository
 import com.madrid.domain.repository.RecommendedRepository
 import com.madrid.domain.repository.SearchRepository
+import com.madrid.domain.repository.UserRepository
 import com.madrid.domain.usecase.GetExploreMoreMovieUseCase
 import com.madrid.domain.usecase.GetRecommendedMovieUseCase
 import com.madrid.domain.usecase.mediaDeatailsUseCase.MovieDetailsUseCase
@@ -22,6 +23,7 @@ import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import com.madrid.domain.usecase.searchUseCase.SeriesUseCase
 import com.madrid.domain.usecase.searchUseCase.TrendingMediaUseCase
 import com.madrid.presentation.screens.searchScreen.SeeAllForYou.SeeAllForYouViewModel
+import com.madrid.presentation.viewModel.LoginViewModel.LoginViewModel
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
 import com.madrid.presentation.viewModel.detailsViewModel.MovieDetailsViewModel
 import com.madrid.presentation.viewModel.searchViewModel.SearchViewModel
@@ -93,4 +95,6 @@ val app = module {
     // detectImageContent
     single { GetImageBitmap(get()) }
     single { SensitiveContentDetection(get()) }
+    viewModel { LoginViewModel(get(), get()) }
+    // single<UserRepository> { sUserLoggedIn() }
 }

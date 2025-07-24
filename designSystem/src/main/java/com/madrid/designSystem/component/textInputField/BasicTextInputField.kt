@@ -5,7 +5,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,7 +30,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.theme.Theme
 
@@ -44,10 +43,10 @@ fun BasicTextInputField(
     endIconPainter: Painter?,
     modifier: Modifier = Modifier,
     onClickEndIcon: () -> Unit = { },
-    borderBrushColors: List<Color> = listOf(
-        Theme.color.brand.onPrimary,
-        Theme.color.brand.primary
-    ),
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    borderBrushColors: Brush = Theme.color.gradients.borderGradient ,// تغيير من Color إلى Brush
+    errorBorderBrush: Brush = Theme.color.gradients.errorBorderGradient,
+    isError: Boolean = false,
 
     iconColorInFocus: Color = Theme.color.surfaces.onSurface,
     iconColorNotFocus: Color = Theme.color.surfaces.onSurfaceContainer,
@@ -70,6 +69,7 @@ fun BasicTextInputField(
         ),
         interactionSource = interactionSource,
         singleLine = true,
+        visualTransformation = visualTransformation,
         modifier = modifier
             .fillMaxWidth()
             .onFocusChanged { focusState -> isFocused = focusState.isFocused }
@@ -79,7 +79,7 @@ fun BasicTextInputField(
                 if (isFocused || value.isNotEmpty()) {
                     Modifier.border(
                         width = 1.dp,
-                        brush = Brush.horizontalGradient(borderBrushColors),
+                        brush = borderBrushColors,
                         shape = RoundedCornerShape(8.dp)
                     )
                 } else {
