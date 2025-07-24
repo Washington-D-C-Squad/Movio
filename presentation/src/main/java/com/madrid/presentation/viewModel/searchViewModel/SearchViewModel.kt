@@ -20,7 +20,6 @@ import com.madrid.presentation.screens.searchScreen.paging.SearchArtistPagingSou
 import com.madrid.presentation.screens.searchScreen.paging.SearchMoviePagingSource
 import com.madrid.presentation.screens.searchScreen.paging.SearchSeriesPagingSource
 import com.madrid.presentation.viewModel.base.BaseViewModel
-import com.madrid.presentation.viewModel.effect.SearchScreenEffect
 import com.madrid.presentation.viewModel.uiStateMapper.toArtistUiState
 import com.madrid.presentation.viewModel.uiStateMapper.toMovieUiState
 import com.madrid.presentation.viewModel.uiStateMapper.toSeriesUiState
@@ -37,7 +36,7 @@ class SearchViewModel(
     private val getRecommendedMovieUseCase: GetRecommendedMovieUseCase,
     private val getExploreMoreMovieUseCase: GetExploreMoreMovieUseCase,
     private val recentSearchUseCase: RecentSearchUseCase,
-) : BaseViewModel<SearchScreenState, SearchScreenEffect>(
+) : BaseViewModel<SearchScreenState, Nothing>(
     SearchScreenState()
 ) {
 
@@ -85,7 +84,8 @@ class SearchViewModel(
             onSuccess = { result ->
                 updateState {
                     it.copy(
-                     recentSearchUiState = result )
+                        recentSearchUiState = result
+                    )
                 }
             },
             onError = {},

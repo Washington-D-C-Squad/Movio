@@ -1,4 +1,4 @@
-package com.madrid.presentation.viewModel.trendingViewModel
+package com.madrid.presentation.viewModel.homeViewModel
 
 import androidx.lifecycle.viewModelScope
 import com.madrid.domain.usecase.GetAllTrendingUseCase
@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
-class TrendingViewModel(
+class HomeViewModel(
     private val getAllTrendingUseCase: GetAllTrendingUseCase
 ) : BaseViewModel<TrendingUiState, Nothing>(
     TrendingUiState()

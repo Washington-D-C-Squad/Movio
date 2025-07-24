@@ -1,4 +1,4 @@
-package com.madrid.presentation.viewModel.trendingViewModel
+package com.madrid.presentation.viewModel.homeViewModel
 
 data class TrendingUiState (
     val isLoading: Boolean = false,

@@ -1,4 +1,4 @@
-package com.madrid.presentation.screens
+package com.madrid.presentation.screens.homeScreen.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -24,13 +23,13 @@ import com.madrid.designSystem.component.CustomTextTitel
 import com.madrid.designSystem.component.LoadingSearchCard
 import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.component.movioCards.TrendingMovieCard
-import com.madrid.presentation.viewModel.trendingViewModel.TrendingViewModel
+import com.madrid.presentation.viewModel.homeViewModel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun TrendingLayout(
     modifier: Modifier = Modifier,
-    trendingViewModel: TrendingViewModel = koinViewModel()
+    trendingViewModel: HomeViewModel = koinViewModel()
 ) {
     val trendingUiState by trendingViewModel.state.collectAsState()
     Column(
