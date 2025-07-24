@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.R
 import com.madrid.designSystem.component.TopAppBar
 import com.madrid.designSystem.theme.Theme
+import com.madrid.domain.entity.SimilarMovie
 import com.madrid.presentation.component.BottomMediaActions
 import com.madrid.presentation.component.header.MovieDetailsHeader
 import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
@@ -27,7 +28,6 @@ import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.detailsScreen.componant.ExpandableDescription
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewsScreenUiState
-import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMovie
 import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMoviesSection
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -129,7 +129,7 @@ fun MovieDetailsScreen(
                         id = movie.id,
                         title = movie.name,
                         imageUrl = movie.imageUrl,
-                        rating = movie.rate
+                        rate = movie.rate
                     )
                 }
             )

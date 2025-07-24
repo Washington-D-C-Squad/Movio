@@ -23,21 +23,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
-import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.designSystem.theme.Theme
 import com.madrid.detectImageContent.FilteredImage
+import com.madrid.domain.entity.SimilarMovie
 import com.madrid.presentation.R
-
-data class SimilarMovie(
-    val id: Int,
-    val title: String,
-    val imageUrl: String,
-    val rating: Double
-)
 
 @Composable
 fun SimilarMoviesSection(
@@ -126,7 +118,7 @@ private fun MovieCard(
                         tint = Theme.color.system.warning
                     )
                     MovioText(
-                        text = movie.rating.toString(),
+                        text = movie.title,
                         color = Theme.color.surfaces.onSurface,
                         textStyle = Theme.textStyle.label.smallRegular12
                     )
@@ -145,35 +137,3 @@ private fun MovieCard(
         )
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-private fun SimilarMoviesSectionPreview() {
-    val fakeMovies = listOf(
-        SimilarMovie(
-            id = 1,
-            title = "Spider-Man: Into the Spider-Verse",
-            imageUrl = "https://image.tmdb.org/t/p/w500/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
-            rating = 4.8
-        ),
-        SimilarMovie(
-            id = 2,
-            title = "The Dark Knight",
-            imageUrl = "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
-            rating = 5.0
-        ),
-        SimilarMovie(
-            id = 3,
-            title = "Grave of the Fireflies",
-            imageUrl = "https://image.tmdb.org/t/p/w500/qG3RYlIVpTYclR9TYIsy8p7m7AT.jpg",
-            rating = 4.7
-        )
-    )
-    MovioTheme {
-        Box(
-            modifier = Modifier.background(Theme.color.surfaces.surfaceContainer)
-        ) {
-            SimilarMoviesSection(movies = fakeMovies)
-        }
-    }
-} 
