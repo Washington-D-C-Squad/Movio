@@ -22,10 +22,11 @@ import com.madrid.designSystem.component.LoadingSearchCard
 import com.madrid.presentation.R
 import com.madrid.presentation.component.movioCards.MovioArtistsCard
 import com.madrid.presentation.component.movioCards.MovioVerticalCard
+import com.madrid.presentation.screens.searchScreen.utils.FilterPagesItem
 import com.madrid.presentation.viewModel.searchViewModel.SearchScreenState
 
 fun LazyGridScope.filterSearchScreen(
-    typeOfFilterSearch: String,
+    typeOfFilterSearch: FilterPagesItem,
     onChangeTypeFilterSearch: () -> Unit,
     selectedTabIndex: Int,
     onChangeSelectedTabIndex: (Int) -> Unit,
@@ -54,7 +55,7 @@ fun LazyGridScope.filterSearchScreen(
     }
 
     when (typeOfFilterSearch) {
-        "topRated" -> {
+        FilterPagesItem.TOP_RATED-> {
             item(
                 span = { GridItemSpan(maxLineSpan) }
             ) {
@@ -132,7 +133,7 @@ fun LazyGridScope.filterSearchScreen(
             }
         }
 
-        "movies" -> {
+        FilterPagesItem.MOVIES-> {
             item(
                 span = { GridItemSpan(maxLineSpan) }
             ) {
@@ -211,7 +212,7 @@ fun LazyGridScope.filterSearchScreen(
             }
         }
 
-        "series" -> {
+        FilterPagesItem.SERIES -> {
             item(
                 span = { GridItemSpan(maxLineSpan) }
             ) {
@@ -290,7 +291,7 @@ fun LazyGridScope.filterSearchScreen(
             }
         }
 
-        else -> {
+        FilterPagesItem.ARTISTS -> {
             item(
                 span = { GridItemSpan(maxLineSpan) }
             ) {

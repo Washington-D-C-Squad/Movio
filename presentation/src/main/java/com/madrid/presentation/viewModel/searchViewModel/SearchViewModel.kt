@@ -18,6 +18,7 @@ import com.madrid.presentation.screens.searchScreen.paging.ExplorePagingSource
 import com.madrid.presentation.screens.searchScreen.paging.SearchArtistPagingSource
 import com.madrid.presentation.screens.searchScreen.paging.SearchMoviePagingSource
 import com.madrid.presentation.screens.searchScreen.paging.SearchSeriesPagingSource
+import com.madrid.presentation.screens.searchScreen.utils.FilterPagesItem
 import com.madrid.presentation.viewModel.base.BaseViewModel
 import com.madrid.presentation.viewModel.effect.SearchScreenEffect
 import com.madrid.presentation.viewModel.uiStateMapper.toArtistUiState
@@ -297,6 +298,8 @@ class SearchViewModel(
     }
 
     fun onRefresh(
+        searchQuery : String,
+        typeOfFilterSearch : FilterPagesItem
     ) {
         updateState { current ->
             current.copy(
@@ -307,56 +310,71 @@ class SearchViewModel(
                 )
             )
         }
-
-        tryToExecute(
-            function = {
-                getRecommendedMovieUseCase(page = 1)
-            },
-            onSuccess = { result ->
-                updateState {
-                    it.copy(
-                        searchUiState = it.searchUiState.copy(
-                            forYouMovies = result.map { movie -> movie.toMovieUiState() },
-                            isLoading = false,
-                            refreshState = false,
+        if(searchQuery.isEmpty() ){
+            tryToExecute(
+                function = {
+                    getRecommendedMovieUseCase(page = 1)
+                },
+                onSuccess = { result ->
+                    updateState {
+                        it.copy(
+                            searchUiState = it.searchUiState.copy(
+                                forYouMovies = result.map { movie -> movie.toMovieUiState() },
+                                isLoading = false,
+                                refreshState = false,
+                            )
                         )
-                    )
-                }
-            },
-            onError = { throwValue ->
-                updateState {
-                    it.copy(
-                        searchUiState = it.searchUiState.copy(
-                            isLoading = false,
-                            isError = true,
-                            errorMessage = throwValue.message
+                    }
+                },
+                onError = { throwValue ->
+                    updateState {
+                        it.copy(
+                            searchUiState = it.searchUiState.copy(
+                                isLoading = false,
+                                isError = true,
+                                errorMessage = throwValue.message
+                            )
                         )
-                    )
-                }
-            },
-        )
+                    }
+                },
+            )
 
-        launchPagingRequest(
-            pagingSourceFactory = {
-                ExplorePagingSource(getExploreMoreMovieUseCase)
-            },
-            onSuccess = { pagingFlow ->
-                val result = pagingFlow.map { pagingData ->
-                    pagingData.map { it.toMovieUiState() }
-                }
+            launchPagingRequest(
+                pagingSourceFactory = {
+                    ExplorePagingSource(getExploreMoreMovieUseCase)
+                },
+                onSuccess = { pagingFlow ->
+                    val result = pagingFlow.map { pagingData ->
+                        pagingData.map { it.toMovieUiState() }
+                    }
 
-                updateState {
-                    it.copy(
-                        searchUiState = it.searchUiState.copy(
-                            exploreMoreMovies = result,
-                            isLoading = false,
-                            refreshState = false,
+                    updateState {
+                        it.copy(
+                            searchUiState = it.searchUiState.copy(
+                                exploreMoreMovies = result,
+                                isLoading = false,
+                                refreshState = false,
+                            )
                         )
-                    )
+                    }
                 }
+            )
+        }
+        else{
+            when(typeOfFilterSearch){
+                FilterPagesItem.TOP_RATED -> topResult(searchQuery)
+                FilterPagesItem.MOVIES -> searchFilteredMovies(searchQuery)
+                FilterPagesItem.SERIES -> searchSeries(searchQuery)
+                FilterPagesItem.ARTISTS -> artists(searchQuery)
             }
-        )
-
+            updateState { current ->
+                current.copy(
+                    searchUiState = current.searchUiState.copy(
+                        refreshState = false,
+                    )
+                )
+            }
+        }
     }
 
     fun <T : Any> launchPagingRequest(

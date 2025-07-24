@@ -38,6 +38,7 @@ import com.madrid.presentation.screens.refreshScreenHolder.RefreshScreenHolder
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.filterSearchScreen
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.forYouAndExploreScreen
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.recentSearchScreen
+import com.madrid.presentation.screens.searchScreen.utils.FilterPagesItem
 import com.madrid.presentation.viewModel.searchViewModel.SearchScreenState
 import com.madrid.presentation.viewModel.searchViewModel.SearchViewModel
 import kotlinx.coroutines.FlowPreview
@@ -52,14 +53,16 @@ fun SearchScreen(
 ) {
     val uiState by viewModel.state.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
+    var typeOfFilterSearch by remember { mutableStateOf(FilterPagesItem.TOP_RATED) }
     val navController = LocalNavController.current
 
 
     RefreshScreenHolder(
         refreshState = uiState.searchUiState.refreshState,
-        onRefresh = viewModel::onRefresh
+        onRefresh = {viewModel.onRefresh(searchQuery , typeOfFilterSearch)}
     ) {
         ContentSearchScreen(
+            typeOfFilterSearch = typeOfFilterSearch,
             onSeriesClick = { seriesId ->
                 navController.navigate(Destinations.SeasonsScreen(seriesId = seriesId, seasonNumber = 1))
             },
@@ -72,15 +75,19 @@ fun SearchScreen(
             series = uiState.filteredScreenUiState.series.collectAsLazyPagingItems(),
             artist = uiState.filteredScreenUiState.artist.collectAsLazyPagingItems(),
             onClickTopRated = {
+                typeOfFilterSearch = FilterPagesItem.TOP_RATED
                 viewModel.topResult(searchQuery)
             },
             onClickMovies = {
+                typeOfFilterSearch = FilterPagesItem.MOVIES
                 viewModel.searchFilteredMovies(searchQuery)
             },
             onClickSeries = {
+                typeOfFilterSearch = FilterPagesItem.SERIES
                 viewModel.searchSeries(searchQuery)
             },
             onClickArtist = {
+                typeOfFilterSearch = FilterPagesItem.ARTISTS
                 viewModel.artists(searchQuery)
             },
 
@@ -127,6 +134,7 @@ fun SearchScreen(
 @OptIn(FlowPreview::class)
 @Composable
 fun ContentSearchScreen(
+    typeOfFilterSearch : FilterPagesItem ,
     addRecentSearch: (String) -> Unit,
     topRated: LazyPagingItems<SearchScreenState.MovieUiState>,
     movies: LazyPagingItems<SearchScreenState.MovieUiState>,
@@ -152,7 +160,6 @@ fun ContentSearchScreen(
     onSeriesClick: (Int) -> Unit = {},
 ) {
     val showSearchResults = searchQuery.isNotBlank()
-    var typeOfFilterSearch by remember { mutableStateOf("topRated") }
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     var showRecentSearch by remember { mutableIntStateOf(0) }
 
@@ -165,10 +172,10 @@ fun ContentSearchScreen(
                     onSearchBarClick()
                     addRecentSearch(query)
                     when (typeOfFilterSearch) {
-                        "topRated" -> onClickTopRated()
-                        "movies" -> onClickMovies()
-                        "series" -> onClickSeries()
-                        else -> onClickArtist()
+                        FilterPagesItem.TOP_RATED-> onClickTopRated()
+                        FilterPagesItem.MOVIES-> onClickMovies()
+                        FilterPagesItem.SERIES -> onClickSeries()
+                        FilterPagesItem.ARTISTS-> onClickArtist()
                     }
                 }
             }
@@ -226,22 +233,18 @@ fun ContentSearchScreen(
                 onChangeTypeFilterSearch = {
                     when (selectedTabIndex) {
                         0 -> {
-                            typeOfFilterSearch = "topRated"
                             onClickTopRated()
                         }
 
                         1 -> {
-                            typeOfFilterSearch = "movies"
                             onClickMovies()
                         }
 
                         2 -> {
-                            typeOfFilterSearch = "series"
                             onClickSeries()
                         }
 
                         else -> {
-                            typeOfFilterSearch = "artists"
                             onClickArtist()
                         }
                     }
