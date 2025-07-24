@@ -7,8 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.madrid.presentation.screens.SeeAllForYou.SeeAllForYouScreen
+import com.madrid.presentation.screens.searchScreen.SeeAllForYou.SeeAllForYouScreen
 import com.madrid.presentation.screens.detailsScreen.detailsMovieScreen.MovieDetailsScreen
+import com.madrid.presentation.screens.detailsScreen.seriesDetails.EpisodesScreen
+import com.madrid.presentation.screens.detailsScreen.seriesDetails.SeasonsScreen
 import com.madrid.presentation.screens.searchScreen.SearchScreen
 
 @Composable
@@ -39,16 +41,16 @@ fun MovioNavHost(navController: NavHostController) {
             SearchScreen()
         }
         composable<Destinations.HomeScreen> {
-            FakeHomeScreen()
+            FakeHomeScreen(
+
+            )
         }
-        composable<Destinations.MovieDetailsScreen> { backStackEntry ->
-//            val movieId = backStackEntry.arguments?.getString("movieId") ?: "1"
-//            // Using demo screen for testing
-//            com.madrid.presentation.screens.MovieDetailsDemoScreen(
-//                modifier = Modifier.fillMaxSize()
-//            )
+        composable<Destinations.EpisodesScreen> {
+            EpisodesScreen()
+        }
+
+        composable<Destinations.MovieDetailsScreen> {
             MovieDetailsScreen()
-//            DetailsScreen()
         }
         composable<Destinations.SeriesDetailsScreen> {
             //call SeriesDetailsScreen()
@@ -60,10 +62,7 @@ fun MovioNavHost(navController: NavHostController) {
             //call ReviewsScreen()
         }
         composable<Destinations.SeasonsScreen> {
-            //call SeasonsScreen()
-        }
-        composable<Destinations.EpisodesScreen> {
-            //call EpisodesScreen()
+            SeasonsScreen()
         }
         composable<Destinations.LibraryScreen> {
             FakeLibraryScreen()
