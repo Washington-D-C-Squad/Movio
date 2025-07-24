@@ -58,6 +58,7 @@ fun MovieDetailsScreen(
         Box(modifier = Modifier.statusBarsPadding()) {
             TopAppBar(
                 text = null,
+                onFirstIconClick = { navController.navigate(Destinations.SearchScreen)},
                 modifier = Modifier.padding(16.dp)
             )
         }

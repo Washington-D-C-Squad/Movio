@@ -175,7 +175,7 @@ fun SeriesDetailsScreen(
             }
             Spacer(modifier = Modifier.height(32.dp))
             ReviewScreen(
-                onSeeAllReviews = {},
+                onSeeAllReviews = { navController.navigate(Destinations.ReviewsScreen(uiState.seriesId, isMovie = false))},
                 uiState = uiState.reviews.toReviewScreenUiState()
             )
             Spacer(modifier = Modifier.height(32.dp))
