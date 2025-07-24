@@ -79,26 +79,11 @@ class RemoteDataSourceImpl(
     }
 
     override suspend fun getSeriesCreditsById(seriesId: Int): SeriesCreditResponse {
-        Log.d("TAG lol", "getSeriesCreditsById remote datasource impl: innn start")
-        try {
-            api.getSeriesCreditsById(seriesId)
-        }catch (e: Exception){
-            Log.d("TAG lol", "getSeriesCreditsById: in catchhh : ${e.message}")
-        }
         return api.getSeriesCreditsById(seriesId)
     }
 
     override suspend fun getSeriesReviewsById(seriesId: Int): SeriesReviewResponse {
-        Log.d("TAG lol", "getSeriesReviewsById: start")
-        try {
-            val x = api.getSeriesReviewsById(seriesId)
-            Log.d("TAG lol", "getSeriesReviewsById: $x")
-        }catch(e: Exception){
-            Log.d("TAG lol", "getSeriesReviewsById: end ${e.message}")
-        }
-        Log.d("TAG lol", "getSeriesReviewsById: end2")
         return api.getSeriesReviewsById(seriesId)
-
     }
 
     override suspend fun getSimilarSeriesById(seriesId: Int): SimilarSeriesResponse {
