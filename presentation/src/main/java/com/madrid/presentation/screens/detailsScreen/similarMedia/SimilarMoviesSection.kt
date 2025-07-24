@@ -35,6 +35,8 @@ import com.madrid.designSystem.theme.Theme
 import com.madrid.detectImageContent.FilteredImage
 import com.madrid.domain.entity.SimilarMovie
 import com.madrid.presentation.R
+import com.madrid.presentation.viewModel.detailsViewModel.SimilarMoviesViewModel
+import com.madrid.presentation.viewModel.detailsViewModel.createSimilarMoviesViewModel
 
 @Composable
 private fun MovieCardPlaceholder() {

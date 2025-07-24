@@ -19,21 +19,20 @@ import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.R
 import com.madrid.designSystem.component.TopAppBar
 import com.madrid.designSystem.theme.Theme
-import com.madrid.domain.entity.SimilarMovie
 import com.madrid.presentation.component.BottomMediaActions
 import com.madrid.presentation.component.header.MovieDetailsHeader
 import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
-import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMoviesUiState
 import com.madrid.presentation.screens.detailsScreen.componant.ExpandableDescription
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
-import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewsScreenUiState
 import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMoviesSection
-import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMoviesViewModel
-import com.madrid.presentation.screens.detailsScreen.similarMovies.createSimilarMoviesViewModel
+import com.madrid.presentation.viewModel.detailsViewModel.SimilarMoviesViewModel
+import com.madrid.presentation.viewModel.detailsViewModel.createSimilarMoviesViewModel
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
+import com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState
 import org.koin.androidx.compose.koinViewModel
+
 @Composable
 fun MovieDetailsScreen(
     viewModel: DetailsMovieViewModel = koinViewModel(),
@@ -118,15 +117,20 @@ fun MovieDetailsScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
             ReviewScreen(
+                uiState = ReviewsScreenUiState(reviews = emptyList()),
                 onSeeAllReviews = {
-                    navController.navigate(Destinations.ReviewsScreen)
-                },
-                uiState = ReviewsScreenUiState()
+                    navController.navigate(
+                        Destinations.ReviewsScreen(
+                            mediaId = uiState.movieId,
+                            isMovie = true
+                        )
+                    )
+                }
             )
             Spacer(modifier = Modifier.height(32.dp))
             SimilarMoviesSection(
                 onSeeAllClick = {
-                    navController.navigate(Destinations.SeeAllForYouScreen)
+                    navController.navigate(Destinations.SeeAllSimilarMoviesScreen)
                 },
                 onMovieClick = { movie ->
                     navController.navigate(Destinations.MovieDetailsScreen(movie.id))

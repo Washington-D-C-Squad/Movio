@@ -1,8 +1,9 @@
-package com.madrid.presentation.screens.detailsScreen.similarMovies
+package com.madrid.presentation.viewModel.detailsViewModel
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.madrid.domain.entity.SimilarMovie
@@ -102,7 +103,7 @@ class MoviesApiServiceImpl : MoviesApiService {
 
 class SimilarMoviesViewModelFactory(
     private val repository: SimilarMoviesRepository
-) : androidx.lifecycle.ViewModelProvider.Factory {
+) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

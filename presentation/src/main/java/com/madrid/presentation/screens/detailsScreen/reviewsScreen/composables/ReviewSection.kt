@@ -14,13 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.madrid.presentation.R
+import com.madrid.presentation.viewModel.detailsViewModel.ReviewUiState
+import com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState
 
 @Composable
 fun ReviewScreen(
-    uiState: com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewsScreenUiState,
+    uiState: ReviewsScreenUiState,
     onSeeAllReviews: () -> Unit = {},
 ) {
-    if (uiState.reviews.isNotEmpty()) {
         Column(
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -33,7 +34,6 @@ fun ReviewScreen(
 
             ReviewsList(reviews = uiState.reviews)
         }
-    }
 }
 
 @Composable

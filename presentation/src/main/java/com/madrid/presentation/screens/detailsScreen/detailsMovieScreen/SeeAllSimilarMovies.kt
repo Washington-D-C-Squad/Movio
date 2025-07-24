@@ -32,9 +32,9 @@ import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.component.movioCards.MovioVerticalCard
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
-import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMoviesUiState
-import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMoviesViewModel
-import com.madrid.presentation.screens.detailsScreen.similarMovies.createSimilarMoviesViewModel
+import com.madrid.presentation.viewModel.detailsViewModel.SimilarMoviesUiState
+import com.madrid.presentation.viewModel.detailsViewModel.SimilarMoviesViewModel
+import com.madrid.presentation.viewModel.detailsViewModel.createSimilarMoviesViewModel
 
 @Composable
 fun SeeAllSimilarMoviesScreen(

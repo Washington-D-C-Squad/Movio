@@ -16,6 +16,8 @@ import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
 import com.madrid.detectImageContent.FilteredImage
 import com.madrid.designSystem.R
+import com.madrid.presentation.viewModel.detailsViewModel.ReviewUiState
+
 @Composable
 internal fun ReviewCard(
     reviewUiState: ReviewUiState
@@ -40,7 +42,7 @@ internal fun ReviewCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             FilteredImage(
-                imageUrl = reviewUiState.userName,
+                imageUrl = reviewUiState.reviewerImageUrl,
                 contentDescription = "Reviewer image",
                 modifier = Modifier
                     .size(40.dp)
@@ -54,12 +56,12 @@ internal fun ReviewCard(
                 verticalArrangement = Arrangement.Center
             ) {
                 MovioText(
-                    text = reviewUiState.userName,
+                    text = reviewUiState.content,
                     color = Theme.color.surfaces.onSurface,
                     textStyle = Theme.textStyle.title.mediumMedium14
                 )
                 MovioText(
-                    text = reviewUiState.reviewDate,
+                    text = reviewUiState.date,
                     color = Theme.color.surfaces.onSurfaceContainer,
                     textStyle = Theme.textStyle.body.smallRegular10
                 )
@@ -84,7 +86,7 @@ internal fun ReviewCard(
         }
         Spacer(modifier = Modifier.height(12.dp))
         MovioText(
-            text = reviewUiState.reviewText,
+            text = reviewUiState.content,
             color = Theme.color.surfaces.onSurfaceVariant,
             textStyle = Theme.textStyle.label.smallRegular12,
             maxLines = 4,

@@ -16,12 +16,14 @@ import com.madrid.presentation.screens.detailsScreen.componant.RatingMovieBottom
 import com.madrid.presentation.screens.detailsScreen.componant.SaveMovieBottomSheet
 import com.madrid.presentation.screens.detailsScreen.componant.ShareBottomSheet
 import com.madrid.presentation.screens.detailsScreen.detailsMovieScreen.MovieDetailsScreen
+import com.madrid.presentation.screens.detailsScreen.detailsMovieScreen.SeeAllSimilarMoviesScreen
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
 import com.madrid.presentation.screens.detailsScreen.seriesDetails.EpisodesScreen
 import com.madrid.presentation.screens.detailsScreen.seriesDetails.SeasonsScreen
 import com.madrid.presentation.screens.detailsScreen.seriesDetails.SeriesDetailsScreen
 import com.madrid.presentation.screens.searchScreen.SearchScreen
 import com.madrid.presentation.screens.searchScreen.SeeAllForYou.SeeAllForYouScreen
+import com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState
 
 @Composable
 fun MovioNavHost(navController: NavHostController) {
@@ -35,10 +37,12 @@ fun MovioNavHost(navController: NavHostController) {
             fadeOut(tween(0))
         }
     ) {
-        composable<Destinations.SeeAllForSimilarMovies> {
-
-            SeeAllSimilarMoviesScreen()
-        }
+//        composable<Destinations.SeeAllForSimilarMovies> {
+//
+//            SeeAllSimilarMoviesScreen(
+//                navController = navController
+//            )
+//        }
         composable<Destinations.SeeAllForYouScreen> {
 
             SeeAllForYouScreen()
@@ -74,7 +78,9 @@ fun MovioNavHost(navController: NavHostController) {
             TopCastScreenList()
         }
         composable<Destinations.ReviewsScreen> {
-            //ReviewScreen()
+            ReviewScreen(
+                uiState = ReviewsScreenUiState()
+            )
         }
         composable<Destinations.SeasonsScreen> {
             SeasonsScreen()
