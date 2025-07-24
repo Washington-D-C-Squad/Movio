@@ -6,6 +6,7 @@ import com.madrid.data.dataSource.remote.response.artist.ArtistDetailsResponse
 import com.madrid.data.dataSource.remote.response.artist.ArtistKnownForResponse
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
 import com.madrid.data.dataSource.remote.response.common.TrailerResponse
+import com.madrid.data.dataSource.remote.response.genre.GenresResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieCreditsResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieDetailsResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieReviewResponse
@@ -64,6 +65,10 @@ class RemoteDataSourceImpl(
         return api.getSimilarMoviesById(movieId)
     }
 
+    override suspend fun getMovieGenres(): GenresResponse {
+        return api.getMovieGenres()
+    }
+
     // Series
     override suspend fun searchSeriesByQuery(name: String, page: Int): SearchSeriesResponse {
         return api.searchSeriesByQuery(name, page)
@@ -90,6 +95,10 @@ class RemoteDataSourceImpl(
         seasonNumber: Int
     ): SeasonEpisodesResponse {
         return api.getEpisodesBySeasonId(seriesId, seasonNumber)
+    }
+
+    override suspend fun getSeriesGenres(): GenresResponse {
+        return api.getSeriesGenres()
     }
 
     // Artist

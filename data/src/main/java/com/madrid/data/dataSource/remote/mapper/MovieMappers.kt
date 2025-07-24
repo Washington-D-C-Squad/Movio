@@ -1,10 +1,10 @@
 package com.madrid.data.dataSource.remote.mapper
 
 import com.madrid.data.dataSource.remote.response.common.TrailerResponse
+import com.madrid.data.dataSource.remote.response.genre.MovieGenre
 import com.madrid.data.dataSource.remote.response.movie.CastNetwork
 import com.madrid.data.dataSource.remote.response.movie.MovieCreditsResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieDetailsResponse
-import com.madrid.data.dataSource.remote.response.movie.MovieGenre
 import com.madrid.data.dataSource.remote.response.movie.MovieResult
 import com.madrid.data.dataSource.remote.response.movie.MovieReviewResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieReviewResult
