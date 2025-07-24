@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.madrid.domain.entity.Review
+import com.madrid.domain.entity.SimilarSeries
 import com.madrid.domain.usecase.mediaDeatailsUseCase.SeriesDetailsUseCase
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.viewModel.base.BaseViewModel
@@ -45,6 +46,7 @@ class SeriesDetailsViewModel(
                 loadAllSeasonsEpisodes()
                 loadCastData()
                 loadReviews()
+                loadSimilarSeries()
             },
             onError = {},
         )
@@ -115,12 +117,9 @@ class SeriesDetailsViewModel(
     }
 
     private fun loadReviews(){
-
         tryToExecute(
             function = {
-                val x = seriesDetailsUseCase.getSeriesReviewsById(args.seriesId)
-                Log.d("TAG lol", "loadReviews: $x")
-                x
+                seriesDetailsUseCase.getSeriesReviewsById(args.seriesId)
             },
             onSuccess = { reviews ->
                 updateState {
@@ -130,11 +129,39 @@ class SeriesDetailsViewModel(
                 }
             },
             onError = {e ->
-                Log.d("TAG lol", "loadCastDataaaaaaaaaaaaaaaaaaaaaaaaa: ${e.message}")
+                Log.d("TAG lol", "loadCastData: ${e.message}")
+            },
+        )
+    }
+
+    private fun loadSimilarSeries(){
+        tryToExecute(
+            function = {
+                seriesDetailsUseCase.getSimilarSeriesById(args.seriesId)
+            },
+            onSuccess = { allSeries ->
+                updateState {
+                    it.copy(similarSeries = allSeries.map { series ->
+                        series.toUiState()
+                    })
+                }
+            },
+            onError = {e ->
+                Log.d("TAG lol", "loadCastData: ${e.message}")
             },
         )
     }
 }
+
+fun SimilarSeries.toUiState(): SeriesUiState{
+    return SeriesUiState(
+        id = this.id,
+        name = this.title,
+        imageUrl = this.imageUrl,
+        rate = this.rate.toString()
+    )
+}
+
 
 fun Review.toUiState(): ReviewUiState{
     return ReviewUiState(
