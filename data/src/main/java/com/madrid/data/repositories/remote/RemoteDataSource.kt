@@ -77,8 +77,8 @@ interface RemoteDataSource {
     suspend fun getMovieDetailsById(movieId: Int): MovieDetailsResponse
     suspend fun getMovieTrailersById(movieId: Int): TrailerResponse
     suspend fun getMovieCreditById(movieId: Int): MovieCreditsResponse
-    suspend fun getMovieReviewsById(movieId:Int) : MovieReviewResponse
-    suspend fun getSimilarMoviesById(movieId:Int) : SimilarMoviesResponse
+    suspend fun getMovieReviewsById(movieId: Int): MovieReviewResponse
+    suspend fun getSimilarMoviesById(movieId: Int): SimilarMoviesResponse
     // endregion
 
 
@@ -87,8 +87,14 @@ interface RemoteDataSource {
     suspend fun getArtistById(artistId: Int): ArtistDetailsResponse
 
 
-
     // region genres
     suspend fun getMovieGenres(): GenresResponse
+    // endregion
+
+    // region authentication
+    suspend fun login(username: String, password: String): String
+    suspend fun loginAsGuest(): String
+    // endregion
+
 
 }

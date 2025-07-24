@@ -1,4 +1,4 @@
-package com.madrid.presentation.viewModel
+package com.madrid.presentation.viewModel.loginViewModel
 
 import androidx.lifecycle.viewModelScope
 import com.madrid.domain.entity.AuthErrorType
@@ -7,6 +7,8 @@ import com.madrid.domain.entity.ValidationErrorType
 import com.madrid.domain.entity.ValidationResult
 import com.madrid.domain.usecase.LoginUseCase
 import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
+import com.madrid.presentation.viewModel.LoginError
+import com.madrid.presentation.viewModel.LoginUiState
 import com.madrid.presentation.viewModel.base.BaseViewModel
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
@@ -14,8 +16,8 @@ import org.koin.android.annotation.KoinViewModel
 @KoinViewModel
 class LoginViewModel(
     private val loginUseCase: LoginUseCase,
-    override val recentSearchUseCase: RecentSearchUseCase
-) : BaseViewModel<LoginUiState>(LoginUiState()) {
+    private val recentSearchUseCase: RecentSearchUseCase
+) : BaseViewModel<LoginUiState, Nothing>(LoginUiState()) {
 
     fun updateUsername(username: String) {
         updateState { it.copy(username = username, errorState = null) }

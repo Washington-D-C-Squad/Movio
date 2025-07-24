@@ -3,6 +3,7 @@ package com.madrid.data.dataSource.remote
 import com.madrid.data.dataSource.remote.response.artist.ArtistDetailsResponse
 import com.madrid.data.dataSource.remote.response.artist.ArtistKnownForResponse
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
+import com.madrid.data.dataSource.remote.response.authentication.AuthenticationResponse
 import com.madrid.data.dataSource.remote.response.common.TrailerResponse
 import com.madrid.data.dataSource.remote.response.genre.GenresResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieCreditsResponse
@@ -16,7 +17,9 @@ import com.madrid.data.dataSource.remote.response.series.SeriesCreditResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesDetailsResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesReviewResponse
 import com.madrid.data.dataSource.remote.response.series.SimilarSeriesResponse
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -128,4 +131,20 @@ interface MovieApi {
     suspend fun getArtistKnownForById(
         @Path("person_id") artistId: Int
     ): ArtistKnownForResponse
+
+    // region authentication
+    @GET("authentication/token/new")
+    suspend fun getRequestToken(): AuthenticationResponse
+
+    @POST("/authentication/token/validate_with_login")
+    suspend fun postCreateSession(
+        @Body username: String,
+        @Body password: String,
+        @Body requestToken: String
+    ): AuthenticationResponse
+
+
+    @GET("authentication/guest_session/new")
+    suspend fun getCreateGuestSession(): AuthenticationResponse
+    // endregion
 }

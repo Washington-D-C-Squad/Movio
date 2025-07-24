@@ -38,7 +38,7 @@ class RemoteDataSourceImpl(
 
 
     override suspend fun getTopRatedSeries(query: String, page: Int): SearchSeriesResponse {
-        val x=  api.searchSeriesByQuery(query,page)
+        val x = api.searchSeriesByQuery(query, page)
         Log.d("loool", "getTopRatedSeries: $x")
         return x
     }
@@ -133,6 +133,21 @@ class RemoteDataSourceImpl(
 
     override suspend fun getArtistById(artistId: Int): ArtistDetailsResponse {
         throw NotImplementedError("Not implemented in MovieApi interface yet.")
+    }
+
+    override suspend fun login(username: String, password: String): String {
+        val requestTokenResponse = api.getRequestToken()
+        val requestToken = requestTokenResponse.requestToken
+        val sessionResponse = api.postCreateSession(
+            username = username,
+            password = password,
+            requestToken = requestToken
+        )
+        return sessionResponse.requestToken
+    }
+
+    override suspend fun loginAsGuest(): String {
+        return api.getCreateGuestSession().requestToken
     }
 
 }
