@@ -16,7 +16,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.navOptions
 import com.madrid.designSystem.R
 import com.madrid.designSystem.component.TopAppBar
 import com.madrid.designSystem.theme.Theme
@@ -29,6 +28,7 @@ import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.detailsScreen.componant.ExpandableDescription
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
+import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewsScreenUiState
 import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMovie
 import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMoviesSection
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
@@ -132,7 +132,7 @@ fun MovieDetailsScreen(
                 onSeeAllReviews = {
                     navController.navigate(Destinations.ReviewsScreen)
                 },
-                uiState = com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState()
+                uiState = ReviewsScreenUiState()
             )
             Spacer(modifier = Modifier.height(32.dp))
             SimilarMoviesSection(

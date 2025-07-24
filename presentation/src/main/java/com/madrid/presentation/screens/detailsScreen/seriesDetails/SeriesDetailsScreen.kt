@@ -30,7 +30,7 @@ import com.madrid.presentation.screens.detailsScreen.componant.ExpandableDescrip
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
 import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarSeries
 import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarSeriesSection
-import com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState
+import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewsScreenUiState
 import com.madrid.presentation.viewModel.detailsViewModel.SeriesDetailsViewModel
 import org.koin.androidx.compose.koinViewModel
 

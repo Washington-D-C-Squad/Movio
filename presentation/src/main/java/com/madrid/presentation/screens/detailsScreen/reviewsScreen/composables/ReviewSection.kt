@@ -18,8 +18,6 @@ import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.R
-import com.madrid.presentation.viewModel.detailsViewModel.ReviewUiState
-import com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState
 
 @Composable
 fun ReviewScreen(
