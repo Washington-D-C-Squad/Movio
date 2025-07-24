@@ -19,7 +19,6 @@ abstract class BasePagingSource<T : Any> (private val initialPage: Int = 1) : Pa
                 nextKey = if (data.isEmpty()) null else currentPage.plus(1)
             )
         } catch (e: Exception) {
-            Log.d("in impl", "getArtistByQuery: ${e.message}")
             LoadResult.Error(e)
         }
     }
