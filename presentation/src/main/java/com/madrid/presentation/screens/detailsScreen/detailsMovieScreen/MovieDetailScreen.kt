@@ -20,8 +20,6 @@ import com.madrid.designSystem.R
 import com.madrid.designSystem.component.TopAppBar
 import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.component.BottomMediaActions
-import com.madrid.presentation.component.CastMember
-import com.madrid.presentation.component.TopCastSection
 import com.madrid.presentation.component.header.MovieDetailsHeader
 import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
 import com.madrid.presentation.navigation.Destinations
@@ -110,23 +108,6 @@ fun MovieDetailsScreen(
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
-            TopCastSection(
-                castMembers = uiState.casts.map { cast ->
-                    CastMember(
-                        id = cast.id.toString(),
-                        name = cast.name,
-                        imageUrl = cast.imageUrl
-                    )
-                },
-                onSeeAllClick = {
-                    navController.navigate(Destinations.TopCastScreen(
-                        mediaId = 0,
-                        isMovie = true
-                    ))
-                },
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-            )
             Spacer(modifier = Modifier.height(32.dp))
             ReviewScreen(
                 onSeeAllReviews = {
@@ -136,9 +117,11 @@ fun MovieDetailsScreen(
             )
             Spacer(modifier = Modifier.height(32.dp))
             SimilarMoviesSection(
-                onSeeAllClick = {},
+                onSeeAllClick = {
+                    navController.navigate(Destinations.SeeAllForYouScreen)
+                },
                 onMovieClick = { movie ->
-
+                    navController.navigate(Destinations.MovieDetailsScreen(movie.id))
                 },
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                 movies = uiState.similarMovies.map { movie ->

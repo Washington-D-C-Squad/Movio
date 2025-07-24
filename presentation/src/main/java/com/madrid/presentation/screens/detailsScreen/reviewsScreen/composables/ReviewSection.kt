@@ -14,11 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.madrid.presentation.R
-import com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState
 
 @Composable
 fun ReviewScreen(
-    uiState: ReviewsScreenUiState,
+    uiState: com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewsScreenUiState,
     onSeeAllReviews: () -> Unit = {},
 ) {
     if (uiState.reviews.isNotEmpty()) {

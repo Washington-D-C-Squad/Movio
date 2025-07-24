@@ -8,8 +8,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
+import com.madrid.presentation.navigation.Destinations.SeeAllForYouScreen
 import com.madrid.presentation.navigation.Destinations.TopCastScreen
-import com.madrid.presentation.screens.SeeAllForYou.SeeAllForYouScreen
 import com.madrid.presentation.screens.detailsScreen.castDetails.TopCastScreenList
 import com.madrid.presentation.screens.detailsScreen.componant.RatingMovieBottomSheet
 import com.madrid.presentation.screens.detailsScreen.componant.SaveMovieBottomSheet
@@ -20,6 +20,7 @@ import com.madrid.presentation.screens.detailsScreen.seriesDetails.EpisodesScree
 import com.madrid.presentation.screens.detailsScreen.seriesDetails.SeasonsScreen
 import com.madrid.presentation.screens.detailsScreen.seriesDetails.SeriesDetailsScreen
 import com.madrid.presentation.screens.searchScreen.SearchScreen
+import com.madrid.presentation.screens.searchScreen.SeeAllForYou.SeeAllForYouScreen
 
 @Composable
 fun MovioNavHost(navController: NavHostController) {
@@ -34,6 +35,7 @@ fun MovioNavHost(navController: NavHostController) {
         }
     ) {
         composable<Destinations.SeeAllForYouScreen> {
+
             SeeAllForYouScreen()
         }
         composable<Destinations.SplashScreen> {
