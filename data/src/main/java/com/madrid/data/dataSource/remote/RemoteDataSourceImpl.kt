@@ -1,6 +1,7 @@
 package com.madrid.data.dataSource.remote
 
 import android.util.Log
+import com.madrid.data.dataSource.remote.mapper.toArtist
 import com.madrid.data.dataSource.remote.response.artist.ArtistDetailsResponse
 import com.madrid.data.dataSource.remote.response.artist.ArtistKnownForResponse
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
@@ -147,7 +148,17 @@ class RemoteDataSourceImpl(
     }
 
     override suspend fun getArtistById(artistId: Int): ArtistDetailsResponse {
-        throw NotImplementedError("Not implemented in MovieApi interface yet.")
+        Log.e("MY_TAG", "ArtistDetailsRepositoryImpl start $artistId")
+
+        val response = api.getArtistDetailsById(artistId)
+
+        Log.e("MY_TAG", "ArtistDetailsRepositoryImpl response $response")
+
+        val result = response
+
+        Log.e("MY_TAG", "ArtistDetailsRepositoryImpl mapped $result")
+
+        return result
     }
 
 }
