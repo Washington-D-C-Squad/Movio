@@ -34,7 +34,10 @@
     <string name="loading">Loading...</string> // Search
     <string name="search">Search</string>
     <string name="search_content_description">search content description</string>
-
+    <string name="clock_content_description" translatable="false">description</string>
+    <string name="delete_content_description" translatable="false">delete content description</string>
+    <string name="empty_recent_search_title">What are you looking for today?</string>
+    <string name="empty_recent_search_body">Start typing in the search bar to find what you need.</string>
 
 
 </resources>
