@@ -15,6 +15,7 @@ import com.madrid.data.dataSource.remote.response.series.SeriesCreditResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesDetailsResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesReviewResponse
 import com.madrid.data.dataSource.remote.response.series.SimilarSeriesResponse
+import com.madrid.data.dataSource.remote.response.trending.AllTrendingResponse
 
 interface RemoteDataSource {
 
@@ -75,8 +76,8 @@ interface RemoteDataSource {
     suspend fun getMovieDetailsById(movieId: Int): MovieDetailsResponse
     suspend fun getMovieTrailersById(movieId: Int): TrailerResponse
     suspend fun getMovieCreditById(movieId: Int): MovieCreditsResponse
-    suspend fun getMovieReviewsById(movieId:Int) : MovieReviewResponse
-    suspend fun getSimilarMoviesById(movieId:Int) : SimilarMoviesResponse
+    suspend fun getMovieReviewsById(movieId: Int): MovieReviewResponse
+    suspend fun getSimilarMoviesById(movieId: Int): SimilarMoviesResponse
     // endregion
 
 
@@ -85,5 +86,8 @@ interface RemoteDataSource {
     suspend fun getArtistById(artistId: Int): ArtistDetailsResponse
 
 
+    // region Trending
+    suspend fun getAllTrending(page: Int): AllTrendingResponse
+    // endregion
 
 }

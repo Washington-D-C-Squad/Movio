@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.navigation.MovioNavGraph
+import com.madrid.presentation.screens.TrendingLayout
 
 
 class MainActivity : ComponentActivity() {
@@ -18,7 +19,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MovioTheme {
-                MainScreen()
+               // MainScreen()
+                TrendingLayout()
             }
         }
     }

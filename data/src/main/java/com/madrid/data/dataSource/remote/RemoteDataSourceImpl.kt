@@ -16,6 +16,7 @@ import com.madrid.data.dataSource.remote.response.series.SeriesCreditResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesDetailsResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesReviewResponse
 import com.madrid.data.dataSource.remote.response.series.SimilarSeriesResponse
+import com.madrid.data.dataSource.remote.response.trending.AllTrendingResponse
 import com.madrid.data.repositories.remote.RemoteDataSource
 
 class RemoteDataSourceImpl(
@@ -37,7 +38,7 @@ class RemoteDataSourceImpl(
 
 
     override suspend fun getTopRatedSeries(query: String, page: Int): SearchSeriesResponse {
-        val x=  api.searchSeriesByQuery(query,page)
+        val x = api.searchSeriesByQuery(query, page)
         Log.d("loool", "getTopRatedSeries: $x")
         return x
     }
@@ -124,6 +125,10 @@ class RemoteDataSourceImpl(
 
     override suspend fun getArtistById(artistId: Int): ArtistDetailsResponse {
         throw NotImplementedError("Not implemented in MovieApi interface yet.")
+    }
+
+    override suspend fun getAllTrending(page: Int): AllTrendingResponse {
+        return api.getAllTrending(page = page)
     }
 
 }

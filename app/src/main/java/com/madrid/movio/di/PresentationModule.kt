@@ -6,6 +6,7 @@ import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
 import com.madrid.presentation.viewModel.detailsViewModel.MovieDetailsViewModel
 import com.madrid.presentation.viewModel.detailsViewModel.SeriesDetailsViewModel
 import com.madrid.presentation.viewModel.searchViewModel.SearchViewModel
+import com.madrid.presentation.viewModel.trendingViewModel.TrendingViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
@@ -18,7 +19,9 @@ val presentationModule = module {
     viewModelOf(::MovieDetailsViewModel)
     viewModelOf(::SeriesDetailsViewModel)
 
-    viewModel { SeriesDetailsViewModel(get(),get()) }
+    viewModelOf(::TrendingViewModel)
+
+    viewModel { SeriesDetailsViewModel(get(), get()) }
 
 
 }

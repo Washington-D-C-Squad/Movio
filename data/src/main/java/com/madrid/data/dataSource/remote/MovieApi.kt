@@ -15,6 +15,7 @@ import com.madrid.data.dataSource.remote.response.series.SeriesCreditResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesDetailsResponse
 import com.madrid.data.dataSource.remote.response.series.SeriesReviewResponse
 import com.madrid.data.dataSource.remote.response.series.SimilarSeriesResponse
+import com.madrid.data.dataSource.remote.response.trending.AllTrendingResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -123,4 +124,12 @@ interface MovieApi {
     suspend fun getArtistKnownForById(
         @Path("person_id") artistId: Int
     ): ArtistKnownForResponse
+
+    // Home
+    @GET("trending/all/{time_window}")
+    suspend fun getAllTrending(
+        @Path("time_window") timeWindow: String = "day",
+        @Query("page") page: Int
+    ): AllTrendingResponse
+
 }
