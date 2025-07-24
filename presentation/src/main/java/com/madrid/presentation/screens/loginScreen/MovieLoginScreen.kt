@@ -25,7 +25,7 @@ import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.screens.loginScreen.component.*
 import com.madrid.presentation.viewModel.LoginError
 import com.madrid.presentation.viewModel.LoginUiState
-import com.madrid.presentation.viewModel.LoginViewModel
+import com.madrid.presentation.viewModel.loginViewModel.LoginViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel

@@ -5,7 +5,5 @@ data class User(
     val email: String?,
     val profilePicUrl: String?,
     val authToken: String?,
-    val isVerified: Boolean = false,
-    val twoFactorEnabled: Boolean = false,
     val isGuest: Boolean = false
 )
