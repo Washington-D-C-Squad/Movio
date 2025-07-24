@@ -72,7 +72,7 @@ fun SeriesDetailsScreen(
         TopAppBar(
             text = null,
             modifier = Modifier.padding(start = 16.dp, top = 36.dp),
-            onFirstIconClick = { navController.navigate(Destinations.SearchScreen)}
+            onFirstIconClick = { navController.navigate(Destinations.SearchScreen) }
         )
         Column(
             modifier = Modifier
@@ -110,7 +110,14 @@ fun SeriesDetailsScreen(
                         imageUrl = cast.imageUrl
                     )
                 },
-                onSeeAllClick = {},
+                onSeeAllClick = {
+                    navController.navigate(
+                        Destinations.TopCastScreen(
+                            mediaId = uiState.seriesId,
+                            isMovie = false
+                        )
+                    )
+                },
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
             Spacer(Modifier.height(12.dp))
@@ -131,7 +138,14 @@ fun SeriesDetailsScreen(
                     text = "${stringResource(id = R.string.see_all)} >",
                     color = Theme.color.surfaces.onSurfaceVariant,
                     textStyle = Theme.textStyle.label.smallRegular14,
-                    modifier = Modifier.clickable { navController.navigate(Destinations.SeasonsScreen(uiState.seriesId,1)) }
+                    modifier = Modifier.clickable {
+                        navController.navigate(
+                            Destinations.SeasonsScreen(
+                                uiState.seriesId,
+                                1
+                            )
+                        )
+                    }
                 )
             }
             Spacer(modifier = Modifier.height(12.dp))
@@ -185,7 +199,7 @@ fun SeriesDetailsScreen(
     }
 }
 
-fun List<ReviewUiState>.toReviewScreenUiState(): ReviewsScreenUiState{
+fun List<ReviewUiState>.toReviewScreenUiState(): ReviewsScreenUiState {
     return ReviewsScreenUiState(reviews = this)
 }
 
