@@ -23,17 +23,14 @@ import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.detectImageContent.FilteredImage
-
-data class CastMember(
-    val id: String,
-    val name: String,
-    val imageUrl: String
-)
+import com.madrid.domain.entity.Artist
 
 @Composable
 fun TopCastSection(
     modifier: Modifier = Modifier,
-    castMembers: List<CastMember>,
+    castMembers: List<Artist>,
+    movieId: String,
+    navigateToTopCastDetailsScreen: (String) -> Unit = {},
     onSeeAllClick: () -> Unit = {},
 ) {
     Column(
@@ -55,7 +52,7 @@ fun TopCastSection(
                 text = "See all >",
                 color = Theme.color.surfaces.onSurfaceVariant,
                 textStyle = Theme.textStyle.label.smallRegular14,
-                modifier = Modifier.clickable { onSeeAllClick() }
+                modifier = Modifier.clickable { navigateToTopCastDetailsScreen(movieId) }
             )
         }
         
@@ -73,7 +70,7 @@ fun TopCastSection(
 
 @Composable
 private fun CastMemberItem(
-    castMember: CastMember,
+    castMember: Artist,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -108,19 +105,20 @@ private fun CastMemberItem(
 fun TopCastSectionPreview() {
     MovioTheme {
         TopCastSection(
+            movieId = "1",
             castMembers = listOf(
-                CastMember(
-                    id = "1",
+                Artist(
+                    id = 1,
                     name = "Ana de Armas",
                     imageUrl = "https://image.tmdb.org/t/p/w500/3vxvsmYLTf4jnr163SUlBIWX8qx.jpg"
                 ),
-                CastMember(
-                    id = "2",
+                Artist(
+                    id = 2,
                     name = "Keanu Reeves",
                     imageUrl = "https://image.tmdb.org/t/p/w500/4D0PpNI0km5B9Gk7SZOo6hJxJ9P.jpg"
                 ),
-                CastMember(
-                    id = "3",
+                Artist(
+                    id = 3,
                     name = "Ian McShane",
                     imageUrl = "https://image.tmdb.org/t/p/w500/9H7oVx4b6Z0j3EjLZN9mzcqcJjU.jpg"
                 )
