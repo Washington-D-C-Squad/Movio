@@ -4,22 +4,27 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.Theme
+import com.madrid.presentation.R
 import com.madrid.presentation.component.RecentSearchItem
 
 
 fun LazyGridScope.recentSearchScreen(
     searchHistory: List<String>,
+    searchQuery: String,
     onSearchItemClick: (String) -> Unit,
     onRemoveItem: (String) -> Unit,
     onClearAll: () -> Unit,
+    highlightCharactersInText: (String, String, Color, Color, TextStyle) -> AnnotatedString,
     modifier: Modifier = Modifier
 ) {
     item(
@@ -27,19 +32,18 @@ fun LazyGridScope.recentSearchScreen(
     ) {
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(20.dp),
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             MovioText(
-                text = "recent search ", // stringResource(id = DesignSystemR.string.recent_search),
-                textStyle = Theme.textStyle.headline.mediumMedium18,
+                text = stringResource(id = R.string.recent_search),
+                textStyle = Theme.textStyle.title.mediumMedium16,
                 color = Theme.color.surfaces.onSurface
             )
             MovioText(
-                text = "clear all ", // stringResource(id = DesignSystemR.string.clear_all),
-                textStyle = Theme.textStyle.body.mediumMedium14,
+                text = stringResource(id = R.string.clear_all),
+                textStyle = Theme.textStyle.label.smallRegular14,
                 color = Theme.color.surfaces.onSurfaceVariant,
                 modifier = Modifier.clickable { onClearAll() }
             )
@@ -51,8 +55,10 @@ fun LazyGridScope.recentSearchScreen(
     ) { searchItem ->
         RecentSearchItem(
             searchText = searchHistory[searchItem],
+            searchQuery = searchQuery,
             onItemClick = { onSearchItemClick(searchHistory[searchItem]) },
-            onRemoveClick = { onRemoveItem(searchHistory[searchItem]) }
+            onRemoveClick = { onRemoveItem(searchHistory[searchItem]) },
+            highlightCharactersInText = highlightCharactersInText,
         )
     }
 }

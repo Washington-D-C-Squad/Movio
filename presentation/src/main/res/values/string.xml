@@ -11,7 +11,7 @@
     <string name="episodes">%1$s Episodes</string>
     <string name="of">of %1$s</string>
     <string name="home">Home</string>
-    <string name="search">Search</string>
+    <string name="searchdot">Search ...</string>
     <string name="library">Library</string>
     <string name="more">More</string>
     <string name="recent_search">Recent Search</string>
@@ -21,7 +21,7 @@
     <string name="Movies">Movies</string>
     <string name="Series">Series</string>
     <string name="Artists">Artists</string>
-    <string name="search_result_count">SearchResult (%1$s items)</string>//
+    <string name="search_result_count">Search result (%1$s items)</string>//
     <string name="top_cast">Top Cast</string>
     <string name="selected_similar_movie">Similar Movies</string>
     <string name="Rate_it">Rate it</string>
@@ -29,8 +29,15 @@
     <string name="Play">Play</string>
     <string name="for_u">For You</string>
     <string name="see_all">See all</string>
+    <string name="reviews">Reviews</string>
     <string name="explore_more">Explore more</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Loading...</string> // Search
+    <string name="search">Search</string>
+    <string name="search_content_description">search content description</string>
+    <string name="clock_content_description" translatable="false">description</string>
+    <string name="delete_content_description" translatable="false">delete content description</string>
+    <string name="empty_recent_search_title">What are you looking for today?</string>
+    <string name="empty_recent_search_body">Start typing in the search bar to find what you need.</string>
 
 
 </resources>

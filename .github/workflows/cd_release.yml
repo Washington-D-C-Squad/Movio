@@ -41,7 +41,7 @@ jobs:
         run: find . -name "*.apk"
 
       - name: Install Firebase CLI
-        run: curl -sL https://firebase.tools | bash
+        run: npm install -g firebase-tools
 
       - name: Decode Firebase service account key
         env:

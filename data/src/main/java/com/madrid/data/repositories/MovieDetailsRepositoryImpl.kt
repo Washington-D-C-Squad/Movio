@@ -1,11 +1,11 @@
 package com.madrid.data.repositories
 
-import android.util.Log
 import com.madrid.data.dataSource.remote.mapper.toCredits
 import com.madrid.data.dataSource.remote.mapper.toMovie
 import com.madrid.data.dataSource.remote.mapper.toReviewResult
 import com.madrid.data.dataSource.remote.mapper.toSimilarMovie
 import com.madrid.data.dataSource.remote.mapper.toTrailer
+import com.madrid.data.dataSource.local.mappers.toMovieGenreEntity
 import com.madrid.data.repositories.local.LocalDataSource
 import com.madrid.data.repositories.remote.RemoteDataSource
 import com.madrid.domain.entity.Cast
@@ -22,13 +22,12 @@ class MovieDetailsRepositoryImpl(
 ) : MovieDetailsRepository {
 
     override suspend fun getMovieDetailsById(movieId: Int): Movie {
-        Log.e("MY_TAG","MovieDetailsRepositoryImpl  start $movieId")
-        val res = remoteDataSource.getMovieDetailsById(movieId)
-        Log.e("MY_TAG","MovieDetailsRepositoryImpl  start ${res}")
-        val reslut = res.toMovie()
-        Log.e("MY_TAG","MovieDetailsRepositoryImpl  $reslut")
-        return reslut
-
+        val movieResponse = remoteDataSource.getMovieDetailsById(movieId)
+        movieResponse.movieGenres.map { genre ->
+            val categoryEntity = genre.toMovieGenreEntity()
+            localDataSource.increaseMovieGenreSeenCount(categoryEntity.genreTitle)
+        }
+        return movieResponse.toMovie()
     }
 
     override suspend fun getMovieTrailersById(movieId: Int): Trailer {
@@ -51,15 +50,19 @@ class MovieDetailsRepositoryImpl(
     override suspend fun submitMovieRating(rating: Float) {
         TODO("Not yet implemented")
     }
+
     override suspend fun addMovieToFavourites(movieId: Int) {
         TODO("Not yet implemented")
     }
+
     override suspend fun getCollectionsList(): Flow<List<String>> {
         TODO("Not yet implemented")
     }
+
     override suspend fun addNewCollection(collection: String) {
         TODO("Not yet implemented")
     }
+
     override suspend fun addMovieToList(movieId: Int, listName: String): Boolean {
         TODO("Not yet implemented")
     }

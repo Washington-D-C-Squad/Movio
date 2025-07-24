@@ -2,7 +2,9 @@ package com.madrid.data.dataSource.remote.mapper
 
 
 import com.madrid.data.dataSource.remote.response.artist.ArtistDetailsResponse
+import com.madrid.data.dataSource.remote.response.artist.ArtistKnownForResponse
 import com.madrid.data.dataSource.remote.response.artist.ArtistsResult
+import com.madrid.data.dataSource.remote.response.artist.KnownForMoviesNetwork
 import com.madrid.data.dataSource.remote.response.artist.KnownForNetwork
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
 import com.madrid.domain.entity.ArtisKnownFor
@@ -36,6 +38,7 @@ fun KnownForNetwork.toArtistKnownFor(): ArtisKnownFor {
         imageUrl = "https://image.tmdb.org/t/p/original${this.posterPath}",
         title = this.title ?: "",
         voteAverage = this.voteAverage ?: 0.0,
+        popularity = this.popularity ?: 0.0
     )
 }
 
@@ -46,4 +49,21 @@ fun SearchArtistResponse.toSearchResult(): SearchResult {
         totalPages = this.totalPages,
         totalResults = this.totalResults
     )
+}
+
+fun KnownForMoviesNetwork.toArtistKnownFor(): ArtisKnownFor {
+    return ArtisKnownFor(
+        id = this.id ?: 0,
+        imageUrl = "https://image.tmdb.org/t/p/original${this.posterPath}",
+        title = this.title ?: "",
+        voteAverage = this.voteAverage ?: 0.0,
+        popularity = this.popularity ?: 0.0
+    )
+}
+
+fun ArtistKnownForResponse.toArtisKnownFor(): KnownForMovies {
+    return KnownForMovies(
+        knownForMovies = this.knownForMovies?.map { it.toArtistKnownFor() } ?: emptyList(),
+
+        )
 }
