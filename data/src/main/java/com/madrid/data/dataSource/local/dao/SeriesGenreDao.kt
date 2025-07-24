@@ -5,8 +5,10 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import com.madrid.data.dataSource.local.entity.SeriesGenreEntity
+import com.madrid.data.dataSource.local.entity.relationship.GenreWithSeries
 
 
 @Dao
@@ -45,4 +47,7 @@ interface SeriesGenreDao {
     @Query("DELETE FROM SERIES_GENRE_TABLE")
     suspend fun deleteAllGenres()
 
+    @Transaction
+    @Query("SELECT * FROM SERIES_GENRE_TABLE")
+    fun getSeriesByGenres(): List<GenreWithSeries>
 }

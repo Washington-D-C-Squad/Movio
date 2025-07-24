@@ -5,8 +5,10 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import com.madrid.data.dataSource.local.entity.MovieGenreEntity
+import com.madrid.data.dataSource.local.entity.relationship.GenreWithMovies
 
 
 @Dao
@@ -45,4 +47,7 @@ interface MovieGenreDao {
     @Query("DELETE FROM MOVIE_GENRE_TABLE")
     suspend fun deleteAllCategories()
 
+    @Transaction
+    @Query("SELECT * FROM MOVIE_GENRE_TABLE")
+    fun getMoviesByGenres(): List<GenreWithMovies>
 }

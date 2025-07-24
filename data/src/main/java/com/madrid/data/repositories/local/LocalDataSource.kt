@@ -6,6 +6,8 @@ import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
 import com.madrid.data.dataSource.local.entity.SeriesGenreEntity
+import com.madrid.data.dataSource.local.entity.relationship.GenreWithMovies
+import com.madrid.data.dataSource.local.entity.relationship.GenreWithSeries
 import com.madrid.data.dataSource.local.entity.relationship.MovieGenreCrossRef
 import com.madrid.data.dataSource.local.entity.relationship.SeriesGenreCrossRef
 
@@ -36,4 +38,7 @@ interface LocalDataSource {
 
     suspend fun getAllMovieGenres(): List<MovieGenreEntity>
     suspend fun getAllSeriesGenres(): List<SeriesGenreEntity>
+
+    suspend fun getMoviesByGenres(): List<GenreWithMovies>
+    suspend fun getSeriesByGenres(): List<GenreWithSeries>
 }

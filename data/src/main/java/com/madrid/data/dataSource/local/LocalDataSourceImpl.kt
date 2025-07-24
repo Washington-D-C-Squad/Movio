@@ -12,6 +12,8 @@ import com.madrid.data.dataSource.local.entity.MovieEntity
 import com.madrid.data.dataSource.local.entity.RecentSearchEntity
 import com.madrid.data.dataSource.local.entity.SeriesEntity
 import com.madrid.data.dataSource.local.entity.SeriesGenreEntity
+import com.madrid.data.dataSource.local.entity.relationship.GenreWithMovies
+import com.madrid.data.dataSource.local.entity.relationship.GenreWithSeries
 import com.madrid.data.dataSource.local.entity.relationship.MovieGenreCrossRef
 import com.madrid.data.dataSource.local.entity.relationship.SeriesGenreCrossRef
 import com.madrid.data.repositories.local.LocalDataSource
@@ -100,14 +102,24 @@ class LocalDataSourceImpl(
         return movieGenreDao.getAllCategories()
     }
 
-    override suspend fun relateSeriesToCategory(seriesGenreEntity: SeriesGenreCrossRef){
+    override suspend fun getMoviesByGenres(): List<GenreWithMovies> {
+        return movieGenreDao.getMoviesByGenres()
+    }
+
+    override suspend fun relateSeriesToCategory(seriesGenreEntity: SeriesGenreCrossRef) {
         seriesDao.insertSeriesGenreCrossRef(seriesGenreEntity)
     }
-    override suspend fun increaseSeriesGenreSeenCount(genreTitle: String){
+
+    override suspend fun increaseSeriesGenreSeenCount(genreTitle: String) {
         seriesGenreDao.increaseGenreSearchCount(genreTitle)
     }
 
     override suspend fun getAllSeriesGenres(): List<SeriesGenreEntity> {
         return seriesGenreDao.getAllGenres()
     }
+
+    override suspend fun getSeriesByGenres(): List<GenreWithSeries> {
+        return seriesGenreDao.getSeriesByGenres()
+    }
+
 }

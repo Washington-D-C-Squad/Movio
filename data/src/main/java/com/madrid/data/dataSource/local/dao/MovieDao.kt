@@ -9,6 +9,7 @@ import androidx.room.Transaction
 import androidx.room.Update
 import androidx.room.Upsert
 import com.madrid.data.dataSource.local.entity.MovieEntity
+import com.madrid.data.dataSource.local.entity.relationship.GenreWithMovies
 import com.madrid.data.dataSource.local.entity.relationship.MovieGenreCrossRef
 import com.madrid.data.dataSource.local.entity.relationship.MovieWithGenres
 
@@ -53,8 +54,4 @@ interface MovieDao {
     LIMIT 20 OFFSET :offset 
     """)
     suspend fun searchMovies(title : String, offset: Int): List<MovieWithGenres>
-
-    @Transaction
-    @Query("SELECT * FROM MOVIE_TABLE WHERE movieId = :id")
-    suspend fun getPlaylistsWithSongs(id: Int): List<MovieWithGenres>
 }
