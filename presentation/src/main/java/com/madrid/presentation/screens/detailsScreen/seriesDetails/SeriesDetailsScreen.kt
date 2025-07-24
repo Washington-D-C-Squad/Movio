@@ -85,7 +85,7 @@ fun SeriesDetailsScreen(
                 movieCategory = uiState.seriesGenre,
                 date = uiState.productionDate,
                 time = "${uiState.numberOfSeasons} Seasons",
-                rate = uiState.rate,
+                rate = uiState.rate.take(3),
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
             )
             BottomMediaActions(
