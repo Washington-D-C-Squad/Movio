@@ -117,6 +117,8 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics.ndk)
+    implementation(libs.androidx.foundation.android)
+    implementation(libs.foundation.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -137,4 +139,10 @@ dependencies {
     api(libs.koin.annotations)
     implementation(libs.koin.android)
     implementation(libs.slf4j.simple)
+
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+    implementation(libs.kotlinx.serialization.json)
+
 }

@@ -16,4 +16,5 @@ data class ArtisKnownFor(
     val imageUrl: String,
     val title: String,
     val voteAverage: Double,
+    val popularity: Double
 )

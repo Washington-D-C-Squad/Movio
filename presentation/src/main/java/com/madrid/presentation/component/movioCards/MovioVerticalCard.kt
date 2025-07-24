@@ -55,13 +55,14 @@ fun MovioVerticalCard(
                 imageUrl = movieImage,
                 radius = 8.dp,
                 modifier = Modifier
+                    .padding(bottom = 8.dp)
                     .width(width)
                     .height(height)
                     .clip(RoundedCornerShape(8.dp))
             )
 
         }
-        Spacer(modifier = Modifier.height(8.dp))
+
         MovioText(
             text = description,
             textStyle = Theme.textStyle.title.mediumMedium14,
