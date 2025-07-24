@@ -1,6 +1,7 @@
 package com.madrid.presentation.viewModel.detailsViewModel
 
 data class MovieDetailsUiState(
+    val movieId : String ="",
     val cast: List<CastUiState> = emptyList(),
     val selectedActor: CastUiState? = null,
     val isLoading: Boolean = false,

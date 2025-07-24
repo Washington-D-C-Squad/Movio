@@ -4,21 +4,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.component.TopAppBar
+import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.R
 import com.madrid.presentation.component.movioCards.MovioArtistsCard
 import com.madrid.presentation.navigation.Destinations
@@ -37,16 +34,23 @@ fun TopCastDetailsScreen(
     TopCastDetailsContent(
         artist = uiState.cast,
         onActorClick = { artistId ->
-            navController.navigate(Destinations.ActorDetails(artistId))
+            navController.navigate(
+                Destinations.ActorDetails(
+                    artistId,
+                )
+            )
+        },
+        onBackClick = {
+            navController.popBackStack()
         }
     )
-
 }
 
 @Composable
 fun TopCastDetailsContent(
     artist: List<MovieDetailsUiState.CastUiState>,
-    onActorClick: (Int) -> Unit
+    onActorClick: (Int) -> Unit,
+    onBackClick: () -> Unit
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 101.dp),
@@ -64,6 +68,7 @@ fun TopCastDetailsContent(
             TopAppBar(
                 stringResource(R.string.top_cast),
                 secondIcon = null, thirdIcon = null,
+                onFirstIconClick = { onBackClick() }
             )
         }
         items(artist.size) { castMember ->

@@ -36,15 +36,19 @@ fun ActorDetails(
     viewModel: ActorDetailsViewModel = koinViewModel()
 ) {
     val uiState by viewModel.state.collectAsState()
+    val navController = LocalNavController.current
 
     uiState.selectedActor?.let { actor ->
-        ActorDetailsContent(actor)
+        ActorDetailsContent(actor, onBackClick = {
+            navController.popBackStack()
+        })
     }
 }
 
 @Composable
 fun ActorDetailsContent(
-    actor: MovieDetailsUiState.CastUiState
+    actor: MovieDetailsUiState.CastUiState,
+    onBackClick: () -> Unit
 ) {
     LazyColumn(
         modifier = Modifier
@@ -62,7 +66,7 @@ fun ActorDetailsContent(
                         .padding(top = 6.dp)
                         .padding(16.dp)
                         .align(Alignment.TopCenter),
-                    onFirstIconClick = { /* navigate to the back */ }
+                    onFirstIconClick = { onBackClick() }
 
                 )
                 MoviePosterDetailScreen(

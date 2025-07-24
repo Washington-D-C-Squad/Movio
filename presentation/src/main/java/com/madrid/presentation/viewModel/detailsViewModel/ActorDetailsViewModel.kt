@@ -12,7 +12,7 @@ class ActorDetailsViewModel(
     private val saveStateHandle: SavedStateHandle
 ) : BaseViewModel<MovieDetailsUiState, effect>(MovieDetailsUiState()
 ) {
-    private val args = saveStateHandle.toRoute<Destinations.ActorDetails>()
+    val args = saveStateHandle.toRoute<Destinations.ActorDetails>()
 
     init {
         loadActorDetails()
@@ -49,7 +49,8 @@ class ActorDetailsViewModel(
                     it.copy(
                         selectedActor = mappedActor,
                         isLoading = false,
-                        errorMessage = null
+                        errorMessage = null,
+//                        movieId = args.
                     )
                 }
             },

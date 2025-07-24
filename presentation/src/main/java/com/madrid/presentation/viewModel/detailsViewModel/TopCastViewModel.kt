@@ -18,7 +18,7 @@ class TopCastViewModel(
     MovieDetailsUiState()
 ) {
 
-    private val args = savedStateHandle.toRoute<Destinations.TopCast>()
+     val args = savedStateHandle.toRoute<Destinations.TopCast>()
 
     init {
         Log.d("loadCast", "loadCast ... : ${args.mediaId}")
