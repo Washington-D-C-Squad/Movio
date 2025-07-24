@@ -123,8 +123,22 @@ class SearchRepositoryImpl(
         return emptyList()
     }
 
-    override suspend fun getPopularMovie(): List<Movie> {
-        return emptyList()
+    override suspend fun getPopularMovie(page: Int): List<Movie> {
+        val movies = remoteDataSource.getPopularMovie(
+            page = page
+        ).movieResults
+        movies?.map { movie ->
+            localSource.insertMovie(movie.toMovieEntity())
+            movie.genreIds?.map { genreId ->
+                localSource.relateMovieToCategory(
+                    MovieGenreCrossRef(
+                        movieId = movie.id ?: 0,
+                        genreId = genreId
+                    )
+                )
+            }
+        }
+        return movies?.map { it.toMovie() } ?: emptyList()
     }
 
 
