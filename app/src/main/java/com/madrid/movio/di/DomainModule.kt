@@ -1,11 +1,11 @@
 package com.madrid.movio.di
 
 
-import com.madrid.domain.repository.ArtistDetailsRepository
 import com.madrid.domain.usecase.GetExploreMoreMovieUseCase
 import com.madrid.domain.usecase.GetRecommendedMovieUseCase
 import com.madrid.domain.usecase.mediaDeatailsUseCase.ArtistDetailsUseCase
 import com.madrid.domain.usecase.homeUseCase.MoviesByGenresUseCase
+import com.madrid.domain.usecase.homeUseCase.SeriesByGenresUseCase
 import com.madrid.domain.usecase.mediaDeatailsUseCase.MovieDetailsUseCase
 import com.madrid.domain.usecase.mediaDeatailsUseCase.SeriesDetailsUseCase
 import com.madrid.domain.usecase.searchUseCase.ArtistUseCase
