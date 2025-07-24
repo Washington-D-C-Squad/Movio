@@ -38,7 +38,7 @@ fun EpisodesScreen(viewModel: SeriesDetailsViewModel = koinViewModel()) {
     EpisodesScreenContent(
         uiState,
         viewModel::updateSelectedSeason,
-        onClickBack = { navController.navigate(Destinations.SeasonsScreen(uiState.seriesId, 1)) })
+        onClickBack = { navController.popBackStack()})
 }
 
 @Composable

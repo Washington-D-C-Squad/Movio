@@ -73,6 +73,12 @@ class RemoteDataSourceImpl(
     }
 
     override suspend fun getSeriesCreditsById(seriesId: Int): SeriesCreditResponse {
+        Log.d("TAG lol", "getSeriesCreditsById remote datasource impl: innn start")
+        try {
+            api.getSeriesCreditsById(seriesId)
+        }catch (e: Exception){
+            Log.d("TAG lol", "getSeriesCreditsById: in catchhh : ${e.message}")
+        }
         return api.getSeriesCreditsById(seriesId)
     }
 

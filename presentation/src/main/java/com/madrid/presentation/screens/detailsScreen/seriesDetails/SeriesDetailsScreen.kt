@@ -1,10 +1,12 @@
 package com.madrid.presentation.screens.detailsScreen.seriesDetails
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +14,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
@@ -31,6 +36,8 @@ import com.madrid.presentation.component.CastMember
 import com.madrid.presentation.component.TopCastSection
 import com.madrid.presentation.component.header.MovieDetailsHeader
 import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
+import com.madrid.presentation.component.movioCards.MovioArtistsCard
+import com.madrid.presentation.component.movioCards.MovioSeasonCard
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.detailsScreen.componant.ExpandableDescription
@@ -47,6 +54,9 @@ fun SeriesDetailsScreen(
 ) {
     val uiState by viewModel.state.collectAsState()
     val navController = LocalNavController.current
+    val seasons = uiState.currentSeasonsUiStates
+    val artists = uiState.topCast
+    Log.d("TAG lol", "SeriesDetailsScreen: sizeeeeeeeeeeeeee: ${artists.size}")
 
     Box(
         modifier = Modifier
@@ -58,11 +68,11 @@ fun SeriesDetailsScreen(
             imageUrl = uiState.topImageUrl,
             modifier = Modifier.fillMaxSize()
         )
-        Box(modifier = Modifier.statusBarsPadding()) {
-            TopAppBar(
-                null
-            )
-        }
+        TopAppBar(
+            text = null,
+            modifier = Modifier.padding(start = 16.dp, top = 36.dp),
+            onFirstIconClick = { navController.navigate(Destinations.SearchScreen)}
+        )
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -102,7 +112,7 @@ fun SeriesDetailsScreen(
                 onSeeAllClick = {},
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(Modifier.height(12.dp))
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -122,6 +132,31 @@ fun SeriesDetailsScreen(
                     textStyle = Theme.textStyle.label.smallRegular14,
                     modifier = Modifier.clickable { navController.navigate(Destinations.SeasonsScreen(uiState.seriesId,1)) }
                 )
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+            LazyRow(
+                contentPadding = PaddingValues(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                itemsIndexed(seasons) { index, season ->
+                    MovioSeasonCard(
+                        movieTitle = season.seasonNumber.toString(),
+                        movieImage = season.imageUrl,
+                        movieRate = season.rate,
+                        totalNumberOfEpisodes = season.numberOfEpisodes.toString(),
+                        onClick = {
+                            navController.navigate(
+                                Destinations.EpisodesScreen(
+                                    seriesId = uiState.seriesId,
+                                    seasonNumber = season.seasonNumber
+                                )
+                            )
+                        },
+                        yearOfPublish = season.productionDate,
+                        currentSeason = (index + 1).toString(),
+                        timeOfPublish = season.productionDate
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(32.dp))
             ReviewScreen(

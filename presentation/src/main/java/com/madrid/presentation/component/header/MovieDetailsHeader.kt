@@ -21,6 +21,7 @@ import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.designSystem.theme.Theme
+import com.madrid.presentation.component.DetailsChips
 
 @Composable
 fun MovieDetailsHeader(
@@ -57,17 +58,17 @@ fun MovieDetailsHeader(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.padding(vertical = 4.dp)
         ) {
-            Chips(
+            DetailsChips(
                 icon = painterResource(com.madrid.designSystem.R.drawable.bold_star),
                 iconTint = Theme.color.system.warning,
                 text = rate,
             )
-            Chips(
+            DetailsChips(
                 icon = painterResource(com.madrid.designSystem.R.drawable.outline_clock_circle),
                 iconTint = Theme.color.surfaces.onSurfaceVariant,
                 text = time,
             )
-            Chips(
+            DetailsChips(
                 icon = painterResource(com.madrid.designSystem.R.drawable.outline_calendar),
                 iconTint = Theme.color.surfaces.onSurfaceVariant,
                 text = date,

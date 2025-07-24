@@ -22,7 +22,6 @@ class SeriesDetailsViewModel(
     init {
         Log.d("loool", ": ")
         loadData()
-        loadCastData()
     }
 
     private fun loadData() {
@@ -35,25 +34,26 @@ class SeriesDetailsViewModel(
                         topImageUrl = series.imageUrl,
                         seriesName = series.title,
                         rate = series.rate.toString(),
-                        numberOfSeasons = series.seasons.size ,
+                        numberOfSeasons = series.seasons.size,
                         productionDate = series.yearOfRelease,
                         description = series.description,
                         currentSeasonsUiStates = series.seasons.map { season -> season.mapToUiState() },
-                        selectedSeasonUiState = series.seasons[args.seasonNumber -1].mapToUiState()
+                        selectedSeasonUiState = series.seasons[args.seasonNumber - 1].mapToUiState()
                     )
                 }
                 loadAllSeasonsEpisodes()
+                loadCastData()
             },
             onError = {},
         )
         loadSeasonEpisodes(args.seasonNumber)
     }
 
-    private fun loadAllSeasonsEpisodes(){
+    private fun loadAllSeasonsEpisodes() {
         viewModelScope.launch {
             val seasonCount = state.first().numberOfSeasons
             Log.d("TAG lol", "loadAllSeasonsEpisodes: ${state.first().numberOfSeasons}")
-            for(i in 0..seasonCount){
+            for (i in 0..seasonCount) {
                 tryToExecute(
                     function = { seriesDetailsUseCase.getEpisodesBySeriesId(args.seriesId, i + 1) },
                     onSuccess = { episodes ->
@@ -87,7 +87,7 @@ class SeriesDetailsViewModel(
                 updateState {
                     it.copy(selectedSeasonUiState = it.selectedSeasonUiState.copy(episodesUiStates = episodes.map { episode ->
                         episode.toUiState()
-                    }, numberOfEpisodes = episodes.size , seasonNumber = seasonNumber))
+                    }, numberOfEpisodes = episodes.size, seasonNumber = seasonNumber))
                 }
             },
             onError = { },
@@ -96,7 +96,9 @@ class SeriesDetailsViewModel(
 
     private fun loadCastData() {
         tryToExecute(
-            function = { seriesDetailsUseCase.getSeriesCreditsById(args.seriesId) },
+            function = {
+                seriesDetailsUseCase.getSeriesCreditsById(args.seriesId)
+            },
             onSuccess = { Artists ->
                 updateState {
                     it.copy(topCast = Artists.map { artist ->
@@ -104,7 +106,9 @@ class SeriesDetailsViewModel(
                     })
                 }
             },
-            onError = { },
+            onError = {e ->
+                Log.d("TAG lol", "loadCastData: ${e.message}")
+            },
         )
     }
 }
