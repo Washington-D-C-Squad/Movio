@@ -6,6 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.madrid.domain.entity.Review
 import com.madrid.domain.usecase.mediaDeatailsUseCase.SeriesDetailsUseCase
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.viewModel.base.BaseViewModel
@@ -43,6 +44,7 @@ class SeriesDetailsViewModel(
                 }
                 loadAllSeasonsEpisodes()
                 loadCastData()
+                loadReviews()
             },
             onError = {},
         )
@@ -111,5 +113,36 @@ class SeriesDetailsViewModel(
             },
         )
     }
+
+    private fun loadReviews(){
+
+        tryToExecute(
+            function = {
+                val x = seriesDetailsUseCase.getSeriesReviewsById(args.seriesId)
+                Log.d("TAG lol", "loadReviews: $x")
+                x
+            },
+            onSuccess = { reviews ->
+                updateState {
+                    it.copy(reviews = reviews.map { review ->
+                        review.toUiState()
+                    })
+                }
+            },
+            onError = {e ->
+                Log.d("TAG lol", "loadCastDataaaaaaaaaaaaaaaaaaaaaaaaa: ${e.message}")
+            },
+        )
+    }
+}
+
+fun Review.toUiState(): ReviewUiState{
+    return ReviewUiState(
+        reviewerName = "Anonymous" ,
+        reviewerImageUrl = "",
+        rating = this.rate.toFloat(),
+        date = this.dateOfRelease,
+        content = this.comment
+    )
 }
 

@@ -91,7 +91,7 @@ fun MovieReviewResponse.toReviewResult(
 
 fun MovieReviewResult.toReview(): Review {
     return Review(
-        userId = this.id?.toInt() ?: 0,
+        userId = this.id ?: "0",
         rate = this.authorDetails?.rating ?: 0.0,
         dateOfRelease = this.createdAt ?: "",
         comment = this.content ?: ""

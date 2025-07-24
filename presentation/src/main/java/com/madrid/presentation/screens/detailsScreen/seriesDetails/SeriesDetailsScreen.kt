@@ -44,6 +44,7 @@ import com.madrid.presentation.screens.detailsScreen.componant.ExpandableDescrip
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
 import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarSeries
 import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarSeriesSection
+import com.madrid.presentation.viewModel.detailsViewModel.ReviewUiState
 import com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState
 import com.madrid.presentation.viewModel.detailsViewModel.SeriesDetailsViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -161,7 +162,7 @@ fun SeriesDetailsScreen(
             Spacer(modifier = Modifier.height(32.dp))
             ReviewScreen(
                 onSeeAllReviews = {},
-                uiState = ReviewsScreenUiState()
+                uiState = uiState.reviews.toReviewScreenUiState()
             )
             Spacer(modifier = Modifier.height(32.dp))
             SimilarSeriesSection(
@@ -182,5 +183,9 @@ fun SeriesDetailsScreen(
             )
         }
     }
+}
+
+fun List<ReviewUiState>.toReviewScreenUiState(): ReviewsScreenUiState{
+    return ReviewsScreenUiState(reviews = this)
 }
 
