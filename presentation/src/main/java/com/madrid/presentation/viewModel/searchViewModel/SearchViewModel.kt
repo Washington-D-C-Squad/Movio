@@ -390,7 +390,6 @@ class SearchViewModel(
                 it.copy(
                     searchUiState = it.searchUiState.copy(
                         isLoading = true,
-                        isError = false
                     )
                 )
             }
