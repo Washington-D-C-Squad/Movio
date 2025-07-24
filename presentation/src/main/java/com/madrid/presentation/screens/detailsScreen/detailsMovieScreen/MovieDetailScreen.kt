@@ -16,6 +16,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.madrid.designSystem.component.TopAppBar
 import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.component.BottomMediaActions
@@ -23,11 +24,14 @@ import com.madrid.presentation.component.CastMember
 import com.madrid.presentation.component.TopCastSection
 import com.madrid.presentation.component.header.MovieDetailsHeader
 import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
+import com.madrid.presentation.navigation.Destinations
+import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.detailsScreen.componant.ExpandableDescription
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
-import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMovie
-import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMoviesSection
+import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMovie
+import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMoviesSection
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
+import com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -35,6 +39,7 @@ fun MovieDetailsScreen(
     viewModel: DetailsMovieViewModel = koinViewModel()
 ) {
     val uiState by viewModel.state.collectAsState()
+    val navController = LocalNavController.current
 
     LaunchedEffect(Unit) {
         viewModel.loadData()
@@ -52,7 +57,9 @@ fun MovieDetailsScreen(
         )
         Box(modifier = Modifier.statusBarsPadding()) {
             TopAppBar(
-                null
+                text = null,
+                onFirstIconClick = { navController.navigate(Destinations.SearchScreen)},
+                modifier = Modifier.padding(16.dp)
             )
         }
         Column(
@@ -91,13 +98,20 @@ fun MovieDetailsScreen(
                         imageUrl = cast.imageUrl
                     )
                 },
-                onSeeAllClick = {},
+                onSeeAllClick = {
+                    navController.navigate(
+                        Destinations.TopCastScreen(
+                            mediaId = uiState.movieId.toInt(),
+                            isMovie = true
+                        )
+                    )
+                },
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
             Spacer(modifier = Modifier.height(32.dp))
             ReviewScreen(
                 onSeeAllReviews = {},
-                uiState = com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState()
+                uiState = ReviewsScreenUiState()
             )
             Spacer(modifier = Modifier.height(32.dp))
             SimilarMoviesSection(

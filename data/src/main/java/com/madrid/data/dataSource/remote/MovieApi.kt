@@ -4,6 +4,7 @@ import com.madrid.data.dataSource.remote.response.artist.ArtistDetailsResponse
 import com.madrid.data.dataSource.remote.response.artist.ArtistKnownForResponse
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
 import com.madrid.data.dataSource.remote.response.common.TrailerResponse
+import com.madrid.data.dataSource.remote.response.genre.GenresResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieCreditsResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieDetailsResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieReviewResponse
@@ -62,6 +63,8 @@ interface MovieApi {
         @Path("movie_id") movieId: Int
     ): SimilarMoviesResponse
 
+    @GET("genre/movie/list")
+    suspend fun getMovieGenres(): GenresResponse
 
     // Series
     @GET("search/tv")
@@ -106,6 +109,8 @@ interface MovieApi {
         @Query("page") page: Int
     ): SearchSeriesResponse
 
+    @GET("genre/tv/list")
+    suspend fun getSeriesGenres(): GenresResponse
 
     // Artist
     @GET("search/person")

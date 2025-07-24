@@ -1,31 +1,42 @@
 package com.madrid.presentation.screens.searchScreen.features.recentSearchLayout
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.madrid.designSystem.R
 import com.madrid.designSystem.component.CustomTextTitel
+import com.madrid.designSystem.component.EmptySearchLayout
 import com.madrid.designSystem.component.LoadingSearchCard
+import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.component.movioCards.MovioVerticalCard
 import com.madrid.presentation.viewModel.searchViewModel.SearchScreenState
 
 fun LazyGridScope.forYouAndExploreScreen(
     showSearchResults: Boolean,
     isLoading: Boolean,
+    isError : Boolean,
     forYouMovies: List<SearchScreenState.MovieUiState>,
     exploreMoreMovies: LazyPagingItems<SearchScreenState.MovieUiState>,
     onMovieClick: (SearchScreenState.MovieUiState) -> Unit = {},
@@ -34,9 +45,8 @@ fun LazyGridScope.forYouAndExploreScreen(
 ) {
     if (!showSearchResults) {
         when {
-
-            exploreMoreMovies.itemCount == 0 && exploreMoreMovies.loadState.refresh is LoadState.Loading -> {
-                items(9) {
+            isLoading -> {
+                items(2) {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -48,33 +58,51 @@ fun LazyGridScope.forYouAndExploreScreen(
                 }
             }
 
-            exploreMoreMovies.itemCount == 0 && exploreMoreMovies.loadState.refresh is LoadState.Error -> {
-                item(span = { GridItemSpan(maxLineSpan) }) {
-                    Box(
+            isError -> {
+                item(
+                    span = { GridItemSpan(maxLineSpan) }
+                ) {
+                    Column (
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp),
-                        contentAlignment = Alignment.Center
+                            .fillMaxSize()
+                            .padding(top = 64.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
                     ) {
-                        Text("Something went wrong. Please try again.")
+                        Image(
+                            painter = painterResource(id =  com.madrid.presentation.R.drawable.img_no_internet),
+                            contentDescription = "Search Icon",
+                            modifier = Modifier
+                                .size(128.dp)
+                                .align(CenterHorizontally),
+                            contentScale = ContentScale.Fit
+                        )
                     }
                 }
             }
 
-            exploreMoreMovies.itemCount == 0 && exploreMoreMovies.loadState.refresh is LoadState.NotLoading && exploreMoreMovies.loadState.refresh.endOfPaginationReached -> {
+            forYouMovies.isEmpty()-> {
                 item(span = { GridItemSpan(maxLineSpan) }) {
-                    Box(
+                    Column (
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp),
-                        contentAlignment = Alignment.Center
+                            .fillMaxSize()
+                            .padding(top = 64.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
                     ) {
-                        Text("No results found.")
+                        Image(
+                            painter = painterResource(id =  com.madrid.presentation.R.drawable.img_no_sesrch_found),
+                            contentDescription = "Search Icon",
+                            modifier = Modifier
+                                .size(128.dp)
+                                .align(CenterHorizontally),
+                            contentScale = ContentScale.Fit
+                        )
                     }
                 }
             }
 
-            exploreMoreMovies.itemCount > 0 -> {
+            forYouMovies.isNotEmpty() -> {
                 item(
                     span = { GridItemSpan(maxLineSpan) }
                 ) {
@@ -113,30 +141,78 @@ fun LazyGridScope.forYouAndExploreScreen(
     if (!showSearchResults) {
         when {
             exploreMoreMovies.itemCount == 0 && exploreMoreMovies.loadState.refresh is LoadState.Loading -> {
-            }
-
-            exploreMoreMovies.itemCount == 0 && exploreMoreMovies.loadState.refresh is LoadState.Error -> {
-                item(span = { GridItemSpan(maxLineSpan) }) {
+                items(9) {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(200.dp),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text("Something went wrong. Please try again.")
+                        LoadingSearchCard()
+                    }
+                }
+            }
+
+            exploreMoreMovies.itemCount == 0 && exploreMoreMovies.loadState.refresh is LoadState.Error -> {
+                item(
+                    span = { GridItemSpan(maxLineSpan) }
+                ) {
+                    Column (
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = 64.dp),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "Internet is not available",
+                            style = Theme.textStyle.title.mediumMedium16,
+                            color = Theme.color.surfaces.onSurface,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "Please make sure you are connected to the internet and try again.",
+                            style = Theme.textStyle.label.smallRegular12,
+                            color = Theme.color.surfaces.onSurfaceContainer,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 8.dp)
+                        )
+
                     }
                 }
             }
 
             exploreMoreMovies.itemCount == 0 && exploreMoreMovies.loadState.refresh is LoadState.NotLoading && exploreMoreMovies.loadState.refresh.endOfPaginationReached -> {
                 item(span = { GridItemSpan(maxLineSpan) }) {
-                    Box(
+                    Column (
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp),
-                        contentAlignment = Alignment.Center
+                            .fillMaxSize()
+                            .padding(top = 64.dp),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text("No results found.")
+                        Text(
+                            text = "No results found",
+                            style = Theme.textStyle.title.mediumMedium16,
+                            color = Theme.color.surfaces.onSurface,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "We couldn’t find anything matching your search. Try checking the spelling or explore something else!",
+                            style = Theme.textStyle.label.smallRegular12,
+                            color = Theme.color.surfaces.onSurfaceContainer,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 8.dp)
+                        )
+
                     }
                 }
             }
