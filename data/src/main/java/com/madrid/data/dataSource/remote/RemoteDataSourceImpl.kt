@@ -1,10 +1,12 @@
 package com.madrid.data.dataSource.remote
 
 import android.util.Log
+import com.madrid.data.dataSource.remote.mapper.toArtist
 import com.madrid.data.dataSource.remote.response.artist.ArtistDetailsResponse
 import com.madrid.data.dataSource.remote.response.artist.ArtistKnownForResponse
 import com.madrid.data.dataSource.remote.response.artist.SearchArtistResponse
 import com.madrid.data.dataSource.remote.response.common.TrailerResponse
+import com.madrid.data.dataSource.remote.response.genre.GenresResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieCreditsResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieDetailsResponse
 import com.madrid.data.dataSource.remote.response.movie.MovieReviewResponse
@@ -64,6 +66,10 @@ class RemoteDataSourceImpl(
         return api.getSimilarMoviesById(movieId)
     }
 
+    override suspend fun getMovieGenres(): GenresResponse {
+        return api.getMovieGenres()
+    }
+
     // Series
     override suspend fun searchSeriesByQuery(name: String, page: Int): SearchSeriesResponse {
         return api.searchSeriesByQuery(name, page)
@@ -90,6 +96,10 @@ class RemoteDataSourceImpl(
         seasonNumber: Int
     ): SeasonEpisodesResponse {
         return api.getEpisodesBySeasonId(seriesId, seasonNumber)
+    }
+
+    override suspend fun getSeriesGenres(): GenresResponse {
+        return api.getSeriesGenres()
     }
 
     // Artist
@@ -124,7 +134,17 @@ class RemoteDataSourceImpl(
     }
 
     override suspend fun getArtistById(artistId: Int): ArtistDetailsResponse {
-        throw NotImplementedError("Not implemented in MovieApi interface yet.")
+        Log.e("MY_TAG", "ArtistDetailsRepositoryImpl start $artistId")
+
+        val response = api.getArtistDetailsById(artistId)
+
+        Log.e("MY_TAG", "ArtistDetailsRepositoryImpl response $response")
+
+        val result = response
+
+        Log.e("MY_TAG", "ArtistDetailsRepositoryImpl mapped $result")
+
+        return result
     }
 
     override suspend fun getAllTrending(page: Int): AllTrendingResponse {

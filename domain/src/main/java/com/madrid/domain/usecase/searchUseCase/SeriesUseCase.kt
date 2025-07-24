@@ -5,5 +5,5 @@ import com.madrid.domain.repository.SearchRepository
 class SeriesUseCase(private val searchRepository: SearchRepository) {
     suspend operator fun invoke(
         query: String, page: Int = 1
-    ) = searchRepository.getTopRatedSeries(query = query, page = page)
+    ) = searchRepository.getSeriesByQuery(query = query, page = page)
 }

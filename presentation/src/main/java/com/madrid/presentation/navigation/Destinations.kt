@@ -62,4 +62,16 @@ sealed interface Destinations {
 
     @Serializable
     data object MoreScreen : Destinations
+
+    @Serializable
+    data class ActorDetails(
+        val artistId: Int,
+    ) : Destinations
+
+    @Serializable
+    data class TopCast(
+        val mediaId: Int,
+        val isMovie: Boolean
+    ) : Destinations
+
 }
