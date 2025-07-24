@@ -4,11 +4,15 @@ import kotlinx.serialization.Serializable
 
 sealed interface Destinations {
 
+
     @Serializable
     data object SplashScreen : Destinations
 
     @Serializable
     data object SeeAllForYouScreen : Destinations
+
+    @Serializable
+    data object SeeAllSimilarMoviesScreen : Destinations
 
     @Serializable
     data object OnBoarding : Destinations

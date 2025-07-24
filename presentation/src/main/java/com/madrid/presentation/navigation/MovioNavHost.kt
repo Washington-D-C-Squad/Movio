@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import com.madrid.presentation.navigation.Destinations.SeeAllForYouScreen
+import com.madrid.presentation.navigation.Destinations.SeeAllSimilarMoviesScreen
 import com.madrid.presentation.navigation.Destinations.TopCastScreen
 import com.madrid.presentation.screens.detailsScreen.castDetails.TopCastScreenList
 import com.madrid.presentation.screens.detailsScreen.componant.RatingMovieBottomSheet
@@ -34,6 +35,10 @@ fun MovioNavHost(navController: NavHostController) {
             fadeOut(tween(0))
         }
     ) {
+        composable<Destinations.SeeAllForSimilarMovies> {
+
+            SeeAllSimilarMoviesScreen()
+        }
         composable<Destinations.SeeAllForYouScreen> {
 
             SeeAllForYouScreen()

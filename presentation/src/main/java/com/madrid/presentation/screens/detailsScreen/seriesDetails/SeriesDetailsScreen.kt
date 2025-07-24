@@ -20,7 +20,6 @@ import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.component.TopAppBar
 import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.component.BottomMediaActions
-import com.madrid.presentation.component.CastMember
 import com.madrid.presentation.component.TopCastSection
 import com.madrid.presentation.component.header.MovieDetailsHeader
 import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
@@ -86,17 +85,17 @@ fun SeriesDetailsScreen(
             )
 
             Spacer(modifier = Modifier.height(16.dp))
-            TopCastSection(
-                castMembers = uiState.topCast.map { cast ->
-                    CastMember(
-                        id = cast.id.toString(),
-                        name = cast.name,
-                        imageUrl = cast.imageUrl
-                    )
-                },
-                onSeeAllClick = {},
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-            )
+//            TopCastSection(
+//                castMembers = uiState.topCast.map { cast ->
+//                    CastMember(
+//                        id = cast.id.toString(),
+//                        name = cast.name,
+//                        imageUrl = cast.imageUrl
+//                    )
+//                },
+//                onSeeAllClick = {},
+//                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+//            )
             Spacer(modifier = Modifier.height(32.dp))
             ReviewScreen(
                 onSeeAllReviews = {},

@@ -25,16 +25,19 @@ import com.madrid.presentation.component.header.MovieDetailsHeader
 import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
+import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMoviesUiState
 import com.madrid.presentation.screens.detailsScreen.componant.ExpandableDescription
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewsScreenUiState
 import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMoviesSection
+import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMoviesViewModel
+import com.madrid.presentation.screens.detailsScreen.similarMovies.createSimilarMoviesViewModel
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
 import org.koin.androidx.compose.koinViewModel
-@Suppress("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MovieDetailsScreen(
-    viewModel: DetailsMovieViewModel = koinViewModel()
+    viewModel: DetailsMovieViewModel = koinViewModel(),
+    similarMoviesViewModel: SimilarMoviesViewModel = createSimilarMoviesViewModel()
 ) {
     val navController = LocalNavController.current
     val uiState by viewModel.state.collectAsState()
@@ -43,6 +46,11 @@ fun MovieDetailsScreen(
         viewModel.loadData()
     }
 
+    val similarMoviesUiState by similarMoviesViewModel.uiState.collectAsState()
+    LaunchedEffect(uiState.movieId) {
+        similarMoviesViewModel.loadSimilarMovies(uiState.movieId)
+    }
+    
     Box(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
@@ -124,14 +132,7 @@ fun MovieDetailsScreen(
                     navController.navigate(Destinations.MovieDetailsScreen(movie.id))
                 },
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                movies = uiState.similarMovies.map { movie ->
-                    SimilarMovie(
-                        id = movie.id,
-                        title = movie.name,
-                        imageUrl = movie.imageUrl,
-                        rate = movie.rate
-                    )
-                }
+                movies = similarMoviesUiState.movies
             )
         }
     }
