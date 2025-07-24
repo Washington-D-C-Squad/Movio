@@ -75,36 +75,49 @@ fun LazyGridScope.forYouAndExploreScreen(
             }
 
             exploreMoreMovies.itemCount > 0 -> {
+
                 item(
                     span = { GridItemSpan(maxLineSpan) }
                 ) {
-                    CustomTextTitel(
-                        primaryText = stringResource(com.madrid.presentation.R.string.for_u),
-                        secondaryText = stringResource(com.madrid.presentation.R.string.see_all),
-                        endIcon = painterResource(R.drawable.outline_alt_arrow_left),
-                        onSeeAllClick = { onClickSeeAll() }
+                    CustomHorizontalCard(
+                        primaryTextForCustomTextTitel = stringResource(com.madrid.presentation.R.string.for_u),
+                        secondaryTextForCustomTextTitel = stringResource(com.madrid.presentation.R.string.see_all),
+                        endIconForCustomTextTitel = painterResource(R.drawable.outline_alt_arrow_left),
+                        onSeeAllClick = { onClickSeeAll() },
+                        ListOfMedia = forYouMovies,
+                        onMediaClick = { onMovieClick }
                     )
                 }
-                item(
-                    span = { GridItemSpan(maxLineSpan) }
-                ) {
-                    LazyRow(
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        modifier = Modifier.height(200.dp)
-                    ) {
-                        items(forYouMovies) { movie ->
-                            MovioVerticalCard(
-                                description = movie.title,
-                                movieImage = movie.imageUrl,
-                                rate = movie.rating,
-                                width = 124.dp,
-                                height = 160.dp,
-                                paddingValue = 8.dp,
-                                onClick = { onMovieClick(movie) }
-                            )
-                        }
-                    }
-                }
+//                item(
+//                    span = { GridItemSpan(maxLineSpan) }
+//                ) {
+//                    CustomTextTitel(
+//                        primaryText = stringResource(com.madrid.presentation.R.string.for_u),
+//                        secondaryText = stringResource(com.madrid.presentation.R.string.see_all),
+//                        endIcon = painterResource(R.drawable.outline_alt_arrow_left),
+//                        onSeeAllClick = { onClickSeeAll() }
+//                    )
+//                }
+//                item(
+//                    span = { GridItemSpan(maxLineSpan) }
+//                ) {
+//                    LazyRow(
+//                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+//                        modifier = Modifier.height(200.dp)
+//                    ) {
+//                        items(forYouMovies) { movie ->
+//                            MovioVerticalCard(
+//                                description = movie.title,
+//                                movieImage = movie.imageUrl,
+//                                rate = movie.rating,
+//                                width = 124.dp,
+//                                height = 160.dp,
+//                                paddingValue = 8.dp,
+//                                onClick = { onMovieClick(movie) }
+//                            )
+//                        }
+//                    }
+//                }
             }
         }
     }

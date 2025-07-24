@@ -2,6 +2,7 @@ package com.madrid.presentation.viewModel.searchViewModel
 
 import androidx.compose.runtime.Immutable
 import androidx.paging.PagingData
+import com.madrid.presentation.viewModel.dataclassinterface.MediaUiState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -30,22 +31,21 @@ data class SearchScreenState(
         val artist: Flow<PagingData<ArtistUiState>> = flow {},
     )
 
-
     data class MovieUiState(
-        val id: String = "",
-        val title: String = "",
-        val imageUrl: String = "",
-        val rating: String = "",
-        val category: String = ""
-    )
+        override val id: String = "",
+        override val title: String = "",
+        override val imageUrl: String = "",
+        override val rating: String = "",
+        override val category: String = "",
+    ) : MediaUiState
 
     data class SeriesUiState(
-        val id: String = "",
-        val title: String = "",
-        val imageUrl: String = "",
-        val rating: String = "",
-        val category: String = ""
-    )
+        override val id: String = "",
+        override val title: String = "",
+        override val imageUrl: String = "",
+        override val rating: String = "",
+        override val category: String = "",
+    ) : MediaUiState
 
     data class ArtistUiState(
         val id: String = "",
