@@ -3,7 +3,6 @@ package com.madrid.presentation.screens.detailsScreen.detailsMovieScreen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,19 +16,15 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.paging.LoadState
-import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.collectAsLazyPagingItems
 import com.madrid.designSystem.R
-import com.madrid.designSystem.component.EmptySearchLayout
 import com.madrid.designSystem.component.LoadingSearchCard
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.MovioText
@@ -37,42 +32,44 @@ import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.component.movioCards.MovioVerticalCard
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
+import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMoviesUiState
 import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMoviesViewModel
-import com.madrid.presentation.viewModel.searchViewModel.SearchScreenState
+import com.madrid.presentation.screens.detailsScreen.similarMovies.createSimilarMoviesViewModel
 
 @Composable
 fun SeeAllSimilarMoviesScreen(
     movieId: Int,
-    viewModel: SimilarMoviesViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+    viewModel: SimilarMoviesViewModel = createSimilarMoviesViewModel(),
 ) {
     val navController = LocalNavController.current
     val uiState by viewModel.uiState.collectAsState()
-    val similarMovies = uiState.similarMovies.collectAsLazyPagingItems()
 
     LaunchedEffect(movieId) {
         viewModel.loadSimilarMovies(movieId)
     }
 
     SeeAllSimilarMoviesScreenContent(
-        similarMovies = similarMovies,
+        uiState = uiState,
         onClickBackIcon = { navController.popBackStack() },
-        onMovieClick = { movieId ->
-            navController.navigate(Destinations.MovieDetailsScreen(movieId))
+        onMovieClick = { selectedMovieId ->
+            navController.navigate(Destinations.MovieDetailsScreen(selectedMovieId))
+        },
+        onRetry = {
+            viewModel.retry(movieId)
         }
     )
 }
 
 @Composable
 private fun SeeAllSimilarMoviesScreenContent(
-    similarMovies: LazyPagingItems<SearchScreenState.MovieUiState>,
+    uiState: SimilarMoviesUiState,
     onClickBackIcon: () -> Unit,
-    onMovieClick: (Int) -> Unit = {}
+    onMovieClick: (Int) -> Unit = {},
+    onRetry: () -> Unit = {}
 ) {
-    val isLoading = similarMovies.loadState.refresh is LoadState.Loading
-    val isError = similarMovies.loadState.refresh is LoadState.Error
-    val isEmpty = similarMovies.itemCount == 0 &&
-            similarMovies.loadState.refresh is LoadState.NotLoading &&
-            !similarMovies.loadState.refresh.endOfPaginationReached
+    val isLoading = uiState.isLoading
+    val isError = uiState.errorMessage != null
+    val isEmpty = !isLoading && !isError && uiState.movies.isEmpty()
 
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 100.dp),
@@ -118,86 +115,18 @@ private fun SeeAllSimilarMoviesScreenContent(
                 }
             }
 
-            isError -> {
-                item(span = { GridItemSpan(maxLineSpan) }) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 64.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        EmptySearchLayout(
-                            title = "Internet is not available",
-                            description = "Please make sure you are connected to the internet and try again.",
-                            image = com.madrid.presentation.R.drawable.img_no_internet
-                        )
-                    }
-                }
-            }
-
-            isEmpty -> {
-                item(span = { GridItemSpan(maxLineSpan) }) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 64.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        EmptySearchLayout(
-                            title = "No similar movies found",
-                            description = "We couldn't find any movies similar to this one. Try exploring other movies!",
-                            image = com.madrid.presentation.R.drawable.img_no_sesrch_found
-                        )
-                    }
-                }
-            }
-
             else -> {
-                items(count = similarMovies.itemCount) { index ->
-                    similarMovies[index]?.let { movie ->
+                items(count = uiState.movies.size) { index ->
+                    val movie = uiState.movies[index]
                         MovioVerticalCard(
                             modifier = Modifier.fillMaxWidth(),
                             description = movie.title,
                             movieImage = movie.imageUrl,
-                            rate = movie.rating,
+                            rate = movie.rate.toString(),
                             width = 101.dp,
                             height = 136.dp,
-                            onClick = { onMovieClick(movie.id.toInt()) }
+                            onClick = { onMovieClick(movie.id) }
                         )
-                    }
-                }
-
-                // Handle loading more items
-                when (similarMovies.loadState.append) {
-                    is LoadState.Loading -> {
-                        item(span = { GridItemSpan(maxLineSpan) }) {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(16.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                LoadingSearchCard()
-                            }
-                        }
-                    }
-                    is LoadState.Error -> {
-                        item(span = { GridItemSpan(maxLineSpan) }) {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(16.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                MovioText(
-                                    text = "Error loading more movies",
-                                    color = Theme.color.surfaces.onSurface,
-                                    textStyle = Theme.textStyle.body.mediumMedium14
-                                )
-                            }
-                        }
-                    }
-                    else -> {}
                 }
             }
         }
