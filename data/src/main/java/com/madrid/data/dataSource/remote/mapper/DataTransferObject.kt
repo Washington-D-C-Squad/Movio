@@ -1,5 +1,6 @@
 package com.madrid.data.dataSource.remote.mapper
 
+import com.madrid.domain.entity.ArtisKnownFor
 import com.madrid.domain.entity.Cast
 import com.madrid.domain.entity.Episode
 
@@ -33,4 +34,7 @@ data class SearchResult(
     val totalResults: Int?
 )
 
+data class KnownForMovies(
+    val knownForMovies: List<ArtisKnownFor>?,
+)
 

@@ -39,7 +39,6 @@ import com.madrid.presentation.component.EmptyRececntSearch
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.refreshScreenHolder.RefreshScreenHolder
-import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.RecentSearchLayout
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.filterSearchScreen
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.forYouAndExploreScreen
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.recentSearchScreen
@@ -58,11 +57,7 @@ fun SearchScreen(
     val uiState by viewModel.state.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
     val navController = LocalNavController.current
-    var isRecentSearchActive by remember { mutableStateOf(false) }
 
-    if (isRecentSearchActive) {
-        RecentSearchLayout()
-    }
 
     RefreshScreenHolder(
         refreshState = uiState.searchUiState.refreshState,
@@ -70,7 +65,7 @@ fun SearchScreen(
     ) {
         ContentSearchScreen(
             onSeriesClick = { seriesId ->
-                navController.navigate(Destinations.EpisodesScreen(seriesId = seriesId))
+                navController.navigate(Destinations.SeasonsScreen(seriesId = seriesId, seasonNumber = 1))
             },
             addRecentSearch = {
                 viewModel.addRecentSearch(it)
