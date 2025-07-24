@@ -9,9 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.madrid.designSystem.theme.Theme
 import com.madrid.designSystem.R
 import com.madrid.designSystem.component.MovioIcon
@@ -20,11 +18,7 @@ import com.madrid.detectImageContent.FilteredImage
 
 @Composable
 fun ReviewCard(
-    reviewerName: String,
-    reviewerImageUrl: String,
-    rating: Float,
-    date: String,
-    content: String
+    reviewUiState: com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewUiState
 ) {
     Column(
         modifier = Modifier
@@ -46,7 +40,7 @@ fun ReviewCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             FilteredImage(
-                imageUrl = reviewerImageUrl,
+                imageUrl = reviewUiState.reviewerImageUrl,
                 contentDescription = null,
                 modifier = Modifier
                     .clip(CircleShape)
@@ -58,12 +52,12 @@ fun ReviewCard(
                 verticalArrangement = Arrangement.Center
             ) {
                 MovioText(
-                    text = reviewerName,
+                    text = reviewUiState.reviewerName,
                     color = Theme.color.surfaces.onSurface,
                     textStyle = Theme.textStyle.title.mediumMedium14
                 )
                 MovioText(
-                    text = date,
+                    text = reviewUiState.date,
                     color = Theme.color.surfaces.onSurfaceContainer,
                     textStyle = Theme.textStyle.body.smallRegular10
                 )
@@ -80,7 +74,7 @@ fun ReviewCard(
                     modifier = Modifier.size(16.dp)
                 )
                 MovioText(
-                    text = rating.toString(),
+                    text = reviewUiState.rating.toString(),
                     color = Theme.color.system.onWarning,
                     textStyle = Theme.textStyle.label.smallRegular14
                 )
@@ -88,22 +82,11 @@ fun ReviewCard(
         }
         Spacer(modifier = Modifier.height(12.dp))
         MovioText(
-            text = content,
+            text = reviewUiState.content,
             color = Theme.color.surfaces.onSurfaceVariant,
             textStyle = Theme.textStyle.label.smallRegular12,
             maxLines = 4,
             modifier = Modifier.fillMaxWidth()
         )
     }
-}
-@Preview(showBackground = true , showSystemUi = true)
-@Composable
-fun kj(){
-    ReviewCard(
-        reviewerName = "Awkwafina",
-        reviewerImageUrl = "https://image.tmdb.org/t/p/w500/5xKGk6q5g7mVmg7k7U1RrLSHwz6.jpg",
-        rating = 4.5f,
-        date = "June 14, 2025",
-        content = "This isn't a film, it's a live action video game with a predictable plot and loads of technologically choreographed CGI to substitute for anything vaguely akin to emotion."
-    )
 }
