@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -16,16 +15,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.madrid.designSystem.R
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.designSystem.theme.Theme
-import com.madrid.detectImageContent.FilteredImage
 
 @Composable
 fun TrendingMovieCard(
@@ -38,33 +37,20 @@ fun TrendingMovieCard(
     Row(
         modifier = modifier
             .height(100.dp)
-            .fillMaxWidth()
+            .width(240.dp)
     ) {
-        if (imgUrl.isNotEmpty() == true) {
-            FilteredImage(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .clip(RoundedCornerShape(8.dp)),
-                imageUrl = imgUrl,
-                contentDescription = "Movie Poster",
-            )
-        } else {
-            Box(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .width(76.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(Theme.color.system.defaultImageBackground),
-                contentAlignment = Alignment.Center
-            ) {
-                MovioIcon(
-                    painter = painterResource(R.drawable.bold_star),
-                    contentDescription = "Default Image",
-                    tint = Theme.color.system.warning,
-                    modifier = Modifier.size(24.dp)
-                )
-            }
-        }
+
+        AsyncImage(
+            model = imgUrl,
+            modifier = Modifier
+                .clip(RoundedCornerShape(8.dp))
+                .fillMaxHeight()
+                .width(76.dp),
+            contentDescription = "Movie Poster",
+            contentScale = ContentScale.Crop,
+            placeholder = painterResource(R.drawable.bold_heart),
+        )
+
         Box(
             modifier = Modifier
                 .fillMaxHeight()
@@ -72,11 +58,10 @@ fun TrendingMovieCard(
         ) {
             Column {
                 Text(
-                    movieTitle,
-                  //  color = Theme.color.surfaces.onSurface,
-                    color = Red,
+                    text = movieTitle,
+                    color = Theme.color.surfaces.onSurface,
                     style = Theme.textStyle.title.mediumMedium14,
-                    maxLines = 2,
+                    maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Row(
