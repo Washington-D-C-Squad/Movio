@@ -1,5 +1,6 @@
 package com.madrid.data.repositories
 
+import android.util.Log
 import com.madrid.data.dataSource.local.mappers.toMovieGenreEntity
 import com.madrid.data.dataSource.remote.mapper.toCredits
 import com.madrid.data.dataSource.remote.mapper.toEpisode
@@ -42,8 +43,10 @@ class SeriesDetailsRepositoryImpl(
     }
 
     override suspend fun getSeriesReviewsById(seriesId: Int): List<Review> {
-        return remoteDataSource.getSeriesReviewsById(seriesId).toReviewResult().results
-            ?: emptyList()
+        Log.d("TAG lol", "getSeriesReviewsById repo impl: ")
+        val x = remoteDataSource.getSeriesReviewsById(seriesId).toReviewResult().results ?: emptyList()
+        Log.d("TAG lol", "getSeriesReviewsById repo impl: $x")
+        return x
     }
 
     override suspend fun getSimilarSeriesById(seriesId: Int): List<SimilarSeries> {

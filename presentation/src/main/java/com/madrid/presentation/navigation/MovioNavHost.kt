@@ -10,8 +10,10 @@ import androidx.navigation.compose.composable
 import com.madrid.presentation.screens.detailsScreen.castDetails.ActorDetails
 import com.madrid.presentation.screens.detailsScreen.castDetails.TopCastDetailsScreen
 import com.madrid.presentation.screens.detailsScreen.detailsMovieScreen.MovieDetailsScreen
+import com.madrid.presentation.screens.detailsScreen.reviewsScreen.ReviewsScreen
 import com.madrid.presentation.screens.detailsScreen.seriesDetails.EpisodesScreen
 import com.madrid.presentation.screens.detailsScreen.seriesDetails.SeasonsScreen
+import com.madrid.presentation.screens.detailsScreen.seriesDetails.SeriesDetailsScreen
 import com.madrid.presentation.screens.searchScreen.SearchScreen
 import com.madrid.presentation.screens.searchScreen.SeeAllForYou.SeeAllForYouScreen
 
@@ -55,10 +57,10 @@ fun MovioNavHost(navController: NavHostController) {
             MovieDetailsScreen()
         }
         composable<Destinations.SeriesDetailsScreen> {
-            //call SeriesDetailsScreen()
+            SeriesDetailsScreen()
         }
         composable<Destinations.ReviewsScreen> {
-            //call ReviewsScreen()
+            ReviewsScreen()
         }
         composable<Destinations.SeasonsScreen> {
             SeasonsScreen()
