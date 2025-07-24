@@ -93,7 +93,7 @@ fun SeriesReviewResponse.toReviewResult(): ReviewResult {
 
 fun SeriesReviewResult.toReview(): Review {
     return Review(
-        userId = this.id?.toInt() ?: 0,
+        userId = this.id ?: "",
         rate = this.authorDetails?.rating ?: 0.0,
         dateOfRelease = this.createdAt ?: "",
         comment = this.content ?: "",

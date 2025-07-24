@@ -28,8 +28,8 @@ import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.detailsScreen.componant.ExpandableDescription
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
-import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMovie
-import com.madrid.presentation.screens.detailsScreen.similarMovies.SimilarMoviesSection
+import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMovie
+import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMoviesSection
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
 import com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState
 import org.koin.androidx.compose.koinViewModel
@@ -58,6 +58,7 @@ fun MovieDetailsScreen(
         Box(modifier = Modifier.statusBarsPadding()) {
             TopAppBar(
                 text = null,
+                onFirstIconClick = { navController.navigate(Destinations.SearchScreen)},
                 modifier = Modifier.padding(16.dp)
             )
         }

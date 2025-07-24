@@ -31,7 +31,7 @@ fun SeasonsScreen(viewModel: SeriesDetailsViewModel = koinViewModel()) {
     val navController = LocalNavController.current
     SeasonsScreenContent(
         uiState = uiState,
-        onClickBack = { navController.navigate(Destinations.SearchScreen) },
+        onClickBack = { navController.navigate(Destinations.SeriesDetailsScreen(uiState.seriesId,1)) },
         onClickSeason = { seasonNumber ->
             navController.navigate(
                 Destinations.EpisodesScreen(

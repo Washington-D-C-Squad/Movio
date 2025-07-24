@@ -10,6 +10,7 @@ import com.madrid.presentation.viewModel.homeViewModel.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import com.madrid.presentation.viewModel.detailsViewModel.ActorDetailsViewModel
+import com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenViewModel
 import org.koin.dsl.module
 
 
@@ -22,5 +23,6 @@ val presentationModule = module {
     viewModelOf(::SeriesDetailsViewModel)
     viewModelOf(::HomeViewModel)
     viewModel { SeriesDetailsViewModel(get(), get()) }
+    viewModelOf(::ReviewsScreenViewModel)
     viewModel { SeriesDetailsViewModel(get(),get()) }
 }

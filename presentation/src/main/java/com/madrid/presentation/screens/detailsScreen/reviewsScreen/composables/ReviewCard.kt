@@ -24,10 +24,11 @@ fun ReviewCard(
     reviewerImageUrl: String,
     rating: Float,
     date: String,
-    content: String
+    content: String,
+    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .width(258.dp)
             .height(137.dp)
             .background(

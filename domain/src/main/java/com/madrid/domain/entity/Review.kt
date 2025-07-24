@@ -2,7 +2,7 @@ package com.madrid.domain.entity
 
 data class Review(
     val mediaId: Int = 0,
-    val userId: Int,
+    val userId: String,
     val rate: Double,
     val dateOfRelease: String,
     val comment: String,
