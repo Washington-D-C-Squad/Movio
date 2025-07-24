@@ -181,7 +181,7 @@ fun LazyGridScope.filterSearchScreen(
                                     EmptySearchLayout(
                                         title = "No results found",
                                         description = "We couldn’t find anything matching your search. Try checking the spelling or explore something else!",
-                                        image = com.madrid.presentation.R.drawable.img_no_sesrch_found
+                                        image = R.drawable.img_no_sesrch_found
                                     )
                                 }
                             }
