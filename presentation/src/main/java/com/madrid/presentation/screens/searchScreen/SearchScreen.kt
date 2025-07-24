@@ -23,8 +23,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -32,6 +35,7 @@ import com.madrid.designSystem.R
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.textInputField.BasicTextInputField
 import com.madrid.designSystem.theme.Theme
+import com.madrid.presentation.component.EmptyRececntSearch
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.refreshScreenHolder.RefreshScreenHolder
@@ -106,7 +110,9 @@ fun SearchScreen(
             onClearAll = { viewModel.clearAll() },
             onClickSeeAll = {
                 navController.navigate(Destinations.SeeAllForYouScreen)
-            }
+            },
+            highlightrecentSearch = viewModel::highlightCharactersInText
+
         )
         uiState.searchUiState.errorMessage?.let { errorMsg ->
             LaunchedEffect(errorMsg) {
@@ -155,6 +161,7 @@ fun ContentSearchScreen(
     isLoading: Boolean = false,
     onClickSeeAll: () -> Unit,
     onSeriesClick: (Int) -> Unit = {},
+    highlightrecentSearch: (String, String, Color, Color, TextStyle) -> AnnotatedString,
 ) {
     val showSearchResults = searchQuery.isNotBlank()
     var typeOfFilterSearch by remember { mutableStateOf("topRated") }
@@ -256,13 +263,19 @@ fun ContentSearchScreen(
                 }
             )
         }
-        if (showRecentSearch == 1) {
+
+        if (showRecentSearch == 1 && searchHistory.isNotEmpty()) {
             recentSearchScreen(
                 searchHistory = searchHistory,
+                searchQuery = searchQuery,
                 onSearchItemClick = { onSearchItemClick(it) },
                 onRemoveItem = { onRemoveItem(it) },
                 onClearAll = { onClearAll() },
+                highlightCharactersInText = highlightrecentSearch,
             )
+        }
+        if (showRecentSearch == 1 && searchHistory.isEmpty()) {
+            EmptyRececntSearch()
         }
     }
 }

@@ -1,12 +1,15 @@
 package com.madrid.data.repositories
 
 import android.util.Log
+import com.madrid.data.dataSource.local.mappers.toMovieGenreEntity
 import com.madrid.data.dataSource.remote.mapper.toCredits
 import com.madrid.data.dataSource.remote.mapper.toEpisode
+import com.madrid.data.dataSource.remote.mapper.toMovie
 import com.madrid.data.dataSource.remote.mapper.toReviewResult
 import com.madrid.data.dataSource.remote.mapper.toSeries
 import com.madrid.data.dataSource.remote.mapper.toSimilarSeries
 import com.madrid.data.dataSource.remote.mapper.toTrailer
+import com.madrid.data.repositories.local.LocalDataSource
 import com.madrid.data.repositories.remote.RemoteDataSource
 import com.madrid.domain.entity.Cast
 import com.madrid.domain.entity.Episode
@@ -18,12 +21,17 @@ import com.madrid.domain.repository.SeriesDetailsRepository
 import kotlinx.coroutines.flow.Flow
 
 class SeriesDetailsRepositoryImpl(
+    private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource,
 ) : SeriesDetailsRepository {
 
     //region series details
     override suspend fun getSeriesDetailsById(seriesId: Int): Series {
-        return remoteDataSource.getSeriesDetailsById(seriesId).toSeries()
+        val seriesResponse = remoteDataSource.getSeriesDetailsById(seriesId)
+        seriesResponse.genres?.map { genre ->
+            localDataSource.increaseSeriesGenreSeenCount(genre.name ?: "")
+        }
+        return seriesResponse.toSeries()
     }
 
     override suspend fun getSeriesTrailersById(seriesId: Int): Trailer {
