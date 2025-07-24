@@ -50,7 +50,6 @@ fun CustomTextTitel(
                         painter = it,
                         contentDescription = "See all",
                         tint = Theme.color.surfaces.onSurfaceVariant,
-                        //modifier = Modifier.padding(end = 16.dp)
                     )
                 }
             }
