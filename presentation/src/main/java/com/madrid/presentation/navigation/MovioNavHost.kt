@@ -4,10 +4,12 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
+import androidx.navigation.toRoute
 import com.madrid.presentation.navigation.Destinations.SeeAllForYouScreen
 import com.madrid.presentation.navigation.Destinations.SeeAllSimilarMoviesScreen
 import com.madrid.presentation.navigation.Destinations.TopCastScreen
@@ -37,12 +39,11 @@ fun MovioNavHost(navController: NavHostController) {
             fadeOut(tween(0))
         }
     ) {
-//        composable<Destinations.SeeAllForSimilarMovies> {
-//
-//            SeeAllSimilarMoviesScreen(
-//                navController = navController
-//            )
-//        }
+        composable<Destinations.SeeAllSimilarMoviesScreen> { backStackEntry ->
+            val movieId = backStackEntry.toRoute<Destinations.SeeAllSimilarMoviesScreen>().movieId
+            SeeAllSimilarMoviesScreen(movieId = movieId)
+        }
+
         composable<Destinations.SeeAllForYouScreen> {
 
             SeeAllForYouScreen()
@@ -123,3 +124,4 @@ fun MovioNavHost(navController: NavHostController) {
 
     }
 }
+

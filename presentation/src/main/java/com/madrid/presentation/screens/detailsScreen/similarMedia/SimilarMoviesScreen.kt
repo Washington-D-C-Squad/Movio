@@ -30,14 +30,18 @@ import com.madrid.designSystem.theme.Theme
 import com.madrid.detectImageContent.FilteredImage
 import com.madrid.domain.entity.SimilarMovie
 import com.madrid.presentation.R
+import com.madrid.presentation.navigation.Destinations
+import com.madrid.presentation.navigation.LocalNavController
 
 @Composable
 fun SimilarMoviesSection(
     movies: List<SimilarMovie>,
+    movieId: Int, // Add this parameter
     modifier: Modifier = Modifier,
-    onSeeAllClick: () -> Unit = {},
     onMovieClick: (SimilarMovie) -> Unit = {}
 ) {
+    val navController = LocalNavController.current
+
     Column(modifier = modifier) {
         Row(
             modifier = Modifier
@@ -51,12 +55,14 @@ fun SimilarMoviesSection(
                 color = Theme.color.surfaces.onSurface,
                 textStyle = Theme.textStyle.headline.mediumMedium18
             )
-            
+
             MovioText(
                 text = stringResource(id = R.string.see_all),
                 color = Theme.color.surfaces.onSurfaceVariant,
                 textStyle = Theme.textStyle.label.smallRegular14,
-                modifier = Modifier.clickable(onClick = onSeeAllClick)
+                modifier = Modifier.clickable {
+                    navController.navigate(Destinations.SeeAllSimilarMoviesScreen(movieId))
+                }
             )
         }
 

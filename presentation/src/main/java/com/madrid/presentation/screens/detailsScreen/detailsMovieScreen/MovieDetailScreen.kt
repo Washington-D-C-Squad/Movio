@@ -129,14 +129,12 @@ fun MovieDetailsScreen(
             )
             Spacer(modifier = Modifier.height(32.dp))
             SimilarMoviesSection(
-                onSeeAllClick = {
-                    navController.navigate(Destinations.SeeAllSimilarMoviesScreen)
-                },
+                movies = similarMoviesUiState.movies,
+                movieId = uiState.movieId, // Pass the movieId here
                 onMovieClick = { movie ->
                     navController.navigate(Destinations.MovieDetailsScreen(movie.id))
                 },
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                movies = similarMoviesUiState.movies
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
         }
     }

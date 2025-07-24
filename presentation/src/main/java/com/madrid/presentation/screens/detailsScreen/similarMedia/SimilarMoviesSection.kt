@@ -108,33 +108,8 @@ fun SimilarMoviesSection(
                     onSeeAllClick(movieId, movieTitle)
                 }))
         }
-
-        when {
-            uiState.isLoading -> {
-                LoadingSection()
-            }
-
-            uiState.movies.isNotEmpty() -> {
-                MoviesListSection(
-                    movies = uiState.movies,
-                    onMovieClick = { movie -> onMovieClick(movie.id) },
-                )
-            }
         }
     }
-}
-
-@Composable
-private fun LoadingSection() {
-    LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        modifier = Modifier.padding(horizontal = 4.dp)
-    ) {
-        items(5) {
-            MovieCardPlaceholder()
-        }
-    }
-}
 
 @Composable
 private fun MoviesListSection(

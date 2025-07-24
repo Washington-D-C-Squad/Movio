@@ -12,7 +12,9 @@ sealed interface Destinations {
     data object SeeAllForYouScreen : Destinations
 
     @Serializable
-    data object SeeAllSimilarMoviesScreen : Destinations
+    data class SeeAllSimilarMoviesScreen(
+        val movieId: Int
+    ) : Destinations
 
     @Serializable
     data object OnBoarding : Destinations
