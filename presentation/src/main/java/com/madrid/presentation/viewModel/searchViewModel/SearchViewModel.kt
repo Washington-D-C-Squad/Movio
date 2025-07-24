@@ -3,10 +3,12 @@ package com.madrid.presentation.viewModel.searchViewModel
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.PagingSource
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.madrid.domain.usecase.GetExploreMoreMovieUseCase
@@ -19,6 +21,7 @@ import com.madrid.presentation.screens.searchScreen.paging.ExplorePagingSource
 import com.madrid.presentation.screens.searchScreen.paging.SearchArtistPagingSource
 import com.madrid.presentation.screens.searchScreen.paging.SearchMoviePagingSource
 import com.madrid.presentation.screens.searchScreen.paging.SearchSeriesPagingSource
+import com.madrid.presentation.screens.searchScreen.utils.FilterPagesItem
 import com.madrid.presentation.viewModel.base.BaseViewModel
 import com.madrid.presentation.viewModel.uiStateMapper.toArtistUiState
 import com.madrid.presentation.viewModel.uiStateMapper.toMovieUiState
@@ -93,104 +96,144 @@ class SearchViewModel(
     }
 
     private fun loadInitialData() {
-        ::onLoadInitialData
-        viewModelScope.launch {
-            val result = getRecommendedMovieUseCase(page = 1)
-            updateState {
-                it.copy(
-                    searchUiState = it.searchUiState.copy(
-                        forYouMovies = result.map { movie -> movie.toMovieUiState() },
-                        isLoading = false
+        tryToExecute(
+            function = {
+                ::onLoadInitialData
+                getRecommendedMovieUseCase(page = 1)
+            },
+            onSuccess = { result ->
+                updateState {
+                    it.copy(
+                        searchUiState = it.searchUiState.copy(
+                            forYouMovies = result.map { movie -> movie.toMovieUiState() },
+                            isLoading = false
+                        )
                     )
-                )
-            }
-        }
+                }
+            },
+            onError = { throwValue ->
+                updateState {
+                    it.copy(
+                        searchUiState = it.searchUiState.copy(
+                            isLoading = false,
+                            isError = true,
+                            errorMessage = throwValue.message
+                        )
+                    )
+                }
+            },
+        )
 
-        val result = Pager(
-            config = pagingConfig,
+        launchPagingRequest(
             pagingSourceFactory = {
                 ExplorePagingSource(getExploreMoreMovieUseCase)
+            },
+            onSuccess = { pagingFlow ->
+                val result = pagingFlow.map { pagingData ->
+                    pagingData.map { it.toMovieUiState() }
+                }
+
+                updateState {
+                    it.copy(
+                        searchUiState = it.searchUiState.copy(
+                            exploreMoreMovies = result,
+                            isLoading = false
+                        )
+                    )
+                }
             }
-        ).flow
-            .cachedIn(viewModelScope)
-            .map { pagingData ->
-                pagingData.map { it.toMovieUiState() }
-            }
-        updateState { current ->
-            current.copy(
-                searchUiState = current.searchUiState.copy(
-                    exploreMoreMovies = result,
-                    isLoading = false
-                ),
-            )
-        }
+        )
     }
 
     fun searchFilteredMovies(query: String) {
-        val result = Pager(
-            config = pagingConfig, pagingSourceFactory = {
+        launchPagingRequest(
+            pagingSourceFactory = {
                 SearchMoviePagingSource(query, movieUseCase)
-            }
-        ).flow
-            .cachedIn(viewModelScope)
-            .map { pagingData ->
-                pagingData.map { it.toMovieUiState() }
-            }
+            },
+            onSuccess = { pagingFlow ->
+                val result = pagingFlow.map { pagingData ->
+                    pagingData.map { it.toMovieUiState() }
+                }
 
-        updateState { current ->
-            current.copy(
-                filteredScreenUiState = current.filteredScreenUiState.copy(
-                    movie = result,
-                    isLoading = false
-                ),
-                searchUiState = current.searchUiState.copy(isLoading = false)
-            )
-        }
+                updateState { current ->
+                    current.copy(
+                        filteredScreenUiState = current.filteredScreenUiState.copy(
+                            movie = result,
+                            isLoading = false
+                        ),
+                        searchUiState = current.searchUiState.copy(isLoading = false)
+                    )
+                }
+            }
+        )
     }
 
     fun searchSeries(query: String) {
-        val result = Pager(
-            config = pagingConfig, pagingSourceFactory = {
+        launchPagingRequest(
+            pagingSourceFactory = {
                 SearchSeriesPagingSource(query, seriesUseCase)
+            },
+            onSuccess = { pagingFlow ->
+                val result = pagingFlow.map { pagingData ->
+                    pagingData.map { series -> series.toSeriesUiState() }
+                }
+                (::onUpdateSeriesSearch)(result)
             }
-        ).flow
-            .cachedIn(viewModelScope)
-            .map { pagingData ->
-                pagingData.map { series -> series.toSeriesUiState() }
-            }
-
-        (::onUpdateSeriesSearch)(result)
+        )
     }
 
     fun topResult(query: String) {
-        val result: Flow<PagingData<SearchScreenState.MovieUiState>> = Pager(
-            config = pagingConfig, pagingSourceFactory = {
+        launchPagingRequest(
+            pagingSourceFactory = {
                 SearchMoviePagingSource(
                     query = query,
                     movieUseCase = movieUseCase
                 )
+            },
+            onSuccess = { pagingFlow ->
+                val result = pagingFlow.map { pagingData ->
+                    pagingData.map { it.toMovieUiState() }
+                }
+                Log.d("SearchViewModel", "topResult OO: ${result.toString()}")
+
+                updateState { current ->
+                    current.copy(
+                        filteredScreenUiState = current.filteredScreenUiState.copy(
+                            topResult = result,
+                            isLoading = false
+                        ),
+                        searchUiState = current.searchUiState.copy(isLoading = false)
+
+                    )
+                }
             }
-        ).flow
-            .cachedIn(viewModelScope)
-            .map { pagingData ->
-                pagingData.map { it.toMovieUiState() }
-            }
-        (::onUpdateSearchMovie)(result)
+        )
     }
 
     fun artists(query: String) {
-        val result = Pager(
-            config = pagingConfig, pagingSourceFactory = {
+        launchPagingRequest(
+            pagingSourceFactory = {
                 SearchArtistPagingSource(query, artistUseCase)
-            }
-        ).flow
-            .cachedIn(viewModelScope)
-            .map { pagingData ->
-                pagingData.map { artist ->
-                    artist.toArtistUiState()
+            },
+            onSuccess = { pagingFlow ->
+                val result = pagingFlow.map { pagingData ->
+                    pagingData.map { artist ->
+                        artist.toArtistUiState()
+                    }
+                }
+
+                updateState { current ->
+                    current.copy(
+                        filteredScreenUiState = current.filteredScreenUiState.copy(
+                            artist = result,
+                            isLoading = false
+                        ),
+                        searchUiState = current.searchUiState.copy(isLoading = false)
+
+                    )
                 }
             }
-        (::onUpdateArtistSearch)(result)
+        )
     }
 
 
@@ -230,6 +273,7 @@ class SearchViewModel(
             it.copy(
                 searchUiState = it.searchUiState.copy(
                     isLoading = true,
+                    isError = false,
                     errorMessage = null
                 )
             )
@@ -256,52 +300,116 @@ class SearchViewModel(
     }
 
     fun onRefresh(
-
+        searchQuery : String,
+        typeOfFilterSearch : FilterPagesItem
     ) {
         updateState { current ->
             current.copy(
                 searchUiState = current.searchUiState.copy(
-                    refreshState = true
+                    refreshState = true,
+                    errorMessage = null,
+                    isError = false
                 )
             )
         }
+        if(searchQuery.isEmpty() ){
+            tryToExecute(
+                function = {
+                    getRecommendedMovieUseCase(page = 1)
+                },
+                onSuccess = { result ->
+                    updateState {
+                        it.copy(
+                            searchUiState = it.searchUiState.copy(
+                                forYouMovies = result.map { movie -> movie.toMovieUiState() },
+                                isLoading = false,
+                                refreshState = false,
+                            )
+                        )
+                    }
+                },
+                onError = { throwValue ->
+                    updateState {
+                        it.copy(
+                            searchUiState = it.searchUiState.copy(
+                                isLoading = false,
+                                isError = true,
+                                errorMessage = throwValue.message
+                            )
+                        )
+                    }
+                },
+            )
 
-        viewModelScope.launch {
-            val result = getRecommendedMovieUseCase(page = 1).map { movie ->
-                movie.toMovieUiState()
-            }.shuffled()
-            updateState {
-                it.copy(
-                    searchUiState = it.searchUiState.copy(
-                        forYouMovies = result,
+            launchPagingRequest(
+                pagingSourceFactory = {
+                    ExplorePagingSource(getExploreMoreMovieUseCase)
+                },
+                onSuccess = { pagingFlow ->
+                    val result = pagingFlow.map { pagingData ->
+                        pagingData.map { it.toMovieUiState() }
+                    }
+
+                    updateState {
+                        it.copy(
+                            searchUiState = it.searchUiState.copy(
+                                exploreMoreMovies = result,
+                                isLoading = false,
+                                refreshState = false,
+                            )
+                        )
+                    }
+                }
+            )
+        }
+        else{
+            when(typeOfFilterSearch){
+                FilterPagesItem.TOP_RATED -> topResult(searchQuery)
+                FilterPagesItem.MOVIES -> searchFilteredMovies(searchQuery)
+                FilterPagesItem.SERIES -> searchSeries(searchQuery)
+                FilterPagesItem.ARTISTS -> artists(searchQuery)
+            }
+            updateState { current ->
+                current.copy(
+                    searchUiState = current.searchUiState.copy(
                         refreshState = false,
                     )
                 )
             }
         }
+    }
 
-        val result = Pager(
-            config = PagingConfig(
-                pageSize = 20,
-                enablePlaceholders = false,
-                prefetchDistance = 5
-            ),
-            pagingSourceFactory = {
-                ExplorePagingSource(getExploreMoreMovieUseCase)
-            }
-        ).flow
-            .cachedIn(viewModelScope)
-            .map { pagingData ->
-                pagingData.map { movie ->
-                    SearchScreenState.MovieUiState(
-                        id = movie.id.toString(),
-                        title = movie.title,
-                        imageUrl = movie.imageUrl,
-                        rating = movie.rate.toString()
+    fun <T : Any> launchPagingRequest(
+        pagingSourceFactory: () -> PagingSource<Int, T>,
+        onSuccess: (Flow<PagingData<T>>) -> Unit,
+        config: PagingConfig = PagingConfig(pageSize = 20),
+    ) {
+        try {
+            updateState {
+                it.copy(
+                    searchUiState = it.searchUiState.copy(
+                        isLoading = true,
                     )
-                }
+                )
             }
+            val result = Pager(
+                config = config,
+                pagingSourceFactory = pagingSourceFactory
+            ).flow.cachedIn(viewModelScope)
 
+            onSuccess(result)
+
+        } catch (e: Exception) {
+            updateState {
+                it.copy(
+                    searchUiState = it.searchUiState.copy(
+                        isLoading = false,
+                        isError = true,
+                        errorMessage = e.message
+                    )
+                )
+            }
+        }
     }
 
     fun highlightCharactersInText(
