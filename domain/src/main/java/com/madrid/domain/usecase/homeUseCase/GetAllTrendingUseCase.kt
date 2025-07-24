@@ -1,4 +1,4 @@
-package com.madrid.domain.usecase
+package com.madrid.domain.usecase.homeUseCase
 
 import com.madrid.domain.repository.AllTrendingRepository
 

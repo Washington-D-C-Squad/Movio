@@ -1,7 +1,7 @@
 package com.madrid.movio.di
 
 
-import com.madrid.domain.usecase.GetAllTrendingUseCase
+import com.madrid.domain.usecase.homeUseCase.GetAllTrendingUseCase
 import com.madrid.domain.usecase.GetExploreMoreMovieUseCase
 import com.madrid.domain.usecase.GetRecommendedMovieUseCase
 import com.madrid.domain.usecase.mediaDeatailsUseCase.ArtistDetailsUseCase

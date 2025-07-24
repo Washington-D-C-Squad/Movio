@@ -22,7 +22,8 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MovieApi {
-    // Movies
+
+    // region Movies
     @GET("search/movie")
     suspend fun searchMoviesByQuery(
         @Query("query") name: String,
@@ -38,7 +39,9 @@ interface MovieApi {
     suspend fun getPopularMovie(
         @Query("page") page: Int
     ): SearchMovieResponse
+// endregion
 
+    // region MovieDetails
     @GET("movie/{movie_id}")
     suspend fun getMovieDetailsById(
         @Path("movie_id") movieId: Int
@@ -64,10 +67,15 @@ interface MovieApi {
         @Path("movie_id") movieId: Int
     ): SimilarMoviesResponse
 
+    // endregion
+
+    // region genre
     @GET("genre/movie/list")
     suspend fun getMovieGenres(): GenresResponse
 
-    // Series
+    // endregion
+
+    // region Series
     @GET("search/tv")
     suspend fun searchSeriesByQuery(
         @Query("query") name: String,
@@ -105,6 +113,9 @@ interface MovieApi {
         @Path("season_number") seasonNumber: Int
     ): SeasonEpisodesResponse
 
+    // endregion
+
+    // region Series
     @GET("tv/top_rated")
     suspend fun getTopRatedSeries(
         @Query("page") page: Int
@@ -113,7 +124,9 @@ interface MovieApi {
     @GET("genre/tv/list")
     suspend fun getSeriesGenres(): GenresResponse
 
-    // Artist
+    // endregion
+
+    // region Artist
     @GET("search/person")
     suspend fun searchArtistByQuery(
         @Query("query") name: String,
@@ -130,11 +143,14 @@ interface MovieApi {
         @Path("person_id") artistId: Int
     ): ArtistKnownForResponse
 
-    // Home
+    // endregion
+
+    // region Home Features
     @GET("trending/all/{time_window}")
     suspend fun getAllTrending(
         @Path("time_window") timeWindow: String = "day",
         @Query("page") page: Int
     ): AllTrendingResponse
 
+    // endregion
 }

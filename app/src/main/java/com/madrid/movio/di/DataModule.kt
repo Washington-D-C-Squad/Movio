@@ -40,7 +40,6 @@ val dataModule = module {
     single<HomeRepository> { HomeRepositoryImpl(get(), get()) }
     single { GetImageBitmap(get()) }
     single { SensitiveContentDetection(get()) }
-
     single<AllTrendingRepository> { AllTrendingRepositoryImpl(get()) }
     single<ArtistDetailsRepository> { ArtistDetailsRepositoryImpl(get()) }
 }

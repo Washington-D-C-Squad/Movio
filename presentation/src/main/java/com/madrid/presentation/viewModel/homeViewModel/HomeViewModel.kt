@@ -1,7 +1,7 @@
 package com.madrid.presentation.viewModel.homeViewModel
 
 import androidx.lifecycle.viewModelScope
-import com.madrid.domain.usecase.GetAllTrendingUseCase
+import com.madrid.domain.usecase.homeUseCase.GetAllTrendingUseCase
 import com.madrid.presentation.viewModel.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import org.koin.android.annotation.KoinViewModel
