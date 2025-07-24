@@ -77,7 +77,9 @@ fun LazyGridScope.filterSearchScreen(
                         }
 
                         topRated.itemCount == 0 && topRated.loadState.refresh is LoadState.Error -> {
-                            item {
+                            item(
+                                span = { GridItemSpan(maxLineSpan) }
+                            ) {
                                 Box(
                                     modifier = Modifier
                                         .fillMaxSize()
@@ -94,9 +96,10 @@ fun LazyGridScope.filterSearchScreen(
                         }
 
                         topRated.itemCount == 0 &&
-                                topRated.loadState.refresh is LoadState.NotLoading &&
-                                topRated.loadState.refresh.endOfPaginationReached -> {
-                            item {
+                                topRated.loadState.refresh is LoadState.NotLoading -> {
+                            item (
+                                span = { GridItemSpan(maxLineSpan) }
+                            ){
                                 Box(
                                     modifier = Modifier
                                         .fillMaxSize()
@@ -152,7 +155,9 @@ fun LazyGridScope.filterSearchScreen(
                         }
 
                         movies.itemCount == 0 && movies.loadState.refresh is LoadState.Error -> {
-                            item {
+                            item(
+                                span = { GridItemSpan(maxLineSpan) }
+                            ) {
                                 Box(
                                     modifier = Modifier
                                         .fillMaxSize()
@@ -169,9 +174,11 @@ fun LazyGridScope.filterSearchScreen(
                         }
 
                         movies.itemCount == 0 &&
-                                movies.loadState.refresh is LoadState.NotLoading &&
-                                movies.loadState.refresh.endOfPaginationReached -> {
-                            item {
+                                movies.loadState.refresh is LoadState.NotLoading -> {
+                            item(
+                                span = { GridItemSpan(maxLineSpan) }
+
+                            ) {
                                 Box(
                                     modifier = Modifier
                                         .fillMaxSize()
@@ -181,7 +188,7 @@ fun LazyGridScope.filterSearchScreen(
                                     EmptySearchLayout(
                                         title = "No results found",
                                         description = "We couldn’t find anything matching your search. Try checking the spelling or explore something else!",
-                                        image = R.drawable.img_no_sesrch_found
+                                        image = com.madrid.presentation.R.drawable.img_no_sesrch_found // Use a "no results" image
                                     )
                                 }
                             }
@@ -227,7 +234,9 @@ fun LazyGridScope.filterSearchScreen(
                         }
 
                         series.itemCount == 0 && series.loadState.refresh is LoadState.Error -> {
-                            item {
+                            item(
+                                span = { GridItemSpan(maxLineSpan) }
+                            ) {
                                 Box(
                                     modifier = Modifier
                                         .fillMaxSize()
@@ -244,9 +253,11 @@ fun LazyGridScope.filterSearchScreen(
                         }
 
                         series.itemCount == 0 &&
-                                series.loadState.refresh is LoadState.NotLoading &&
-                                series.loadState.refresh.endOfPaginationReached -> {
-                            item {
+                                series.loadState.refresh is LoadState.NotLoading -> {
+                            item (
+                                span = { GridItemSpan(maxLineSpan) }
+
+                            ){
                                 Box(
                                     modifier = Modifier
                                         .fillMaxSize()
@@ -256,7 +267,7 @@ fun LazyGridScope.filterSearchScreen(
                                     EmptySearchLayout(
                                         title = "No results found",
                                         description = "We couldn’t find anything matching your search. Try checking the spelling or explore something else!",
-                                        image = com.madrid.presentation.R.drawable.img_no_sesrch_found
+                                        image = com.madrid.presentation.R.drawable.img_no_sesrch_found // Use a "no results" image
                                     )
                                 }
                             }
@@ -302,7 +313,28 @@ fun LazyGridScope.filterSearchScreen(
                             }
                         }
 
-                        artist.itemCount == 0 && artist.loadState.refresh is LoadState.NotLoading -> {
+
+                        artist.itemCount == 0 && artist.loadState.refresh is  LoadState.Error -> {
+                            item(
+                                span = { GridItemSpan(maxLineSpan) }
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(top = 64.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    EmptySearchLayout(
+                                        title = "Internet is not available",
+                                        description = "Please make sure you are connected to the internet and try again.",
+                                        image = com.madrid.presentation.R.drawable.img_no_internet
+                                    )
+                                }
+                            }
+                        }
+
+                        artist.itemCount == 0 &&
+                                artist.loadState.refresh is LoadState.NotLoading -> {
                             item(
                                 span = { GridItemSpan(maxLineSpan) }
                             ) {
@@ -315,7 +347,7 @@ fun LazyGridScope.filterSearchScreen(
                                     EmptySearchLayout(
                                         title = "No results found",
                                         description = "We couldn’t find anything matching your search. Try checking the spelling or explore something else!",
-                                        image = com.madrid.presentation.R.drawable.img_no_sesrch_found
+                                        image = com.madrid.presentation.R.drawable.img_no_sesrch_found // Use a "no results" image
                                     )
                                 }
                             }

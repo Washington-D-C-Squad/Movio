@@ -1,36 +1,19 @@
 package com.madrid.presentation.viewModel.searchViewModel
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.times
+import android.util.Log
 import androidx.lifecycle.viewModelScope
-import androidx.paging.LoadState
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.PagingSource
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.madrid.designSystem.component.EmptySearchLayout
-import com.madrid.designSystem.component.LoadingSearchCard
 import com.madrid.domain.usecase.GetExploreMoreMovieUseCase
 import com.madrid.domain.usecase.GetRecommendedMovieUseCase
 import com.madrid.domain.usecase.searchUseCase.ArtistUseCase
 import com.madrid.domain.usecase.searchUseCase.MovieUseCase
 import com.madrid.domain.usecase.searchUseCase.RecentSearchUseCase
 import com.madrid.domain.usecase.searchUseCase.SeriesUseCase
-import com.madrid.presentation.R
-import com.madrid.presentation.component.movioCards.MovioVerticalCard
-import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.SearchResultMessage
 import com.madrid.presentation.screens.searchScreen.paging.ExplorePagingSource
 import com.madrid.presentation.screens.searchScreen.paging.SearchArtistPagingSource
 import com.madrid.presentation.screens.searchScreen.paging.SearchMoviePagingSource
@@ -100,7 +83,8 @@ class SearchViewModel(
             onSuccess = { result ->
                 updateState {
                     it.copy(
-                        recentSearchUiState = result )
+                        recentSearchUiState = result
+                    )
                 }
             },
             onError = {},
@@ -123,7 +107,7 @@ class SearchViewModel(
                     )
                 }
             },
-            onError = {throwValue ->
+            onError = { throwValue ->
                 updateState {
                     it.copy(
                         searchUiState = it.searchUiState.copy(
@@ -194,18 +178,31 @@ class SearchViewModel(
         )
     }
 
+    ////////////////////////////////////////
     fun topResult(query: String) {
         launchPagingRequest(
             pagingSourceFactory = {
                 SearchMoviePagingSource(
                     query = query,
                     movieUseCase = movieUseCase
-                )            },
+                )
+            },
             onSuccess = { pagingFlow ->
                 val result = pagingFlow.map { pagingData ->
                     pagingData.map { it.toMovieUiState() }
                 }
-                (::onUpdateSearchMovie)(result)
+                Log.d("SearchViewModel", "topResult OO: ${result.toString()}")
+
+                updateState { current ->
+                    current.copy(
+                        filteredScreenUiState = current.filteredScreenUiState.copy(
+                            topResult = result,
+                            isLoading = false
+                        ),
+                        searchUiState = current.searchUiState.copy(isLoading = false)
+
+                    )
+                }
             }
         )
     }
@@ -219,8 +216,19 @@ class SearchViewModel(
                 val result = pagingFlow.map { pagingData ->
                     pagingData.map { artist ->
                         artist.toArtistUiState()
-                    }                }
-                (::onUpdateArtistSearch)(result)
+                    }
+                }
+
+                updateState { current ->
+                    current.copy(
+                        filteredScreenUiState = current.filteredScreenUiState.copy(
+                            artist = result,
+                            isLoading = false
+                        ),
+                        searchUiState = current.searchUiState.copy(isLoading = false)
+
+                    )
+                }
             }
         )
     }
@@ -311,11 +319,11 @@ class SearchViewModel(
                             forYouMovies = result.map { movie -> movie.toMovieUiState() },
                             isLoading = false,
                             refreshState = false,
-                            )
+                        )
                     )
                 }
             },
-            onError = {throwValue ->
+            onError = { throwValue ->
                 updateState {
                     it.copy(
                         searchUiState = it.searchUiState.copy(
