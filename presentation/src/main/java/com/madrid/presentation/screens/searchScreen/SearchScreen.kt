@@ -66,6 +66,7 @@ fun SearchScreen(
         onRefresh = {viewModel.onRefresh(searchQuery , typeOfFilterSearch)}
     ) {
         ContentSearchScreen(
+            isError = uiState.searchUiState.isError,
             typeOfFilterSearch = typeOfFilterSearch,
             onSeriesClick = { seriesId ->
                 navController.navigate(Destinations.SeasonsScreen(seriesId = seriesId, seasonNumber = 1))
@@ -140,6 +141,7 @@ fun SearchScreen(
 @OptIn(FlowPreview::class)
 @Composable
 fun ContentSearchScreen(
+    isError : Boolean,
     typeOfFilterSearch : FilterPagesItem ,
     addRecentSearch: (String) -> Unit,
     topRated: LazyPagingItems<SearchScreenState.MovieUiState>,
@@ -221,6 +223,7 @@ fun ContentSearchScreen(
             forYouAndExploreScreen(
                 showSearchResults = showSearchResults,
                 isLoading = isLoading,
+                isError =  isError,
                 forYouMovies = forYouMovies,
                 onMovieClick = onMovieClick,
                 exploreMoreMovies = exploreMoreMovies,
