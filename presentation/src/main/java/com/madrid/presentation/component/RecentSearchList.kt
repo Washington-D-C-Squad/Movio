@@ -15,11 +15,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.madrid.designSystem.component.MovioText
-import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.R
 
@@ -29,7 +30,9 @@ fun RecentSearchList(
     searchHistory: List<String> = emptyList(),
     onSearchItemClick: (String) -> Unit = {},
     onRemoveItem: (String) -> Unit = {},
-    onClearAll: () -> Unit = {}
+    onClearAll: () -> Unit = {},
+    highlightCharactersInText: (String, String, Color, Color, TextStyle) -> AnnotatedString,
+    searchQuery: String,
 ) {
     Box(
         modifier = modifier
@@ -69,24 +72,15 @@ fun RecentSearchList(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 items(searchHistory) { searchItem ->
-//                    RecentSearchItem(
-//                        searchText = searchItem,
-//                        onItemClick = { onSearchItemClick(searchItem) },
-//                        onRemoveClick = { onRemoveItem(searchItem) }
-//                    )
+                    RecentSearchItem(
+                        searchText = searchItem,
+                        onItemClick = { onSearchItemClick(searchItem) },
+                        onRemoveClick = { onRemoveItem(searchItem) },
+                        highlightCharactersInText = highlightCharactersInText,
+                        searchQuery = searchQuery
+                    )
                 }
             }
         }
-    }
-}
-
-
-
-
-@Preview(showBackground = true)
-@Composable
-private fun RecentSearchListPreview() {
-    MovioTheme {
-        RecentSearchList()
     }
 }
