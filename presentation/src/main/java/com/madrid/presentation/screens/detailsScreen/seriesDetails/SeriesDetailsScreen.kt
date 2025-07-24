@@ -176,7 +176,7 @@ fun SeriesDetailsScreen(
                         id = series.id,
                         title = series.name,
                         imageUrl = series.imageUrl,
-                        rating = series.rate.toDouble()
+                        rating = (series.rate.take(3)).toDouble()
                     )
 
                 }

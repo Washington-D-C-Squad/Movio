@@ -51,7 +51,7 @@ fun EpisodesScreenContent(
     Column {
         Box() {
             MoviePosterDetailScreen(
-                imageUrl = uiState.topImageUrl,
+                imageUrl = uiState.selectedSeasonUiState.imageUrl,
                 modifier = Modifier
                     .fillMaxSize()
                     .background(color = Theme.color.surfaces.surface)

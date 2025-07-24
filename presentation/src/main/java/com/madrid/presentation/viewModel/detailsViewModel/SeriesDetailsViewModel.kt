@@ -88,10 +88,10 @@ class SeriesDetailsViewModel(
         tryToExecute(
             function = { seriesDetailsUseCase.getEpisodesBySeriesId(args.seriesId, seasonNumber) },
             onSuccess = { episodes ->
-                updateState {
-                    it.copy(selectedSeasonUiState = it.selectedSeasonUiState.copy(episodesUiStates = episodes.map { episode ->
+                updateState { state ->
+                    state.copy(selectedSeasonUiState = state.selectedSeasonUiState.copy(episodesUiStates = episodes.map { episode ->
                         episode.toUiState()
-                    }, numberOfEpisodes = episodes.size, seasonNumber = seasonNumber))
+                    }, numberOfEpisodes = episodes.size, seasonNumber = seasonNumber, imageUrl = state.currentSeasonsUiStates[seasonNumber-1].imageUrl))
                 }
             },
             onError = { },
