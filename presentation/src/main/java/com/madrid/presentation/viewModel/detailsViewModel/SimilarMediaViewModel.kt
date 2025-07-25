@@ -30,8 +30,10 @@ class SimilarMediaViewModel(
                 movieDetailsUseCase.getSimilarMoviesById(args.mediaId.toInt())
             },
             onSuccess = { allMovies ->
+                Log.d("TAG kk", "loadCastData: ${allMovies}")
                 updateState {
-                    it.copy(headerName = "Similar Movies", medias = allMovies.toMovieUiState())
+
+                    it.copy(headerName = "Similar Movies", medias = allMovies.toMovieUiState() , isMovie = true)
                 }
             },
             onError = {e ->
@@ -47,7 +49,7 @@ class SimilarMediaViewModel(
             },
             onSuccess = { allSeries ->
                 updateState {
-                    it.copy(headerName = "Similar Series", medias = allSeries.toSeriesUiState())
+                    it.copy(headerName = "Similar Series", medias = allSeries.toSeriesUiState() , isMovie = false)
                 }
             },
             onError = {e ->

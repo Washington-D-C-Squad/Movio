@@ -1,5 +1,6 @@
 package com.madrid.presentation.screens.detailsScreen.similarMedia
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,7 +32,9 @@ fun SeeAllSimilarMediaScreen(
     val navController = LocalNavController.current
 
     SeeAllSimilarMediaScreenContent(uiState, onClickBack = { navController.popBackStack() }, onClickMedia = { id,isMovie ->
+        Log.d("TAG kk"," there is $isMovie")
         if (!isMovie) navController.navigate(Destinations.SeriesDetailsScreen(id.toString(),1))
+
         else navController.navigate(Destinations.MovieDetailsScreen(id))
     })
 }
@@ -71,7 +74,7 @@ fun SeeAllSimilarMediaScreenContent(
                     width = 101.dp,
                     height = 136.dp,
                     onClick = {
-                        onClickMedia(media.mediaId,false)
+                        onClickMedia(media.mediaId,uiState.isMovie)
                     }
                 )
             }
