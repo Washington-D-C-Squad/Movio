@@ -24,8 +24,9 @@ import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.detailsScreen.componant.ExpandableDescription
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
-import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMoviesSection
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
+import com.madrid.presentation.viewModel.detailsViewModel.Review
+import com.madrid.presentation.viewModel.detailsViewModel.ReviewUiState
 import com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState
 import org.koin.androidx.compose.koinViewModel
 
@@ -91,16 +92,18 @@ fun MovieDetailsScreen(
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
             Spacer(modifier = Modifier.height(32.dp))
-            ReviewScreen(
-                onSeeAllReviews = {},
-                uiState = ReviewsScreenUiState()
-            )
-            Spacer(modifier = Modifier.height(32.dp))
-            SimilarMoviesSection(
-                movies = uiState.similarMovies,
-                movieId = uiState.movieId,
-                onMovieClick = { movie -> navController.navigate(Destinations.MovieDetailsScreen(movie.toInt())) }
-            )
+//            ReviewScreen(
+//                onSeeAllReviews = {
+//                    navController.navigate(
+//                        Destinations.ReviewsScreen(
+//                            uiState.movieId,
+//                            isMovie = true
+//                        )
+//                    )
+//                },
+////                uiState = uiState.reviews.toReviewScreenUiState()
+//            )
         }
     }
 }
+

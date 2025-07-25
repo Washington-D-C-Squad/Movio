@@ -41,7 +41,7 @@ sealed interface Destinations {
 
     @Serializable
     data class ReviewsScreen(
-        val mediaId: Int,
+        val mediaId: String,
         val isMovie: Boolean
     ) : Destinations
 
