@@ -2,6 +2,7 @@ package com.madrid.data.repositories
 
 import com.madrid.data.dataSource.local.mappers.toMovie
 import com.madrid.data.dataSource.local.mappers.toSeries
+import com.madrid.data.dataSource.remote.response.genre.MovieGenre
 import com.madrid.data.repositories.local.LocalDataSource
 import com.madrid.data.repositories.remote.RemoteDataSource
 import com.madrid.domain.entity.Movie
@@ -29,6 +30,4 @@ class HomeRepositoryImpl(
             genreTitle to series
         }
     }
-
-
 }

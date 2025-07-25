@@ -20,7 +20,6 @@ data class Cast(
 
     )
 
-
 data class Trailer(
     val key: String,
     val id: String

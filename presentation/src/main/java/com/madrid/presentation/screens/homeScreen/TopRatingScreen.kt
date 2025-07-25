@@ -1,5 +1,6 @@
 package com.madrid.presentation.screens.homeScreen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,6 +10,8 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,11 +23,22 @@ import com.madrid.designSystem.component.FilterBar
 import com.madrid.designSystem.component.TopAppBar
 import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.component.movioCards.MovioVerticalCard
+import com.madrid.presentation.viewModel.homeScreenViewModel.TopScreenViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun TopRatingScreen(
-//    movies: ,
+     viewModel : TopScreenViewModel = koinViewModel()
 ) {
+    val uiState by viewModel.state.collectAsState()
+    val items = uiState.genreMovie
+    Log.d("log items", "TopRatingScreen: $items")
+    var selectedItem by remember { mutableStateOf("All") }
+    Log.d("log items", "TopRatingScreen: $selectedItem")
+
+    LaunchedEffect(Unit) {
+        viewModel.onGenreSelected(selectedItem)
+    }
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = Modifier
@@ -35,45 +49,27 @@ fun TopRatingScreen(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        item(
-            span = { GridItemSpan(maxLineSpan) }
-        ) {
-            TopAppBar(
-                text = "Top Rating",
-                modifier = Modifier,
-                secondIcon = null,
-                thirdIcon = null,
-            )
-        }
         item(span = { GridItemSpan(maxLineSpan) }) {
-            val items = listOf(
-                "All",
-                "Action",
-                "Animation",
-                "Crime",
-                "fcyvbhinj",
-                "ytvyubipo",
-                "rdtyvbuin",
-                "fvghnjkm,l",
-                "tyvubomkp,l"
-            )
-            var selectedItem by remember { mutableStateOf(items.first()) }
-
             FilterBar(
                 items = items,
                 selectedItem = selectedItem,
-                onItemClick = { selectedItem = it },
+                onItemClick = { genre ->
+                    selectedItem = genre
+                    viewModel.onGenreSelected(genre)
+                },
                 scrollable = true
             )
         }
-        items(count = movies.itemCount) { index ->
+
+        items(uiState.filteredMovies.size) { index ->
+            val movie = uiState.filteredMovies[index]
             MovioVerticalCard(
-                description = movies[index]!!.title,
-                movieImage = movies[index]!!.imageUrl,
-                rate = movies[index]!!.rating,
+                description = movie.name,
+                movieImage = movie.imageUrl,
+                rate = movie.rate.toString(),
                 width = 101.dp,
                 height = 136.dp,
-                onClick = { }
+                onClick = { /* handle click */ }
             )
         }
     }
@@ -83,5 +79,5 @@ fun TopRatingScreen(
 @Preview
 @Composable
 private fun TopRatingScreenPreview(modifier: Modifier = Modifier) {
-//    TopRatingScreen()
+    TopRatingScreen()
 }

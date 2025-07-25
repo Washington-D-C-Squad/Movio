@@ -36,7 +36,6 @@ class RemoteDataSourceImpl(
         return api.getPopularMovie(page)
     }
 
-
     override suspend fun getTopRatedSeries(query: String, page: Int): SearchSeriesResponse {
         val x=  api.searchSeriesByQuery(query,page)
         Log.d("loool", "getTopRatedSeries: $x")

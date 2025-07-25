@@ -3,6 +3,7 @@ package com.madrid.movio.di
 
 import com.madrid.data.dataSource.local.LocalDataSourceImpl
 import com.madrid.data.dataSource.local.MovioDatabase
+import com.madrid.data.repositories.GenreRepositoryImpl
 import com.madrid.data.repositories.HomeRepositoryImpl
 import com.madrid.data.repositories.MovieDetailsRepositoryImpl
 import com.madrid.data.repositories.RecommendedRepositoryImp
@@ -11,6 +12,7 @@ import com.madrid.data.repositories.SeriesDetailsRepositoryImpl
 import com.madrid.data.repositories.local.LocalDataSource
 import com.madrid.detectImageContent.GetImageBitmap
 import com.madrid.detectImageContent.SensitiveContentDetection
+import com.madrid.domain.repository.GenreRepository
 import com.madrid.domain.repository.HomeRepository
 import com.madrid.domain.repository.MovieDetailsRepository
 import com.madrid.domain.repository.RecommendedRepository
@@ -36,4 +38,5 @@ val dataModule = module {
     single<HomeRepository> { HomeRepositoryImpl(get(), get()) }
     single { GetImageBitmap(get()) }
     single { SensitiveContentDetection(get()) }
+    single<GenreRepository> { GenreRepositoryImpl(get()) }
 }

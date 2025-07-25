@@ -6,7 +6,7 @@ import com.madrid.domain.repository.HomeRepository
 class MoviesByGenresUseCase(
     private val homeRepository: HomeRepository
 ) {
-    suspend operator fun invoke(): Map<String, List<Movie>> {
+    suspend operator fun invoke(genre: String): Map<String, List<Movie>> {
         return homeRepository.getMoviesByGenres()
     }
 }

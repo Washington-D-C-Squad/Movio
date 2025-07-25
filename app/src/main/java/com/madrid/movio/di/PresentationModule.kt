@@ -1,6 +1,6 @@
 package com.madrid.movio.di
 
-
+import com.madrid.presentation.viewModel.homeScreenViewModel.TopScreenViewModel
 import com.madrid.presentation.screens.searchScreen.SeeAllForYou.SeeAllForYouViewModel
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
 import com.madrid.presentation.viewModel.detailsViewModel.MovieDetailsViewModel
@@ -17,8 +17,7 @@ val presentationModule = module {
     viewModelOf(::SeeAllForYouViewModel)
     viewModelOf(::MovieDetailsViewModel)
     viewModelOf(::SeriesDetailsViewModel)
-
-    viewModel { SeriesDetailsViewModel(get(),get()) }
-
+    viewModel { SeriesDetailsViewModel(get(), get()) }
+    viewModelOf(::TopScreenViewModel)
 
 }
