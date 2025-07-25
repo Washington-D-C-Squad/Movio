@@ -4,17 +4,11 @@ import kotlinx.serialization.Serializable
 
 sealed interface Destinations {
 
-
     @Serializable
     data object SplashScreen : Destinations
 
     @Serializable
     data object SeeAllForYouScreen : Destinations
-
-    @Serializable
-    data class SeeAllSimilarMoviesScreen(
-        val movieId: Int
-    ) : Destinations
 
     @Serializable
     data object OnBoarding : Destinations
@@ -70,14 +64,14 @@ sealed interface Destinations {
     data object MoreScreen : Destinations
 
     @Serializable
-    data class RatingMovieBottomSheetDestination(
-        val imageUrl: String,
-        val nameMovie: String
+    data class ActorDetails(
+        val artistId: Int,
     ) : Destinations
 
     @Serializable
-    data object SaveMovieBottomSheetDestination : Destinations
+    data class TopCast(
+        val mediaId: Int,
+        val isMovie: Boolean
+    ) : Destinations
 
-    @Serializable
-    data object ShareBottomSheetDestination : Destinations
 }

@@ -38,7 +38,7 @@ fun EpisodesScreen(viewModel: SeriesDetailsViewModel = koinViewModel()) {
     EpisodesScreenContent(
         uiState,
         viewModel::updateSelectedSeason,
-        onClickBack = { navController.navigate(Destinations.SeasonsScreen(uiState.seriesId, 1)) })
+        onClickBack = { navController.popBackStack()})
 }
 
 @Composable
@@ -51,7 +51,7 @@ fun EpisodesScreenContent(
     Column {
         Box() {
             MoviePosterDetailScreen(
-                imageUrl = uiState.topImageUrl,
+                imageUrl = uiState.selectedSeasonUiState.imageUrl,
                 modifier = Modifier
                     .fillMaxSize()
                     .background(color = Theme.color.surfaces.surface)

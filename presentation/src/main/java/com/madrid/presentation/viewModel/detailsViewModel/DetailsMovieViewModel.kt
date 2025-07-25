@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.madrid.domain.entity.Cast
 import com.madrid.domain.usecase.mediaDeatailsUseCase.MovieDetailsUseCase
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.viewModel.base.BaseViewModel
@@ -27,6 +28,7 @@ class DetailsMovieViewModel(
     init {
         Log.e("MY_TAG", "args: ${args.movieId}")
         loadData()
+        LoadCast()
     }
 
 
@@ -37,8 +39,11 @@ class DetailsMovieViewModel(
             },
 
             onSuccess = { movie ->
+                Log.d("cast details", "loadData: ${movie.crew}")
+
                 updateState {
                     it.copy(
+                        movieId = movie.id.toString(),
                         topImageUrl = movie.imageUrl,
                         dataMovie = movie.yearOfRelease,
                         movieName = movie.title,
@@ -55,6 +60,20 @@ class DetailsMovieViewModel(
             },
             scope = viewModelScope,
             dispatcher = Dispatchers.IO
+        )
+    }
+
+    fun LoadCast() {
+        tryToExecute(
+            function = { movieDetailsUseCase.getMovieCreditsById(args.movieId) },
+            onSuccess = { result ->
+                updateState {
+                    it.copy(
+                        casts = result
+                    )
+                }
+            },
+            onError = {},
         )
     }
 }

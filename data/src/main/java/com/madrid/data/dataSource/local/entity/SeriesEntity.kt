@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "SERIES_TABLE")
 data class SeriesEntity (
-    @PrimaryKey(autoGenerate = false) val id: Int,
+    @PrimaryKey(autoGenerate = false) val seriesId: Int,
     val title: String,
     val imageUrl: String,
     val rate: Double,

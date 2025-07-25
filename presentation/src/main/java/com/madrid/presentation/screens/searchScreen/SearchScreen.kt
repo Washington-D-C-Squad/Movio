@@ -23,8 +23,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -32,12 +35,14 @@ import com.madrid.designSystem.R
 import com.madrid.designSystem.component.MovioIcon
 import com.madrid.designSystem.component.textInputField.BasicTextInputField
 import com.madrid.designSystem.theme.Theme
+import com.madrid.presentation.component.EmptyRececntSearch
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.refreshScreenHolder.RefreshScreenHolder
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.filterSearchScreen
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.forYouAndExploreScreen
 import com.madrid.presentation.screens.searchScreen.features.recentSearchLayout.recentSearchScreen
+import com.madrid.presentation.screens.searchScreen.utils.FilterPagesItem
 import com.madrid.presentation.viewModel.searchViewModel.SearchScreenState
 import com.madrid.presentation.viewModel.searchViewModel.SearchViewModel
 import kotlinx.coroutines.FlowPreview
@@ -52,14 +57,17 @@ fun SearchScreen(
 ) {
     val uiState by viewModel.state.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
+    var typeOfFilterSearch by remember { mutableStateOf(FilterPagesItem.TOP_RATED) }
     val navController = LocalNavController.current
 
 
     RefreshScreenHolder(
         refreshState = uiState.searchUiState.refreshState,
-        onRefresh = viewModel::onRefresh
+        onRefresh = {viewModel.onRefresh(searchQuery , typeOfFilterSearch)}
     ) {
         ContentSearchScreen(
+            isError = uiState.searchUiState.isError,
+            typeOfFilterSearch = typeOfFilterSearch,
             onSeriesClick = { seriesId ->
                 navController.navigate(
                     Destinations.SeriesDetailsScreen(
@@ -77,15 +85,19 @@ fun SearchScreen(
             series = uiState.filteredScreenUiState.series.collectAsLazyPagingItems(),
             artist = uiState.filteredScreenUiState.artist.collectAsLazyPagingItems(),
             onClickTopRated = {
+                typeOfFilterSearch = FilterPagesItem.TOP_RATED
                 viewModel.topResult(searchQuery)
             },
             onClickMovies = {
+                typeOfFilterSearch = FilterPagesItem.MOVIES
                 viewModel.searchFilteredMovies(searchQuery)
             },
             onClickSeries = {
+                typeOfFilterSearch = FilterPagesItem.SERIES
                 viewModel.searchSeries(searchQuery)
             },
             onClickArtist = {
+                typeOfFilterSearch = FilterPagesItem.ARTISTS
                 viewModel.artists(searchQuery)
             },
 
@@ -106,7 +118,9 @@ fun SearchScreen(
             onClearAll = { viewModel.clearAll() },
             onClickSeeAll = {
                 navController.navigate(Destinations.SeeAllForYouScreen)
-            }
+            },
+            highlightrecentSearch = viewModel::highlightCharactersInText
+
         )
         uiState.searchUiState.errorMessage?.let { errorMsg ->
             LaunchedEffect(errorMsg) {
@@ -132,6 +146,8 @@ fun SearchScreen(
 @OptIn(FlowPreview::class)
 @Composable
 fun ContentSearchScreen(
+    isError : Boolean,
+    typeOfFilterSearch : FilterPagesItem ,
     addRecentSearch: (String) -> Unit,
     topRated: LazyPagingItems<SearchScreenState.MovieUiState>,
     movies: LazyPagingItems<SearchScreenState.MovieUiState>,
@@ -155,9 +171,9 @@ fun ContentSearchScreen(
     isLoading: Boolean = false,
     onClickSeeAll: () -> Unit,
     onSeriesClick: (Int) -> Unit = {},
+    highlightrecentSearch: (String, String, Color, Color, TextStyle) -> AnnotatedString,
 ) {
     val showSearchResults = searchQuery.isNotBlank()
-    var typeOfFilterSearch by remember { mutableStateOf("topRated") }
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     var showRecentSearch by remember { mutableIntStateOf(0) }
 
@@ -170,10 +186,10 @@ fun ContentSearchScreen(
                     onSearchBarClick()
                     addRecentSearch(query)
                     when (typeOfFilterSearch) {
-                        "topRated" -> onClickTopRated()
-                        "movies" -> onClickMovies()
-                        "series" -> onClickSeries()
-                        else -> onClickArtist()
+                        FilterPagesItem.TOP_RATED-> onClickTopRated()
+                        FilterPagesItem.MOVIES-> onClickMovies()
+                        FilterPagesItem.SERIES -> onClickSeries()
+                        FilterPagesItem.ARTISTS-> onClickArtist()
                     }
                 }
             }
@@ -212,6 +228,7 @@ fun ContentSearchScreen(
             forYouAndExploreScreen(
                 showSearchResults = showSearchResults,
                 isLoading = isLoading,
+                isError =  isError,
                 forYouMovies = forYouMovies,
                 onMovieClick = onMovieClick,
                 exploreMoreMovies = exploreMoreMovies,
@@ -231,22 +248,18 @@ fun ContentSearchScreen(
                 onChangeTypeFilterSearch = {
                     when (selectedTabIndex) {
                         0 -> {
-                            typeOfFilterSearch = "topRated"
                             onClickTopRated()
                         }
 
                         1 -> {
-                            typeOfFilterSearch = "movies"
                             onClickMovies()
                         }
 
                         2 -> {
-                            typeOfFilterSearch = "series"
                             onClickSeries()
                         }
 
                         else -> {
-                            typeOfFilterSearch = "artists"
                             onClickArtist()
                         }
                     }
@@ -256,13 +269,19 @@ fun ContentSearchScreen(
                 }
             )
         }
-        if (showRecentSearch == 1) {
+
+        if (showRecentSearch == 1 && searchHistory.isNotEmpty()) {
             recentSearchScreen(
                 searchHistory = searchHistory,
+                searchQuery = searchQuery,
                 onSearchItemClick = { onSearchItemClick(it) },
                 onRemoveItem = { onRemoveItem(it) },
                 onClearAll = { onClearAll() },
+                highlightCharactersInText = highlightrecentSearch,
             )
+        }
+        if (showRecentSearch == 1 && searchHistory.isEmpty()) {
+            EmptyRececntSearch()
         }
     }
 }

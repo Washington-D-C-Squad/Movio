@@ -31,9 +31,7 @@ data class SeriesCastNetwork(
     @SerializedName("profile_path")
     val profilePath: String?,
     @SerializedName("credit_id")
-    val creditId: Int?,
-    @SerializedName("department")
-    val department: String?,
-    @SerializedName("job")
-    val job: String?
+    val creditId: String?,
+    @SerializedName("order")
+    val order: String?,
 )
