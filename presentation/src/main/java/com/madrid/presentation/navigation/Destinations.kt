@@ -35,7 +35,7 @@ sealed interface Destinations {
 
     @Serializable
     data class TopCastScreen(
-        val mediaId: Int,
+        val mediaId: String,
         val isMovie: Boolean
     ) : Destinations
 

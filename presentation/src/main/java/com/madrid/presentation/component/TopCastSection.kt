@@ -24,11 +24,12 @@ import com.madrid.designSystem.component.MovioText
 import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.detectImageContent.FilteredImage
 import com.madrid.domain.entity.Artist
+import com.madrid.domain.entity.Cast
 
 @Composable
 fun TopCastSection(
     modifier: Modifier = Modifier,
-    castMembers: List<Artist>,
+    castMembers: List<Cast>,
     movieId: String,
     navigateToTopCastDetailsScreen: (String) -> Unit = {},
     onSeeAllClick: () -> Unit = {},
@@ -62,7 +63,9 @@ fun TopCastSection(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(castMembers) { castMember ->
-                CastMemberItem(castMember = castMember)
+                CastMemberItem(
+                    castMember = castMember,
+                )
             }
         }
     }
@@ -70,7 +73,7 @@ fun TopCastSection(
 
 @Composable
 private fun CastMemberItem(
-    castMember: Artist,
+    castMember: Cast,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -99,30 +102,3 @@ private fun CastMemberItem(
         )
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun TopCastSectionPreview() {
-    MovioTheme {
-        TopCastSection(
-            movieId = "1",
-            castMembers = listOf(
-                Artist(
-                    id = 1,
-                    name = "Ana de Armas",
-                    imageUrl = "https://image.tmdb.org/t/p/w500/3vxvsmYLTf4jnr163SUlBIWX8qx.jpg"
-                ),
-                Artist(
-                    id = 2,
-                    name = "Keanu Reeves",
-                    imageUrl = "https://image.tmdb.org/t/p/w500/4D0PpNI0km5B9Gk7SZOo6hJxJ9P.jpg"
-                ),
-                Artist(
-                    id = 3,
-                    name = "Ian McShane",
-                    imageUrl = "https://image.tmdb.org/t/p/w500/9H7oVx4b6Z0j3EjLZN9mzcqcJjU.jpg"
-                )
-            )
-        )
-    }
-} 

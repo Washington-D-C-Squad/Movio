@@ -30,17 +30,15 @@ import com.madrid.designSystem.theme.Theme
 import com.madrid.detectImageContent.FilteredImage
 import com.madrid.domain.entity.SimilarMovie
 import com.madrid.presentation.R
-import com.madrid.presentation.navigation.Destinations
-import com.madrid.presentation.navigation.LocalNavController
+import com.madrid.presentation.viewModel.detailsViewModel.Movie
 
 @Composable
 fun SimilarMoviesSection(
-    movies: List<SimilarMovie>,
-    movieId: Int, // Add this parameter
+    movies: List<Movie>,
+    movieId: String,
     modifier: Modifier = Modifier,
-    onMovieClick: (SimilarMovie) -> Unit = {}
+    onMovieClick: (String) -> Unit = {}
 ) {
-    val navController = LocalNavController.current
 
     Column(modifier = modifier) {
         Row(
@@ -60,9 +58,6 @@ fun SimilarMoviesSection(
                 text = stringResource(id = R.string.see_all),
                 color = Theme.color.surfaces.onSurfaceVariant,
                 textStyle = Theme.textStyle.label.smallRegular14,
-                modifier = Modifier.clickable {
-                    navController.navigate(Destinations.SeeAllSimilarMoviesScreen(movieId))
-                }
             )
         }
 
@@ -74,7 +69,7 @@ fun SimilarMoviesSection(
             items(movies) { movie ->
                 MovieCard(
                     movie = movie,
-                    onClick = { onMovieClick(movie) }
+                    onClick = { onMovieClick(movie.id.toString()) }
                 )
             }
         }
@@ -83,7 +78,7 @@ fun SimilarMoviesSection(
 
 @Composable
 private fun MovieCard(
-    movie: SimilarMovie,
+    movie: Movie,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -100,7 +95,7 @@ private fun MovieCard(
         ) {
             FilteredImage(
                 imageUrl = movie.imageUrl,
-                contentDescription = movie.title,
+                contentDescription = movie.name,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -124,7 +119,7 @@ private fun MovieCard(
                         tint = Theme.color.system.warning
                     )
                     MovioText(
-                        text = movie.title,
+                        text = movie.name,
                         color = Theme.color.surfaces.onSurface,
                         textStyle = Theme.textStyle.label.smallRegular12
                     )
@@ -135,7 +130,7 @@ private fun MovieCard(
         Spacer(modifier = Modifier.height(8.dp))
         
         MovioText(
-            text = movie.title,
+            text = movie.name,
             color = Theme.color.surfaces.onSurface,
             textStyle = Theme.textStyle.label.smallRegular12,
             maxLines = 2,

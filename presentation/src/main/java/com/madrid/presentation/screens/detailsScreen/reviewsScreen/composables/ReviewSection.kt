@@ -47,7 +47,11 @@ private fun ReviewsList(reviews: List<ReviewUiState>) {
     ) {
         reviews.forEach { review ->
             ReviewCard(
-                reviewUiState = review
+                reviewerName = review.reviewerName,
+                reviewerImageUrl = review.reviewerImageUrl,
+                rating = review.rating,
+                date = review.date,
+                content = review.content,
             )
         }
     }

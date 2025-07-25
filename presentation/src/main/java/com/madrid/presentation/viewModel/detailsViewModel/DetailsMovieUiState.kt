@@ -5,7 +5,6 @@ import com.madrid.domain.entity.Cast
 data class DetailsMovieUiState(
     val isLoved : Boolean = false,
     val topImageUrl : String = "",
-    val movieId : Int = 0,
     val movieName : String ="",
     val movieId : String ="",
     val genreMovie : List<String>  = emptyList(),
