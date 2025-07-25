@@ -1,8 +1,8 @@
 package com.madrid.presentation.viewModel.homeScreenViewModel
 
+import com.madrid.domain.usecase.homeUseCase.GetTopRatedMoviesUseCase
 import com.madrid.domain.usecase.generUseCase.GetMovieGenresUseCase
 import com.madrid.domain.usecase.homeUseCase.MoviesByGenresUseCase
-import com.madrid.domain.usecase.searchUseCase.TrendingMediaUseCase
 import com.madrid.presentation.viewModel.base.BaseViewModel
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieUiState
 import com.madrid.presentation.viewModel.detailsViewModel.Movie
@@ -12,7 +12,7 @@ import org.koin.android.annotation.KoinViewModel
 @KoinViewModel
 class TopScreenViewModel(
     private val moviesByGenresUseCase: MoviesByGenresUseCase,
-    private val getTopRatedMoviesUseCase: TrendingMediaUseCase,
+    private val getTopRatedMoviesUseCase: GetTopRatedMoviesUseCase,
     private val getGenresUseCase: GetMovieGenresUseCase
 ) : BaseViewModel<DetailsMovieUiState, effect>(
     DetailsMovieUiState()
@@ -37,7 +37,9 @@ class TopScreenViewModel(
 
     private fun loadTrendingMedia() {
         tryToExecute(
-            function = { getTopRatedMoviesUseCase() },
+            function = {
+                getTopRatedMoviesUseCase(page = 1)
+            },
             onSuccess = { result ->
                 val uiMovies = result.map { domainMovie ->
                     Movie(
@@ -77,6 +79,3 @@ class TopScreenViewModel(
         )
     }
 }
-
-
-
