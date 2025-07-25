@@ -27,10 +27,10 @@ import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.detailsScreen.componant.ExpandableDescription
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
+import com.madrid.presentation.screens.detailsScreen.seriesDetails.toReviewScreenUiState
 import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMoviesSection
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
-import com.madrid.presentation.viewModel.detailsViewModel.ReviewUiState
-import com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState
+import com.madrid.presentation.viewModel.detailsViewModel.Review
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -109,15 +109,25 @@ fun MovieDetailsScreen(
             )
             Spacer(modifier = Modifier.height(32.dp))
             ReviewScreen(
+                reviews = uiState.reviews.map { review ->
+                    Review(
+                        personImageUrl = review.reviewerImageUrl,
+                        personName = review.reviewerName,
+                        reviewTime = review.date,
+                        rate = review.rating.toDouble(),
+                        reviewText = review.content
+                    )
+                },
                 onSeeAllReviews = {
                     navController.navigate(
                         Destinations.ReviewsScreen(
-                            uiState.movieId,
+                            mediaId = uiState.movieId,
                             isMovie = true
                         )
                     )
                 },
-                uiState = uiState.reviews.toReviewScreenUiStaten()
+                modifier = Modifier.padding(horizontal = 16.dp),
+                uiState = uiState.reviews.toReviewScreenUiState(),
             )
             Spacer(modifier = Modifier.height(32.dp))
             SimilarMoviesSection(
@@ -133,7 +143,4 @@ fun MovieDetailsScreen(
             )
         }
     }
-}
-private fun List<ReviewUiState>.toReviewScreenUiStaten(): ReviewsScreenUiState {
-    return ReviewsScreenUiState(reviews = this)
 }

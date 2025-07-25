@@ -170,17 +170,20 @@ fun SeriesDetailsScreen(
                 }
             }
             Spacer(modifier = Modifier.height(32.dp))
-            ReviewScreen(
-                onSeeAllReviews = {
-                    navController.navigate(
-                        Destinations.ReviewsScreen(
-                            uiState.seriesId,
-                            isMovie = false
-                        )
-                    )
-                },
-                uiState = uiState.reviews.toReviewScreenUiState()
-            )
+//            ReviewScreen(
+//                uiState = uiState.reviews.toReviewScreenUiState(),
+//                onSeeAllReviews = {
+//                    navController.navigate(
+//                        Destinations.ReviewsScreen(
+//                            uiState.seriesId,
+//                            isMovie = false
+//                        )
+//                    )
+//                },
+//                reviews = uiState.reviews,
+//                modifier = Modifier.padding(horizontal = 16.dp),
+//                isExpanded = true ,
+//            )
             Spacer(modifier = Modifier.height(32.dp))
             SimilarSeriesSection(
                 onSeeAllClick = {
