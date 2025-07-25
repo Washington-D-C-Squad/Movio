@@ -32,18 +32,6 @@ data class Movie(
     val genre: List<String> = listOf(),
 
     )
- data class Movieo(
-    val id: Int,
-    val title: String,
-    val imageUrl: String,
-    val rate: Double,
-    val yearOfRelease: String = "",
-    val movieDuration: String = "",
-    val description: String = "",
-    val genre: List<String> = listOf(),
-    val crew: List<Cast> = listOf(),
-    val profilePage: String = " "
-)
 data class Review(
     val personImageUrl: String = "",
     val personName: String = "",

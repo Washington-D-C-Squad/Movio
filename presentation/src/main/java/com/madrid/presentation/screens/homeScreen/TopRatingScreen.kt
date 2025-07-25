@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -33,14 +34,20 @@ fun TopRatingScreen(
     val uiState by viewModel.state.collectAsState()
     val items = uiState.genreMovie
     Log.d("log items", "TopRatingScreen: $items")
-    var selectedItem by remember { mutableStateOf("All") }
+
+    var selectedItem by remember { mutableStateOf("")}
+
     Log.d("log items", "TopRatingScreen: $selectedItem")
 
-    LaunchedEffect(Unit) {
-        viewModel.onGenreSelected(selectedItem)
+    LaunchedEffect(uiState.genreMovie) {
+        if (uiState.genreMovie.isNotEmpty()) {
+            selectedItem = uiState.genreMovie.first()
+            viewModel.onGenreSelected(selectedItem)
+        }
     }
+
     LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+        columns = GridCells.Fixed(3),
         modifier = Modifier
             .fillMaxSize()
             .background(Theme.color.surfaces.surface)
@@ -69,6 +76,7 @@ fun TopRatingScreen(
                 rate = movie.rate.toString(),
                 width = 101.dp,
                 height = 136.dp,
+                modifier = Modifier.padding(horizontal = 16.dp),
                 onClick = { /* handle click */ }
             )
         }

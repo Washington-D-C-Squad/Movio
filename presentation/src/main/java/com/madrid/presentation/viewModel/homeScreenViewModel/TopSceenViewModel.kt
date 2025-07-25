@@ -1,6 +1,5 @@
 package com.madrid.presentation.viewModel.homeScreenViewModel
 
-import com.madrid.domain.usecase.GetTopRatedMoviesUseCase
 import com.madrid.domain.usecase.generUseCase.GetMovieGenresUseCase
 import com.madrid.domain.usecase.homeUseCase.MoviesByGenresUseCase
 import com.madrid.domain.usecase.searchUseCase.TrendingMediaUseCase
@@ -13,7 +12,7 @@ import org.koin.android.annotation.KoinViewModel
 @KoinViewModel
 class TopScreenViewModel(
     private val moviesByGenresUseCase: MoviesByGenresUseCase,
-    private val getTopRatedMoviesUseCase: GetTopRatedMoviesUseCase,
+    private val getTopRatedMoviesUseCase: TrendingMediaUseCase,
     private val getGenresUseCase: GetMovieGenresUseCase
 ) : BaseViewModel<DetailsMovieUiState, effect>(
     DetailsMovieUiState()
@@ -38,9 +37,9 @@ class TopScreenViewModel(
 
     private fun loadTrendingMedia() {
         tryToExecute(
-            function = { getTopRatedMoviesUseCase(page = 8) },
+            function = { getTopRatedMoviesUseCase() },
             onSuccess = { result ->
-                val uiMovies = result.searchResults!!.map { domainMovie ->
+                val uiMovies = result.map { domainMovie ->
                     Movie(
                         id = domainMovie.id,
                         imageUrl = domainMovie.imageUrl,
@@ -49,7 +48,6 @@ class TopScreenViewModel(
                         genre = domainMovie.genre
                     )
                 }
-
                 trendingMedia = uiMovies
                 updateState { it.copy(filteredMovies = uiMovies) }
             },
@@ -59,19 +57,17 @@ class TopScreenViewModel(
     }
 
     fun onGenreSelected(genre: String) {
-        if (genre == "All") {
-            updateState {
-                it.copy(filteredMovies = trendingMedia)
-            }
-            return
-        }
         tryToExecute(
             function = { moviesByGenresUseCase(genre) },
             onSuccess = { result ->
-                val filtered = result.map { domainMovie ->
+                val moviesList = result[genre] ?: emptyList()
+                val filtered = moviesList.map { movie ->
                     Movie(
-                        id = domainMovie.key.toInt(),
-                        genre = listOf(domainMovie.value.toString())
+                        id = movie.id,
+                        name = movie.title,
+                        rate = movie.rate,
+                        imageUrl = movie.imageUrl,
+                        genre = listOf(genre)
                     )
                 }
                 updateState { it.copy(filteredMovies = filtered) }
