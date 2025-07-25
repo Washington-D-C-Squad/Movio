@@ -49,9 +49,7 @@ class UserRepositoryImpl(
         TODO("Not yet implemented")
     }
 
-    override suspend fun verifyTwoFactorCode(code: String): User {
-        TODO("Not yet implemented")
-    }
+
 
     override suspend fun sendPasswordResetEmail(email: String): Boolean {
         TODO("Not yet implemented")

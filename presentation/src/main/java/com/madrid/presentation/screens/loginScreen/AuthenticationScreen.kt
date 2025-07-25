@@ -1,6 +1,7 @@
 package com.madrid.presentation.screens.loginScreen
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -59,7 +60,7 @@ fun MovieLoginScreen(
         onTogglePassword = viewModel::toggleShowPassword,
         onForgotPasswordClick = onForgotPasswordClick,
         onSignUpClick = onSignUpClick,
-        onGuestLogin = viewModel::loginAsGuest
+        onGuestLogin = { viewModel.loginAsGuest(onGuestLogin) },
     )
 }
 
@@ -111,7 +112,6 @@ fun MovieLoginContent(
             errorBorderBrush = Theme.color.gradients.errorBorderGradient
         )
 
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -119,7 +119,7 @@ fun MovieLoginContent(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            // بناء رسالة الخطأ الموحدة
+
             val errorMessage = buildString {
                 when (val error = state.errorState) {
                     is LoginError.EmptyFields -> {
@@ -136,10 +136,12 @@ fun MovieLoginContent(
             }
 
             if (errorMessage.isNotEmpty()) {
-                MovioIcon(painterResource(R.drawable.info_circle),
+                MovioIcon(
+                    painterResource(R.drawable.info_circle),
                     tint = Theme.color.system.onError,
                     contentDescription = null,
-                     modifier = Modifier.padding(end = 4.dp))
+                    modifier = Modifier.padding(end = 4.dp)
+                )
 
                 MovioText(
                     text = errorMessage,
@@ -158,7 +160,11 @@ fun MovieLoginContent(
                 text = "Forgot Password?",
                 textStyle = Theme.textStyle.label.mediumMedium12,
                 color = Theme.color.surfaces.onSurfaceVariant,
-                modifier = Modifier.clickable(onClick = onForgotPasswordClick)
+                modifier = Modifier.clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                    onClick = onForgotPasswordClick
+                )
             )
         }
 
@@ -210,27 +216,15 @@ private fun SignUpRow(onSignUpClick: () -> Unit) {
             text = "Sign up",
             textStyle = Theme.textStyle.label.mediumMedium14,
             color = Theme.color.brand.primary,
-            modifier = Modifier.clickable(onClick = onSignUpClick)
+            modifier = Modifier.clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+                onClick = onSignUpClick
+            )
         )
     }
 }
 
-
-
-
-
-@Composable
-private fun ErrorText(text: String) {
-    MovioText(
-        text = text,
-        textStyle = Theme.textStyle.label.mediumMedium12,
-        color = Theme.color.system.error,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 4.dp),
-        textAlign = TextAlign.Start
-    )
-}
 
 
 

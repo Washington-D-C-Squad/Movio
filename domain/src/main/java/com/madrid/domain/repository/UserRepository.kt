@@ -11,7 +11,7 @@ interface UserRepository {
     suspend fun isUserLoggedIn(): Boolean
     suspend fun refreshToken(): Boolean
 
-    suspend fun verifyTwoFactorCode(code: String): User
+
     suspend fun sendPasswordResetEmail(email: String): Boolean
 
     suspend fun updateUserProfile(user: User): User

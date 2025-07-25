@@ -18,6 +18,7 @@ val presentationModule = module {
     viewModelOf(::SeeAllForYouViewModel)
     viewModelOf(::MovieDetailsViewModel)
     viewModelOf(::SeriesDetailsViewModel)
+    viewModel { LoginViewModel(get(), get()) }
 
     viewModel { SeriesDetailsViewModel(get(),get()) }
 
