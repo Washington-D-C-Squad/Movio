@@ -22,6 +22,7 @@ kotlinx-datetime = "0.4.1"
 material3Android = "1.3.2"
 foundationAndroid = "1.5.3"
 foundationAndroidVersion = "1.8.3"
+datastorePreferences = "1.1.7"
 
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
@@ -79,6 +80,7 @@ compiler = { group = "androidx.compose.compiler", name = "compiler", version.ref
 androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
 androidx-foundation-android = { group = "androidx.compose.foundation", name = "foundation-android", version.ref = "foundationAndroid" }
 foundation-android = { group = "androidx.compose.foundation", name = "foundation-android", version.ref = "foundationAndroidVersion" }
+androidx-datasource-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastorePreferences" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
