@@ -1,5 +1,6 @@
 package com.madrid.presentation.viewModel.homeScreenViewModel
 
+import android.util.Log
 import com.madrid.domain.usecase.homeUseCase.GetTopRatedMoviesUseCase
 import com.madrid.domain.usecase.generUseCase.GetMovieGenresUseCase
 import com.madrid.domain.usecase.homeUseCase.MoviesByGenresUseCase
@@ -18,11 +19,10 @@ class TopScreenViewModel(
     DetailsMovieUiState()
 ) {
 
-    private var trendingMedia: List<Movie> = emptyList()
 
     init {
         loadGenres()
-        loadTrendingMedia()
+        loadTopRatedMedia()
     }
 
     private fun loadGenres() {
@@ -35,23 +35,25 @@ class TopScreenViewModel(
         )
     }
 
-    private fun loadTrendingMedia() {
+    private fun loadTopRatedMedia() {
         tryToExecute(
             function = {
-                getTopRatedMoviesUseCase(page = 1)
+                getTopRatedMoviesUseCase(page = 6)
             },
             onSuccess = { result ->
-                val uiMovies = result.map { domainMovie ->
+                val uiMovies = result.map { movie ->
                     Movie(
-                        id = domainMovie.id,
-                        imageUrl = domainMovie.imageUrl,
-                        rate = domainMovie.rate,
-                        name = domainMovie.title,
-                        genre = domainMovie.genre
+                        id = movie.id,
+                        imageUrl = movie.imageUrl,
+                        rate = movie.rate,
+                        name = movie.title,
+                        genre = movie.genre
                     )
                 }
-                trendingMedia = uiMovies
-                updateState { it.copy(filteredMovies = uiMovies) }
+                updateState {
+                    Log.d("log items", "TopRatingScreen: $uiMovies")
+                    it.copy(filteredMovies = uiMovies)
+                }
             },
             onError = {
             }
@@ -72,7 +74,9 @@ class TopScreenViewModel(
                         genre = listOf(genre)
                     )
                 }
-                updateState { it.copy(filteredMovies = filtered) }
+                updateState {
+                    Log.d("log items", "TopRatingScreen: $filtered")
+                    it.copy(filteredMovies =filtered ) }
             },
             onError = {
             }
