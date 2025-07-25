@@ -74,7 +74,7 @@ fun SeeAllSimilarMediaScreenContent(
                     width = 101.dp,
                     height = 136.dp,
                     onClick = {
-                        onClickMedia(media.mediaId,false)
+                        onClickMedia(media.mediaId,uiState.isMovie)
                     }
                 )
             }

@@ -1,6 +1,7 @@
 package com.madrid.presentation.viewModel.detailsViewModel
 
 data class SimilarMediaUiState(
+    val isMovie: Boolean = true,
     val headerName: String = "",
     val medias: List<MediaUiState> = emptyList()
 )
