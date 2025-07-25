@@ -10,6 +10,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import com.madrid.presentation.viewModel.detailsViewModel.ActorDetailsViewModel
 import com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenViewModel
+import com.madrid.presentation.viewModel.detailsViewModel.SimilarMediaViewModel
 import org.koin.dsl.module
 
 
@@ -21,5 +22,6 @@ val presentationModule = module {
     viewModelOf(::ActorDetailsViewModel)
     viewModelOf(::SeriesDetailsViewModel)
     viewModelOf(::ReviewsScreenViewModel)
+    viewModelOf(::SimilarMediaViewModel)
     viewModel { SeriesDetailsViewModel(get(),get()) }
 }
