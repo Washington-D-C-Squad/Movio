@@ -17,7 +17,7 @@ data class DetailsMovieUiState(
 
     val description : String = "",
     val casts : List<Cast> = emptyList(),
-    val reviews : List<Review> = emptyList(),
+    val reviews : List<ReviewUiState> = emptyList(),
 
     val similarMovies : List<Movie> = emptyList()
 

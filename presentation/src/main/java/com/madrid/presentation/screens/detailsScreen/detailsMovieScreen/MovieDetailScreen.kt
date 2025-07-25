@@ -16,7 +16,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.madrid.designSystem.component.TopAppBar
 import com.madrid.designSystem.theme.Theme
 import com.madrid.presentation.component.BottomMediaActions
@@ -28,9 +27,9 @@ import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.detailsScreen.componant.ExpandableDescription
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
-import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMovie
 import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMoviesSection
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
+import com.madrid.presentation.viewModel.detailsViewModel.ReviewUiState
 import com.madrid.presentation.viewModel.detailsViewModel.ReviewsScreenUiState
 import org.koin.androidx.compose.koinViewModel
 
@@ -101,7 +100,7 @@ fun MovieDetailsScreen(
                 onSeeAllClick = {
                     navController.navigate(
                         Destinations.TopCastScreen(
-                            mediaId = uiState.movieId.toInt(),
+                            mediaId = uiState.movieId,
                             isMovie = true
                         )
                     )
@@ -110,25 +109,31 @@ fun MovieDetailsScreen(
             )
             Spacer(modifier = Modifier.height(32.dp))
             ReviewScreen(
-                onSeeAllReviews = {},
-                uiState = ReviewsScreenUiState()
+                onSeeAllReviews = {
+                    navController.navigate(
+                        Destinations.ReviewsScreen(
+                            uiState.movieId,
+                            isMovie = true
+                        )
+                    )
+                },
+                uiState = uiState.reviews.toReviewScreenUiStaten()
             )
             Spacer(modifier = Modifier.height(32.dp))
             SimilarMoviesSection(
-                onSeeAllClick = {},
-                onMovieClick = { movie ->
-
-                },
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                movies = uiState.similarMovies.map { movie ->
-                    SimilarMovie(
-                        id = movie.id,
-                        title = movie.name,
-                        imageUrl = movie.imageUrl,
-                        rating = movie.rate
+                onSeeAllClick = {
+                    navController.navigate(
+                        Destinations.SimilarMediaScreen(
+                            uiState.movieId,
+                            isMovie = true
+                        )
                     )
-                }
+                },
+                movies = uiState.similarMovies
             )
         }
     }
+}
+private fun List<ReviewUiState>.toReviewScreenUiStaten(): ReviewsScreenUiState {
+    return ReviewsScreenUiState(reviews = this)
 }

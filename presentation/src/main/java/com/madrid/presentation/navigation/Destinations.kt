@@ -29,37 +29,37 @@ sealed interface Destinations {
 
     @Serializable
     data class SeriesDetailsScreen(
-        val seriesId: Int,
+        val seriesId: String,
         val seasonNumber: Int
     ) : Destinations
 
     @Serializable
     data class TopCastScreen(
-        val mediaId: Int,
+        val mediaId: String,
         val isMovie: Boolean
     ) : Destinations
 
     @Serializable
     data class ReviewsScreen(
-        val mediaId: Int,
+        val mediaId: String,
         val isMovie: Boolean
     ) : Destinations
 
     @Serializable
     data class SimilarMediaScreen(
-        val mediaId: Int,
+        val mediaId: String,
         val isMovie: Boolean
     ) : Destinations
 
     @Serializable
     data class SeasonsScreen(
-        val seriesId: Int,
+        val seriesId: String,
         val seasonNumber: Int
     ) : Destinations
 
     @Serializable
     data class EpisodesScreen(
-        val seriesId: Int,
+        val seriesId: String,
         val seasonNumber: Int
     ) : Destinations
 

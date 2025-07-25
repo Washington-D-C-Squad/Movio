@@ -27,7 +27,7 @@ class SimilarMediaViewModel(
     private fun loadSimilarMedia(){
         tryToExecute(
             function = {
-                movieDetailsUseCase.getSimilarMoviesById(args.mediaId)
+                movieDetailsUseCase.getSimilarMoviesById(args.mediaId.toInt())
             },
             onSuccess = { allMovies ->
                 updateState {
@@ -43,7 +43,7 @@ class SimilarMediaViewModel(
     private fun loadSimilarSeries(){
         tryToExecute(
             function = {
-                seriesDetailsUseCase.getSimilarSeriesById(args.mediaId)
+                seriesDetailsUseCase.getSimilarSeriesById(args.mediaId.toInt())
             },
             onSuccess = { allSeries ->
                 updateState {

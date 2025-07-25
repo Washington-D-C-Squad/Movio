@@ -13,13 +13,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -36,7 +33,6 @@ import com.madrid.presentation.component.CastMember
 import com.madrid.presentation.component.TopCastSection
 import com.madrid.presentation.component.header.MovieDetailsHeader
 import com.madrid.presentation.component.movieActorBackground.MoviePosterDetailScreen
-import com.madrid.presentation.component.movioCards.MovioArtistsCard
 import com.madrid.presentation.component.movioCards.MovioSeasonCard
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.navigation.LocalNavController
@@ -198,7 +194,7 @@ fun SeriesDetailsScreen(
                 onSeriesClick = { series ->
                     navController.navigate(
                         Destinations.SeriesDetailsScreen(
-                            seriesId = series.id,
+                            seriesId = series.id.toString(),
                             1
                         )
                     )
@@ -211,14 +207,11 @@ fun SeriesDetailsScreen(
                         imageUrl = series.imageUrl,
                         rating = (series.rate.take(3)).toDouble()
                     )
-
                 }
             )
         }
+        }
     }
-}
-
 fun List<ReviewUiState>.toReviewScreenUiState(): ReviewsScreenUiState {
     return ReviewsScreenUiState(reviews = this)
 }
-

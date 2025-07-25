@@ -14,6 +14,7 @@ import com.madrid.presentation.viewModel.base.BaseViewModel
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlin.text.toInt
 
 class SeriesDetailsViewModel(
     private val savedStateHandle: SavedStateHandle,
@@ -28,11 +29,11 @@ class SeriesDetailsViewModel(
 
     private fun loadData() {
         tryToExecute(
-            function = { seriesDetailsUseCase.getSeriesDetailsById(args.seriesId) },
+            function = { seriesDetailsUseCase.getSeriesDetailsById(args.seriesId.toInt()) },
             onSuccess = { series ->
                 updateState {
                     it.copy(
-                        seriesId = series.id,
+                        seriesId = series.id.toString(),
                         topImageUrl = series.imageUrl,
                         seriesName = series.title,
                         rate = series.rate.toString(),
@@ -59,7 +60,7 @@ class SeriesDetailsViewModel(
             Log.d("TAG lol", "loadAllSeasonsEpisodes: ${state.first().numberOfSeasons}")
             for (i in 0..seasonCount) {
                 tryToExecute(
-                    function = { seriesDetailsUseCase.getEpisodesBySeriesId(args.seriesId, i + 1) },
+                    function = { seriesDetailsUseCase.getEpisodesBySeriesId(args.seriesId.toInt(), i + 1) },
                     onSuccess = { episodes ->
                         updateState { currentState ->
                             currentState.copy(
@@ -86,7 +87,7 @@ class SeriesDetailsViewModel(
 
     private fun loadSeasonEpisodes(seasonNumber: Int = 1) {
         tryToExecute(
-            function = { seriesDetailsUseCase.getEpisodesBySeriesId(args.seriesId, seasonNumber) },
+            function = { seriesDetailsUseCase.getEpisodesBySeriesId(args.seriesId.toInt(), seasonNumber) },
             onSuccess = { episodes ->
                 updateState { state ->
                     state.copy(selectedSeasonUiState = state.selectedSeasonUiState.copy(episodesUiStates = episodes.map { episode ->
@@ -101,7 +102,7 @@ class SeriesDetailsViewModel(
     private fun loadCastData() {
         tryToExecute(
             function = {
-                seriesDetailsUseCase.getSeriesCreditsById(args.seriesId)
+                seriesDetailsUseCase.getSeriesCreditsById(args.seriesId.toInt())
             },
             onSuccess = { Artists ->
                 updateState {
@@ -119,7 +120,7 @@ class SeriesDetailsViewModel(
     private fun loadReviews(){
         tryToExecute(
             function = {
-                seriesDetailsUseCase.getSeriesReviewsById(args.seriesId)
+                seriesDetailsUseCase.getSeriesReviewsById(args.seriesId.toInt())
             },
             onSuccess = { reviews ->
                 updateState {
@@ -137,7 +138,7 @@ class SeriesDetailsViewModel(
     private fun loadSimilarSeries(){
         tryToExecute(
             function = {
-                seriesDetailsUseCase.getSimilarSeriesById(args.seriesId)
+                seriesDetailsUseCase.getSimilarSeriesById(args.seriesId.toInt())
             },
             onSuccess = { allSeries ->
                 updateState {

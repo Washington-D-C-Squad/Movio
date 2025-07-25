@@ -71,7 +71,7 @@ fun SearchScreen(
             onSeriesClick = { seriesId ->
                 navController.navigate(
                     Destinations.SeriesDetailsScreen(
-                        seriesId = seriesId,
+                        seriesId = seriesId.toString(),
                         seasonNumber = 1
                     )
                 )
