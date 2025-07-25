@@ -27,13 +27,7 @@ fun LoginHeader() {
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TopAppBar(
-            text = null,
-            firstIcon = R.drawable.arrow_left,
-            secondIcon = null,
-            thirdIcon = null
-        )
-        Spacer(modifier = Modifier.height(26.dp))
+
         LogoWithBackground()
         MovioText(
             text = "Welcome back",
