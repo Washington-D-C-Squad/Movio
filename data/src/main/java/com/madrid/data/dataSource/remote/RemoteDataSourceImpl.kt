@@ -21,7 +21,6 @@ import com.madrid.data.repositories.remote.RemoteDataSource
 
 class RemoteDataSourceImpl(
     private val api: MovieApi
-
 ) : RemoteDataSource {
     //  region Movies
     override suspend fun searchMoviesByQuery(name: String, page: Int): SearchMovieResponse {
