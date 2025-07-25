@@ -48,7 +48,6 @@ fun SimilarMoviesSection(
     onSeeAllClick: () -> Unit = {},
     onMovieClick: (SimilarMovie) -> Unit = {}
 ) {
-    // Only show section if there are movies
     if (movies.isNotEmpty()) {
         Column(modifier = modifier) {
             Row(
