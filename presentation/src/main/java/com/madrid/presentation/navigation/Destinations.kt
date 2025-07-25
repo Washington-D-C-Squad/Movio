@@ -46,6 +46,12 @@ sealed interface Destinations {
     ) : Destinations
 
     @Serializable
+    data class SimilarMediaScreen(
+        val mediaId: Int,
+        val isMovie: Boolean
+    ) : Destinations
+
+    @Serializable
     data class SeasonsScreen(
         val seriesId: Int,
         val seasonNumber: Int
