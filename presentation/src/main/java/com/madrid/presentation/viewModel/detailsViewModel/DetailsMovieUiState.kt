@@ -1,6 +1,7 @@
 package com.madrid.presentation.viewModel.detailsViewModel
 
 import com.madrid.domain.entity.Cast
+import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMovie
 
 data class DetailsMovieUiState(
     val isLoved : Boolean = false,
@@ -19,7 +20,7 @@ data class DetailsMovieUiState(
     val casts : List<Cast> = emptyList(),
     val reviews : List<ReviewUiState> = emptyList(),
 
-    val similarMovies : List<Movie> = emptyList()
+    val similarMovies : List<SimilarMovie> = emptyList()
 
 )
 

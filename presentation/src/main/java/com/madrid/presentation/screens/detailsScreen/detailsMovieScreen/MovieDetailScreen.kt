@@ -28,6 +28,7 @@ import com.madrid.presentation.navigation.LocalNavController
 import com.madrid.presentation.screens.detailsScreen.componant.ExpandableDescription
 import com.madrid.presentation.screens.detailsScreen.reviewsScreen.composables.ReviewScreen
 import com.madrid.presentation.screens.detailsScreen.seriesDetails.toReviewScreenUiState
+import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMovie
 import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMoviesSection
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
 import com.madrid.presentation.viewModel.detailsViewModel.Review
@@ -134,12 +135,27 @@ fun MovieDetailsScreen(
                 onSeeAllClick = {
                     navController.navigate(
                         Destinations.SimilarMediaScreen(
-                            uiState.movieId,
+                            mediaId = uiState.movieId,
                             isMovie = true
                         )
                     )
                 },
-                movies = uiState.similarMovies
+                onMovieClick = { movie ->
+                    navController.navigate(
+                        Destinations.MovieDetailsScreen(
+                            movieId = movie.id
+                        )
+                    )
+                },
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                similarMovies = uiState.similarMovies.map { movie ->
+                    SimilarMovie(
+                        id = movie.id,
+                        title = movie.title,
+                        imageUrl = movie.imageUrl,
+                        rating = movie.rating
+                    )
+                }
             )
         }
     }

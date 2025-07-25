@@ -31,8 +31,6 @@ import com.madrid.designSystem.theme.MovioTheme
 import com.madrid.designSystem.theme.Theme
 import com.madrid.detectImageContent.FilteredImage
 import com.madrid.presentation.R
-import com.madrid.presentation.navigation.Destinations
-import com.madrid.presentation.viewModel.detailsViewModel.Movie
 
 data class SimilarMovie(
     val id: Int,
@@ -43,53 +41,51 @@ data class SimilarMovie(
 
 @Composable
 fun SimilarMoviesSection(
-    movies: List<Movie>,
+    similarMovies: List<SimilarMovie>,
     modifier: Modifier = Modifier,
     onSeeAllClick: () -> Unit = {},
     onMovieClick: (SimilarMovie) -> Unit = {}
 ) {
-    if (movies.isNotEmpty()) {
-        Column(modifier = modifier) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 4.dp, vertical = 12.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                MovioText(
-                    text = stringResource(id = R.string.similar_movies),
-                    color = Theme.color.surfaces.onSurface,
-                    textStyle = Theme.textStyle.headline.mediumMedium18
-                )
+    Column(modifier = modifier) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 4.dp, vertical = 12.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            MovioText(
+                text = stringResource(id = R.string.similar_movies),
+                color = Theme.color.surfaces.onSurface,
+                textStyle = Theme.textStyle.headline.mediumMedium18
+            )
 
-                MovioText(
-                    text = stringResource(id = R.string.see_all),
-                    color = Theme.color.surfaces.onSurfaceVariant,
-                    textStyle = Theme.textStyle.label.smallRegular14,
-                    modifier = Modifier.clickable(onClick = onSeeAllClick)
-                )
-            }
+            MovioText(
+                text = stringResource(id = R.string.see_all),
+                color = Theme.color.surfaces.onSurfaceVariant,
+                textStyle = Theme.textStyle.label.smallRegular14,
+                modifier = Modifier.clickable(onClick = onSeeAllClick)
+            )
+        }
 
-            LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                contentPadding = PaddingValues(horizontal = 16.dp),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                items(movies) { movie ->
-                    MovieCard(
-                        movie = movie,
-                        onClick = { onMovieClick(SimilarMovie(movie.id, movie.name, movie.imageUrl, movie.rate)) }
-                    )
-                }
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            items(similarMovies) { movie ->
+                MovieCard(
+                    movie = movie,
+                    onClick = { onMovieClick(movie) }
+                )
             }
         }
     }
-    // If no movies, nothing will be rendered
 }
+
 @Composable
 private fun MovieCard(
-    movie: Movie,
+    movie: SimilarMovie,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -106,11 +102,11 @@ private fun MovieCard(
         ) {
             FilteredImage(
                 imageUrl = movie.imageUrl,
-                contentDescription = movie.name,
+                contentDescription = movie.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxWidth()
             )
-            
+
             Box(
                 modifier = Modifier
                     .padding(8.dp)
@@ -130,18 +126,18 @@ private fun MovieCard(
                         tint = Theme.color.system.warning
                     )
                     MovioText(
-                        text = movie.name,
+                        text = movie.rating.toString(),
                         color = Theme.color.surfaces.onSurface,
                         textStyle = Theme.textStyle.label.smallRegular12
                     )
                 }
             }
         }
-        
+
         Spacer(modifier = Modifier.height(8.dp))
-        
+
         MovioText(
-            text = movie.name,
+            text = movie.title,
             color = Theme.color.surfaces.onSurface,
             textStyle = Theme.textStyle.label.smallRegular12,
             maxLines = 2,
