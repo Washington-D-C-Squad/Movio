@@ -110,7 +110,6 @@ private fun ExpandedReviewCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            // Add your image component here if needed
             Column {
                 MovioText(
                     text = reviewerName,

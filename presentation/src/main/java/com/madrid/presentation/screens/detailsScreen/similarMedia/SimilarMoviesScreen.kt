@@ -48,41 +48,45 @@ fun SimilarMoviesSection(
     onSeeAllClick: () -> Unit = {},
     onMovieClick: (SimilarMovie) -> Unit = {}
 ) {
-    Column(modifier = modifier) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 4.dp, vertical = 12.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            MovioText(
-                text = "Similar Movies",
-                color = Theme.color.surfaces.onSurface,
-                textStyle = Theme.textStyle.headline.mediumMedium18
-            )
-            
-            MovioText(
-                text = stringResource(id = R.string.see_all),
-                color = Theme.color.surfaces.onSurfaceVariant,
-                textStyle = Theme.textStyle.label.smallRegular14,
-                modifier = Modifier.clickable(onClick = onSeeAllClick)
-            )
-        }
-
-        LazyRow(
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            contentPadding = PaddingValues(horizontal = 16.dp),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            items(movies) { movie ->
-                MovieCard(
-                    movie = movie,
-                    onClick = { Destinations.MovieDetailsScreen(movie.id) }
+    // Only show section if there are movies
+    if (movies.isNotEmpty()) {
+        Column(modifier = modifier) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 4.dp, vertical = 12.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                MovioText(
+                    text = stringResource(id = R.string.similar_movies),
+                    color = Theme.color.surfaces.onSurface,
+                    textStyle = Theme.textStyle.headline.mediumMedium18
                 )
+
+                MovioText(
+                    text = stringResource(id = R.string.see_all),
+                    color = Theme.color.surfaces.onSurfaceVariant,
+                    textStyle = Theme.textStyle.label.smallRegular14,
+                    modifier = Modifier.clickable(onClick = onSeeAllClick)
+                )
+            }
+
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                contentPadding = PaddingValues(horizontal = 16.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                items(movies) { movie ->
+                    MovieCard(
+                        movie = movie,
+                        onClick = { onMovieClick(SimilarMovie(movie.id, movie.name, movie.imageUrl, movie.rate)) }
+                    )
+                }
             }
         }
     }
+    // If no movies, nothing will be rendered
 }
 @Composable
 private fun MovieCard(
