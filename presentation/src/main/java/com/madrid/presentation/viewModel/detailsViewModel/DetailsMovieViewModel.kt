@@ -18,7 +18,6 @@ class DetailsMovieViewModel(
 ) : BaseViewModel<DetailsMovieUiState, Nothing>(
     DetailsMovieUiState()
 ) {
-
     val args = saveStateHandle.toRoute<Destinations.MovieDetailsScreen>()
 
     init {

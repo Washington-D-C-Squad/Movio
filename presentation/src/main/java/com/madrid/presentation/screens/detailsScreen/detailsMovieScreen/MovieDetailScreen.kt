@@ -39,8 +39,6 @@ fun MovieDetailsScreen(
     val uiState by viewModel.state.collectAsState()
     val navController = LocalNavController.current
     val casts = uiState.casts
-    Log.d("TAG lol", "MovieDetailsScreen: sizeeeeeeeeeeeeee: ${casts.size}")
-
     Box(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
@@ -61,19 +59,6 @@ fun MovieDetailsScreen(
                 .fillMaxSize()
                 .padding(bottom = 32.dp)
         ) {
-// Add these debug logs right before MovieDetailsHeader:
-
-            Log.d("TAG lol", "=== MOVIE DETAILS DEBUG ===")
-            Log.d("TAG lol", "movieName: '${uiState.movieName}'")
-            Log.d("TAG lol", "genreMovie: '${uiState.genreMovie}'")
-            Log.d("TAG lol", "dataMovie: '${uiState.dataMovie}'")
-            Log.d("TAG lol", "movieDuration: '${uiState.movieDuration}'")
-            Log.d("TAG lol", "rate: '${uiState.rate}'")
-            Log.d("TAG lol", "rate.take(3): '${uiState.rate.take(3)}'")
-            Log.d("TAG lol", "topImageUrl: '${uiState.topImageUrl}'")
-            Log.d("TAG lol", "description: '${uiState.description.take(50)}...'")
-            Log.d("TAG lol", "=== END DEBUG ===")
-
             Spacer(modifier = Modifier.height(360.dp))
             MovieDetailsHeader(
                 movieName = uiState.movieName,
