@@ -27,7 +27,7 @@ class ReviewsScreenViewModel(
 
     private fun loadMovieReviews() {
         tryToExecute(
-            function = { movieDetailsUseCase.getMovieReviewsById(args.mediaId) },
+            function = { movieDetailsUseCase.getMovieReviewsById(args.mediaId.toInt()) },
             onSuccess = { reviews ->
                 updateState {
                     it.copy(reviews = reviews.map { review ->
@@ -41,7 +41,7 @@ class ReviewsScreenViewModel(
 
     private fun loadSeriesReviews() {
         tryToExecute(
-            function = { seriesDetailsUseCase.getSeriesReviewsById(args.mediaId) },
+            function = { seriesDetailsUseCase.getSeriesReviewsById(args.mediaId.toInt()) },
             onSuccess = { reviews ->
                 updateState {
                     it.copy(reviews = reviews.map { review ->

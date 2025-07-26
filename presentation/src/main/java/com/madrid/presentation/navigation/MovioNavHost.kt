@@ -76,7 +76,7 @@ fun MovioNavHost(navController: NavHostController) {
         composable<Destinations.ActorDetails> {
             ActorDetails()
         }
-        composable<Destinations.TopCastScreen> {
+        composable<Destinations.TopCast> {
             TopCastDetailsScreen()
         }
         composable<Destinations.SimilarMediaScreen> {

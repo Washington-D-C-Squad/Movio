@@ -40,7 +40,7 @@ sealed interface Destinations {
     ) : Destinations
 
     @Serializable
-    data class TopCastScreen(
+    data class TopCast(
         val mediaId: Int,
         val isMovie: Boolean
     ) : Destinations
@@ -74,11 +74,4 @@ sealed interface Destinations {
     data class ActorDetails(
         val artistId: Int,
     ) : Destinations
-
-    @Serializable
-    data class TopCast(
-        val mediaId: Int,
-        val isMovie: Boolean
-    ) : Destinations
-
 }

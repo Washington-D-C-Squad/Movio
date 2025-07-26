@@ -49,7 +49,7 @@ fun MovioVerticalCard(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.End
             ) {
-                RateIcon(rate = (rate.take(3).toFloat()/2).toString().take(3))
+                RateIcon(rate)
             }
             BasicImageCard(
                 imageUrl = movieImage,

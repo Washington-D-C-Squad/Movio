@@ -41,7 +41,7 @@ data class SimilarMovie(
 
 @Composable
 fun SimilarMoviesSection(
-    movies: List<SimilarMovie>,
+    similarMovies: List<SimilarMovie>,
     modifier: Modifier = Modifier,
     onSeeAllClick: () -> Unit = {},
     onMovieClick: (SimilarMovie) -> Unit = {}
@@ -55,11 +55,11 @@ fun SimilarMoviesSection(
             verticalAlignment = Alignment.CenterVertically
         ) {
             MovioText(
-                text = "Similar Movies",
+                text = stringResource(id = R.string.similar_movies),
                 color = Theme.color.surfaces.onSurface,
                 textStyle = Theme.textStyle.headline.mediumMedium18
             )
-            
+
             MovioText(
                 text = stringResource(id = R.string.see_all),
                 color = Theme.color.surfaces.onSurfaceVariant,
@@ -73,7 +73,7 @@ fun SimilarMoviesSection(
             contentPadding = PaddingValues(horizontal = 16.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
-            items(movies) { movie ->
+            items(similarMovies) { movie ->
                 MovieCard(
                     movie = movie,
                     onClick = { onMovieClick(movie) }
@@ -106,7 +106,7 @@ private fun MovieCard(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxWidth()
             )
-            
+
             Box(
                 modifier = Modifier
                     .padding(8.dp)
@@ -133,9 +133,9 @@ private fun MovieCard(
                 }
             }
         }
-        
+
         Spacer(modifier = Modifier.height(8.dp))
-        
+
         MovioText(
             text = movie.title,
             color = Theme.color.surfaces.onSurface,
@@ -145,35 +145,3 @@ private fun MovieCard(
         )
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-private fun SimilarMoviesSectionPreview() {
-    val fakeMovies = listOf(
-        SimilarMovie(
-            id = 1,
-            title = "Spider-Man: Into the Spider-Verse",
-            imageUrl = "https://image.tmdb.org/t/p/w500/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
-            rating = 4.8
-        ),
-        SimilarMovie(
-            id = 2,
-            title = "The Dark Knight",
-            imageUrl = "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
-            rating = 5.0
-        ),
-        SimilarMovie(
-            id = 3,
-            title = "Grave of the Fireflies",
-            imageUrl = "https://image.tmdb.org/t/p/w500/qG3RYlIVpTYclR9TYIsy8p7m7AT.jpg",
-            rating = 4.7
-        )
-    )
-    MovioTheme {
-        Box(
-            modifier = Modifier.background(Theme.color.surfaces.surfaceContainer)
-        ) {
-            SimilarMoviesSection(movies = fakeMovies)
-        }
-    }
-} 
