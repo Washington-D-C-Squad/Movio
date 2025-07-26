@@ -9,13 +9,12 @@ import com.madrid.domain.usecase.mediaDeatailsUseCase.MovieDetailsUseCase
 import com.madrid.domain.usecase.mediaDeatailsUseCase.SeriesDetailsUseCase
 import com.madrid.presentation.navigation.Destinations
 import com.madrid.presentation.viewModel.base.BaseViewModel
-import com.madrid.presentation.viewModel.effect.effect
 
 class SimilarMediaViewModel(
     savedStateHandle: SavedStateHandle,
     private val movieDetailsUseCase: MovieDetailsUseCase,
     private val seriesDetailsUseCase: SeriesDetailsUseCase,
-) : BaseViewModel<SimilarMediaUiState, effect>(SimilarMediaUiState()) {
+) : BaseViewModel<SimilarMediaUiState, Nothing>(SimilarMediaUiState()) {
 
     private val args = savedStateHandle.toRoute<Destinations.SimilarMediaScreen>()
 
@@ -24,35 +23,41 @@ class SimilarMediaViewModel(
         else loadSimilarSeries()
     }
 
-    private fun loadSimilarMedia(){
+    private fun loadSimilarMedia() {
         tryToExecute(
             function = {
-                movieDetailsUseCase.getSimilarMoviesById(args.mediaId.toInt())
+                movieDetailsUseCase.getSimilarMoviesById(args.mediaId)
             },
             onSuccess = { allMovies ->
-                Log.d("TAG kk", "loadCastData: ${allMovies}")
                 updateState {
-
-                    it.copy(headerName = "Similar Movies", medias = allMovies.toMovieUiState() , isMovie = true)
+                    it.copy(
+                        headerName = "Similar Movies",
+                        medias = allMovies.toMovieUiState(),
+                        isMovie = true
+                    )
                 }
             },
-            onError = {e ->
+            onError = { e ->
                 Log.d("TAG lol", "loadCastData: ${e.message}")
             },
         )
     }
 
-    private fun loadSimilarSeries(){
+    private fun loadSimilarSeries() {
         tryToExecute(
             function = {
-                seriesDetailsUseCase.getSimilarSeriesById(args.mediaId.toInt())
+                seriesDetailsUseCase.getSimilarSeriesById(args.mediaId)
             },
             onSuccess = { allSeries ->
                 updateState {
-                    it.copy(headerName = "Similar Series", medias = allSeries.toSeriesUiState() , isMovie = false)
+                    it.copy(
+                        headerName = "Similar Series",
+                        medias = allSeries.toSeriesUiState(),
+                        isMovie = false
+                    )
                 }
             },
-            onError = {e ->
+            onError = { e ->
                 Log.d("TAG lol", "loadCastData: ${e.message}")
             },
         )
@@ -60,7 +65,7 @@ class SimilarMediaViewModel(
 
 }
 
-fun List<SimilarMovie>.toMovieUiState(): List<MediaUiState>{
+fun List<SimilarMovie>.toMovieUiState(): List<MediaUiState> {
     return this.map { movie ->
         MediaUiState(
             mediaId = movie.id,
@@ -71,7 +76,7 @@ fun List<SimilarMovie>.toMovieUiState(): List<MediaUiState>{
     }
 }
 
-fun List<SimilarSeries>.toSeriesUiState(): List<MediaUiState>{
+fun List<SimilarSeries>.toSeriesUiState(): List<MediaUiState> {
     return this.map { series ->
         MediaUiState(
             mediaId = series.id,

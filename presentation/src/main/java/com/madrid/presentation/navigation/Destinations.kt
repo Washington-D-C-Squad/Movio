@@ -20,6 +20,12 @@ sealed interface Destinations {
     data object HomeScreen : Destinations
 
     @Serializable
+    data object LibraryScreen : Destinations
+
+    @Serializable
+    data object MoreScreen : Destinations
+
+    @Serializable
     data object SearchScreen : Destinations
 
     @Serializable
@@ -63,11 +69,6 @@ sealed interface Destinations {
         val seasonNumber: Int
     ) : Destinations
 
-    @Serializable
-    data object LibraryScreen : Destinations
-
-    @Serializable
-    data object MoreScreen : Destinations
 
     @Serializable
     data class ActorDetails(
