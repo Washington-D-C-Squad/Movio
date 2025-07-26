@@ -35,7 +35,7 @@ class DetailsMovieViewModel(
 
                 updateState {
                     it.copy(
-                        movieId = movie.id.toString(),
+                        movieId = movie.id,
                         topImageUrl = movie.imageUrl,
                         dataMovie = movie.yearOfRelease,
                         movieName = movie.title,

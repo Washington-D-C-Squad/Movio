@@ -33,7 +33,7 @@ class SeriesDetailsViewModel(
             onSuccess = { series ->
                 updateState {
                     it.copy(
-                        seriesId = series.id.toString(),
+                        seriesId = series.id,
                         topImageUrl = series.imageUrl,
                         seriesName = series.title,
                         rate = series.rate.toString(),

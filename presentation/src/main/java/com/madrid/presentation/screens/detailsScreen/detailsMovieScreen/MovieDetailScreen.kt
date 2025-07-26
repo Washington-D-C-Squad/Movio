@@ -92,7 +92,7 @@ fun MovieDetailsScreen(
                 },
                 onSeeAllClick = {
                     navController.navigate(
-                        Destinations.TopCastScreen(
+                        Destinations.TopCast(
                             mediaId = uiState.movieId,
                             isMovie = true
                         )

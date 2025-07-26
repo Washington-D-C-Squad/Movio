@@ -31,7 +31,7 @@ fun SeeAllSimilarMediaScreen(
     val navController = LocalNavController.current
 
     SeeAllSimilarMediaScreenContent(uiState, onClickBack = { navController.popBackStack() }, onClickMedia = { id,isMovie ->
-        if (!isMovie) navController.navigate(Destinations.SeriesDetailsScreen(id.toString(),1))
+        if (!isMovie) navController.navigate(Destinations.SeriesDetailsScreen(id,1))
         else navController.navigate(Destinations.MovieDetailsScreen(id))
     })
 }

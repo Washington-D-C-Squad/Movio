@@ -108,7 +108,7 @@ fun SeriesDetailsScreen(
                 },
                 onSeeAllClick = {
                     navController.navigate(
-                        Destinations.TopCastScreen(
+                        Destinations.TopCast(
                             mediaId = uiState.seriesId,
                             isMovie = false
                         )
@@ -196,7 +196,7 @@ fun SeriesDetailsScreen(
                 onSeriesClick = { series ->
                     navController.navigate(
                         Destinations.SeriesDetailsScreen(
-                            seriesId = series.id.toString(),
+                            seriesId = series.id,
                             1
                         )
                     )

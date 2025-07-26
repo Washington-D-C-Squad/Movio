@@ -35,44 +35,8 @@ sealed interface Destinations {
 
     @Serializable
     data class SeriesDetailsScreen(
-        val seriesId: String,
+        val seriesId: Int,
         val seasonNumber: Int
-    ) : Destinations
-
-    @Serializable
-    data class TopCastScreen(
-        val mediaId: String,
-        val isMovie: Boolean
-    ) : Destinations
-
-    @Serializable
-    data class ReviewsScreen(
-        val mediaId: String,
-        val isMovie: Boolean
-    ) : Destinations
-
-    @Serializable
-    data class SimilarMediaScreen(
-        val mediaId: String,
-        val isMovie: Boolean
-    ) : Destinations
-
-    @Serializable
-    data class SeasonsScreen(
-        val seriesId: String,
-        val seasonNumber: Int
-    ) : Destinations
-
-    @Serializable
-    data class EpisodesScreen(
-        val seriesId: String,
-        val seasonNumber: Int
-    ) : Destinations
-
-
-    @Serializable
-    data class ActorDetails(
-        val artistId: Int,
     ) : Destinations
 
     @Serializable
@@ -81,4 +45,33 @@ sealed interface Destinations {
         val isMovie: Boolean
     ) : Destinations
 
+    @Serializable
+    data class ReviewsScreen(
+        val mediaId: Int,
+        val isMovie: Boolean
+    ) : Destinations
+
+    @Serializable
+    data class SimilarMediaScreen(
+        val mediaId: Int,
+        val isMovie: Boolean
+    ) : Destinations
+
+    @Serializable
+    data class SeasonsScreen(
+        val seriesId: Int,
+        val seasonNumber: Int
+    ) : Destinations
+
+    @Serializable
+    data class EpisodesScreen(
+        val seriesId: Int,
+        val seasonNumber: Int
+    ) : Destinations
+
+
+    @Serializable
+    data class ActorDetails(
+        val artistId: Int,
+    ) : Destinations
 }

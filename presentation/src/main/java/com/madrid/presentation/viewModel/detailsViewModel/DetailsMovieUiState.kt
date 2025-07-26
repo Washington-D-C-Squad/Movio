@@ -7,7 +7,7 @@ data class DetailsMovieUiState(
     val isLoved : Boolean = false,
     val topImageUrl : String = "",
     val movieName : String ="",
-    val movieId : String ="",
+    val movieId : Int = 0,
     val genreMovie : List<String>  = emptyList(),
     val rate : String = "",
     val movieDuration : String = "",
