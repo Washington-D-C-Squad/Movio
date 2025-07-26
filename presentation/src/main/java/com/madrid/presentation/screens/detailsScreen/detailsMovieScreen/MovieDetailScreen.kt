@@ -1,5 +1,6 @@
 package com.madrid.presentation.screens.detailsScreen.detailsMovieScreen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -7,11 +8,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -31,7 +30,6 @@ import com.madrid.presentation.screens.detailsScreen.seriesDetails.toReviewScree
 import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMovie
 import com.madrid.presentation.screens.detailsScreen.similarMedia.SimilarMoviesSection
 import com.madrid.presentation.viewModel.detailsViewModel.DetailsMovieViewModel
-import com.madrid.presentation.viewModel.detailsViewModel.Review
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -40,10 +38,8 @@ fun MovieDetailsScreen(
 ) {
     val uiState by viewModel.state.collectAsState()
     val navController = LocalNavController.current
-
-    LaunchedEffect(Unit) {
-        viewModel.loadData()
-    }
+    val casts = uiState.casts
+    Log.d("TAG lol", "MovieDetailsScreen: sizeeeeeeeeeeeeee: ${casts.size}")
 
     Box(
         modifier = Modifier
@@ -55,25 +51,36 @@ fun MovieDetailsScreen(
             imageUrl = uiState.topImageUrl,
             modifier = Modifier.fillMaxSize()
         )
-        Box(modifier = Modifier.statusBarsPadding()) {
-            TopAppBar(
-                text = null,
-                onFirstIconClick = { navController.navigate(Destinations.SearchScreen)},
-                modifier = Modifier.padding(16.dp)
-            )
-        }
+        TopAppBar(
+            text = null,
+            modifier = Modifier.padding(start = 16.dp, top = 36.dp),
+            onFirstIconClick = { navController.navigate(Destinations.SearchScreen) }
+        )
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(bottom = 32.dp)
         ) {
+// Add these debug logs right before MovieDetailsHeader:
+
+            Log.d("TAG lol", "=== MOVIE DETAILS DEBUG ===")
+            Log.d("TAG lol", "movieName: '${uiState.movieName}'")
+            Log.d("TAG lol", "genreMovie: '${uiState.genreMovie}'")
+            Log.d("TAG lol", "dataMovie: '${uiState.dataMovie}'")
+            Log.d("TAG lol", "movieDuration: '${uiState.movieDuration}'")
+            Log.d("TAG lol", "rate: '${uiState.rate}'")
+            Log.d("TAG lol", "rate.take(3): '${uiState.rate.take(3)}'")
+            Log.d("TAG lol", "topImageUrl: '${uiState.topImageUrl}'")
+            Log.d("TAG lol", "description: '${uiState.description.take(50)}...'")
+            Log.d("TAG lol", "=== END DEBUG ===")
+
             Spacer(modifier = Modifier.height(360.dp))
             MovieDetailsHeader(
                 movieName = uiState.movieName,
                 movieCategory = uiState.genreMovie,
                 date = uiState.dataMovie,
                 time = uiState.movieDuration,
-                rate = uiState.rate,
+                rate = uiState.rate.take(3),
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
             )
             BottomMediaActions(
@@ -109,28 +116,22 @@ fun MovieDetailsScreen(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
             Spacer(modifier = Modifier.height(32.dp))
-            ReviewScreen(
-                reviews = uiState.reviews.map { review ->
-                    Review(
-                        personImageUrl = review.reviewerImageUrl,
-                        personName = review.reviewerName,
-                        reviewTime = review.date,
-                        rate = review.rating.toDouble(),
-                        reviewText = review.content
-                    )
-                },
-                onSeeAllReviews = {
-                    navController.navigate(
-                        Destinations.ReviewsScreen(
-                            mediaId = uiState.movieId,
-                            isMovie = true
+
+            if(uiState.reviews.isNotEmpty()){
+                ReviewScreen(
+                    onSeeAllReviews = {
+                        navController.navigate(
+                            Destinations.ReviewsScreen(
+                                uiState.movieId,
+                                isMovie = true
+                            )
                         )
-                    )
-                },
-                modifier = Modifier.padding(horizontal = 16.dp),
-                uiState = uiState.reviews.toReviewScreenUiState(),
-            )
-            Spacer(modifier = Modifier.height(32.dp))
+                    },
+                    uiState = uiState.reviews.toReviewScreenUiState()
+                )
+                Spacer(modifier = Modifier.height(32.dp))
+            }
+
             SimilarMoviesSection(
                 onSeeAllClick = {
                     navController.navigate(
